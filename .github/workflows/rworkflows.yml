@@ -30,14 +30,11 @@ jobs:
         - os: macOS-latest
           bioc: release
           r: auto
-        - os: windows-latest
-          bioc: release
-          r: auto
     steps:
     - name: Install MEME suite
       run: |
         memeversion=5.5.5
-        wget http://meme-suite.org/meme-software/$version/meme-$memeversion.tar.gz
+        wget https://meme-suite.org/meme/meme-software/$memeversion/meme-$memeversion.tar.gz
         tar zxf meme-$memeversion.tar.gz
         cd meme-$memeversion
         ./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
