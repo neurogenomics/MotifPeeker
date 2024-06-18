@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: Install MEME suite
       run: |
-        memeversion = 5.5.5
+        memeversion=5.5.5
         wget http://meme-suite.org/meme-software/$version/meme-$memeversion.tar.gz
         tar zxf meme-$memeversion.tar.gz
         cd meme-$memeversion
