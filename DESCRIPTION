@@ -3,11 +3,18 @@ Type: Package
 Title: Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
 Version: 0.99.0
 Authors@R: c( 
-     person(given = "Hiranyamaya",
-           family = "Dash",
-           role = c("cre", "aut"),
-           email = "hdash.work@gmail.com",
-           comment = c(ORCID = "0009-0005-5514-505X"))
+    person(given = "Hiranyamaya",
+        family = "Dash",
+        role = c("cre", "aut"),
+        email = "hdash.work@gmail.com",
+        comment = c(ORCID = "0009-0005-5514-505X")),
+    person(given="Thomas", family="Roberts",
+        email = "tomroberts.work15@gmail.com",
+        role = "aut"),
+    person(given="Nathan", family="Skene", 
+        email = "nathan.skene@gmail.com", 
+        role = "aut",
+        comment = c(ORCID = "0000-0002-6807-3180"))
     )
 Description: MotifPeeker is used to compare and analyse datasets from epigenomic
   profiling methods with motif enrichment as the key benchmark. 

@@ -1,7 +1,7 @@
 ---
-title: "`r read.dcf('DESCRIPTION', fields = 'Package')[1]`"  
+title: "<code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment"  
 author: "`r rworkflows::use_badges()`" 
-date: "<h4>README updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
+date: "<h4>Updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
   github_document
 ---
@@ -15,16 +15,36 @@ owner <- strsplit(URL,"/")[[1]][4]
 repo <- strsplit(URL,"/")[[1]][5]
 ```
 
-## ``r pkg``: `r gsub("\n","",title)`
 
-### `r gsub("\n","",description)`
+# Introduction
+
+`MotifPeeker` is used to compare and analyse datasets from epigenomic
+profiling methods with motif enrichment as the key benchmark. The package
+outputs an HTML report consisting of three sections:  
+
+1. **General Metrics**: Overview of peaks-related general metrics for the
+datasets (FRiP scores, peak widths and motif-summit distances). 
+2. **Known Motif Enrichment Analysis**: Statistics for the frequency of
+user-provided motifs enriched in the datasets. 
+3. **De-Novo Motif Enrichment Analysis**: Statistics for the frequency of
+de-novo discovered motifs enriched in the datasets and compared with known
+motifs. 
  
 <!-- If you use ``r pkg``, please cite:  -->
 
 <!-- > `r utils::citation(pkg)$textVersion` -->
 
-## Installation 
+# Installation 
 
+`MotifPeeker` uses
+[`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
+which relies on a local install of the
+[MEME suite](https://meme-suite.org/meme/). Installation instructions can be
+found [here](https://www.bioconductor.org/packages/release/bioc/vignettes/memes/inst/doc/install_guide.html).
+
+
+Once the MEME suite is installed, `MotifPeeker` can be installed using the
+following code:
 ```R
 if(!require("remotes")) install.packages("remotes")
 
