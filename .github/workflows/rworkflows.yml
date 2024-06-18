@@ -31,26 +31,6 @@ jobs:
           bioc: release
           r: auto
     steps:
-    - name: Install MEME suite
-      run: |
-        memeversion=5.5.5
-        wget https://meme-suite.org/meme/meme-software/$memeversion/meme-$memeversion.tar.gz
-        tar zxf meme-$memeversion.tar.gz
-        cd meme-$memeversion
-        ./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ --enable-build-libxml2 --enable-build-libxslt
-        make
-        make test
-        make install
-    - name: Set MEME_BIN environment variable
-      run: echo "MEME_BIN=$HOME/meme/bin" >> $GITHUB_ENV
-    - name: Check for ame in MEME suite bin
-      run: |
-        if [ ! -f "$HOME/meme/bin/ame" ]; then
-          echo "ame executable not found in $HOME/meme/bin"
-          exit 1
-        fi
-        echo "MEME suite (version $memeversion) successfully installed."
-        echo "MEME suite bin path: $MEME_BIN"
     - uses: neurogenomics/rworkflows@master
       with:
         run_bioccheck: ${{ true }}
