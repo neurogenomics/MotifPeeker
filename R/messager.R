@@ -10,7 +10,7 @@
 #' @param parallel Whether to enable message print when wrapped 
 #' in parallelised functions.
 #' 
-#' @return Null 
+#' @return NULL
 #' @keywords internal 
 messager <- function(...,
                     v = Sys.getenv("VERBOSE")!="FALSE", 
