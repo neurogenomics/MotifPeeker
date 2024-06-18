@@ -26,17 +26,13 @@ jobs:
           bioc: devel
           r: auto
           cont: ghcr.io/bioconductor/bioconductor_docker:devel
-          rspm: ~
+          rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
         - os: macOS-latest
           bioc: release
           r: auto
-          cont: ~
-          rspm: ~
         - os: windows-latest
           bioc: release
           r: auto
-          cont: ~
-          rspm: ~
     steps:
     - uses: neurogenomics/rworkflows@master
       with:
@@ -50,4 +46,7 @@ jobs:
         has_runit: ${{ false }}
         has_latex: ${{ false }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        docker_user: hdasht
+        docker_org: neurogenomicslab
         run_docker: ${{ true }}
