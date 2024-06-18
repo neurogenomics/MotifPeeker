@@ -9,6 +9,9 @@ check_dep(pkg)
 \arguments{
 \item{pkg}{a character string of the package name}
 }
+\value{
+Null
+}
 \description{
 Stop execution if a package is not attached.
 }
