@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MotifPeeker</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.98.0</span>
       </span>
     </div>
 
@@ -102,8 +102,8 @@ Vignette updated: <i>Jun-18-2024</i><br>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>MotifPeeker is now available via <a href="https://ghcr.io/ghcr.io/neurogenomics/templateR" class="external-link">ghcr.io</a> as a
-containerised environment with Rstudio and all necessary dependencies
+<p>MotifPeeker is now available via <a href="https://ghcr.io/ghcr.io/neurogenomics/MotifPeeker" class="external-link">ghcr.io</a> as
+a containerised environment with Rstudio and all necessary dependencies
 pre-installed.</p>
 <div class="section level3">
 <h3 id="method-1-via-docker">Method 1: via Docker<a class="anchor" aria-label="anchor" href="#method-1-via-docker"></a>
@@ -112,16 +112,16 @@ pre-installed.</p>
 Docker</a> if you have not already.</p>
 <p>Create an image of the <a href="https://www.docker.com/" class="external-link">Docker</a>
 container in command line:</p>
-<pre><code>docker pull ghcr.io/neurogenomics/templateR</code></pre>
+<pre><code>docker pull ghcr.io/neurogenomics/MotifPeeker</code></pre>
 <p>Once the image has been created, you can launch it with:</p>
 <pre><code>docker run \
-  -d \
-  -e ROOT=true \
-  -e PASSWORD="&lt;your_password&gt;" \
-  -v ~/Desktop:/Desktop \
-  -v /Volumes:/Volumes \
-  -p 8900:8787 \
-  ghcr.io/neurogenomics/templateR</code></pre>
+    -d \
+    -e ROOT=true \
+    -e PASSWORD="&lt;your_password&gt;" \
+    -v ~/Desktop:/Desktop \
+    -v /Volumes:/Volumes \
+    -p 8900:8787 \
+    ghcr.io/neurogenomics/MotifPeeker</code></pre>
 <div class="section level4">
 <h4 id="notes">NOTES<a class="anchor" aria-label="anchor" href="#notes"></a>
 </h4>
@@ -148,7 +148,7 @@ Desktop</a> to easily manage your containers.</li>
 <p>If you are using a system that does not allow Docker (as is the case
 for many institutional computing clusters), you can instead <a href="https://docs.sylabs.io/guides/2.6/user-guide/singularity_and_docker.html" class="external-link">install
 Docker images via Singularity</a>.</p>
-<pre><code>singularity pull docker://ghcr.io/neurogenomics/templateR</code></pre>
+<pre><code>singularity pull docker://ghcr.io/neurogenomics/MotifPeeker</code></pre>
 <p>For troubleshooting, see the <a href="https://docs.sylabs.io/guides/latest/user-guide/singularity_and_docker.html#github-container-registry" class="external-link">Singularity
 documentation</a>.</p>
 </div>
@@ -188,7 +188,7 @@ URL in any web browser: <em><a href="http://localhost:8900/" class="external-lin
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MotifPeeker_0.99.0</span></span>
+<span><span class="co">## [1] MotifPeeker_0.98.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] vctrs_0.6.5       cli_3.6.2         knitr_1.47        rlang_1.1.4      </span></span>
