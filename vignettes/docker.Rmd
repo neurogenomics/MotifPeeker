@@ -1,23 +1,24 @@
 ---
 title: Docker/Singularity Containers
-author: '<h4>Authors: <i>`r auths <- eval(parse(text = gsub("person","c",read.dcf("../DESCRIPTION",
-  fields = "Authors@R"))));paste(auths[names(auths)=="given"],auths[names(auths)=="family"],
-  collapse = ", ")`</i></h4>'
+author: '<h4>Authors: <i>`r auths <- eval(parse(text = gsub("person","c",
+    read.dcf("../DESCRIPTION",fields = "Authors@R"))));
+    paste(auths[names(auths)=="given"],auths[names(auths)=="family"],
+    collapse = ", ")`</i></h4>'
 date: '<h4>Vignette updated: <i>`r format( Sys.Date(), "%b-%d-%Y")`</i></h4>'
 output:
   rmarkdown::html_document:
     md_extensions: -autolink_bare_uris
 params:
   cont:
-    value: ghcr.io/neurogenomics/templateR
+    value: ghcr.io/neurogenomics/MotifPeeker
   docker_registry:
     value: ghcr.io
   docker_org:
     value: neurogenomics
 vignette: |
-  %\VignetteIndexEntry{docker}
-  %\usepackage[utf8]{inputenc}
-  %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{docker}
+    %\usepackage[utf8]{inputenc}
+    %\VignetteEngine{knitr::rmarkdown}
 ---
 
 
@@ -32,9 +33,9 @@ docker_org <- params$docker_org
 docker_registry <- params$docker_registry 
 cont <- params$cont 
 docker_url <- if(grepl("ghcr.io",docker_registry)){
-  paste("https://ghcr.io",cont,sep="/")
+    paste("https://ghcr.io",cont,sep="/")
 } else {
-  paste("https://hub.docker.com/repository/docker",docker_org,pkg,sep="/")
+    paste("https://hub.docker.com/repository/docker",docker_org,pkg,sep="/")
 }
 
 ```
@@ -61,24 +62,26 @@ Once the image has been created, you can launch it with:
 
 ```
 docker run \
-  -d \
-  -e ROOT=true \
-  -e PASSWORD="<your_password>" \
-  -v ~/Desktop:/Desktop \
-  -v /Volumes:/Volumes \
-  -p 8900:8787 \
-  `r cont`
+    -d \
+    -e ROOT=true \
+    -e PASSWORD="<your_password>" \
+    -v ~/Desktop:/Desktop \
+    -v /Volumes:/Volumes \
+    -p 8900:8787 \
+    `r cont`
 ```  
 
 ### NOTES
 
-* Make sure to replace `<your_password>` above with whatever you want your password to be.  
+* Make sure to replace `<your_password>` above with whatever you want your
+password to be.  
 * Change the paths supplied to the `-v` flags for your particular use case. 
 * The `-d` ensures the container will run in "detached" mode,
 which means it will persist even after you've closed your command line session.  
 * The username will be *"rstudio"* by default.  
-* Optionally, you can also install the [Docker Desktop](https://www.docker.com/products/docker-desktop/) 
-to easily manage your containers.  
+* Optionally, you can also install the
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) to easily
+manage your containers.  
 
 ## Method 2: via Singularity
 

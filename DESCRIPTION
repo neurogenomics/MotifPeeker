@@ -17,31 +17,45 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-6807-3180"))
     )
 Description: MotifPeeker is used to compare and analyse datasets from epigenomic
-  profiling methods with motif enrichment as the key benchmark. 
-  The package outputs an HTML report consisting of three sections: 
-  (1. General Metrics) Overview of peaks-related general metrics for the
-  datasets (FRiP scores, peak widths and motif-summit distances). 
-  (2. Known Motif Enrichment Analysis) Statistics for the frequency of
-  user-provided motifs enriched in the datasets. 
-  (3. De-Novo Motif Enrichment Analysis) Statistics for the frequency of
-  de-novo discovered motifs enriched in the datasets and compared with known
-  motifs. 
+    profiling methods with motif enrichment as the key benchmark. 
+    The package outputs an HTML report consisting of three sections: 
+    (1. General Metrics) Overview of peaks-related general metrics for the
+    datasets (FRiP scores, peak widths and motif-summit distances). 
+    (2. Known Motif Enrichment Analysis) Statistics for the frequency of
+    user-provided motifs enriched in the datasets. 
+    (3. De-Novo Motif Enrichment Analysis) Statistics for the frequency of
+    de-novo discovered motifs enriched in the datasets and compared with known
+    motifs. 
 URL: https://github.com/neurogenomics/MotifPeeker
 BugReports: https://github.com/neurogenomics/MotifPeeker/issues
 Encoding: UTF-8
 Depends: R (>= 4.4.0)
-biocViews:
+biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq, MultipleComparison,
+    FunctionalGenomics, MotifDiscovery, SequenceMatching, Software
 Imports:
+    ggplot2,
+    tidyverse,
+    patchwork,
+    plotly,
+    DT,
+    scales,
+    BiocFileCache,
+    BiocParallel
 Suggests:
     rworkflows,
+    BiocStyle,
     methods,
     markdown,
     rmarkdown,
     remotes,
     knitr,
     testthat (>= 3.0.0),
-    utils
-SystemRequirements: Meme Suite (v5.3.3 or above) <http://meme-suite.org/doc/download.html>
+    utils,
+    MACSr,
+    Rsamtools,
+    downloadthis
+SystemRequirements: Meme Suite (v5.3.3 or above)
+    <http://meme-suite.org/doc/download.html>
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 License: GPL-3
