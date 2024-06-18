@@ -1,0 +1,141 @@
+---
+title: "hexSticker"
+date: "<h4>Updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
+output:
+  rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{hexSticker}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE, include=TRUE}
+#### Install deps ####
+for(p in c("hexSticker","dplyr","here")){
+    if(!require(p,character.only = TRUE)) install.packages(p)     
+}
+#### Get package metadata deps ####
+pkg <- read.dcf(here::here("DESCRIPTION"), fields = "Package")[1]
+description <- read.dcf(here::here("DESCRIPTION"), fields = "Description")[1]
+```
+
+# Create hex sticker
+
+Hex stickers are a great way to give your R package its very own logo. 
+See [here for some examples](http://hexb.in/) from other packages. 
+
+Here are some R packages that you may find helpful for making hex stickers:
+
+## [`hexSticker`](https://github.com/GuangchuangYu/hexSticker)  
+Helper functions for creating reproducible hexagon sticker purely in R.
+
+## [`ggimage`](https://github.com/GuangchuangYu/ggimage) 
+Supports image files and graphic objects to be visualized in `ggplot2` graphic system.
+
+## [`ggpattern`](https://coolbutuseless.github.io/package/ggpattern/)
+Custom `ggplot2` geoms which support filled areas with geometric and image-based patterns.
+
+## [`magick`](https://cran.r-project.org/web/packages/magick/vignettes/intro.html)
+Advanced Image-Processing in R.
+
+## [`aRtsy`](https://github.com/koenderks/aRtsy)
+R package for making generative art using `ggplot2`.
+
+## [`threed`](https://github.com/coolbutuseless/threed)
+Three-Dimensional Object Transformations.
+
+## Create file path
+
+Create file path to save hex sticker to.
+
+```{r}
+filename <- here::here("inst","hex","hex.png")
+dir.create(dirname(filename), showWarnings = FALSE, recursive = TRUE)
+```
+
+
+## Using `hexSticker::sticker`
+## Create cube hex
+
+```{r}
+#### Install dep ####
+if(!require("threed")){
+    remotes::install_github("coolbutuseless/threed")
+}
+#### Change view perspective ####
+camera_to_world <- threed::look_at_matrix(eye = c(4, 4, 4), 
+                                          at = c(0, 0, 0)) 
+obj <- threed::mesh3dobj$cube |>
+    threed::rotate_by(angle = 0, v = c(0, 1, 0)) |>
+    threed::transform_by(threed::invert_matrix(camera_to_world)) |>
+    threed::orthographic_projection()
+    
+#### Make ggplot ####
+ggcube  <- ggplot2::ggplot(as.data.frame(obj)) + 
+    ggplot2::geom_polygon(
+      ggplot2::aes(x = x, y = y, 
+                   group = zorder, 
+                   linetype = hidden,  size = hidden,
+                   fill = 0.5 * fnx + fny), 
+      color = ggplot2::alpha("black",.25),
+      size = .25, 
+      # alpha=1,
+      show.legend = FALSE) +
+    ggplot2::scale_linetype_manual(values = c('TRUE' = "FF", 'FALSE' = 'solid')) +
+    # ggplot2::scale_size_manual(values = c('TRUE' = 0.2, 'FALSE' = 0.5)) +
+    # ggplot2::scale_fill_viridis_c(option = "plasma") + 
+    ggplot2::scale_fill_gradientn(
+        colors = ggplot2::alpha(rev(RColorBrewer::brewer.pal(9, "PuBuGn")), 
+                                alpha = .5)) + 
+    ggplot2::theme_void() + 
+    ggplot2::coord_equal()
+ggcube
+```
+
+## Make sticker 
+
+```{r}    
+s_size = 2
+stick <- hexSticker::sticker( 
+  subplot = ggcube,
+  #### Package name ####
+  package = pkg, p_size=20, p_y = 1.48, p_color = ggplot2::alpha("black",.5),
+  #### Subplot #####
+  s_x=1, s_y=1,  s_height = s_size, s_width = s_size,
+  #### Fill & border ####
+  h_fill = "white", h_color = ggplot2::alpha("black",.25),
+  #### Spotlight ####
+  spotlight = TRUE, l_alpha = .3, l_width = 10, l_x = .5, l_y = .75,
+  #### File output ####
+  dpi = 300, filename = filename)
+print(stick)
+```
+
+
+## Using `hexSticker::geom_hexagon`
+
+```{r} 
+gghex <- 
+    hexSticker::ggplot() +
+    hexSticker::geom_hexagon(fill = ggplot2::alpha("black",.75), 
+                             color = ggplot2::alpha("white",.5)) +
+    hexSticker::geom_pkgname(package = pkg, 
+                             size=20, 
+                             color = ggplot2::alpha("white",.5)) +
+    hexSticker::theme_sticker()  
+
+hexSticker::save_sticker(filename = filename,
+                         sticker = gghex)
+print(gghex)
+```
+
+
+# Session Info 
+
+<details> 
+
+```{r Session Info}
+utils::sessionInfo()
+```
+
+</details>  
