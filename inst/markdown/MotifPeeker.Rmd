@@ -1,0 +1,26 @@
+---
+title: "`r MotifPeeker::report_header()`"
+date: "`r format(Sys.Date(), '%b-%d-%Y')`"
+output: 
+  html_document: 
+    toc: yes
+    toc_float: yes
+    code_folding: hide 
+    number_sections: true
+    css: custom.css
+params:
+    debug:
+        value: FALSE
+---
+
+```{r setup, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = params$debug,
+                      warning = params$debug,
+                      cache = FALSE, 
+                      error = params$error,
+                      results = "markup")
+```
+
+[`MotifMarker`](https://github.com/neurogenomics/MotifPeeker) compares different
+epigenomic datasets using motif enrichment as the key metric.

@@ -28,11 +28,10 @@ check_genome_build <- function(genome_input) {
             check_dep(genome)
             return(get(genome, envir = asNamespace(genome)))
     }
-    stp_msg <- paste0(
+    stopper(paste0(
         "Could not recognise genome build ",
         shQuote(genome_input),
         ". ",
         "Try passing a BSgenome object."
-    )
-    stop(stp_msg)
+    ))
 }

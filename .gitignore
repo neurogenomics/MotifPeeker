@@ -42,3 +42,5 @@ vignettes/*.R
 *.knit.md
 # R Environment Variables
 .Renviron 
+# MotifPeeker specific
+inst/markdown/*.html
