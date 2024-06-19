@@ -30,6 +30,9 @@ jobs:
         - os: macOS-latest
           bioc: release
           r: auto
+        - os: windows-latest
+          r: latest
+          bioc: release
     steps:
     - uses: neurogenomics/rworkflows@master
       with:
