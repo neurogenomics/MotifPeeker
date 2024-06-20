@@ -5,6 +5,7 @@
 #' @param pkg a character string of the package name
 #' 
 #' @return Null
+#' 
 #' @keywords internal
 check_dep <- function(pkg){
     if (!requireNamespace(pkg, quietly = TRUE)) {

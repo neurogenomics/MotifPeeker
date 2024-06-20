@@ -18,4 +18,5 @@ the \emph{MotifPeeker.Rmd} template.
 }
 \examples{
 report_header()
+
 }

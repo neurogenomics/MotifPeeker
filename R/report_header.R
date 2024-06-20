@@ -6,9 +6,10 @@
 #' the \emph{MotifPeeker.Rmd} template.
 #' @returns Header string to be rendering within Rmarkdown file.
 #' 
-#' @export
 #' @examples 
 #' report_header()
+#' 
+#' @export
 report_header <- function() {
     paste0(
         "<div class='report-header'>",

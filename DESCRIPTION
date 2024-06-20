@@ -1,65 +1,72 @@
-Package: MotifPeeker
 Type: Package
+Package: MotifPeeker
 Title: Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
 Version: 0.98.0
 Authors@R: c( 
     person(given = "Hiranyamaya",
-        family = "Dash",
-        role = c("cre", "aut"),
-        email = "hdash.work@gmail.com",
-        comment = c(ORCID = "0009-0005-5514-505X")),
-    person(given="Thomas", family="Roberts",
-        email = "tomroberts.work15@gmail.com",
-        role = "aut"),
-    person(given="Nathan", family="Skene", 
-        email = "nathan.skene@gmail.com", 
-        role = "aut",
-        comment = c(ORCID = "0000-0002-6807-3180"))
+           family = "Dash",
+           role = c("cre", "aut"),
+           email = "hdash.work@gmail.com",
+           comment = c(ORCID = "0009-0005-5514-505X")),
+    person(given = "Thomas",
+           family = "Roberts",
+           role = c("aut"),
+           email = "tomroberts.work15@gmail.com",
+           comment = c(ORCID = "0009-0006-6244-8670")),
+    person(given = "Nathan",
+           family = "Skene",
+           role = c("aut"),
+           email = "nathan.skene@gmail.com",
+           comment = c(ORCID = "0000-0002-6807-3180"))
     )
-Description: MotifPeeker is used to compare and analyse datasets from epigenomic
-    profiling methods with motif enrichment as the key benchmark. 
-    The package outputs an HTML report consisting of three sections: 
-    (1. General Metrics) Overview of peaks-related general metrics for the
-    datasets (FRiP scores, peak widths and motif-summit distances). 
-    (2. Known Motif Enrichment Analysis) Statistics for the frequency of
-    user-provided motifs enriched in the datasets. 
-    (3. De-Novo Motif Enrichment Analysis) Statistics for the frequency of
-    de-novo discovered motifs enriched in the datasets and compared with known
-    motifs. 
+Description: MotifPeeker is used to compare and analyse datasets from
+    epigenomic profiling methods with motif enrichment as the key
+    benchmark.  The package outputs an HTML report consisting of three
+    sections: (1. General Metrics) Overview of peaks-related general
+    metrics for the datasets (FRiP scores, peak widths and motif-summit
+    distances).  (2. Known Motif Enrichment Analysis) Statistics for the
+    frequency of user-provided motifs enriched in the datasets.  (3.
+    De-Novo Motif Enrichment Analysis) Statistics for the frequency of
+    de-novo discovered motifs enriched in the datasets and compared with
+    known motifs.
+License: GPL-3
 URL: https://github.com/neurogenomics/MotifPeeker
 BugReports: https://github.com/neurogenomics/MotifPeeker/issues
-Encoding: UTF-8
-Depends: R (>= 4.4.0)
-biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq, MultipleComparison,
-    FunctionalGenomics, MotifDiscovery, SequenceMatching, Software
+Depends: 
+    R (>= 4.4.0)
 Imports:
-    ggplot2,
-    tidyverse,
-    patchwork,
-    plotly,
-    DT,
-    scales,
     BiocFileCache,
     BiocParallel,
-    methods
+    DT,
+    ggplot2,
+    methods,
+    patchwork,
+    plotly,
+    scales,
+    tidyverse,
+    universalmotif
 Suggests:
-    rworkflows,
     BiocStyle,
-    markdown,
-    rmarkdown,
-    remotes,
-    knitr,
-    testthat (>= 3.0.0),
-    utils,
-    MACSr,
-    Rsamtools,
-    downloadthis,
+    BSgenome.Hsapiens.UCSC.hg19,
     BSgenome.Hsapiens.UCSC.hg38,
-    BSgenome.Hsapiens.UCSC.hg19
+    downloadthis,
+    knitr,
+    MACSr,
+    markdown,
+    remotes,
+    rmarkdown,
+    Rsamtools,
+    rworkflows,
+    testthat (>= 3.0.0),
+    utils
+VignetteBuilder: 
+    knitr
+biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq,
+    MultipleComparison, FunctionalGenomics, MotifDiscovery,
+    SequenceMatching, Software
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: FALSE
+RoxygenNote: 7.3.1
 SystemRequirements: Meme Suite (v5.3.3 or above)
     <http://meme-suite.org/doc/download.html>
-RoxygenNote: 7.3.1
-VignetteBuilder: knitr
-License: GPL-3
-Config/testthat/edition: 3
-LazyData: FALSE

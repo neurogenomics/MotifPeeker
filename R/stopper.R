@@ -6,7 +6,8 @@
 #'  must first be stored to a variable before passing to \link[base]{stop}. 
 #' @param v Whether to print messages or not.
 #' 
-#' @return Null 
+#' @return Null
+#' 
 #' @keywords internal 
 stopper <- function(..., v = TRUE) {
     msg <- paste(...)

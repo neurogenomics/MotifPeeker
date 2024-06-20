@@ -2,5 +2,7 @@
 
 export(MotifPeeker)
 export(check_genome_build)
+export(read_motif_file)
 export(report_header)
+import(universalmotif)
 importFrom(methods,is)

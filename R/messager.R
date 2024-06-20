@@ -11,6 +11,7 @@
 #' in parallelised functions.
 #' 
 #' @return Null
+#' 
 #' @keywords internal 
 messager <- function(...,
                     v = Sys.getenv("VERBOSE")!="FALSE", 

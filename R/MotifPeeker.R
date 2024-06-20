@@ -13,9 +13,10 @@
 #' @param labels A character vector of labels for each peak file.
 #' 
 #' @param peakfiles A character vector of peak file names in narrowPeak
+#' 
 #' (MACS2/3 output) or BED (SEACR) format. 
 #' @inheritParams check_genome_build
-#' ....
+#' 
 #' 
 #' @export
 MotifPeeker <- function(

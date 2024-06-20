@@ -5,12 +5,12 @@
 \title{Benchmark epigenomic profiling methods using motif enrichment}
 \usage{
 MotifPeeker(
-  labels,
-  exp_type,
-  genome_build,
   peak_files = NULL,
   alignment_files = NULL,
   control_files = NULL,
+  labels = NULL,
+  exp_type = NULL,
+  genome_build,
   motif_files = NULL,
   motif_labels = NULL,
   reference_index = 1,
@@ -33,8 +33,8 @@ MotifPeeker(
 \item{labels}{A character vector of labels for each peak file.}
 
 \item{peakfiles}{A character vector of peak file names in narrowPeak
-(MACS2/3 output) or BED (SEACR) format. 
-....}
+
+(MACS2/3 output) or BED (SEACR) format.}
 }
 \description{
 This function compares different epigenomic datasets using motif enrichment

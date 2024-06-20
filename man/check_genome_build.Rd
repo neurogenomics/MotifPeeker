@@ -26,6 +26,7 @@ abbreviated input.
 if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
     check_genome_build("hg38")
 }
+
 }
 \seealso{
 \link[BSgenome]{BSgenome-class} for more information on BSGenome
