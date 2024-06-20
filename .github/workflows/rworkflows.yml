@@ -34,7 +34,7 @@ jobs:
           r: latest
           bioc: release
     steps:
-    - uses: neurogenomics/rworkflows@master
+    - uses: HDash/rworkflows@master
       with:
         run_bioccheck: ${{ true }}
         run_rcmdcheck: ${{ true }}
