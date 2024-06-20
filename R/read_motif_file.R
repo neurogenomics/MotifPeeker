@@ -4,12 +4,15 @@
 #' function supports multiple motif formats, including "homer", "jaspar",
 #' "meme", "transfac" and "uniprobe".
 #'
-#' @import universalmotif
+#' @importFrom universalmotif read_homer read_jaspar read_meme read_transfac
+#' read_uniprobe
+#' @importFrom tools file_ext
 #'
 #' @param motif_file Path to the motif file.
 #' @param motif_id ID of the motif (e.g. "MA1930.1").
 #' @param file_format Character string specifying the format of the motif file.
 #' The options are "homer", "jaspar", "meme", "transfac" and "uniprobe"
+#' @param verbose A logical indicating whether to print messages.
 #'
 #' @returns A \code{universalmotif} motif object.
 #'
@@ -25,7 +28,9 @@
 #' @export
 read_motif_file <- function(motif_file,
                             motif_id = "Unknown",
-                            file_format) {
+                            file_format = "auto",
+                            verbose = FALSE) {
+    ### Load supported read functions ###
     read_functions <- list(
         homer = universalmotif::read_homer,
         jaspar = universalmotif::read_jaspar,
@@ -34,11 +39,23 @@ read_motif_file <- function(motif_file,
         uniprobe = universalmotif::read_uniprobe
     )
     
+    ### Infer file format ###
+    file_format <- tolower(file_format)
+    if (file_format == "auto") {
+        file_ext <- tolower(tools::file_ext(motif_file))
+        if (file_ext %in% names(read_functions)) {
+            file_format <- file_ext
+            messager(paste0("Auto-inferred motif file format as ",
+                     shQuote(file_format), "."),
+                     v = verbose)
+        }
+    }
+    
+    ### Read motif file ###
     if (!file_format %in% names(read_functions)) {
-        stopper(
-            "Unsupported file format. The motif file must be one of",
-            "homer, jaspar, meme, transfac or uniprobe."
-        )
+        stp_msg <- paste("Unsupported file format. The motif file must be one",
+              "of homer, jaspar, meme, transfac or uniprobe.")
+        stopper(stp_msg)
     }
     read_function <- read_functions[[file_format]]
     motif <- read_function(motif_file)
