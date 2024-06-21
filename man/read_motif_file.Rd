@@ -12,7 +12,8 @@ read_motif_file(
 )
 }
 \arguments{
-\item{motif_file}{Path to the motif file.}
+\item{motif_file}{Path to a motif file or a
+\code{\link[universalmotif]{universalmotif-class}} object.}
 
 \item{motif_id}{ID of the motif (e.g. "MA1930.1").}
 

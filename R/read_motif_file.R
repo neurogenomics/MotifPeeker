@@ -8,7 +8,8 @@
 #' read_uniprobe
 #' @importFrom tools file_ext
 #'
-#' @param motif_file Path to the motif file.
+#' @param motif_file Path to a motif file or a
+#' \code{\link[universalmotif]{universalmotif-class}} object.
 #' @param motif_id ID of the motif (e.g. "MA1930.1").
 #' @param file_format Character string specifying the format of the motif file.
 #' The options are "homer", "jaspar", "meme", "transfac" and "uniprobe"
@@ -30,6 +31,11 @@ read_motif_file <- function(motif_file,
                             motif_id = "Unknown",
                             file_format = "auto",
                             verbose = FALSE) {
+    ### Check if motif_file is a universalmotif object ###
+    if (inherits(motif_file, "universalmotif")) {
+        return(motif_file)
+    }
+    
     ### Load supported read functions ###
     read_functions <- list(
         homer = universalmotif::read_homer,
