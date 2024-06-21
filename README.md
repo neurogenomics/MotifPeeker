@@ -2,9 +2,9 @@
 Using Motif Enrichment
 ================
 <img src='https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png' title='Hex sticker for MotifPeeker' height='300'><br>
-[![License:
-GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://cran.r-project.org/web/licenses/GPL-3)
-[![](https://img.shields.io/badge/devel%20version-0.98.0-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![License: GPL (\>=
+3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
+[![](https://img.shields.io/badge/devel%20version-0.99.0-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -16,7 +16,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 Authors: <i>Hiranyamaya Dash, Thomas Roberts, Nathan Skene</i>  
 </h4>
 <h4>  
-Updated: <i>Jun-20-2024</i>  
+Updated: <i>Jun-21-2024</i>  
 </h4>
 
 # Introduction
