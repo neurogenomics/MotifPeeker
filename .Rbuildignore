@@ -17,3 +17,4 @@ package-lock\.json$
 package\.json$
 ^inst/markdown/.*\.html$
 ^data-raw$
+^codecov.yml
