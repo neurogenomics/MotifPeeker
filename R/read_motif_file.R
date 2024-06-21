@@ -38,7 +38,7 @@ read_motif_file <- function(motif_file,
         transfac = universalmotif::read_transfac,
         uniprobe = universalmotif::read_uniprobe
     )
-    
+
     ### Infer file format ###
     file_format <- tolower(file_format)
     if (file_format == "auto") {
@@ -46,19 +46,19 @@ read_motif_file <- function(motif_file,
         if (file_ext %in% names(read_functions)) {
             file_format <- file_ext
             messager(paste0("Auto-inferred motif file format as ",
-                     shQuote(file_format), "."),
-                     v = verbose)
+                    shQuote(file_format), "."),
+                    v = verbose)
         }
     }
     
     ### Read motif file ###
     if (!file_format %in% names(read_functions)) {
         stp_msg <- paste("Unsupported file format. The motif file must be one",
-              "of homer, jaspar, meme, transfac or uniprobe.")
+                        "of homer, jaspar, meme, transfac or uniprobe.")
         stopper(stp_msg)
     }
     read_function <- read_functions[[file_format]]
     motif <- read_function(motif_file)
     
-    return(motif) # return universalmotif object
+    return(motif) # Return universalmotif object
 }

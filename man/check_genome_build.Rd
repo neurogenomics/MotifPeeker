@@ -4,10 +4,10 @@
 \alias{check_genome_build}
 \title{Check genome build}
 \usage{
-check_genome_build(genome_input)
+check_genome_build(genome_build)
 }
 \arguments{
-\item{genome_input}{A character string with the abbreviated genome build
+\item{genome_build}{A character string with the abbreviated genome build
 name, or a BSGenome object. At the moment, only \code{hg38} and \code{hg19}
 are supported as abbreviated input.}
 }
@@ -17,10 +17,6 @@ A BSGenome object.
 \description{
 Check if the genome build is valid and return the appropriate BSGenome
 object.
-}
-\details{
-At the moment, only \code{hg38} and \code{hg19} are supported as
-abbreviated input.
 }
 \examples{
 if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {

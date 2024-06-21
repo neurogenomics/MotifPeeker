@@ -22,5 +22,5 @@ knitr::opts_chunk$set(echo = TRUE,
                       results = "markup")
 ```
 
-[`MotifMarker`](https://github.com/neurogenomics/MotifPeeker) compares different
+[`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker) compares different
 epigenomic datasets using motif enrichment as the key metric.

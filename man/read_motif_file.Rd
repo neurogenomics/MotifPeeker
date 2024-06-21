@@ -4,7 +4,12 @@
 \alias{read_motif_file}
 \title{Read a motif file}
 \usage{
-read_motif_file(motif_file, motif_id = "Unknown", file_format)
+read_motif_file(
+  motif_file,
+  motif_id = "Unknown",
+  file_format = "auto",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{motif_file}{Path to the motif file.}
@@ -13,6 +18,8 @@ read_motif_file(motif_file, motif_id = "Unknown", file_format)
 
 \item{file_format}{Character string specifying the format of the motif file.
 The options are "homer", "jaspar", "meme", "transfac" and "uniprobe"}
+
+\item{verbose}{A logical indicating whether to print messages.}
 }
 \value{
 A \code{universalmotif} motif object.
