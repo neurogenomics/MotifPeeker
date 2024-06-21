@@ -4,6 +4,9 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>/articles/docker.html</loc>
   </url>
   <url>
@@ -22,13 +25,46 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/CTCF_ChIP_peaks.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CTCF_TIP_peaks.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MotifPeeker.html</loc>
+  </url>
+  <url>
     <loc>/reference/check_dep.html</loc>
+  </url>
+  <url>
+    <loc>/reference/check_genome_build.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/messager.html</loc>
+  </url>
+  <url>
+    <loc>/reference/motif_MA1102.3.html</loc>
+  </url>
+  <url>
+    <loc>/reference/motif_MA1930.2.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_motif_file.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_peak_file.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_peak_file_macs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/read_peak_file_seacr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/report_header.html</loc>
   </url>
   <url>
     <loc>/reference/stopper.html</loc>
