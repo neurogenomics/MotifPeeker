@@ -47,14 +47,14 @@ Imports:
     GenomicRanges,
     IRanges,
     rtracklayer,
-    tools
+    tools,
+    htmltools
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
     BSgenome.Hsapiens.UCSC.hg38,
     downloadthis,
     knitr,
-    MACSr,
     markdown,
     methods,
     remotes,

@@ -6,7 +6,7 @@ test_that("report_command works", {
         exp_labels = c("A", "B", "C"),
         exp_type = NULL,
         genome_build = NULL,
-        motif_files = motif,
+        motif_files = NULL,
         motif_labels = NULL,
         cell_counts = NULL,
         denovo_motif_discovery = NULL,

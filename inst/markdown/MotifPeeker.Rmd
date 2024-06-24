@@ -2,25 +2,138 @@
 title: "`r MotifPeeker::report_header()`"
 date: "`r format(Sys.Date(), '%b-%d-%Y')`"
 output: 
-  html_document: 
-    toc: yes
-    toc_float: yes
-    code_folding: hide 
-    number_sections: true
-    css: custom.css
+    html_document: 
+        toc: yes
+        toc_float: yes
+        code_folding: hide 
+        number_sections: true
+        css: custom.css
 params:
+    peak_files:
+        value: NULL
+    reference_index:
+        value: 1
+    alignment_files:
+        value: NULL
+    exp_labels:
+        value: NULL
+    exp_type:
+        value: NULL
+    genome_build:
+        value: NULL
+    motif_files:
+        value: NULL
+    motif_labels:
+        value: NULL
+    cell_counts:
+        value: NULL
+    denovo_motif_discovery:
+        value: NULL
+    denovo_motifs:
+        value: 3
+    motif_db:
+        value: NULL
+    download_buttons:
+        value: NULL
+    output_dir:
+        value: NULL
+    use_cache:
+        value: NULL
+    ncpus:
+        value: NULL
     debug:
         value: FALSE
+    verbose:
+        value: TRUE
 ---
 
 ```{r setup, warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
-                      message = params$debug,
-                      warning = params$debug,
-                      cache = FALSE, 
-                      error = params$error,
-                      results = "markup")
+                    message = params$debug,
+                    warning = params$debug,
+                    cache = FALSE, 
+                    error = params$debug,
+                    results = "asis")
+
+### Parse input ###
+genome_build <- check_genome_build(params$genome_build)
+result_len <- length(params$peak_files)
+if (is.null(params$exp_type)) {
+    exp_types <- rep("unknown", result_len)
+} else {
+    exp_types <- params$exp_type
+}
+result <- list(
+    peaks = Vectorize(read_peak_file, "peak_file")(params$peak_files),
+    alignments = Vectorize(Rsamtools::BamFile,
+                            "file")(params$alignment_files),
+    exp_labels = params$exp_labels,
+    exp_type = Vectorize(format_exptype,
+                        "exp_type")(exp_types)
+)
+user_motifs <- list(
+    motifs = Vectorize(read_motif_file, "motif_file")(params$motif_files),
+    motif_labels = params$motif_labels
+)
+
 ```
 
 [`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker) compares different
 epigenomic datasets using motif enrichment as the key metric.
+
+# Summary {-}
+## Table of Contents {-}
+The report consists of the following sections:  
+
+1. [General Metrics](#general-metrics): Overview of general metrics related to
+peaks in the datasets (FRiP scores, peak widths, and motif-summit distances).
+
+2. [Known Motif Enrichment Analysis](#motif-enrichment-analysis): Statistics on
+the frequency of motifs enriched in the datasets. Also compares enriched motifs
+between common and unique peaks identified in the datasets.
+
+3. [De-Novo Motif Enrichment Analysis](#denovo-motif-analysis): Statistics on
+de-novo motifs discovered between common and unique peaks identified in the
+datasets. Also checks for similarity between motifs in each set and finds the
+closest known motif in the [JASPAR database](https://jaspar.uio.no/downloads/)
+(or the supplied database).
+
+## Input Datasets {-}
+Experimental dataset labels used:  
+```{r echo = FALSE}
+for (i in seq_along(result$peaks)) {
+    cat(paste0("\n- **Dataset ", i, "**: ", result$exp_labels[i], "  \n"))
+    cat(paste0("  - **Experiment Type**: ", result$exp_type[i], "  \n"))
+    if (!is.null(params$cell_counts)) {
+        cat(paste0("  - **Cell Count**: ", params$cell_counts[i], "  \n"))
+    }
+}
+cat("\n- **Reference dataset**: ", result$exp_labels[params$reference_index], 
+    paste0("(Index: ", params$reference_index, ")  \n"))
+```
+
+User-provided motifs used:  
+
+```{r echo = FALSE}
+for (i in seq_along(user_motifs$motifs)) {
+    cat(paste0("- **Motif ", i, "**: ", user_motifs$motifs[[i]]@name, "  \n"))
+}
+```
+
+## Command {-}
+`MotifPeeker` report was generated with the following command:
+```{r report_command}
+cat(report_command(params))
+```
+
+## Summary Plot {-}
+Lorem ipusm
+
+
+# Session Info {-}
+<details> 
+```{r Session Info, results='markup'}
+utils::sessionInfo()
+```
+</details> 
+<hr>

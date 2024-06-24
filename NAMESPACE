@@ -2,6 +2,7 @@
 
 export(MotifPeeker)
 export(check_genome_build)
+export(format_exptype)
 export(read_motif_file)
 export(read_peak_file)
 export(report_command)

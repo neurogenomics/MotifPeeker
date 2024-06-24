@@ -16,5 +16,6 @@ node_modules$
 package-lock\.json$
 package\.json$
 ^inst/markdown/.*\.html$
+^inst/markdown/test\.Rmd$
 ^data-raw$
 ^codecov.yml

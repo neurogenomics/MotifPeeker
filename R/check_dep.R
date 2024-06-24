@@ -10,7 +10,7 @@
 check_dep <- function(pkg){
     if (!requireNamespace(pkg, quietly = TRUE)) {
         stp_msg <- paste("Package", shQuote(pkg), "is required to run this",
-                          "function.")
+                        "function.")
         stop(stp_msg)
     }
 }

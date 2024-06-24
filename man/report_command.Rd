@@ -9,6 +9,10 @@ report_command(params)
 \arguments{
 \item{params}{A list of parameters used to generate the HTML report.}
 }
+\value{
+A character string containing the reconstructed
+\code{\link{MotifPeeker}} command.
+}
 \description{
 Reconstruct the \code{\link{MotifPeeker}} command from the parameters used to
 generate the HTML report.

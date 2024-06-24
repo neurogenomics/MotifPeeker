@@ -8,7 +8,7 @@ MotifPeeker(
   peak_files,
   reference_index = 1,
   alignment_files = NULL,
-  labels = NULL,
+  exp_labels = NULL,
   exp_type = NULL,
   genome_build,
   motif_files = NULL,
@@ -22,7 +22,7 @@ MotifPeeker(
   display = NULL,
   use_cache = TRUE,
   ncpus = 1,
-  quiet = FALSE,
+  quiet = TRUE,
   debug = FALSE,
   verbose = FALSE
 )
@@ -44,8 +44,8 @@ use as the reference dataset for comparison. Indexing starts from 1.
 vector of \code{\link[Rsamtools]{BamFile}} objects. (optional)
 Alignment files are used to calculate read-related metrics like FRiP score.}
 
-\item{labels}{A character vector of labels for each peak file. (optional)
-If not provided, the peak file names will be used as labels.}
+\item{exp_labels}{A character vector of labels for each peak file. (optional)
+If not provided, capital letters will be used as labels in the report.}
 
 \item{exp_type}{A character vector of experimental types for each peak file.
 (optional) Useful for comparison of different methods. If not provided,
@@ -111,12 +111,11 @@ previous runs. (default = TRUE)}
 \item{ncpus}{An integer specifying the number of cores to use for parallel
 processing. (default = 1)}
 
-\item{quiet}{A logical indicating whether to suppress messages in the
-HTML report.
+\item{quiet}{A logical indicating whether to print markdown knit messages.
 (default = FALSE)}
 
-\item{debug}{A logical indicating whether to print debug messages in the
-HTML report. (default = FALSE)}
+\item{debug}{A logical indicating whether to print debug/error messages in
+the HTML report. (default = FALSE)}
 
 \item{verbose}{A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)}
@@ -140,4 +139,49 @@ parameters.
 Running de-novo motif discovery is computationally expensive and can
 require from minutes to hours. \code{denovo_motifs} can widely affect the
 runtime (higher values take longer).
+}
+\examples{
+peaks <- list(
+system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
+           package = "MotifPeeker"),
+system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
+            package = "MotifPeeker")
+)
+
+alignments <- list(
+system.file("extdata", "CTCF_ChIP_alignment.bam",
+            package = "MotifPeeker"),
+system.file("extdata", "CTCF_TIP_alignment.bam",
+            package = "MotifPeeker")
+)
+
+motifs <- list(
+system.file("extdata", "motif_MA1930.2.jaspar",
+            package = "MotifPeeker"),
+system.file("extdata", "motif_MA1102.3.jaspar",
+            package = "MotifPeeker")
+)
+
+MotifPeeker(
+    peak_files = peaks,
+    reference_index = 1,
+    alignment_files = alignments,
+    exp_labels = c("ChIP", "TIP"),
+    exp_type = c("chipseq", "tipseq"),
+    genome_build = "hg38",
+    motif_files = motifs,
+    motif_labels = NULL,
+    cell_counts = NULL,
+    denovo_motif_discovery = TRUE,
+    denovo_motifs = 3,
+    motif_db = NULL,
+    download_buttons = TRUE,
+    output_dir = tempdir(),
+    use_cache = TRUE,
+    ncpus = 2,
+    debug = FALSE,
+    quiet = TRUE,
+    verbose = FALSE
+)
+
 }

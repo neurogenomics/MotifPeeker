@@ -5,6 +5,9 @@
 #' 
 #' @param params A list of parameters used to generate the HTML report.
 #' 
+#' @returns A character string containing the reconstructed
+#' \code{\link{MotifPeeker}} command.
+#' 
 #' @examples
 #' report_command(params = list(
 #'    alignment_files = c("file1.bam", "file2.bam"),
@@ -27,10 +30,15 @@ report_command <- function(params) {
             } else {
                 value <- paste0('"', value, '"')
             }
+        } else if (is.numeric(value)) {
+            if (length(value) > 1) {
+                value <- paste0("list(", 
+                                paste0(value, collapse = ", "), ")")
+            }
         } else if (is.logical(value)) {
             value <- ifelse(value, "TRUE", "FALSE")
-        } else if (!is.numeric(value)) {
-            value <- "<user_supplied>"
+        } else {
+            value <- "..."
         }
         paste0(name, " = ", value)
     }, character(1)) |>

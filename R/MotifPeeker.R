@@ -24,8 +24,8 @@
 #' @param alignment_files A character vector of path to alignment files, or a
 #' vector of \code{\link[Rsamtools]{BamFile}} objects. (optional)
 #' Alignment files are used to calculate read-related metrics like FRiP score.
-#' @param labels A character vector of labels for each peak file. (optional)
-#' If not provided, the peak file names will be used as labels.
+#' @param exp_labels A character vector of labels for each peak file. (optional)
+#' If not provided, capital letters will be used as labels in the report.
 #' @param exp_type A character vector of experimental types for each peak file.
 #' (optional) Useful for comparison of different methods. If not provided,
 #' all datasets will be classified as "unknown" experiment types in the report.
@@ -74,16 +74,19 @@
 #' previous runs. (default = TRUE)
 #' @param ncpus An integer specifying the number of cores to use for parallel
 #' processing. (default = 1)
-#' @param quiet A logical indicating whether to suppress messages in the
-#' HTML report.
+#' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
-#' @param debug A logical indicating whether to print debug messages in the
-#' HTML report. (default = FALSE)
+#' @param debug A logical indicating whether to print debug/error messages in
+#' the HTML report. (default = FALSE)
 #' @param verbose A logical indicating whether to print verbose messages while
 #' running the function. (default = FALSE)
 #' @inheritParams check_genome_build
 #' @inheritParams read_motif_file
 #' @inheritParams check_genome_build
+#' 
+#' @importFrom tools file_path_sans_ext
+#' @importFrom rmarkdown render
+#' @importFrom utils browseURL
 #' 
 #' @return Path to the output directory.
 #' 
@@ -91,12 +94,56 @@
 #' require from minutes to hours. \code{denovo_motifs} can widely affect the
 #' runtime (higher values take longer).
 #' 
+#' @examples
+#' peaks <- list(
+#' system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
+#'            package = "MotifPeeker"),
+#' system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
+#'             package = "MotifPeeker")
+#' )
+#' 
+#' alignments <- list(
+#' system.file("extdata", "CTCF_ChIP_alignment.bam",
+#'             package = "MotifPeeker"),
+#' system.file("extdata", "CTCF_TIP_alignment.bam",
+#'             package = "MotifPeeker")
+#' )
+#' 
+#' motifs <- list(
+#' system.file("extdata", "motif_MA1930.2.jaspar",
+#'             package = "MotifPeeker"),
+#' system.file("extdata", "motif_MA1102.3.jaspar",
+#'             package = "MotifPeeker")
+#' )
+#' 
+#' MotifPeeker(
+#'     peak_files = peaks,
+#'     reference_index = 1,
+#'     alignment_files = alignments,
+#'     exp_labels = c("ChIP", "TIP"),
+#'     exp_type = c("chipseq", "tipseq"),
+#'     genome_build = "hg38",
+#'     motif_files = motifs,
+#'     motif_labels = NULL,
+#'     cell_counts = NULL,
+#'     denovo_motif_discovery = TRUE,
+#'     denovo_motifs = 3,
+#'     motif_db = NULL,
+#'     download_buttons = TRUE,
+#'     output_dir = tempdir(),
+#'     use_cache = TRUE,
+#'     ncpus = 2,
+#'     debug = FALSE,
+#'     quiet = TRUE,
+#'     verbose = FALSE
+#' )
+#' 
 #' @export
 MotifPeeker <- function(
         peak_files,
         reference_index = 1,
         alignment_files = NULL,
-        labels = NULL,
+        exp_labels = NULL,
         exp_type = NULL,
         genome_build,
         motif_files = NULL,
@@ -110,7 +157,7 @@ MotifPeeker <- function(
         display = NULL,
         use_cache = TRUE,
         ncpus = 1,
-        quiet = FALSE,
+        quiet = TRUE,
         debug = FALSE,
         verbose = FALSE
 ) {
@@ -120,16 +167,73 @@ MotifPeeker <- function(
     ### Force required arguments ###
     force(peak_files)
     force(genome_build)
-
-    ## Check if either peak_files or alignment_files are provided
-    if (is.null(peak_files) && is.null(alignment_files)) {
-        stopper("Please provide either peak_files or alignment_files")
+    
+    ### Set labels ###
+    if (length(exp_labels) == 0) {
+        exp_labels <- LETTERS[seq_along(peak_files)]
     }
-
-    ### Check/get appropriate genome build ###
-    genome_build <- check_genome_build(genome_build)
-
-
-    return(NULL) # Placeholder
-
+    
+    ### Create output folder ###
+    if (!dir.exists(output_dir)) {
+        stp_msg <- "Output directory does not exist."
+        stopper(stp_msg)
+    }
+    output_dir <- file.path(
+        output_dir,
+        paste0("MotifPeeker_", format(Sys.time(), "%Y%m%d_%H%M%S"))
+        )
+    dir.create(output_dir, showWarnings = debug)
+    
+    ### Store arguments in a list ###
+    args_list <- list(
+        peak_files = peak_files,
+        reference_index = reference_index,
+        alignment_files = alignment_files,
+        exp_labels = exp_labels,
+        exp_type = exp_type,
+        genome_build = genome_build,
+        motif_files = motif_files,
+        motif_labels = motif_labels,
+        cell_counts = cell_counts,
+        denovo_motif_discovery = denovo_motif_discovery,
+        denovo_motifs = denovo_motifs,
+        motif_db = motif_db,
+        download_buttons = download_buttons,
+        output_dir = output_dir,
+        use_cache = use_cache,
+        ncpus = ncpus,
+        debug = debug,
+        verbose = verbose
+    )
+    
+    ### Knit Rmd ###
+    rmd_file <- system.file("markdown",
+                            "MotifPeeker.Rmd", package = "MotifPeeker")
+    rmarkdown::render(
+        input = rmd_file,
+        output_dir = output_dir,
+        output_file = "MotifPeeker.html",
+        quiet = quiet,
+        params = args_list
+    )
+    
+    ### Display report ###
+    messager(
+        "Script run successfully. \nOutput saved at:",
+        output_dir,
+        "\nTime taken:",
+        round(difftime(Sys.time(), start_time, units = "mins"), 2), "mins.",
+        v = verbose
+    )
+    
+    if (!is.null(display)) {
+        display <- tolower(display)
+        if (display == "browser") {
+            utils::browseURL(file.path(output_dir, "MotifPeeker.html"))
+        } else if (display == "rstudio") {
+            file.show(file.path(output_dir, "MotifPeeker.html"))
+        }
+    }
+    
+    return(output_dir)
 }

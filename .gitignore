@@ -44,5 +44,6 @@ vignettes/*.R
 .Renviron 
 # MotifPeeker specific
 inst/markdown/*.html
+inst/markdown/test.Rmd
 .gitignore
 codecov.yml

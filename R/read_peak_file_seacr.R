@@ -18,7 +18,7 @@ read_peak_file_seacr <- function(peak_file) {
     
     ## Create summit column
     separated_cols <- strsplit(as.character(obj$max_signal_region),
-                               "[:|-]")
+                                "[:|-]")
     obj$max_chr <- vapply(separated_cols, function(x) x[1], character(1))
     obj$max_start <- vapply(separated_cols, function(x) x[2], character(1))
     obj$max_end <- vapply(separated_cols, function(x) x[3], character(1))
