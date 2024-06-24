@@ -39,7 +39,7 @@ test_that("MotifPeeker produces output files", {
         genome_build = "hg38",
         motif_files = motifs,
         motif_labels = NULL,
-        cell_counts = NULL,
+        cell_counts = c(1000, 5000),
         denovo_motif_discovery = TRUE,
         denovo_motifs = 3,
         motif_db = NULL,

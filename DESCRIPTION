@@ -48,7 +48,8 @@ Imports:
     IRanges,
     rtracklayer,
     tools,
-    htmltools
+    htmltools,
+    rmarkdown
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
