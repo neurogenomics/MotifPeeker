@@ -40,6 +40,9 @@
     <loc>/reference/check_genome_build.html</loc>
   </url>
   <url>
+    <loc>/reference/format_exptype.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>/reference/read_peak_file_seacr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/report_command.html</loc>
   </url>
   <url>
     <loc>/reference/report_header.html</loc>
