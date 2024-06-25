@@ -18,12 +18,16 @@
 #'    \item MACS2: \code{.narrowPeak} files
 #'    \item SEACR: \code{.bed} files
 #' }
+#' ENCODE file IDs can also be provided to automatically fetch peak file(s) from
+#' the ENCODE database.
 #' @param reference_index An integer specifying the index of the peak file to
 #' use as the reference dataset for comparison. Indexing starts from 1.
 #' (default = 1)
 #' @param alignment_files A character vector of path to alignment files, or a
 #' vector of \code{\link[Rsamtools]{BamFile}} objects. (optional)
 #' Alignment files are used to calculate read-related metrics like FRiP score.
+#' ENCODE file IDs can also be provided to automatically fetch alignment file(s)
+#' from the ENCODE database.
 #' @param exp_labels A character vector of labels for each peak file. (optional)
 #' If not provided, capital letters will be used as labels in the report.
 #' @param exp_type A character vector of experimental types for each peak file.
@@ -41,7 +45,8 @@
 #' match their respective \code{exp_type}.
 #' @param motif_files A character vector of path to motif files, or a vector of
 #' \code{\link[universalmotif]{universalmotif-class}} objects. (optional)
-#' Required to run \emph{Known Motif Enrichment Analysis}.
+#' Required to run \emph{Known Motif Enrichment Analysis}. JASPAR matrix IDs
+#' can also be provided to automatically fetch motifs from the JASPAR.
 #' @param motif_labels A character vector of labels for each motif file.
 #' (optional) Only used if path to file names are passed in
 #' \code{motif_files}. If not provided, the motif file names will be used as

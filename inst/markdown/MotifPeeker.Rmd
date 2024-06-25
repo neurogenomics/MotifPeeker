@@ -63,18 +63,32 @@ if (is.null(params$exp_type)) {
 } else {
     exp_types <- params$exp_type
 }
+peak_files_encode <- Vectorize(check_ENCODE, "encode_id")(
+    params$peak_files, expect_format = c("narrowPeak", "bed"))
+alignment_files_encode <- Vectorize(check_ENCODE, "encode_id")(
+    params$alignment_files, expect_format = c("bam", "bed"))
 result <- list(
-    peaks = Vectorize(read_peak_file, "peak_file")(params$peak_files),
+    peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
     alignments = Vectorize(Rsamtools::BamFile,
-                            "file")(params$alignment_files),
+                            "file")(params$alignment_files_encode),
     exp_labels = params$exp_labels,
     exp_type = Vectorize(format_exptype,
                         "exp_type")(exp_types)
 )
+motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
 user_motifs <- list(
-    motifs = Vectorize(read_motif_file, "motif_file")(params$motif_files),
+    motifs = Vectorize(read_motif_file, "motif_file")(motif_files_jaspar),
     motif_labels = params$motif_labels
 )
+
+## Check motif_db
+if (params$denovo_motif_discovery && is.null(params$motif_db)) {
+    motif_db <- get_JASPARCORE()
+} else {
+    motif_db <- params$motif_db
+}
+
+### General Metrics ###
 
 ```
 

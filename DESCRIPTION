@@ -63,7 +63,9 @@ Suggests:
     Rsamtools,
     rworkflows,
     testthat (>= 3.0.0),
-    utils
+    utils,
+    curl,
+    jsonlite
 VignetteBuilder: 
     knitr
 biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq,
