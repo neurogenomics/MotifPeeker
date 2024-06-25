@@ -3,4 +3,5 @@ test_that("check_JASPAR works", {
     
     motif <- check_JASPAR("MA1930.2")
     expect_true(grepl("MA1930.2.jaspar", motif))
+    expect_equal(check_JASPAR(1), 1)
 })

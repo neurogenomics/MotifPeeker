@@ -22,7 +22,7 @@
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {
     ### Validate ENCODE ID ###
     id_pattern <- "^ENC(SR|BS|DO|GM|AB|LB|FF|PL)\\d{3}[A-Z]{3}$"
-    if (!grepl(id_pattern, encode_id)) return(encode_id)
+    if (!all(grepl(id_pattern, encode_id))) return(encode_id)
     
     ### Verify existence of file on ENCODE ###
     check_dep("curl")

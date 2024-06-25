@@ -48,7 +48,7 @@ params:
 ---
 
 ```{r setup, warning=FALSE, message=FALSE}
-knitr::opts_chunk$set(echo = TRUE, 
+knitr::opts_chunk$set(echo = TRUE,
                     message = params$debug,
                     warning = params$debug,
                     cache = FALSE, 
@@ -69,8 +69,7 @@ alignment_files_encode <- Vectorize(check_ENCODE, "encode_id")(
     params$alignment_files, expect_format = c("bam", "bed"))
 result <- list(
     peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
-    alignments = Vectorize(Rsamtools::BamFile,
-                            "file")(params$alignment_files_encode),
+    alignments = lapply(alignment_files_encode, Rsamtools::BamFile),
     exp_labels = params$exp_labels,
     exp_type = Vectorize(format_exptype,
                         "exp_type")(exp_types)
@@ -81,6 +80,13 @@ user_motifs <- list(
     motif_labels = params$motif_labels
 )
 
+## Flags for optional plots
+alignment_metrics <- ifelse((length(result$alignments) == 0), FALSE, TRUE)
+cellcount_metrics <- ifelse((length(params$cell_counts) == 0), FALSE, TRUE)
+
+## Misc
+ex_emo <- emoji::emoji("exclamation")
+
 ## Check motif_db
 if (params$denovo_motif_discovery && is.null(params$motif_db)) {
     motif_db <- get_JASPARCORE()
@@ -89,7 +95,21 @@ if (params$denovo_motif_discovery && is.null(params$motif_db)) {
 }
 
 ### General Metrics ###
+if (alignment_metrics) {
+    ## FRiP scores
+    result$frip <- Vectorize(calc_frip, c("read_file",
+                                "peak_file"))(result$alignments, result$peaks)
+    frip_df <- data.frame(exp_type = result$exp_type,
+                            frip = result$frip,
+                            exp_label = result$exp_labels)
+    rownames(frip_df) <- seq_len(nrow(frip_df))
+}
 
+```
+
+```{r setup_misc, include = FALSE}
+## Junk plot to add Plotly JS
+plotly::plot_ly(x = c(1,2,3), type = "histogram")
 ```
 
 [`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker) compares different
@@ -129,6 +149,7 @@ cat("\n- **Reference dataset**: ", result$exp_labels[params$reference_index],
 User-provided motifs used:  
 
 ```{r echo = FALSE}
+if (length(user_motifs$motifs) == 0) cat("- **None**  \n")
 for (i in seq_along(user_motifs$motifs)) {
     cat(paste0("- **Motif ", i, "**: ", user_motifs$motifs[[i]]@name, "  \n"))
 }
@@ -142,6 +163,154 @@ cat(report_command(params))
 
 ## Summary Plot {-}
 Lorem ipusm
+
+
+# General Metrics {.tabset #general-metrics}
+
+## FRiP Score
+**Fraction of Reads in Peaks (FRiP)** is defined as the ratio of reads
+overlapping peaks to the total number of reads in the experiment. Higher FRiP
+score indicates higher enrichment of reads in peaks.  
+$$\text{FRiP (Fraction of Reads in Peaks)} = 
+\frac{\text{Reads in Peaks}}{\text{Total Reads}}$$
+```{r frip_exp_plot}
+if (!alignment_metrics) {
+    cat("\n", ex_emo,
+    " *Skipping FRiP calculation as alignment files are not provided.*",
+        "  \n")
+} else {
+    if (length(result$alignments) != length(result$peaks)) {
+        stp_msg <- "Number of alignment files and peak files do not match."
+        stopper(stp_msg)
+    }
+    cat("\n### By Experiment Type {-}  \n")
+    frip_exp_plot <- frip_df |>
+        ggplot2::ggplot(aes(x = exp_type, y = frip, fill = exp_type,
+                            text = paste0(
+                                "<b>Experiment Label</b>: ", exp_label, "<br>",
+                                "<b>Experiment Type</b>: ", exp_type, "<br>",
+                                "<b>FRiP Score</b>: ", round(frip, 4)))) +
+            geom_boxplot(outlier.shape = NA) +
+            geom_jitter() +
+            labs(
+              x = "Experiment Type",
+              y = "FRiP Score",
+              fill = "Experiment Type"
+            ) +
+        scale_fill_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+                           option = "A")
+    frip_exp_plotly <- plotly::ggplotly(frip_exp_plot, tooltip = "text")
+    print(htmltools::tagList(frip_exp_plotly))
+}
+```
+
+```{r frip_exp_dt, include = alignment_metrics}
+if (alignment_metrics) {
+    frip_df |>
+        group_by(exp_type) |>
+        rename("Experiment Type" = exp_type) |>
+        summarise(
+          "Mean score" = round(mean(frip), 3),
+          "Median Score" = round(median(frip), 3),
+          "Standard Deviation" = round(sd(frip), 3)
+        ) |>
+    print_DT()
+}
+```
+```{r frip_individual_plot, include = alignment_metrics}
+if (alignment_metrics) {
+    cat("\n### By Individual Dataset {-}  \n")
+    
+    frip_individual_plot <- frip_df |>
+        ggplot(aes(x = exp_label, y = frip, fill = exp_type, text = paste0(
+                                "<b>Experiment Label</b>: ", exp_label, "<br>",
+                                "<b>Experiment Type</b>: ", exp_type, "<br>",
+                                "<b>FRiP Score</b>: ", round(frip, 4)))) +
+            theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+            geom_col() +
+            labs(
+              x = "Experiment Label",
+              y = "FRiP Score",
+              fill = "Experiment Type"
+            ) +
+        scale_fill_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+                           option = "A")
+    frip_individual_plotly <- plotly::ggplotly(frip_individual_plot,
+                                               tooltip = "text")
+    print(htmltools::tagList(frip_individual_plotly))
+}
+```
+```{r frip_individual_dt, include = alignment_metrics}
+if (alignment_metrics) {
+    frip_df$read_count <- lapply(result$alignments, function(x) {
+        Rsamtools::countBam(x)$records
+    }) |> unlist()
+    frip_individual_df <- frip_df |>
+        mutate(frip = round(frip, 3)) |>
+        select(exp_label, exp_type, read_count, frip) |>
+        rename(
+          "Experiment Label" = exp_label,
+          "Experiment Type" = exp_type,
+          "FRiP Score" = frip,
+          "Read Count" = read_count
+        )
+    
+    if (length(params$cell_counts) > 0) {
+        frip_individual_df$cell_count <- params$cell_counts
+        frip_individual_df <- frip_individual_df |>
+            rename(
+              "Cell Count" = cell_count
+            )
+    }
+    frip_individual_df |>
+        print_DT()
+}
+```
+```{r frip_cellcount_plot, include = alignment_metrics}
+if (alignment_metrics) {
+    if (!cellcount_metrics) {
+        cat("\n", ex_emo,
+        " *Skipping cell count plot as cell counts are not provided.*\n")
+    } else {
+        cat("\n### By Individual Dataset {-}  \n")
+        
+        frip_df$cell_count <- as.numeric(params$cell_counts)
+        frip_df_cellcount <- frip_df |>
+            group_by(cell_count, exp_type) %>%
+                summarise(
+                    frip = mean(frip),
+                    .groups = "drop"
+                )
+            
+        frip_cellcount_plot <- frip_df |>
+            ggplot(aes(
+                x = cell_count,
+                y = frip,
+                shape = exp_type,
+                color = exp_type,
+                text = paste0("<b>Experiment Type</b>: ", exp_type, "<br>",
+                                "<b>FRiP Score</b>: ", round(frip, 4),
+                                "<br><b>Cell Count</b>: ", cell_count))) +
+            geom_point() +
+            geom_line(data = frip_df_cellcount) +
+            labs(
+                x = "Cell Count (log10 scale)",
+                y = "FRiP Score",
+                fill = "Experiment Type",
+                shape = "Experiment Type",
+                color = "Experiment Type"
+            ) +
+            scale_x_continuous(trans="log10") +
+            scale_color_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+                           option = "A")
+        
+        frip_cellcount_plot <- plotly::ggplotly(frip_cellcount_plot,
+                                                tooltip = "text")
+        
+        print(htmltools::tagList(frip_cellcount_plot))
+    }
+}
+```
 
 
 # Session Info {-}

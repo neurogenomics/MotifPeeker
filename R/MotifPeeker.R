@@ -173,6 +173,17 @@ MotifPeeker <- function(
     force(peak_files)
     force(genome_build)
     
+    ### Check argument lengths ###
+    if (!is.null(alignment_files) &&
+        length(peak_files) != length(alignment_files)) {
+        stp_msg <- "Length of 'peak_files' and 'alignment_files' must be equal."
+        stopper(stp_msg)
+    }
+    if (!is.null(cell_counts) && length(cell_counts) != length(peak_files)) {
+        stp_msg <- "Length of 'cell_counts' must be equal to 'peak_files'."
+        stopper(stp_msg)
+    }
+    
     ### Set labels ###
     if (length(exp_labels) == 0) {
         exp_labels <- LETTERS[seq_along(peak_files)]

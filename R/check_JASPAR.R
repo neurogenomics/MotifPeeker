@@ -15,9 +15,8 @@
 #' @export
 check_JASPAR <- function(motif_id, verbose = FALSE) {
     ### Validate JASPAR ID ###
-    if (!startsWith(motif_id, "MA")) {
-        return(motif_id)
-    }
+    if (!is.character(motif_id)) return(motif_id)
+    if (!startsWith(motif_id, "MA")) return(motif_id)
     
     ### Fetch file ###
     return(use_cache(link_JASPAR(motif_id, download = TRUE), verbose = verbose))

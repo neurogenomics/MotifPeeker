@@ -49,7 +49,14 @@ Imports:
     rtracklayer,
     tools,
     htmltools,
-    rmarkdown
+    rmarkdown,
+    curl,
+    jsonlite,
+    htmltools,
+    viridis,
+    emoji,
+    SummarizedExperiment,
+    htmlwidgets
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
@@ -63,14 +70,12 @@ Suggests:
     Rsamtools,
     rworkflows,
     testthat (>= 3.0.0),
-    utils,
-    curl,
-    jsonlite
+    utils
 VignetteBuilder: 
     knitr
 biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq,
     MultipleComparison, FunctionalGenomics, MotifDiscovery,
-    SequenceMatching, Software
+    SequenceMatching, Software, Alignment
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: FALSE
