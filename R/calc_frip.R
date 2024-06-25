@@ -25,7 +25,7 @@
 #' read_file <- Rsamtools::BamFile(read_file)
 #' data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' 
-#' frip(read_file, CTCF_ChIP_peaks)
+#' calc_frip(read_file, CTCF_ChIP_peaks)
 #' 
 #' @export
 calc_frip <- function(

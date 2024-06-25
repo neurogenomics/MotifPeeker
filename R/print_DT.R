@@ -9,6 +9,8 @@
 #' @importFrom htmlwidgets JS
 #' @importFrom htmltools tagList
 #' 
+#' @returns A DT object suitable to be used with \code{print()}.
+#' 
 #' @keywords internal
 print_DT <- function(df, html_tags = FALSE, extra = FALSE) {
     ## Handle empty values

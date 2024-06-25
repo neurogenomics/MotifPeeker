@@ -7,10 +7,6 @@
 #' @returns A character string containing the JASPAR motif link. If
 #' \code{motif_id} is not a valid JASPAR motif ID, it is returned as is.
 #' 
-#' @examples
-#' link_JASPAR("MA1930.2")
-#' link_JASPAR("MA1930.2", download = TRUE)
-#' 
 #' @keywords internal
 link_JASPAR <- function(motif_id, download = FALSE) {
     if (is.na(motif_id) || !startsWith(motif_id, "MA")) {

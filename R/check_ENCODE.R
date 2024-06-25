@@ -16,7 +16,7 @@
 #' @importFrom jsonlite fromJSON
 #' 
 #' @examples
-#' check_ENCODE("ENCFF109VAD")
+#' check_ENCODE("ENCFF109VAD", expect_format = "bam")
 #' 
 #' @export
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {

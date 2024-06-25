@@ -19,9 +19,4 @@ A character string containing the JASPAR motif link. If
 \description{
 Get JASPAR link for motifs
 }
-\examples{
-link_JASPAR("MA1930.2")
-link_JASPAR("MA1930.2", download = TRUE)
-
-}
 \keyword{internal}

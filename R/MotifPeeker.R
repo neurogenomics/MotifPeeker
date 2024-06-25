@@ -89,9 +89,14 @@
 #' @inheritParams read_motif_file
 #' @inheritParams check_genome_build
 #' 
+#' @import ggplot2
+#' @import tidyverse
+#' @importFrom emoji emoji
+#' @importFrom viridis scale_fill_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
 #' @importFrom utils browseURL
+#' @rawNamespace import(plotly, except = last_plot)
 #' 
 #' @return Path to the output directory.
 #' 

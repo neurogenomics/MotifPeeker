@@ -14,6 +14,9 @@ print_DT(df, html_tags = FALSE, extra = FALSE)
 \item{extra}{Logical. If TRUE, adds extra options like search to the
 datatable.}
 }
+\value{
+A DT object suitable to be used with \code{print()}.
+}
 \description{
 Print DT table
 }

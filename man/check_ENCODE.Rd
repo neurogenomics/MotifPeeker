@@ -25,6 +25,6 @@ Check and get files from ENCODE project. Requires the input to be in ENCODE
 ID format. Uses BiocFileCache to cache downloads. Only works for files.
 }
 \examples{
-check_ENCODE("ENCFF109VAD")
+check_ENCODE("ENCFF109VAD", expect_format = "bam")
 
 }
