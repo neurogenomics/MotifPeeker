@@ -105,7 +105,8 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 GRanges objects generated using <code><a href="read_peak_file.html">read_peak_file</a></code>. Currently,
 peak files from the following peak-calling tools are supported:</p><ul><li><p>MACS2: <code>.narrowPeak</code> files</p></li>
 <li><p>SEACR: <code>.bed</code> files</p></li>
-</ul></dd>
+</ul><p>ENCODE file IDs can also be provided to automatically fetch peak file(s) from
+the ENCODE database.</p></dd>
 
 
 <dt>reference_index</dt>
@@ -117,7 +118,9 @@ use as the reference dataset for comparison. Indexing starts from 1.
 <dt>alignment_files</dt>
 <dd><p>A character vector of path to alignment files, or a
 vector of <code><a href="https://rdrr.io/pkg/Rsamtools/man/BamFile-class.html" class="external-link">BamFile</a></code> objects. (optional)
-Alignment files are used to calculate read-related metrics like FRiP score.</p></dd>
+Alignment files are used to calculate read-related metrics like FRiP score.
+ENCODE file IDs can also be provided to automatically fetch alignment file(s)
+from the ENCODE database.</p></dd>
 
 
 <dt>exp_labels</dt>
@@ -147,7 +150,8 @@ are supported as abbreviated input.</p></dd>
 <dt>motif_files</dt>
 <dd><p>A character vector of path to motif files, or a vector of
 <code><a href="https://rdrr.io/pkg/universalmotif/man/universalmotif-class.html" class="external-link">universalmotif-class</a></code> objects. (optional)
-Required to run <em>Known Motif Enrichment Analysis</em>.</p></dd>
+Required to run <em>Known Motif Enrichment Analysis</em>. JASPAR matrix IDs
+can also be provided to automatically fetch motifs from the JASPAR.</p></dd>
 
 
 <dt>motif_labels</dt>
@@ -288,7 +292,7 @@ runtime (higher values take longer).</p>
 <span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmp7mZNCt/MotifPeeker_20240624_172928"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpw4RaBR/MotifPeeker_20240625_183651"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
