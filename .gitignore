@@ -47,3 +47,4 @@ inst/markdown/*.html
 inst/markdown/test.Rmd
 .gitignore
 codecov.yml
+!.github/codecov.yml
