@@ -56,7 +56,9 @@ Imports:
     viridis,
     emoji,
     SummarizedExperiment,
-    htmlwidgets
+    htmlwidgets,
+		Rsamtools,
+		GenomicAlignments
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
@@ -67,7 +69,6 @@ Suggests:
     methods,
     remotes,
     rmarkdown,
-    Rsamtools,
     rworkflows,
     testthat (>= 3.0.0),
     utils
