@@ -9,7 +9,8 @@ print_DT(df, html_tags = FALSE, extra = FALSE)
 \arguments{
 \item{df}{Dataframe/tibble to be printed.}
 
-\item{html_tags}{Logical. If TRUE, returns the table as a tagList object.}
+\item{html_tags}{Logical. If TRUE, returns the table as a \code{tagList}
+object.}
 
 \item{extra}{Logical. If TRUE, adds extra options like search to the
 datatable.}

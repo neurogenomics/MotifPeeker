@@ -66,13 +66,13 @@ if (is.null(params$exp_type)) {
 peak_files_encode <- Vectorize(check_ENCODE, "encode_id")(
     params$peak_files, expect_format = c("narrowPeak", "bed"))
 alignment_files_encode <- Vectorize(check_ENCODE, "encode_id")(
-    params$alignment_files, expect_format = c("bam", "bed"))
+    params$alignment_files, expect_format = "bam")
 result <- list(
     peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
     alignments = lapply(alignment_files_encode, Rsamtools::BamFile),
     exp_labels = params$exp_labels,
-    exp_type = Vectorize(format_exptype,
-                        "exp_type")(exp_types)
+    exp_type = unname(Vectorize(format_exptype,
+                        "exp_type")(exp_types))
 )
 motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
 user_motifs <- list(
@@ -83,6 +83,7 @@ user_motifs <- list(
 ## Flags for optional plots
 alignment_metrics <- ifelse((length(result$alignments) == 0), FALSE, TRUE)
 cellcount_metrics <- ifelse((length(params$cell_counts) == 0), FALSE, TRUE)
+user_motif_metrics <- ifelse((length(user_motifs$motifs) == 0), FALSE, TRUE)
 
 ## Misc
 ex_emo <- emoji::emoji("exclamation")
@@ -96,13 +97,34 @@ if (params$denovo_motif_discovery && is.null(params$motif_db)) {
 
 ### General Metrics ###
 if (alignment_metrics) {
+    ## Peak and Read Counts
+    result$peak_count <- vapply(
+        result$peaks, function(x) length(x), integer(1)
+    )
+    result$read_count <- vapply(result$alignments, function(x) {
+        Rsamtools::countBam(x)$records
+    }, integer(1))
+    
     ## FRiP scores
     result$frip <- Vectorize(calc_frip, c("read_file",
                                 "peak_file"))(result$alignments, result$peaks)
     frip_df <- data.frame(exp_type = result$exp_type,
                             frip = result$frip,
                             exp_label = result$exp_labels)
-    rownames(frip_df) <- seq_len(nrow(frip_df))
+    
+    ## Peak Widths
+    result$peak_widths <- lapply(result$peaks, function(x){
+        x@ranges@width
+    })
+    peak_width_len <- vapply(result$peak_widths, length, integer(1))
+    peak_width_df <- 
+        data.frame(exp_label = rep(result$exp_labels, peak_width_len),
+                    exp_type = rep(result$exp_type, peak_width_len),
+                    peak_width = unlist(result$peak_widths)
+                    )
+
+### Known-motif Analysis ###
+
 }
 
 ```
@@ -164,10 +186,11 @@ cat(report_command(params))
 ## Summary Plot {-}
 Lorem ipusm
 
+<hr>
 
 # General Metrics {.tabset #general-metrics}
 
-## FRiP Score
+## FRiP Score {-}
 **Fraction of Reads in Peaks (FRiP)** is defined as the ratio of reads
 overlapping peaks to the total number of reads in the experiment. Higher FRiP
 score indicates higher enrichment of reads in peaks.  
@@ -183,7 +206,7 @@ if (!alignment_metrics) {
         stp_msg <- "Number of alignment files and peak files do not match."
         stopper(stp_msg)
     }
-    cat("\n### By Experiment Type {-}  \n")
+    cat("\n### By Experiment Type {- .unlisted}  \n")
     frip_exp_plot <- frip_df |>
         ggplot2::ggplot(aes(x = exp_type, y = frip, fill = exp_type,
                             text = paste0(
@@ -197,31 +220,32 @@ if (!alignment_metrics) {
               y = "FRiP Score",
               fill = "Experiment Type"
             ) +
-        scale_fill_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+        scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
-    frip_exp_plotly <- plotly::ggplotly(frip_exp_plot, tooltip = "text")
-    print(htmltools::tagList(frip_exp_plotly))
+    
+    print(to_plotly(frip_exp_plot))
 }
 ```
 
 ```{r frip_exp_dt, include = alignment_metrics}
 if (alignment_metrics) {
-    frip_df |>
-        group_by(exp_type) |>
-        rename("Experiment Type" = exp_type) |>
+    frip_df %>%
+        group_by(exp_type) %>%
+        rename("Experiment Type" = exp_type) %>%
         summarise(
           "Mean score" = round(mean(frip), 3),
           "Median Score" = round(median(frip), 3),
           "Standard Deviation" = round(sd(frip), 3)
-        ) |>
+        ) %>%
+        arrange(`Experiment Type`) %>%
     print_DT()
 }
 ```
 ```{r frip_individual_plot, include = alignment_metrics}
 if (alignment_metrics) {
-    cat("\n### By Individual Dataset {-}  \n")
+    cat("\n### By Individual Dataset {- .unlisted}  \n")
     
-    frip_individual_plot <- frip_df |>
+    frip_individual_plot <- frip_df %>%
         ggplot(aes(x = exp_label, y = frip, fill = exp_type, text = paste0(
                                 "<b>Experiment Label</b>: ", exp_label, "<br>",
                                 "<b>Experiment Type</b>: ", exp_type, "<br>",
@@ -233,36 +257,34 @@ if (alignment_metrics) {
               y = "FRiP Score",
               fill = "Experiment Type"
             ) +
-        scale_fill_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+        scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
-    frip_individual_plotly <- plotly::ggplotly(frip_individual_plot,
-                                               tooltip = "text")
-    print(htmltools::tagList(frip_individual_plotly))
+    
+    print(to_plotly(frip_individual_plot))
 }
 ```
 ```{r frip_individual_dt, include = alignment_metrics}
 if (alignment_metrics) {
-    frip_df$read_count <- lapply(result$alignments, function(x) {
-        Rsamtools::countBam(x)$records
-    }) |> unlist()
-    frip_individual_df <- frip_df |>
-        mutate(frip = round(frip, 3)) |>
-        select(exp_label, exp_type, read_count, frip) |>
+    frip_df$read_count <- result$read_count
+    frip_individual_df <- frip_df %>%
+        mutate(frip = round(frip, 3)) %>%
+        select(exp_label, exp_type, read_count, frip) %>%
         rename(
           "Experiment Label" = exp_label,
           "Experiment Type" = exp_type,
           "FRiP Score" = frip,
           "Read Count" = read_count
-        )
+        ) %>%
+        arrange(`Experiment Type`, `Experiment Label`)
     
     if (length(params$cell_counts) > 0) {
         frip_individual_df$cell_count <- params$cell_counts
-        frip_individual_df <- frip_individual_df |>
+        frip_individual_df <- frip_individual_df %>%
             rename(
               "Cell Count" = cell_count
             )
     }
-    frip_individual_df |>
+    frip_individual_df %>%
         print_DT()
 }
 ```
@@ -272,7 +294,7 @@ if (alignment_metrics) {
         cat("\n", ex_emo,
         " *Skipping cell count plot as cell counts are not provided.*\n")
     } else {
-        cat("\n### By Individual Dataset {-}  \n")
+        cat("\n### By Cell Count {- .unlisted}  \n")
         
         frip_df$cell_count <- as.numeric(params$cell_counts)
         frip_df_cellcount <- frip_df |>
@@ -301,17 +323,240 @@ if (alignment_metrics) {
                 color = "Experiment Type"
             ) +
             scale_x_continuous(trans="log10") +
-            scale_color_viridis(begin = 0.1, end = 0.5, discrete = TRUE,
+            scale_color_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
         
-        frip_cellcount_plot <- plotly::ggplotly(frip_cellcount_plot,
-                                                tooltip = "text")
-        
-        print(htmltools::tagList(frip_cellcount_plot))
+        print(to_plotly(frip_cellcount_plot))
     }
 }
 ```
 
+## Peak Width Distribution {-}
+This section presents the peak width distribution for each experiment type,
+individual experiments and cell counts, reported in base pairs.
+
+### By Experiment Type {- .unlisted}
+```{r peakwidths_exp_plot1}
+peak_width_plt1 <- peak_width_df %>%
+    ggplot(aes(x = peak_width, fill = exp_type)) +
+        geom_histogram(bins = 30, alpha = 0.5, position = "identity") +
+        labs(
+            x = "Peak Width",
+            y = "Peak Count",
+            fill = "Experiment Type"
+        ) +
+        scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A")
+    
+    print(to_plotly(peak_width_plt1))
+```
+
+```{r peakwidths_exp_plot2}
+peak_width_plt2 <- peak_width_df %>%
+    ggplot(aes(x = exp_type, y = peak_width, fill = exp_type)) +
+        geom_boxplot(alpha = 0.5) +
+        labs(
+            x = "Experiment Type",
+            y = "Peak Width",
+            fill = "Experiment Type"
+        ) +
+        scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A")
+
+    print(to_plotly(peak_width_plt2))
+```
+
+```{r peakwidths_exp_dt}
+peak_width_df %>%
+    group_by(exp_type) %>%
+    rename("Experiment Type" = exp_type) %>%
+    summarise(
+        "Mean Peak Width" = round(mean(peak_width), 1),
+        "Median Peak Width" = round(median(peak_width), 3),
+        "2.5th Quantile" = round(quantile(peak_width, 0.025), 3),
+        "97.5th Quantile" = round(quantile(peak_width, 0.975), 3),
+        "Standard Deviation" = round(sd(peak_width), 1)
+    ) %>%
+    arrange(`Experiment Type`) %>%
+    print_DT()
+```
+
+### By Individual Dataset {- .unlisted}
+```{r peakwidths_ind_plot}
+peak_width_plt3 <- peak_width_df %>%
+    ggplot(aes(x = exp_label, y = peak_width, fill = exp_type)) +
+        geom_boxplot(alpha = 0.5) +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        labs(
+        x = "Experiment Label",
+        y = "Peak Width",
+        fill = "Experiment Type"
+        ) +
+        scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
+                            option = "A")
+
+    print(to_plotly(peak_width_plt3))
+```
+
+```{r peakwidths_ind_dt}
+peak_width_df$cell_count <- rep(params$cell_counts, peak_width_len)
+
+peak_width_df_all <- if (is.null(peak_width_df$cell_count)) {
+    peak_width_df %>%
+    group_by(exp_label, exp_type)
+} else {
+    peak_width_df %>%
+    group_by(exp_label, exp_type, cell_count) %>%
+    rename("Cell Count" = cell_count,) 
+}
+
+peak_width_df_all <- peak_width_df_all %>%
+    summarise(
+        "Mean Peak Width" = round(mean(peak_width), 1),
+        "Median Peak Width" = round(median(peak_width), 3),
+        "2.5th Quantile" = round(quantile(peak_width, 0.025), 3),
+        "97.5th Quantile" = round(quantile(peak_width, 0.975), 3),
+        "Standard Deviation" = round(sd(peak_width), 1),
+        .groups = "drop"
+    ) %>%
+    rename(
+        "Experiment Label" = exp_label,
+        "Experiment Type" = exp_type
+    ) %>%
+    arrange(`Experiment Type`, `Experiment Label`)
+
+    print_DT(peak_width_df_all)
+```
+
+```{r peakwidths_cellcount_plot}
+if (!cellcount_metrics) {
+    cat("\n", ex_emo,
+    " *Skipping cell count plot as cell counts are not provided.*\n")
+} else {
+    cat("\n### By Cell Count {- .unlisted}  \n")
+    
+    peak_width_df_cellcount <- peak_width_df %>%
+        group_by(exp_label, exp_type, cell_count) %>%
+        drop_na(cell_count) %>%
+        summarise(
+            mean_width = mean(peak_width),
+            .groups = "drop"
+        ) %>%
+        group_by(exp_type, cell_count) %>%
+        summarise(
+            mean_width = mean(mean_width),
+            .groups = "drop"
+        )
+        
+    peak_width_cellcount_plot <- peak_width_df %>%
+        group_by(exp_label, exp_type) %>%
+        drop_na(cell_count) %>%
+        summarise(
+            mean_width = mean(peak_width),
+            cell_count = mean(cell_count),
+            .groups = "drop"
+        ) %>%
+        ggplot(aes(
+            x = cell_count,
+            y = mean_width,
+            shape = exp_type,
+            color = exp_type,
+            text = paste0("<b>Experiment Type</b>: ", exp_type, "<br>",
+                            "<b>Mean Peak Width</b>: ", round(mean_width, 1),
+                            "<br><b>Cell Count</b>: ", cell_count))) +
+        geom_point() +
+        geom_line(data = peak_width_df_cellcount) +
+        labs(
+            x = "Cell Count (log10 scale)",
+            y = "Mean Peak Width",
+            fill = "Experiment Type",
+            shape = "Experiment Type",
+            color = "Experiment Type"
+        ) +
+        scale_x_continuous(trans="log10") +
+        scale_color_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
+                       option = "A")
+    
+    print(to_plotly(peak_width_cellcount_plot))
+}
+```
+
+## Motif-Summit Distance {-}
+This section reports the distances between the peak summit and the centre of the
+nearest motif. The distances are calculated for every peak in the dataset and
+plotted.
+```{r motif_summit_dist}
+if (!user_motif_metrics) {
+    cat("\n", ex_emo,
+    " *Skipping motif-summit distance plot as no motifs files",
+    " are not provided.*\n")
+} else {
+    cat("PLACEHOLDER")
+}
+```
+
+## Summary Table {-}
+Summary of all the general metrics for the input datasets.
+
+```{r summary_table}
+tibble::tibble(
+    "Experiment Label" = result$exp_label,
+    "Experiment Type" = result$exp_type,
+    "Cell Count" = params$cell_count,
+    "Read Count" = result$read_count,
+    "Peak Count" = result$peak_count,
+    "FRiP Score" = round(frip_df$frip, 3),
+    "Mean Peak Width" = peak_width_df_all$`Mean Peak Width`,
+) %>%
+    arrange(`Experiment Type`, `Experiment Label`) %>%
+    print_DT(extra = TRUE)
+```
+
+# {- .unlisted}
+<hr>  
+
+# Known Motif Enrichment Analysis {.tabset .tabset-fade .tabset-pills #motif-enrichment-analysis}
+Pair-wise comparison of peaks enriched for motifs in total, common and unique
+peaks between the the reference experiment and others.  
+  
+The overall summary plot compacts all the individual comparison plots into one
+interactive plot. It can be used to quickly identify the relative enrichment of
+motifs in the peaks of the reference experiment compared to the other comparison
+experiments.  
+The sub-plots have been arranged in a 2x2 grid. The rows represent the peaks
+from the reference experiment and the comparison experiments, respectively.
+The columns differentiate between peaks that are common (shared) across
+the comparison and reference experiments and those that are unique to either of
+the experiments.  
+  
+The sub-plots for individual experiments can be interpreted as follows:  
+  
+1. `all_(experiment)_peaks`: Looks for the presence of motif in all the peaks
+produced in an experiment.  
+2. `common_(experiment)_peaks`: Looks for presence of motif in peaks which
+overlap with the peaks from the other experiment. The overlapping peaks may be
+of different lengths for each experiment, necessitating two distinct peak groups 
+(one for each experiment).  
+3. `unique_(experiment)_peaks`: Looks for presence of motif in peaks which have
+no overlap with peaks from the other experiment.  
+
+Each comparison compares the reference dataset with others.
+  
+**NOTE**: Discrepancy in motif enrichment in common peaks between experiments
+MAY be attributed to different peak length.  
+
+```{r motif_enrichment_analysis}
+if (!user_motif_metrics) {
+    cat("\n", ex_emo,
+    " *Skipping known-motif enrichment analysis as no motifs files",
+    " are not provided.*\n")
+} else {
+    cat("PLACEHOLDER")
+}
+```
+
+# {- .unlisted}
+<hr>  
 
 # Session Info {-}
 <details> 

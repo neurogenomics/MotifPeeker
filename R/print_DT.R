@@ -1,7 +1,8 @@
 #' Print DT table
 #' 
 #' @param df Dataframe/tibble to be printed.
-#' @param html_tags Logical. If TRUE, returns the table as a tagList object.
+#' @param html_tags Logical. If TRUE, returns the table as a \code{tagList}
+#' object.
 #' @param extra Logical. If TRUE, adds extra options like search to the
 #' datatable.
 #' 
