@@ -16,10 +16,6 @@ Null
 \description{
 Stop if MEME suite is not installed
 }
-\examples{
-confirm_meme_install()
-
-}
 \seealso{
 \code{\link[memes]{check_meme_install}}
 }

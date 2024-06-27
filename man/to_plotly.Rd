@@ -42,3 +42,6 @@ p <- ggplot2::ggplot(x, ggplot2::aes(x = a, y = b)) + ggplot2::geom_point()
 to_plotly(p, html_tags = FALSE)
 
 }
+\seealso{
+\link[plotly]{ggplotly}
+}

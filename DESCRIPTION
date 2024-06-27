@@ -55,7 +55,10 @@ Imports:
     SummarizedExperiment,
     htmlwidgets,
     Rsamtools,
-    GenomicAlignments
+    GenomicAlignments,
+    Biostrings,
+    BSgenome,
+    memes
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
@@ -67,7 +70,8 @@ Suggests:
     remotes,
     rworkflows,
     testthat (>= 3.0.0),
-    utils
+    utils,
+    withr
 VignetteBuilder: 
     knitr
 biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq,

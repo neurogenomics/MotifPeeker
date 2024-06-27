@@ -7,7 +7,9 @@
 #' 
 #' @keywords internal
 read_peak_file_seacr <- function(peak_file) {
-    # Read BED file as table
+    ## Read BED file as table
+    ## Note: Cannot use existing functions to import SEACR BED file due to its
+    ## non-standard format.
     obj <- utils::read.table(peak_file, header = TRUE)
     names(obj) <- c("chr",
                     "start",

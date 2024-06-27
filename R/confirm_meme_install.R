@@ -6,9 +6,6 @@
 #' 
 #' @returns Null
 #' 
-#' @examples
-#' confirm_meme_install()
-#' 
 #' @seealso \code{\link[memes]{check_meme_install}}
 #' 
 #' @keywords internal
