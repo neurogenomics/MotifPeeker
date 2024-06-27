@@ -88,6 +88,7 @@
 #' @inheritParams check_genome_build
 #' @inheritParams read_motif_file
 #' @inheritParams check_genome_build
+#' @inheritParams memes::runFimo
 #' 
 #' @import ggplot2
 #' @import tidyverse
@@ -163,6 +164,7 @@ MotifPeeker <- function(
         denovo_motifs = 3,
         motif_db = NULL,
         download_buttons = TRUE,
+        meme_path = NULL,
         output_dir = tempdir(),
         display = NULL,
         use_cache = TRUE,
@@ -175,6 +177,7 @@ MotifPeeker <- function(
     start_time <- Sys.time()
 
     ### Force required arguments ###
+    confirm_meme_install(meme_path = meme_path)
     force(peak_files)
     force(genome_build)
     

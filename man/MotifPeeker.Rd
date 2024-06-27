@@ -18,6 +18,7 @@ MotifPeeker(
   denovo_motifs = 3,
   motif_db = NULL,
   download_buttons = TRUE,
+  meme_path = NULL,
   output_dir = tempdir(),
   display = NULL,
   use_cache = TRUE,
@@ -97,6 +98,9 @@ database has fewer than 50 entries.}
 
 \item{download_buttons}{A logical indicating whether to include download
 buttons for various files within the HTML report. (default = TRUE)}
+
+\item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
+"MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
 
 \item{output_dir}{A character string specifying the directory to save the
 output files. (default = \code{tempdir()}) A sub-directory with the output
