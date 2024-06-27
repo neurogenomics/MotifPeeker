@@ -63,6 +63,13 @@
 #' this database to find similar motifs. If not provided, JASPAR CORE database
 #' will be used. \strong{NOTE}: p-value estimates are inaccurate when the
 #' database has fewer than 50 entries.
+#' @param trim_seq_width An integer specifying the width of the sequence to
+#' extract around the summit (default = NULL). This sequence is used to search
+#' for de novo motifs. If not provided, the entire peak region will be used.
+#' This parameter is intended to reduce the search space and speed up motif
+#' discovery; therefore, a value less than the average peak width is
+#' recommended. Peaks are trimmed symmetrically around the summit while
+#' respecting the peak bounds.
 #' @param download_buttons A logical indicating whether to include download
 #' buttons for various files within the HTML report. (default = TRUE)
 #' @param output_dir A character string specifying the directory to save the
@@ -92,7 +99,6 @@
 #' 
 #' @import ggplot2
 #' @import tidyverse
-#' @importFrom emoji emoji
 #' @importFrom viridis scale_fill_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
@@ -103,7 +109,8 @@
 #' 
 #' @note Running de-novo motif discovery is computationally expensive and can
 #' require from minutes to hours. \code{denovo_motifs} can widely affect the
-#' runtime (higher values take longer).
+#' runtime (higher values take longer). Setting \code{trim_seq_width} to a lower
+#' value can also reduce the runtime significantly.
 #' 
 #' @examples
 #' peaks <- list(
@@ -163,6 +170,7 @@ MotifPeeker <- function(
         denovo_motif_discovery = TRUE,
         denovo_motifs = 3,
         motif_db = NULL,
+        trim_seq_width = NULL,
         download_buttons = TRUE,
         meme_path = NULL,
         output_dir = tempdir(),
@@ -222,7 +230,9 @@ MotifPeeker <- function(
         denovo_motif_discovery = denovo_motif_discovery,
         denovo_motifs = denovo_motifs,
         motif_db = motif_db,
+        trim_seq_width = trim_seq_width,
         download_buttons = download_buttons,
+        meme_path = meme_path,
         output_dir = output_dir,
         use_cache = use_cache,
         ncpus = ncpus,

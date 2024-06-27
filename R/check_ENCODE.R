@@ -12,11 +12,11 @@
 #' @returns A character string specifying the path to the downloaded file. If
 #' the input is not in ENCODE ID format, the input is returned as-is.
 #' 
-#' @importFrom curl curl_fetch_memory
-#' @importFrom jsonlite fromJSON
-#' 
 #' @examples
-#' check_ENCODE("ENCFF109VAD", expect_format = "bam")
+#' if (requireNamespace("curl", quietly = TRUE) &&
+#'     requireNamespace("jsonlite", quietly = TRUE)) {
+#'     check_ENCODE("ENCFF109VAD", expect_format = "bam")
+#' }
 #' 
 #' @export
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {

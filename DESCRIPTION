@@ -48,14 +48,12 @@ Imports:
     tools,
     htmltools,
     rmarkdown,
-    curl,
-    jsonlite,
     viridis,
-    emoji,
     SummarizedExperiment,
     htmlwidgets,
     Rsamtools,
     GenomicAlignments,
+    GenomeInfoDb,
     Biostrings,
     BSgenome,
     memes
@@ -71,7 +69,10 @@ Suggests:
     rworkflows,
     testthat (>= 3.0.0),
     utils,
-    withr
+    withr,
+    emoji,
+    curl,
+    jsonlite
 VignetteBuilder: 
     knitr
 biocViews: Epigenetics, Genetics, QualityControl, ChIPSeq,

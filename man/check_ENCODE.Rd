@@ -25,6 +25,9 @@ Check and get files from ENCODE project. Requires the input to be in ENCODE
 ID format. Uses BiocFileCache to cache downloads. Only works for files.
 }
 \examples{
-check_ENCODE("ENCFF109VAD", expect_format = "bam")
+if (requireNamespace("curl", quietly = TRUE) &&
+    requireNamespace("jsonlite", quietly = TRUE)) {
+    check_ENCODE("ENCFF109VAD", expect_format = "bam")
+}
 
 }
