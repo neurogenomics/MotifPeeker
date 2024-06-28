@@ -29,8 +29,8 @@ A \code{BPPARAM} object.
 }
 \description{
 Get appropriate parameters for \code{BiocParallel} based on the
-number of workers specified. For less than 4 workers, the function returns a
-\code{MulticoreParam} object. For 4 or more cores, the function
+number of workers specified. For less than 10 workers, the function returns a
+\code{MulticoreParam} object. For 10 or more cores, the function
 returns a \code{SnowParam} object. Since Windows supports
 neither, the function returns a \code{SerialParam} object. As a
 result, Windows users do not benefit from parallel processing.

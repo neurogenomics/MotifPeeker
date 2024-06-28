@@ -40,7 +40,6 @@ Imports:
     DT,
     ggplot2,
     plotly,
-    tidyverse,
     universalmotif,
     GenomicRanges,
     IRanges,
@@ -57,7 +56,10 @@ Imports:
     Biostrings,
     BSgenome,
     memes,
-    S4Vectors
+    S4Vectors,
+    magrittr,
+    dplyr,
+    purrr
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,

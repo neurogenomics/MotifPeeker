@@ -4,8 +4,6 @@
 #' nearest peak summit. \code{runFimo} from the \code{memes} package is used to
 #' recover the locations of each motif.
 #'
-#' This function is designed to work with narrowPeak files from MACS2/3.
-#'
 #' To calculate the p-value threshold for a desired false-positive rate, we use
 #' the approximate formula:
 #' \deqn{p \approx \frac{fp\_rate}{2 \times \text{average peak width}}}
@@ -54,6 +52,8 @@ summit_to_motif <- function(peak_input,
                             meme_path = NULL,
                             verbose = FALSE,
                             ...) {
+    if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+    
     peaks <- peak_input # Backwards compatibility
     peak_sequences <- BSgenome::getSeq(genome_build, peak_input)
     

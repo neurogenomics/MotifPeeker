@@ -41,9 +41,11 @@ params:
         value: NULL
     output_dir:
         value: NULL
+    save_runfiles:
+        value: NULL
     use_cache:
         value: NULL
-    ncpus:
+    workers:
         value: NULL
     debug:
         value: FALSE
@@ -51,7 +53,7 @@ params:
         value: TRUE
 ---
 
-```{r setup, warning=FALSE, message=FALSE}
+```{r setup, warning=FALSE, message=FALSE, results="hide"}
 knitr::opts_chunk$set(echo = TRUE,
                     message = params$debug,
                     warning = params$debug,
@@ -62,6 +64,7 @@ knitr::opts_chunk$set(echo = TRUE,
 ### Parse input ###
 genome_build <- check_genome_build(params$genome_build)
 result_len <- length(params$peak_files)
+motif_len <- length(params$motif_files)
 if (is.null(params$exp_type)) {
     exp_types <- rep("unknown", result_len)
 } else {
@@ -78,11 +81,25 @@ result <- list(
     exp_type = unname(Vectorize(format_exptype,
                         "exp_type")(exp_types))
 )
-motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
+motif_files_jaspar <- if (motif_len > 1) {
+        Vectorize(check_JASPAR, "motif_id")(params$motif_files)
+    } else {
+        check_JASPAR(params$motif_files)
+    }
 user_motifs <- list(
-    motifs = Vectorize(read_motif_file, "motif_file")(motif_files_jaspar),
+    motifs = if (motif_len > 1) {
+            Vectorize(read_motif_file, "motif_file")(motif_files_jaspar)
+        } else {
+            read_motif_file(motif_files_jaspar)
+        },
     motif_labels = params$motif_labels
 )
+result$alignments <- unname(result$alignments)
+result$peaks <- unname(result$peaks)
+user_motifs$motifs <- unname(user_motifs$motifs)
+
+out_dir_extra <- ifelse(params$save_runfiles, params$out_dir,
+                       file.path(tempdir(), paste0("MotifPeeker_temp_", random_string(5))))
 
 ## Flags for optional plots
 alignment_metrics <- ifelse((length(result$alignments) == 0), FALSE, TRUE)
@@ -113,27 +130,104 @@ if (alignment_metrics) {
     frip_df <- data.frame(exp_type = result$exp_type,
                             frip = result$frip,
                             exp_label = result$exp_labels)
+}
     
-    ## Peak Widths
-    result$peak_widths <- lapply(result$peaks, function(x){
-        x@ranges@width
-    })
-    peak_width_len <- vapply(result$peak_widths, length, integer(1))
-    peak_width_df <- 
-        data.frame(exp_label = rep(result$exp_labels, peak_width_len),
-                    exp_type = rep(result$exp_type, peak_width_len),
-                    peak_width = unlist(result$peak_widths)
-                    )
+## Peak Widths
+result$peak_widths <- lapply(result$peaks, function(x){
+    x@ranges@width
+})
+peak_width_len <- vapply(result$peak_widths, length, integer(1))
+peak_width_df <- 
+    data.frame(exp_label = rep(result$exp_labels, peak_width_len),
+                exp_type = rep(result$exp_type, peak_width_len),
+                peak_width = unlist(result$peak_widths)
+                )
+
+## Motif-Summit Distances
+## Output: Peak 1 - Motif 1, 2...
+##         Peak 2 - Motif 1, 2...
+if (length(user_motifs$motifs) == 1 ) user_motifs$motifs <-
+    list(user_motifs$motifs)
+peak_combinations <- rep(result$peaks, each = motif_len)
+exp_label_combinations <- rep(result$exp_labels, each = motif_len)
+exp_type_combinations <- rep(result$exp_type, each = motif_len)
+motif_combinations <- rep(user_motifs$motifs, result_len)
+motif_summit_dist_df <- bpapply(
+    seq_len(result_len * motif_len),
+    function(i) {
+        peak <- peak_combinations[[i]]
+        motif <- motif_combinations[[i]]
+        list(
+            exp_label = exp_label_combinations[i],
+            exp_type = exp_type_combinations[i],
+            motif_indice = rep(seq_len(motif_len), result_len)[i],
+            distance = MotifPeeker::summit_to_motif(
+                peak, motif,
+                genome_build = genome_build,
+                out_dir = file.path(out_dir_extra, "fimo", i)
+                )$distance_to_summit
+        )
+    },
+    workers = params$workers, verbose = params$verbose) %>%
+    purrr::map_df(as.data.frame)
 
 ### Known-motif Analysis ###
-comparison_indices <- setdiff(length(result$peaks), params$reference_index)
+comparison_indices <- setdiff(seq_along(result$peaks), params$reference_index)
 segregated_peaks <- lapply(comparison_indices, function(x) {
     segregate_seqs(result$peaks[[params$reference_index]], result$peaks[[x]])
 })
 
 ## Calculate enrichment for segregated peaks
+## 1. All peaks
+enrichment_df <- bpapply(
+    seq_len(result_len * motif_len),
+    function(i) {
+        peak <- peak_combinations[[i]]
+        motif <- motif_combinations[[i]]
+        res <- MotifPeeker::motif_enrichment(
+            peak, motif,
+            genome_build = genome_build,
+            out_dir = file.path(out_dir_extra, "ame", i)
+            )
+        list(
+            exp_label = exp_label_combinations[i],
+            exp_type = exp_type_combinations[i],
+            motif_indice = rep(seq_len(motif_len), result_len)[i],
+            tp_count = res$tp[1],
+            tp_perc = res$tp[2]
+        )
+    },
+    workers = params$workers, verbose = params$verbose) %>%
+    purrr::map_df(as.data.frame)
 
-}
+## 2. Segregated peaks
+## Output: Peak1 common_seq1 - Motif 1
+##         Peak1 common_seq2 - Motif 1
+##         ...
+##         Peak1 common_seq1 - Motif 2
+##         ...
+##         Peak2 common_seq1 - Motif 1
+##         ...
+# peak_combinations2 <- lapply(seq_along(comparison_indices), function(i) {
+#     rep(segregated_peaks[[i]], each = motif_len)
+# })
+# enrichment_df_seg <- bpapply(
+#     seq_len((result_len - 1) * 4 * motif_len),
+#     function(i) {
+#         peak <- peak_combinations[[i]]
+#         motif <- motif_combinations[[i]]
+#         res <- MotifPeeker::motif_enrichment(peak, motif,
+#                                             genome_build = genome_build)
+#         list(
+#             exp_label = exp_label_combinations[i],
+#             exp_type = exp_type_combinations[i],
+#             motif_indice = rep(seq_len(motif_len), result_len)[i],
+#             tp_count = res$tp[1],
+#             tp_perc = res$tp[2]
+#         )
+#     },
+#     workers = params$workers, verbose = params$verbose) %>%
+#     purrr::map_df(as.data.frame)
 
 ```
 
@@ -489,17 +583,139 @@ if (!cellcount_metrics) {
 }
 ```
 
-## Motif-Summit Distance {-}
+## Motif-Summit Distance {- .tabset .tabset-fade .tabset-pills}
 This section reports the distances between the peak summit and the centre of the
 nearest motif. The distances are calculated for every peak in the dataset and
 plotted.
 ```{r motif_summit_dist}
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
-    " *Skipping motif-summit distance plot as no motifs files",
+    " *Skipping motif-summit distance plots as no motifs files",
     " are not provided.*\n")
 } else {
-    cat("PLACEHOLDER")
+    tab_header_flag <- FALSE # Print tabset header just once
+    
+    ## Loop through all motifs
+    for (motif_i in seq_len(motif_len)) {
+        if (!tab_header_flag) {
+            cat("**Select Motif:**  \n")
+            tab_header_flag <- TRUE
+        }
+        cat(paste0("\n### ", user_motifs$motifs[[motif_i]]@name,
+                   " {- .unlisted}  \n"))
+        cat(paste0("**Motif Consensus Sequence:** ",
+                   user_motifs$motifs[[motif_i]]@consensus, "  \n"))
+        
+        cat("\n#### By Experiment Type {- .unlisted}  \n")
+        cat("The top graph shows peak counts by distance from the motif",
+        "center, while the bottom graph depicts the probability density of",
+        "these distances. Different colors represent experiment types, and",
+        "each density curve sums to 1.  \n")
+        ## Raw count plot
+        motif_summit_dist_plt1 <- motif_summit_dist_df %>%
+            filter(motif_indice == motif_i) %>%
+            ggplot(aes(x = distance, color = exp_type,
+                        text = paste("<b>Experiment Type</b>:", exp_type))) +
+            geom_freqpoly(bins = 30, linewidth = 1) +
+            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A") +
+            labs(color = "Experiment Type",
+                x = "Distance (bp)", 
+                y = "Count")
+        motif_summit_dist_plt1 <- to_plotly(motif_summit_dist_plt1,
+                                            html_tags = FALSE)
+            
+        ## Density plot
+        motif_summit_dist_plt2 <- motif_summit_dist_df %>%
+            filter(motif_indice == motif_i) %>%
+            ggplot(aes(x = distance, fill = exp_type, color = exp_type,
+                        text = paste("<b>Experiment Type</b>:", exp_type))) +
+            geom_density(alpha = 0.5) +
+            scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A") +
+            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A") +
+            labs(color = "Experiment Type",
+                fill = "Experiment Type",
+                x = "Distance (bp)", 
+                y = "Count")
+        motif_summit_dist_plt2 <- to_plotly(motif_summit_dist_plt2,
+                                            html_tags = FALSE)
+        
+        motif_summit_dist_exp_plt <-
+            subplot(motif_summit_dist_plt1, motif_summit_dist_plt2,
+                    nrows = 2, margin = 0.04) %>%
+            layout(
+                xaxis2 = list(title = "Distance (bp)",
+                              titlefont = list(size = 16)),
+                yaxis = list(title = "Peak Count",
+                             titlefont = list(size = 16)),
+                yaxis2 = list(title = "Peak Density",
+                              titlefont = list(size = 16))
+            )
+        print(htmltools::tagList(motif_summit_dist_exp_plt))
+        
+        ## DT
+        motif_summit_dist_df %>%
+            filter(motif_indice == motif_i) %>%
+            group_by(exp_type) %>%
+            summarise(
+                "Mean Distance" = round(mean(distance), 2),
+                "Absolute Mean Distance" = round(mean(abs(distance)), 2),
+                "Median Distance" = median(distance),
+                "Absolute Median Distance" = median(abs(distance)),
+                "Standard Deviation" = round(sd(distance), 2)
+            ) %>%
+            print_DT(html_tags = TRUE) %>%
+            print()
+        
+        cat("\n#### By Individual Dataset {- .unlisted}\n")
+        cat("The plot shows the average of the absolute distance between peak",
+        "summits and the nearest motif center for each experiment label.  \n")
+        ## Absolute mean distance plot
+        motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
+            filter(motif_indice == motif_i) %>%
+            group_by(exp_label, exp_type) %>%
+            summarise(abs_mean_dist = round(mean(abs(distance)), 2),
+                      .groups = "drop") %>%
+            ggplot(aes(x = exp_label, y = abs_mean_dist, fill = exp_type,
+                        text = paste0(
+                            "<b>Experiment Label</b>: ", exp_label, "<br>",
+                            "<b>Experiment Type</b>: ", exp_type, "<br>",
+                            "<b>Absolute Mean Distance</b>: ", abs_mean_dist
+                        ))) +
+                theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+                geom_col() +
+                labs(
+                  x = "Experiment Label",
+                  y = "Absolute Mean Distance (bp)",
+                  fill = "Experiment Type"
+                ) +
+            scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
+                               option = "A")
+        
+            print(to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+        
+        ## DT
+        motif_summit_dist_df %>%
+            filter(motif_indice == motif_i) %>%
+            group_by(exp_label, exp_type) %>%
+            summarise(
+                "Mean Distance" = round(mean(distance), 2),
+                "Absolute Mean Distance" = round(mean(abs(distance)), 2),
+                "Median Distance" = median(distance),
+                "Absolute Median Distance" = median(abs(distance)),
+                "Standard Deviation" = round(sd(distance), 2),
+                .groups = "keep"
+            ) %>%
+            arrange(exp_type, exp_label) %>%
+            rename(
+                "Experiment Label" = exp_label,
+                "Experiment Type" = exp_type
+            ) %>%
+            print_DT(html_tags = TRUE) %>%
+            print()
+    }
 }
 ```
 

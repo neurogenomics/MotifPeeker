@@ -9,7 +9,7 @@ bpapply(
   FUN,
   apply_fun = BiocParallel::bplapply,
   workers = 1,
-  progressbar = workers > 1,
+  progressbar = FALSE,
   force_snowparam = FALSE,
   verbose = FALSE,
   ...

@@ -11,6 +11,8 @@
 #' @inheritDotParams BiocParallel::bpmapply
 #' @inheritParams get_bpparam
 #' 
+#' @import BiocParallel
+#' 
 #' @returns Output relevant to the \code{apply_fun} specified.
 #' 
 #' @examples
@@ -26,7 +28,7 @@ bpapply <- function(
         FUN,
         apply_fun = BiocParallel::bplapply,
         workers = 1,
-        progressbar = workers > 1,
+        progressbar = FALSE,
         force_snowparam = FALSE,
         verbose = FALSE,
         ...

@@ -9,5 +9,5 @@ test_that("file created by markov_background_model function", {
     res <- markov_background_model(sequences = peak_sequences,
                                    out_dir = temp_dir)
     
-    expect_true(file.exists(file.path(temp_dir, "background_model.txt")))
+    expect_true(file.exists(res))
 })

@@ -21,9 +21,10 @@ MotifPeeker(
   download_buttons = TRUE,
   meme_path = NULL,
   output_dir = tempdir(),
+  save_runfiles = FALSE,
   display = NULL,
   use_cache = TRUE,
-  ncpus = 2,
+  workers = 2,
   quiet = TRUE,
   debug = FALSE,
   verbose = FALSE
@@ -115,6 +116,9 @@ buttons for various files within the HTML report. (default = TRUE)}
 output files. (default = \code{tempdir()}) A sub-directory with the output
 files will be created in this directory.}
 
+\item{save_runfiles}{A logical indicating whether to save intermediate files
+generated during the run, such as those from FIMO and AME. (default = FALSE)}
+
 \item{display}{A character vector specifying the display mode for the HTML
 report once it is generated. (default = NULL) Options are:
 \itemize{
@@ -126,8 +130,7 @@ report once it is generated. (default = NULL) Options are:
 \item{use_cache}{A logical indicating whether to use cached results from
 previous runs. (default = TRUE)}
 
-\item{ncpus}{An integer specifying the number of cores to use for parallel
-processing. (default = 1)}
+\item{workers}{The number of workers to use for parallel processing.}
 
 \item{quiet}{A logical indicating whether to print markdown knit messages.
 (default = FALSE)}
@@ -197,7 +200,7 @@ MotifPeeker(
     download_buttons = TRUE,
     output_dir = tempdir(),
     use_cache = TRUE,
-    ncpus = 2,
+    workers = 2,
     debug = FALSE,
     quiet = TRUE,
     verbose = FALSE

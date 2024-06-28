@@ -21,7 +21,10 @@ markov_background_model <- function(sequences, out_dir, verbose = FALSE){
     frequencies <- Biostrings::letterFrequency(concat_seq,
                                                 letters = c("A", "C", "G", "T"),
                                                 as.prob = TRUE)
-    output_file_path <- file.path(out_dir, "background_model.txt")
+    output_file_path <- file.path(
+        out_dir,
+        paste0("background_model_", random_string(7), ".txt")
+        )
     file_conn <- file(output_file_path, open = "w")
     writeLines("#   order 0", con = file_conn)
     writeLines(sprintf("%s\t%.8f", names(frequencies), frequencies),

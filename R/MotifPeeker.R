@@ -75,6 +75,8 @@
 #' @param output_dir A character string specifying the directory to save the
 #' output files. (default = \code{tempdir()}) A sub-directory with the output
 #' files will be created in this directory.
+#' @param save_runfiles A logical indicating whether to save intermediate files
+#' generated during the run, such as those from FIMO and AME. (default = FALSE)
 #' @param display A character vector specifying the display mode for the HTML
 #' report once it is generated. (default = NULL) Options are:
 #' \itemize{
@@ -84,8 +86,6 @@
 #' }
 #' @param use_cache A logical indicating whether to use cached results from
 #' previous runs. (default = TRUE)
-#' @param ncpus An integer specifying the number of cores to use for parallel
-#' processing. (default = 1)
 #' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
 #' @param debug A logical indicating whether to print debug/error messages in
@@ -95,11 +95,13 @@
 #' @inheritParams check_genome_build
 #' @inheritParams read_motif_file
 #' @inheritParams check_genome_build
+#' @inheritParams get_bpparam
 #' @inheritParams memes::runFimo
 #' 
 #' @import ggplot2
-#' @import tidyverse
-#' @importFrom viridis scale_fill_viridis
+#' @import dplyr
+#' @importFrom purrr map_df
+#' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
 #' @importFrom utils browseURL
@@ -150,7 +152,7 @@
 #'     download_buttons = TRUE,
 #'     output_dir = tempdir(),
 #'     use_cache = TRUE,
-#'     ncpus = 2,
+#'     workers = 2,
 #'     debug = FALSE,
 #'     quiet = TRUE,
 #'     verbose = FALSE
@@ -174,9 +176,10 @@ MotifPeeker <- function(
         download_buttons = TRUE,
         meme_path = NULL,
         output_dir = tempdir(),
+        save_runfiles = FALSE,
         display = NULL,
         use_cache = TRUE,
-        ncpus = 2,
+        workers = 2,
         quiet = TRUE,
         debug = FALSE,
         verbose = FALSE
@@ -234,8 +237,9 @@ MotifPeeker <- function(
         download_buttons = download_buttons,
         meme_path = meme_path,
         output_dir = output_dir,
+        save_runfiles = save_runfiles,
         use_cache = use_cache,
-        ncpus = ncpus,
+        workers = workers,
         debug = debug,
         verbose = verbose
     )

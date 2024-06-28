@@ -44,6 +44,8 @@ motif_enrichment <- function(peak_input,
                             verbose = FALSE,
                             meme_path = NULL,
                             ...) {
+    if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+    
     empty_result <- list(tp = c(0, 0),
                         fp = c(NA, NA),
                         positive_peaks = NA)

@@ -1,8 +1,8 @@
 #' Get parameters for \link[BiocParallel]{BiocParallel}
 #' 
 #' Get appropriate parameters for \code{BiocParallel} based on the
-#' number of workers specified. For less than 4 workers, the function returns a
-#' \code{MulticoreParam} object. For 4 or more cores, the function
+#' number of workers specified. For less than 10 workers, the function returns a
+#' \code{MulticoreParam} object. For 10 or more cores, the function
 #' returns a \code{SnowParam} object. Since Windows supports
 #' neither, the function returns a \code{SerialParam} object. As a
 #' result, Windows users do not benefit from parallel processing.
@@ -13,6 +13,8 @@
 #' @param verbose A logical indicating whether to print verbose messages while
 #' running the function. (default = FALSE)
 #' @inheritParams BiocParallel::SnowParam
+#' 
+#' @import BiocParallel
 #' 
 #' @returns A \code{BPPARAM} object.
 #'
@@ -28,7 +30,7 @@ get_bpparam <- function(workers,
         messager("Windows does not support parallel processing.",
                 "Returning SerialParam object for BiocParallel.",
                 v = verbose)
-    } else if (workers < 4 && !force_snowparam) {
+    } else if (workers < 10 && !force_snowparam) {
         custom_bpparam <- 
             BiocParallel::MulticoreParam(workers = workers,
                                         progressbar = progressbar)

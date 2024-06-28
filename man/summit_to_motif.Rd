@@ -75,8 +75,6 @@ nearest peak summit. \code{runFimo} from the \code{memes} package is used to
 recover the locations of each motif.
 }
 \details{
-This function is designed to work with narrowPeak files from MACS2/3.
-
 To calculate the p-value threshold for a desired false-positive rate, we use
 the approximate formula:
 \deqn{p \approx \frac{fp\_rate}{2 \times \text{average peak width}}}

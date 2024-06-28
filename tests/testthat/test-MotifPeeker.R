@@ -46,7 +46,6 @@ test_that("MotifPeeker produces output files", {
         download_buttons = TRUE,
         output_dir = tempdir(),
         use_cache = TRUE,
-        ncpus = 1,
         display = NULL,
         debug = TRUE,
         verbose = TRUE
