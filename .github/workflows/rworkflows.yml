@@ -27,16 +27,6 @@ jobs:
           r: auto
           cont: docker.io/tomrrr1/bioconductor_meme:latest # Custom image
           rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
-        - os: macOS-latest
-          bioc: release
-          r: auto
-          cont: docker.io/tomrrr1/bioconductor_meme:latest # Custom image
-          rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
-        - os: windows-latest
-          r: latest
-          bioc: release
-          cont: docker.io/tomrrr1/bioconductor_meme:latest # Custom image
-          rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
     steps:
     - name: Set MEME_BIN environment variable
       run: echo "MEME_BIN=/meme/bin" >> $GITHUB_ENV
