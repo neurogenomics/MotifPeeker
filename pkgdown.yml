@@ -1,8 +1,8 @@
-pandoc: '3.2'
+pandoc: 3.1.1
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   docker: docker.html
   templateR: templateR.html
-last_built: 2024-06-26T15:02Z
+last_built: 2024-06-28T17:53Z
 

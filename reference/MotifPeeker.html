@@ -87,11 +87,14 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trim_seq_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  save_runfiles <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  display <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use_cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  ncpus <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  workers <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -185,15 +188,35 @@ will be used. <strong>NOTE</strong>: p-value estimates are inaccurate when the
 database has fewer than 50 entries.</p></dd>
 
 
+<dt>trim_seq_width</dt>
+<dd><p>An integer specifying the width of the sequence to
+extract around the summit (default = NULL). This sequence is used to search
+for de novo motifs. If not provided, the entire peak region will be used.
+This parameter is intended to reduce the search space and speed up motif
+discovery; therefore, a value less than the average peak width is
+recommended. Peaks are trimmed symmetrically around the summit while
+respecting the peak bounds.</p></dd>
+
+
 <dt>download_buttons</dt>
 <dd><p>A logical indicating whether to include download
 buttons for various files within the HTML report. (default = TRUE)</p></dd>
+
+
+<dt>meme_path</dt>
+<dd><p>path to <code>meme/bin/</code> (optional). Defaut: <code>NULL</code>, searches
+"MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".</p></dd>
 
 
 <dt>output_dir</dt>
 <dd><p>A character string specifying the directory to save the
 output files. (default = <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>) A sub-directory with the output
 files will be created in this directory.</p></dd>
+
+
+<dt>save_runfiles</dt>
+<dd><p>A logical indicating whether to save intermediate files
+generated during the run, such as those from FIMO and AME. (default = FALSE)</p></dd>
 
 
 <dt>display</dt>
@@ -209,9 +232,8 @@ report once it is generated. (default = NULL) Options are:</p><ul><li><p><code>"
 previous runs. (default = TRUE)</p></dd>
 
 
-<dt>ncpus</dt>
-<dd><p>An integer specifying the number of cores to use for parallel
-processing. (default = 1)</p></dd>
+<dt>workers</dt>
+<dd><p>The number of workers to use for parallel processing.</p></dd>
 
 
 <dt>quiet</dt>
@@ -245,7 +267,8 @@ parameters.</p>
     <h2>Note</h2>
     <p>Running de-novo motif discovery is computationally expensive and can
 require from minutes to hours. <code>denovo_motifs</code> can widely affect the
-runtime (higher values take longer).</p>
+runtime (higher values take longer). Setting <code>trim_seq_width</code> to a lower
+value can also reduce the runtime significantly.</p>
     </div>
 
     <div id="ref-examples">
@@ -287,12 +310,12 @@ runtime (higher values take longer).</p>
 <span class="r-in"><span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    use_cache <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>    ncpus <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    workers <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>    debug <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpTLPcHi/MotifPeeker_20240626_150302"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpByXrE4/MotifPeeker_20240628_175311"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

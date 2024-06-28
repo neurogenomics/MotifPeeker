@@ -34,6 +34,9 @@
     <loc>/reference/MotifPeeker.html</loc>
   </url>
   <url>
+    <loc>/reference/bpapply.html</loc>
+  </url>
+  <url>
     <loc>/reference/calc_frip.html</loc>
   </url>
   <url>
@@ -49,16 +52,25 @@
     <loc>/reference/check_genome_build.html</loc>
   </url>
   <url>
+    <loc>/reference/confirm_meme_install.html</loc>
+  </url>
+  <url>
     <loc>/reference/format_exptype.html</loc>
   </url>
   <url>
     <loc>/reference/get_JASPARCORE.html</loc>
   </url>
   <url>
+    <loc>/reference/get_bpparam.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/link_JASPAR.html</loc>
+  </url>
+  <url>
+    <loc>/reference/markov_background_model.html</loc>
   </url>
   <url>
     <loc>/reference/messager.html</loc>
@@ -70,7 +82,16 @@
     <loc>/reference/motif_MA1930.2.html</loc>
   </url>
   <url>
+    <loc>/reference/motif_enrichment.html</loc>
+  </url>
+  <url>
+    <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
     <loc>/reference/print_DT.html</loc>
+  </url>
+  <url>
+    <loc>/reference/random_string.html</loc>
   </url>
   <url>
     <loc>/reference/read_motif_file.html</loc>
@@ -91,10 +112,19 @@
     <loc>/reference/report_header.html</loc>
   </url>
   <url>
+    <loc>/reference/segregate_seqs.html</loc>
+  </url>
+  <url>
     <loc>/reference/stopper.html</loc>
   </url>
   <url>
+    <loc>/reference/summit_to_motif.html</loc>
+  </url>
+  <url>
     <loc>/reference/to_plotly.html</loc>
+  </url>
+  <url>
+    <loc>/reference/trim_seqs.html</loc>
   </url>
   <url>
     <loc>/reference/use_cache.html</loc>
