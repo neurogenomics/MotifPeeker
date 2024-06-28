@@ -127,7 +127,11 @@ if (alignment_metrics) {
 
 ### Known-motif Analysis ###
 comparison_indices <- setdiff(length(result$peaks), params$reference_index)
+segregated_peaks <- lapply(comparison_indices, function(x) {
+    segregate_seqs(result$peaks[[params$reference_index]], result$peaks[[x]])
+})
 
+## Calculate enrichment for segregated peaks
 
 }
 

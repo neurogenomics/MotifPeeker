@@ -23,7 +23,7 @@ MotifPeeker(
   output_dir = tempdir(),
   display = NULL,
   use_cache = TRUE,
-  ncpus = 1,
+  ncpus = 2,
   quiet = TRUE,
   debug = FALSE,
   verbose = FALSE
