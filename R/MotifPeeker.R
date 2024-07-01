@@ -203,6 +203,10 @@ MotifPeeker <- function(
         stopper(stp_msg)
     }
     
+    ### Check duplicate labels ###
+    check_duplicates(exp_labels)
+    check_duplicates(motif_labels)
+    
     ### Set labels ###
     if (length(exp_labels) == 0) {
         exp_labels <- LETTERS[seq_along(peak_files)]
