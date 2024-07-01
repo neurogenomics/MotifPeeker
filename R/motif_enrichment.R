@@ -53,7 +53,7 @@ motif_enrichment <- function(peak_input,
     ## Handle empty input
     if (length(peak_input) == 0) {
         messager("No peaks detected in input for motif_enrichment.",
-                "Returning empty result.", v = verbose)
+                "Returning empty result.", v = verbose, parallel = TRUE)
         return(empty_result)
     }
     
@@ -71,7 +71,7 @@ motif_enrichment <- function(peak_input,
     ## Handle zero enrichment
     if (is.null(ame_out)) {
         messager("No peaks were enriched for the input motif.",
-                "Returning empty result.", v = verbose)
+                "Returning empty result.", v = verbose, parallel = TRUE)
         return(empty_result)
     }
     
