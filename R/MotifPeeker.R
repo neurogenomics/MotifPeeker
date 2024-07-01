@@ -101,6 +101,7 @@
 #' @import ggplot2
 #' @import dplyr
 #' @importFrom purrr map_df
+#' @importFrom tidyr pivot_longer
 #' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
@@ -195,11 +196,13 @@ MotifPeeker <- function(
     ### Check argument lengths ###
     if (!is.null(alignment_files) &&
         length(peak_files) != length(alignment_files)) {
-        stp_msg <- "Length of 'peak_files' and 'alignment_files' must be equal."
+        stp_msg <- paste("Length of", shQuote("peak_files"), "and",
+        shQuote("alignment_files"), "must be equal.")
         stopper(stp_msg)
     }
     if (!is.null(cell_counts) && length(cell_counts) != length(peak_files)) {
-        stp_msg <- "Length of 'cell_counts' must be equal to 'peak_files'."
+        stp_msg <- paste0("Length of ", shQuote("cell_counts"), " must be ",
+        "equal to ", shQuote("peak_files"), ".")
         stopper(stp_msg)
     }
     

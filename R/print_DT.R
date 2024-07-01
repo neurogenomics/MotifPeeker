@@ -5,6 +5,7 @@
 #' object.
 #' @param extra Logical. If TRUE, adds extra options like search to the
 #' datatable.
+#' @inheritDotParams DT::datatable
 #' 
 #' @importFrom DT datatable
 #' @importFrom htmlwidgets JS
@@ -13,7 +14,7 @@
 #' @returns A DT object suitable to be used with \code{print()}.
 #' 
 #' @keywords internal
-print_DT <- function(df, html_tags = FALSE, extra = FALSE) {
+print_DT <- function(df, ..., html_tags = FALSE, extra = FALSE) {
     ## Handle empty values
     rowCallback <- c(
         "function(row, data){",
@@ -28,6 +29,7 @@ print_DT <- function(df, html_tags = FALSE, extra = FALSE) {
     
     if (!extra) {
         dt <- DT::datatable(df,
+                            ...,
                             options = list(
                                 pageLength = 50,
                                 scrollX = "400px",
@@ -36,6 +38,7 @@ print_DT <- function(df, html_tags = FALSE, extra = FALSE) {
                             ))
     } else {
         dt <- DT::datatable(df,
+                            ...,
                             options = list(
                                 pageLength = 50,
                                 scrollX = "400px",

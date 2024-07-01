@@ -4,6 +4,8 @@
 #' 
 #' @param x A vector or list.
 #' 
+#' @returns Null
+#' 
 #' @keywords internal
 check_duplicates <- function(x) {
     stp_msg <- paste("Duplicated items found in the label list. Please input",

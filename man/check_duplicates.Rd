@@ -9,6 +9,9 @@ check_duplicates(x)
 \arguments{
 \item{x}{A vector or list.}
 }
+\value{
+Null
+}
 \description{
 Checks for duplicated items in a vector or list and throw an error if found.
 }

@@ -16,7 +16,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 Authors: <i>Hiranyamaya Dash, Thomas Roberts, Nathan Skene</i>  
 </h4>
 <h4>  
-Updated: <i>Jun-27-2024</i>  
+Updated: <i>Jul-01-2024</i>  
 </h4>
 
 # Introduction

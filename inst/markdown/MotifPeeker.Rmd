@@ -53,7 +53,7 @@ params:
         value: TRUE
 ---
 
-```{r setup, warning=FALSE, message=FALSE, results="hide"}
+```{r setup, warning=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                     message = params$debug,
                     warning = params$debug,
@@ -89,7 +89,7 @@ motif_files_jaspar <- if (motif_len > 1) {
 user_motifs <- list(
     motifs = if (motif_len > 1) {
             Vectorize(read_motif_file, "motif_file")(motif_files_jaspar)
-        } else {
+        } else if (motif_len == 1) {
             read_motif_file(motif_files_jaspar)
         },
     motif_labels = params$motif_labels
@@ -99,7 +99,8 @@ result$peaks <- unname(result$peaks)
 user_motifs$motifs <- unname(user_motifs$motifs)
 
 out_dir_extra <- ifelse(params$save_runfiles, params$out_dir,
-                       file.path(tempdir(), paste0("MotifPeeker_temp_", random_string(5))))
+                       file.path(tempdir(), paste0("MotifPeeker_temp_",
+                                                   random_string(5))))
 
 ## Flags for optional plots
 alignment_metrics <- ifelse((length(result$alignments) == 0), FALSE, TRUE)
@@ -115,11 +116,12 @@ motif_db <- ifelse(params$denovo_motif_discovery && is.null(params$motif_db),
                     get_JASPARCORE(), params$motif_db)
 
 ### General Metrics ###
-if (alignment_metrics) {
-    ## Peak and Read Counts
-    result$peak_count <- vapply(
+## Peak Counts
+result$peak_count <- vapply(
         result$peaks, function(x) length(x), integer(1)
     )
+if (alignment_metrics) {
+    ## Read Counts
     result$read_count <- vapply(result$alignments, function(x) {
         Rsamtools::countBam(x)$records
     }, integer(1))
@@ -144,32 +146,12 @@ peak_width_df <-
                 )
 
 ## Motif-Summit Distances
-## Output: Peak 1 - Motif 1, 2...
-##         Peak 2 - Motif 1, 2...
 if (length(user_motifs$motifs) == 1 ) user_motifs$motifs <-
     list(user_motifs$motifs)
-peak_combinations <- rep(result$peaks, each = motif_len)
-exp_label_combinations <- rep(result$exp_labels, each = motif_len)
-exp_type_combinations <- rep(result$exp_type, each = motif_len)
-motif_combinations <- rep(user_motifs$motifs, result_len)
-motif_summit_dist_df <- bpapply(
-    seq_len(result_len * motif_len),
-    function(i) {
-        peak <- peak_combinations[[i]]
-        motif <- motif_combinations[[i]]
-        list(
-            exp_label = exp_label_combinations[i],
-            exp_type = exp_type_combinations[i],
-            motif_indice = rep(seq_len(motif_len), result_len)[i],
-            distance = MotifPeeker::summit_to_motif(
-                peak, motif,
-                genome_build = genome_build,
-                out_dir = file.path(out_dir_extra, "fimo", i)
-                )$distance_to_summit
-        )
-    },
-    workers = params$workers, verbose = params$verbose) %>%
-    purrr::map_df(as.data.frame)
+motif_summit_dist_df <- get_df_distances(
+        result, user_motifs, genome_build, out_dir_extra, params$workers,
+        params$verbose
+    )
 
 ### Known-motif Analysis ###
 comparison_indices <- setdiff(seq_along(result$peaks), params$reference_index)
@@ -179,7 +161,12 @@ segregated_peaks <- lapply(comparison_indices, function(x) {
 
 ## Calculate enrichment for segregated peaks
 ## 1. All peaks
-enrichment_df <- bpapply(
+peak_combinations <- rep(result$peaks, each = motif_len)
+exp_label_combinations <- rep(result$exp_labels, each = motif_len)
+exp_type_combinations <- rep(result$exp_type, each = motif_len)
+motif_combinations <- rep(user_motifs$motifs, result_len)
+
+enrichment_df_all <- bpapply(
     seq_len(result_len * motif_len),
     function(i) {
         peak <- peak_combinations[[i]]
@@ -192,9 +179,16 @@ enrichment_df <- bpapply(
         list(
             exp_label = exp_label_combinations[i],
             exp_type = exp_type_combinations[i],
+            group1 = "all",
+            group2 = ifelse(exp_label_combinations[i] ==
+                                result$exp_labels[params$reference_index],
+                            "reference", "comparison"),
             motif_indice = rep(seq_len(motif_len), result_len)[i],
-            tp_count = res$tp[1],
-            tp_perc = res$tp[2]
+            count_enriched = res$tp[1],
+            count_nonenriched = rep(result$peak_count, each = motif_len)[i] -
+                res$tp[1],
+            perc_enriched = res$tp[2],
+            perc_nonenriched = 100 - res$tp[2]
         )
     },
     workers = params$workers, verbose = params$verbose) %>%
@@ -202,32 +196,54 @@ enrichment_df <- bpapply(
 
 ## 2. Segregated peaks
 ## Output: Peak1 common_seq1 - Motif 1
-##         Peak1 common_seq2 - Motif 1
-##         ...
 ##         Peak1 common_seq1 - Motif 2
+##         ...
+##         Peak1 common_seq2 - Motif 1
 ##         ...
 ##         Peak2 common_seq1 - Motif 1
 ##         ...
-# peak_combinations2 <- lapply(seq_along(comparison_indices), function(i) {
-#     rep(segregated_peaks[[i]], each = motif_len)
-# })
-# enrichment_df_seg <- bpapply(
-#     seq_len((result_len - 1) * 4 * motif_len),
-#     function(i) {
-#         peak <- peak_combinations[[i]]
-#         motif <- motif_combinations[[i]]
-#         res <- MotifPeeker::motif_enrichment(peak, motif,
-#                                             genome_build = genome_build)
-#         list(
-#             exp_label = exp_label_combinations[i],
-#             exp_type = exp_type_combinations[i],
-#             motif_indice = rep(seq_len(motif_len), result_len)[i],
-#             tp_count = res$tp[1],
-#             tp_perc = res$tp[2]
-#         )
-#     },
-#     workers = params$workers, verbose = params$verbose) %>%
-#     purrr::map_df(as.data.frame)
+peak_combinations2 <- lapply(seq_along(comparison_indices), function(i) {
+    rep(segregated_peaks[[i]], each = motif_len)
+}) %>% unlist
+exp_label_combinations2 <- lapply(comparison_indices, function(i) {
+    rep(rep(result$exp_labels[i], 4), each = motif_len)
+}) %>% unlist
+exp_type_combinations2 <- lapply(comparison_indices, function(i) {
+    rep(rep(result$exp_type[i], 4), each = motif_len)
+}) %>% unlist
+motif_combinations2 <- lapply(comparison_indices, function(i) {
+    rep(seq_along(user_motifs$motifs), 4) # Indices
+}) %>% unlist %>% unname
+group1_labels <- rep(c("common", "unique"), each = 2 * motif_len,
+                    length(comparison_indices))
+group2_labels <- rep(c("reference", "comparison"), each = motif_len,
+                    length(comparison_indices) * 2)
+enrichment_df_seg <- bpapply(
+    seq_len((result_len - 1) * 4 * motif_len),
+    function(i) {
+        peak <- peak_combinations2[[i]]
+        motif <- user_motifs$motifs[motif_combinations2[[i]]]
+        res <- MotifPeeker::motif_enrichment(
+            peak, motif,
+            genome_build = genome_build,
+            out_dir = file.path(out_dir_extra, "ame_segregated", i)
+            )
+        list(
+            exp_label = exp_label_combinations2[i],
+            exp_type = exp_type_combinations2[i],
+            group1 = group1_labels[i],
+            group2 = group2_labels[i],
+            motif_indice = motif_combinations2[i],
+            count_enriched = res$tp[1],
+            count_nonenriched = length(peak) - res$tp[1],
+            perc_enriched = res$tp[2],
+            perc_nonenriched = 100 - res$tp[2]
+        )
+    },
+    workers = params$workers, verbose = params$verbose) %>%
+    purrr::map_df(as.data.frame)
+
+enrichment_df <- rbind(enrichment_df_all, enrichment_df_seg)
 
 ```
 
@@ -772,10 +788,131 @@ MAY be attributed to different peak length.
 ```{r motif_enrichment_analysis}
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
-    " *Skipping known-motif enrichment analysis as no motifs files",
+    " *Skipping motif-summit distance plots as no motifs files",
     " are not provided.*\n")
 } else {
-    cat("PLACEHOLDER")
+    tab_header_flag <- FALSE # Print tabset header just once
+    
+    ## Loop through all motifs
+    for (motif_i in seq_len(motif_len)) {
+        if (!tab_header_flag) {
+            cat("**Select Motif:**  \n")
+            tab_header_flag <- TRUE
+        }
+        cat(paste0("\n## ", user_motifs$motifs[[motif_i]]@name,
+                   " {- .unlisted .tabset}  \n"))
+        cat(paste0("**Motif Consensus Sequence:** ",
+                   user_motifs$motifs[[motif_i]]@consensus, "  \n"))
+        
+        cat("<br>**Select Comparison Group:**  \n")
+        
+        ### Overall Summary Plot ###
+        cat("\n### **Overall** {- .unlisted}  \n")
+        cat("<details><summary>Show Comparison-Reference Pair Labels",
+        "</summary>  \n")
+        cat("(Pair Number. Comparison Experiment - Reference Experiment)  \n  ")
+        for (pair_i in seq_along(comparison_indices)) {
+          cat(paste0(
+            pair_i, ". ", result$exp_labels[comparison_indices][pair_i], " - ",
+            result$exp_labels[params$reference_index], "  \n"
+          ))
+        }
+        cat("  \n</details>  \n")
+        
+        
+        
+        ### Individual Comparison Plots ###
+        for (i in comparison_indices) {
+            print_labels(result$exp_labels, params$reference_index, i,
+                        result$read_count)
+            
+            ref_label <- result$exp_labels[params$reference_index]
+            comp_label <- result$exp_labels[i]
+            enrichment_df_filtered <- enrichment_df %>%
+                filter(motif_indice == motif_i,
+                        exp_label %in% c(ref_label, comp_label))
+                
+            enrichment_group_labels <- c(
+                paste("All", ref_label, "Peaks"),
+                paste("All", comp_label, "Peaks"),
+                paste("Common", ref_label, "Peaks"),
+                paste("Common", comp_label, "Peaks"),
+                paste("Unique", ref_label, "Peaks"),
+                paste("Unique", comp_label, "Peaks")
+            )
+            
+            enrichment_group_labels_breaks <- c(
+                paste("All\n", ref_label, "\nPeaks"),
+                paste("All\n", comp_label, "\nPeaks"),
+                paste("Common\n", ref_label, "\nPeaks"),
+                paste("Common\n", comp_label, "\nPeaks"),
+                paste("Unique\n", ref_label, "\nPeaks"),
+                paste("Unique\n", comp_label, "\nPeaks")
+            )
+            
+            ## Plot
+            enrichment_df_filtered_plt <- enrichment_df_filtered %>%
+                pivot_longer(cols = starts_with("count_") |
+                                starts_with("perc_"),
+                                    names_to = c(".value", "enriched"),
+                                    names_sep = "_") %>%
+                mutate(enriched = ifelse(enriched == "enriched",
+                                        "Yes", "No")) %>%
+                mutate(group = rep(enrichment_group_labels_breaks, each = 2)) %>%
+                group_by(group) %>%
+                ggplot(aes(x = group, y = count, fill = enriched,
+                           text = paste0(
+                               "<b>Peak Count:</b> ", count, " (", perc, "%)"
+                           ))) +
+                geom_bar(stat = "identity", position = "stack") +
+                theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+                labs(
+                    x = "Peak Groups",
+                    y = "Peak Count"
+                ) +
+                scale_fill_manual(name = "Motif Present",
+                                    labels = c("No", "Yes"),
+                                    values = c("#fdae61", "#2b83ba"))
+                
+            enrichment_df_filtered_pltly <-
+                to_plotly(enrichment_df_filtered_plt) %>%
+                    layout(legend = list(traceorder = "reversed"))
+            print(htmltools::tagList(enrichment_df_filtered_pltly))
+            
+            ## DT
+            test_header <- htmltools::withTags(table(
+                  class = 'display',
+                  thead(
+                    tr(
+                      th(colspan = 2, "Category 1"),  # Span "Category 1" across 2 columns
+                      th(colspan = 4, "Category 2")   # Span "Category 2" across 2 columns
+                    ),
+                    tr(
+                      th(""), th("A"),               # Subheaders for "Category 1"
+                      th("A"), th("B"), th("C"), th("D")                # Subheaders for "Category 2"
+                    )
+                  )
+                ))
+            
+            cat("  \n  ")
+            enrichment_DT <- enrichment_df_filtered %>%
+                mutate(Group = enrichment_group_labels) %>%
+                mutate(count_all = count_enriched + count_nonenriched,
+                       .before = count_enriched) %>%
+                select(`Group`, starts_with("count_"), perc_enriched) %>%
+                rename(
+                    "Total Peaks" = count_all,
+                    "Peaks With Motif" = count_enriched,
+                    "Peaks Without Motif" = count_nonenriched,
+                    "Peaks With Motif (%)" = perc_enriched
+                )
+            
+            print(print_DT(enrichment_DT, html_tags = TRUE))
+            cat("  \n  ")
+            
+            
+        }
+    }
 }
 ```
 

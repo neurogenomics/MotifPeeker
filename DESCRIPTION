@@ -59,7 +59,8 @@ Imports:
     S4Vectors,
     magrittr,
     dplyr,
-    purrr
+    purrr,
+    tidyr
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
