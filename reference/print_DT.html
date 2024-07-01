@@ -66,13 +66,162 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_DT</span><span class="op">(</span><span class="va">df</span>, html_tags <span class="op">=</span> <span class="cn">FALSE</span>, extra <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">print_DT</span><span class="op">(</span><span class="va">df</span>, <span class="va">...</span>, html_tags <span class="op">=</span> <span class="cn">FALSE</span>, extra <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p>Dataframe/tibble to be printed.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Arguments passed on to <code><a href="https://rdrr.io/pkg/DT/man/datatable.html" class="external-link">DT::datatable</a></code></p><dl><dt><code>data</code></dt>
+<dd><p>a data object (either a matrix or a data frame)</p></dd>
+
+    <dt><code>options</code></dt>
+<dd><p>a list of initialization options (see
+<a href="https://datatables.net/reference/option/" class="external-link">https://datatables.net/reference/option/</a>); the character options
+wrapped in <code><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a>()</code> will be treated as literal
+JavaScript code instead of normal character strings; you can also set
+options globally via <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a>(DT.options = list(...))</code>, and
+global options will be merged into this <code>options</code> argument if set</p></dd>
+
+    <dt><code>class</code></dt>
+<dd><p>the CSS class(es) of the table; see
+<a href="https://datatables.net/manual/styling/classes" class="external-link">https://datatables.net/manual/styling/classes</a></p></dd>
+
+    <dt><code>callback</code></dt>
+<dd><p>the body of a JavaScript callback function with the argument
+<code>table</code> to be applied to the DataTables instance (i.e. <code>table</code>)</p></dd>
+
+    <dt><code>rownames</code></dt>
+<dd><p><code>TRUE</code> (show row names) or <code>FALSE</code> (hide row names)
+or a character vector of row names; by default, the row names are displayed
+in the first column of the table if exist (not <code>NULL</code>)</p></dd>
+
+    <dt><code>colnames</code></dt>
+<dd><p>if missing, the column names of the data; otherwise it can be
+an unnamed character vector of names you want to show in the table header
+instead of the default data column names; alternatively, you can provide a
+<em>named</em> numeric or character vector of the form <code>'newName1' = i1,
+'newName2' = i2</code> or <code>c('newName1' = 'oldName1', 'newName2' =
+'oldName2', ...)</code>, where <code>newName</code> is the new name you want to show in
+the table, and <code>i</code> or <code>oldName</code> is the index of the current
+column name</p></dd>
+
+    <dt><code>container</code></dt>
+<dd><p>a sketch of the HTML table to be filled with data cells; by
+default, it is generated from <code>htmltools::tags$table()</code> with a table
+header consisting of the column names of the data</p></dd>
+
+    <dt><code>caption</code></dt>
+<dd><p>the table caption; a character vector or a tag object
+generated from <code>htmltools::tags$caption()</code></p></dd>
+
+    <dt><code>filter</code></dt>
+<dd><p>whether/where to use column filters; <code>none</code>: no filters;
+<code>bottom/top</code>: put column filters at the bottom/top of the table; range
+sliders are used to filter numeric/date/time columns, select lists are used
+for factor columns, and text input boxes are used for character columns; if
+you want more control over the styles of filters, you can provide a named
+list to this argument; see Details for more</p></dd>
+
+    <dt><code>escape</code></dt>
+<dd><p>whether to escape HTML entities in the table: <code>TRUE</code> means
+to escape the whole table, and <code>FALSE</code> means not to escape it;
+alternatively, you can specify numeric column indices or column names to
+indicate which columns to escape, e.g. <code>1:5</code> (the first 5 columns),
+<code>c(1, 3, 4)</code>, or <code>c(-1, -3)</code> (all columns except the first and
+third), or <code>c('Species', 'Sepal.Length')</code>; since the row names take
+the first column to display, you should add the numeric column indices by
+one when using <code>rownames</code></p></dd>
+
+    <dt><code>style</code></dt>
+<dd><p>either <code>'auto'</code>, <code>'default'</code>, <code>'bootstrap'</code>, or
+<code>'bootstrap4'</code>. If <code>'auto'</code>, and a **bslib** theme is
+currently active, then bootstrap styling is used in a way that "just works"
+for the active theme. Otherwise,
+<a href="https://datatables.net/manual/styling/classes" class="external-link">DataTables
+<code>'default'</code> styling</a> is used. If set explicitly to <code>'bootstrap'</code>
+or <code>'bootstrap4'</code>, one must take care to ensure Bootstrap's HTML
+dependencies (as well as Bootswatch themes, if desired) are included on the
+page. Note, when set explicitly, it's the user's responsibility to ensure
+that only one unique `style` value is used on the same page, if multiple
+DT tables exist, as different styling resources may conflict with each other.</p></dd>
+
+    <dt><code>width,height</code></dt>
+<dd><p>Width/Height in pixels (optional, defaults to automatic
+sizing)</p></dd>
+
+    <dt><code>elementId</code></dt>
+<dd><p>An id for the widget (a random string by default).</p></dd>
+
+    <dt><code>fillContainer</code></dt>
+<dd><p><code>TRUE</code> to configure the table to automatically fill
+it's containing element. If the table can't fit fully into it's container
+then vertical and/or horizontal scrolling of the table cells will occur.</p></dd>
+
+    <dt><code>autoHideNavigation</code></dt>
+<dd><p><code>TRUE</code> to automatically hide navigational UI
+(only display the table body) when the number of total records is less
+than the page size. Note, it only works on the client-side processing mode
+and the `pageLength` option should be provided explicitly.</p></dd>
+
+    <dt><code>selection</code></dt>
+<dd><p>the row/column selection mode (single or multiple selection
+or disable selection) when a table widget is rendered in a Shiny app;
+alternatively, you can use a list of the form <code>list(mode = 'multiple',
+selected = c(1, 3, 8), target = 'row', selectable = c(-2, -3))</code> to
+pre-select rows and control the selectable range; the element
+<code>target</code> in the list can be <code>'column'</code> to enable column
+selection, or <code>'row+column'</code> to make it possible to select both rows
+and columns (click on the footer to select columns), or <code>'cell'</code> to
+select cells. See details section for more info.</p></dd>
+
+    <dt><code>extensions</code></dt>
+<dd><p>a character vector of the names of the DataTables
+extensions (<a href="https://datatables.net/extensions/index" class="external-link">https://datatables.net/extensions/index</a>)</p></dd>
+
+    <dt><code>plugins</code></dt>
+<dd><p>a character vector of the names of DataTables plug-ins
+(<a href="https://rstudio.github.io/DT/plugins.html" class="external-link">https://rstudio.github.io/DT/plugins.html</a>).  Note that only those
+plugins supported by the <code>DT</code> package can be used here. You can see
+the available plugins by calling <code>DT:::available_plugins()</code></p></dd>
+
+    <dt><code>editable</code></dt>
+<dd><p><code>FALSE</code> to disable the table editor, or <code>TRUE</code> (or
+<code>"cell"</code>) to enable editing a single cell. Alternatively, you can set
+it to <code>"row"</code> to be able to edit a row, or <code>"column"</code> to edit a
+column, or <code>"all"</code> to edit all cells on the current page of the table.
+In all modes, start editing by doubleclicking on a cell. This argument can
+also be a list of the form <code>list(target = TARGET, disable =
+list(columns = INDICES))</code>, where <code>TARGET</code> can be <code>"cell"</code>,
+<code>"row"</code>, <code>"column"</code>, or <code>"all"</code>, and <code>INDICES</code> is an
+integer vector of column indices. Use the list form if you want to disable
+editing certain columns. You can also restrict the editing to accept only
+numbers by setting this argument to a list of the form <code>list(target =
+TARGET, numeric = INDICES)</code> where <code>INDICES</code> can be the vector of the
+indices of the columns for which you want to restrict the editing to
+numbers or <code>"all"</code> to restrict the editing to numbers for all columns.
+If you don't set <code>numeric</code>, then the editing is restricted to numbers
+for all numeric columns; set <code>numeric = "none"</code> to disable this
+behavior. It is also possible to edit the cells in text areas, which are
+useful for large contents. For that, set the <code>editable</code> argument to a
+list of the form <code>list(target = TARGET, area = INDICES)</code> where
+<code>INDICES</code> can be the vector of the indices of the columns for which
+you want the text areas, or <code>"all"</code> if you want the text areas for
+all columns. Of course, you can request the numeric editing for some
+columns and the text areas for some other columns by setting
+<code>editable</code> to a list of the form <code>list(target = TARGET, numeric
+= INDICES1, area = INDICES2)</code>. Finally, you can edit date cells with a
+calendar with <code>list(target = TARGET, date = INDICES)</code>; the target
+columns must have the <code>Date</code> type. If you don't set <code>date</code> in
+the <code>editable</code> list, the editing with the calendar is automatically
+set for all <code>Date</code> columns.</p></dd>
+
+  
+</dl></dd>
 
 
 <dt>html_tags</dt>
