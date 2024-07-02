@@ -58,6 +58,9 @@
     <loc>/reference/confirm_meme_install.html</loc>
   </url>
   <url>
+    <loc>/reference/dt_enrichment_individual.html</loc>
+  </url>
+  <url>
     <loc>/reference/format_exptype.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>/reference/get_df_distances.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_df_enrichment.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -92,6 +98,12 @@
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_enrichment_individual.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_enrichment_overall.html</loc>
   </url>
   <url>
     <loc>/reference/pretty_number.html</loc>
