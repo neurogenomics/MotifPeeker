@@ -6,7 +6,8 @@
 #'
 #' @param result A \code{list} with the following elements:
 #' \describe{
-#'     \item{peaks}{A \code{list} of peak files.}
+#'     \item{peaks}{A \code{list} of peak files generated using
+#' \code{\link{read_peak_file}}.}
 #'     \item{alignments}{A \code{list} of alignment files.}
 #'     \item{exp_type}{A \code{character} vector of experiment types.}
 #'     \item{exp_labels}{A \code{character} vector of experiment labels.}

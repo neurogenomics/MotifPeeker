@@ -100,13 +100,9 @@
 #' 
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom purrr map_df
-#' @importFrom tidyr pivot_longer
 #' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
-#' @importFrom utils browseURL
-#' @rawNamespace import(plotly, except = last_plot)
 #' 
 #' @return Path to the output directory.
 #' 
@@ -274,6 +270,7 @@ MotifPeeker <- function(
     if (!is.null(display)) {
         display <- tolower(display)
         if (display == "browser") {
+            check_dep("utils")
             utils::browseURL(file.path(output_dir, "MotifPeeker.html"))
         } else if (display == "rstudio") {
             file.show(file.path(output_dir, "MotifPeeker.html"))
