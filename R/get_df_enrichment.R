@@ -63,6 +63,7 @@ get_df_enrichment <- function(result,
                             reference_index = 1,
                             out_dir = tempdir(),
                             workers = 1,
+                            meme_path = NULL,
                             verbose = FALSE) {
     if (!is.list(result$peaks)) result$peaks <- list(result$peaks)
     result_len <- length(result$peaks)
@@ -86,7 +87,9 @@ get_df_enrichment <- function(result,
             res <- MotifPeeker::motif_enrichment(
                 peak, motif,
                 genome_build = genome_build,
-                out_dir = file.path(out_dir, "ame_all", i)
+                out_dir = file.path(out_dir, "ame_all", i),
+                meme_path = meme_path,
+                verbose = verbose
             )
             list(
                 exp_label = exp_label_combinations[i],

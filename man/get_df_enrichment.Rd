@@ -12,6 +12,7 @@ get_df_enrichment(
   reference_index = 1,
   out_dir = tempdir(),
   workers = 1,
+  meme_path = NULL,
   verbose = FALSE
 )
 }
@@ -47,6 +48,9 @@ use as the reference dataset for comparison. Indexing starts from 1.
 \item{out_dir}{A \code{character} vector of output directory.}
 
 \item{workers}{The number of workers to use for parallel processing.}
+
+\item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
+"MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
 
 \item{verbose}{A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)}

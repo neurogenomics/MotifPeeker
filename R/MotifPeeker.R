@@ -201,6 +201,11 @@ MotifPeeker <- function(
         "equal to ", shQuote("peak_files"), ".")
         stopper(stp_msg)
     }
+    if (denovo_motif_discovery &&
+        (is.null(denovo_motifs) || denovo_motifs < 1)) {
+        stp_msg <- "Number of de-novo motifs to find must be greater than 0."
+        stopper(stp_msg)
+    }
     
     ### Check duplicate labels ###
     check_duplicates(exp_labels)

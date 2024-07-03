@@ -65,6 +65,7 @@ get_df_distances <- function(result,
                             genome_build,
                             out_dir = tempdir(),
                             workers = 1,
+                            meme_path = NULL,
                             verbose = FALSE) {
     if (!is.list(result$peaks)) result$peaks <- list(result$peaks)
     result_len <- length(result$peaks)
@@ -86,7 +87,9 @@ get_df_distances <- function(result,
                 distance = MotifPeeker::summit_to_motif(
                     peak, motif,
                     genome_build = genome_build,
-                    out_dir = file.path(out_dir, "fimo", i)
+                    out_dir = file.path(out_dir, "fimo", i),
+                    meme_path = meme_path,
+                    verbose = verbose
                 )$distance_to_summit
             )
         },

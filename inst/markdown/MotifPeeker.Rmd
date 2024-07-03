@@ -152,7 +152,7 @@ if (length(user_motifs$motifs) == 1 ) user_motifs$motifs <-
     list(user_motifs$motifs)
 motif_summit_dist_df <- get_df_distances(
         result, user_motifs, genome_build, out_dir_extra, params$workers,
-        params$verbose
+        params$meme_path, params$verbose
     )
 
 ### Known-motif Analysis ###
@@ -164,8 +164,20 @@ segregated_peaks <- lapply(comparison_indices, function(x) {
 ## Calculate enrichment for segregated peaks
 enrichment_df <- get_df_enrichment(
         result, segregated_peaks, user_motifs, genome_build,
-        params$reference_index, out_dir_extra, params$workers, params$verbose
+        params$reference_index, out_dir_extra, params$workers,
+        params$meme_path, params$verbose
     )
+
+### De-Novo Motif Analysis ###
+## Run STREME
+# if (params$denovo_motif_discovery) {
+#   
+#     streme_results <- run_STREME(
+#         result, user_motifs, motif_db, genome_build, out_dir_extra,
+#         params$workers, params$meme_path, params$verbose
+#     )
+#     streme_results$motif_db <- motif_db
+# }
 
 ```
 

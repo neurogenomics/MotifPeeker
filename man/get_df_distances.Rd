@@ -10,6 +10,7 @@ get_df_distances(
   genome_build,
   out_dir = tempdir(),
   workers = 1,
+  meme_path = NULL,
   verbose = FALSE
 )
 }
@@ -38,6 +39,9 @@ are supported as abbreviated input.}
 \item{out_dir}{A \code{character} vector of output directory.}
 
 \item{workers}{The number of workers to use for parallel processing.}
+
+\item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
+"MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
 
 \item{verbose}{A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)}
