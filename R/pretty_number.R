@@ -1,4 +1,4 @@
-#' Convert integers to more readable strings
+#' Convert numbers to more readable strings
 #' 
 #' Format raw numbers to more readable strings. For example, 1000 will be
 #' converted to "1K". Supported suffixes are "K", "M", and "B".
@@ -6,14 +6,15 @@
 #' @param x A number.
 #' @param decimal_digits Number of decimal digits to round to.
 #' 
-#' @return A character string of the formatted number.
+#' @return A character string of the formatted number. \code{NA} is returned as
+#' "NA".
 #' 
 #' @examples
 #' print(pretty_number(134999))
 #' 
 #' @export
 pretty_number <- function(x, decimal_digits = 2) {
-    if (is.na(x)) return(x)
+    if (is.na(x)) return("NA")
     if (x < 1e3) {
         return(as.character(round(x, decimal_digits)))
     } else if (x < 1e6) {
