@@ -15,7 +15,8 @@ test_that("get_df_distances works", {
     )
     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
     
-    distances_df <- get_df_distances(input, motifs, genome_build, workers = 1)
+    distances_df <- get_df_distances(input, motifs, genome_build, workers = 1,
+                                    verbose = FALSE)
     
     expect_true(is.data.frame(distances_df))
     expect_true(all(vapply(distances_df$distance, is.numeric, logical(1))))

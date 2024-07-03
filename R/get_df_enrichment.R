@@ -104,7 +104,8 @@ get_df_enrichment <- function(result,
                     rep(result$peak_count, each = motif_len)[i] - res$tp[1],
                 perc_enriched = res$tp[2],
                 perc_nonenriched = 
-                    ifelse(res$tp[1] != 0, 100 - res$tp[2], 0)
+                    ifelse(res$tp[1] != 0, 100 - res$tp[2], 0),
+                run_index = i
             )
         },
         workers = workers, verbose = verbose) %>%
@@ -155,7 +156,8 @@ get_df_enrichment <- function(result,
                 count_nonenriched = length(peak) - res$tp[1],
                 perc_enriched = res$tp[2],
                 perc_nonenriched =
-                    ifelse(res$tp[1] != 0, 100 - res$tp[2], 0)
+                    ifelse(res$tp[1] != 0, 100 - res$tp[2], 0),
+                run_index = i
             )
         },
         workers = workers, verbose = verbose) %>%

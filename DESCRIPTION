@@ -60,7 +60,8 @@ Imports:
     magrittr,
     dplyr,
     purrr,
-    tidyr
+    tidyr,
+    tibble
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,

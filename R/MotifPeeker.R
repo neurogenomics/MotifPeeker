@@ -55,21 +55,12 @@
 #' file. (optional) Creates additional comparisons based on cell counts.
 #' @param denovo_motif_discovery A logical indicating whether to perform
 #' de-novo motif discovery for the third section of the report. (default = TRUE)
-#' @param denovo_motifs An integer specifying the number of de-novo motifs to
-#' discover. (default = 3) Note that higher values take longer to compute.
 #' @param motif_db Path to \code{.meme} format file to use as reference
 #' database, or a list of \code{\link[universalmotif]{universalmotif-class}}
 #' objects. (optional) Results from de-novo motif discovery are searched against
 #' this database to find similar motifs. If not provided, JASPAR CORE database
 #' will be used. \strong{NOTE}: p-value estimates are inaccurate when the
 #' database has fewer than 50 entries.
-#' @param trim_seq_width An integer specifying the width of the sequence to
-#' extract around the summit (default = NULL). This sequence is used to search
-#' for de novo motifs. If not provided, the entire peak region will be used.
-#' This parameter is intended to reduce the search space and speed up motif
-#' discovery; therefore, a value less than the average peak width is
-#' recommended. Peaks are trimmed symmetrically around the summit while
-#' respecting the peak bounds.
 #' @param download_buttons A logical indicating whether to include download
 #' buttons for various files within the HTML report. (default = TRUE)
 #' @param output_dir A character string specifying the directory to save the
@@ -84,8 +75,6 @@
 #'     \item \code{"rstudio"}: Open the report in the RStudio Viewer.
 #'     \item \code{NULL}: Do not open the report.
 #' }
-#' @param use_cache A logical indicating whether to use cached results from
-#' previous runs. (default = TRUE)
 #' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
 #' @param debug A logical indicating whether to print debug/error messages in
@@ -97,9 +86,12 @@
 #' @inheritParams check_genome_build
 #' @inheritParams get_bpparam
 #' @inheritParams memes::runFimo
+#' @inheritParams denovo_motifs
 #' 
 #' @import ggplot2
 #' @import dplyr
+#' @import tidyr
+#' @import tibble
 #' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
@@ -148,7 +140,6 @@
 #'     motif_db = NULL,
 #'     download_buttons = TRUE,
 #'     output_dir = tempdir(),
-#'     use_cache = TRUE,
 #'     workers = 2,
 #'     debug = FALSE,
 #'     quiet = TRUE,
@@ -168,14 +159,14 @@ MotifPeeker <- function(
         cell_counts = NULL,
         denovo_motif_discovery = TRUE,
         denovo_motifs = 3,
-        motif_db = NULL,
+        filter_n = 6,
         trim_seq_width = NULL,
+        motif_db = NULL,
         download_buttons = TRUE,
         meme_path = NULL,
         output_dir = tempdir(),
         save_runfiles = FALSE,
         display = NULL,
-        use_cache = TRUE,
         workers = 2,
         quiet = TRUE,
         debug = FALSE,
@@ -240,13 +231,13 @@ MotifPeeker <- function(
         cell_counts = cell_counts,
         denovo_motif_discovery = denovo_motif_discovery,
         denovo_motifs = denovo_motifs,
+        filter_n = filter_n,
         motif_db = motif_db,
         trim_seq_width = trim_seq_width,
         download_buttons = download_buttons,
         meme_path = meme_path,
         output_dir = output_dir,
         save_runfiles = save_runfiles,
-        use_cache = use_cache,
         workers = workers,
         debug = debug,
         verbose = verbose

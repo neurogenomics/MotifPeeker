@@ -31,6 +31,8 @@ params:
         value: NULL
     denovo_motifs:
         value: 3
+    filter_n:
+        value: 6
     motif_db:
         value: NULL
     trim_seq_width:
@@ -108,6 +110,7 @@ alignment_metrics <- ifelse((length(result$alignments) == 0), FALSE, TRUE)
 cellcount_metrics <- ifelse((length(params$cell_counts) == 0), FALSE, TRUE)
 user_motif_metrics <- ifelse((length(user_motifs$motifs) == 0 ||
                                     result_len == 1), FALSE, TRUE)
+comparison_metrics <- ifelse(result_len == 1, FALSE, TRUE)
 
 ## Misc
 ex_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
@@ -144,40 +147,46 @@ peak_width_len <- vapply(result$peak_widths, length, integer(1))
 peak_width_df <- 
     data.frame(exp_label = rep(result$exp_labels, peak_width_len),
                 exp_type = rep(result$exp_type, peak_width_len),
-                peak_width = unlist(result$peak_widths)
-                )
+                peak_width = unlist(result$peak_widths))
 
 ## Motif-Summit Distances
-if (length(user_motifs$motifs) == 1 ) user_motifs$motifs <-
+if (length(user_motifs$motifs) == 1) user_motifs$motifs <-
     list(user_motifs$motifs)
 motif_summit_dist_df <- get_df_distances(
         result, user_motifs, genome_build, out_dir_extra, params$workers,
-        params$meme_path, params$verbose
+        params$meme_path, params$debug
     )
 
-### Known-motif Analysis ###
-comparison_indices <- setdiff(seq_along(result$peaks), params$reference_index)
-segregated_peaks <- lapply(comparison_indices, function(x) {
-    segregate_seqs(result$peaks[[params$reference_index]], result$peaks[[x]])
-})
 
-## Calculate enrichment for segregated peaks
-enrichment_df <- get_df_enrichment(
-        result, segregated_peaks, user_motifs, genome_build,
-        params$reference_index, out_dir_extra, params$workers,
-        params$meme_path, params$verbose
-    )
-
-### De-Novo Motif Analysis ###
-## Run STREME
-# if (params$denovo_motif_discovery) {
-#   
-#     streme_results <- run_STREME(
-#         result, user_motifs, motif_db, genome_build, out_dir_extra,
-#         params$workers, params$meme_path, params$verbose
-#     )
-#     streme_results$motif_db <- motif_db
-# }
+if (comparison_metrics) {
+    ### Known-motif Analysis ###
+    comparison_indices <- setdiff(seq_along(result$peaks),
+                                  params$reference_index)
+    segregated_peaks <- lapply(comparison_indices, function(x) {
+        segregate_seqs(result$peaks[[params$reference_index]],
+                      result$peaks[[x]])
+    })
+    
+    ## Calculate enrichment for segregated peaks
+    if (user_motif_metrics) {
+      enrichment_df <- get_df_enrichment(
+              result, segregated_peaks, user_motifs, genome_build,
+              params$reference_index, out_dir_extra, params$workers,
+              params$meme_path, params$verbose
+          )
+    }
+    
+    ### De-Novo Motif Analysis ###
+    ## Run STREME
+    if (params$denovo_motif_discovery) {
+        result$streme <- denovo_motifs(
+          unlist(segregated_peaks), params$trim_seq_width, genome_build,
+          params$denovo_motifs, filter_n = params$filter_n,
+          out_dir = out_dir_extra, workers = params$workers,
+          verbose = params$verbose, debug = params$debug
+        )
+    }
+}
 
 ```
 
@@ -251,7 +260,7 @@ $$\text{FRiP (Fraction of Reads in Peaks)} =
 ```{r frip_exp_plot}
 if (!alignment_metrics) {
     cat("\n", ex_emo,
-    " *Skipping FRiP calculation as alignment files are not provided.*",
+    " *Skipping FRiP calculation as alignment files were not provided.*",
         "  \n")
 } else {
     if (length(result$alignments) != length(result$peaks)) {
@@ -259,7 +268,7 @@ if (!alignment_metrics) {
         stopper(stp_msg)
     }
     cat("\n### By Experiment Type {- .unlisted}  \n")
-    frip_exp_plot <- frip_df |>
+    frip_exp_plot <- frip_df %>%
         ggplot2::ggplot(aes(x = exp_type, y = frip, fill = exp_type,
                             text = paste0(
                                 "<b>Experiment Label</b>: ", exp_label, "<br>",
@@ -344,19 +353,19 @@ if (alignment_metrics) {
 if (alignment_metrics) {
     if (!cellcount_metrics) {
         cat("\n", ex_emo,
-        " *Skipping cell count plot as cell counts are not provided.*\n")
+        " *Skipping cell count plot as cell counts were not provided.*\n")
     } else {
         cat("\n### By Cell Count {- .unlisted}  \n")
         
         frip_df$cell_count <- as.numeric(params$cell_counts)
-        frip_df_cellcount <- frip_df |>
+        frip_df_cellcount <- frip_df %>%
             group_by(cell_count, exp_type) %>%
                 summarise(
                     frip = mean(frip),
                     .groups = "drop"
                 )
             
-        frip_cellcount_plot <- frip_df |>
+        frip_cellcount_plot <- frip_df %>%
             ggplot(aes(
                 x = cell_count,
                 y = frip,
@@ -483,7 +492,7 @@ peak_width_df_all <- peak_width_df_all %>%
 ```{r peakwidths_cellcount_plot}
 if (!cellcount_metrics) {
     cat("\n", ex_emo,
-    " *Skipping cell count plot as cell counts are not provided.*\n")
+    " *Skipping cell count plot as cell counts were not provided.*\n")
 } else {
     cat("\n### By Cell Count {- .unlisted}  \n")
     
@@ -541,7 +550,7 @@ plotted.
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
     " *Skipping motif-summit distance plots as no motifs files",
-    " are not provided.*\n")
+    " were provided.*\n")
 } else {
     tab_header_flag <- FALSE # Print tabset header just once
     
@@ -552,9 +561,10 @@ if (!user_motif_metrics) {
             tab_header_flag <- TRUE
         }
         cat(paste0("\n### ", user_motifs$motifs[[motif_i]]@name,
-                   " {- .unlisted}  \n"))
+                  " {- .unlisted}  \n"))
         cat(paste0("**Motif Consensus Sequence:** ",
-                   user_motifs$motifs[[motif_i]]@consensus, "  \n"))
+                  user_motifs$motifs[[motif_i]]@consensus, " (Length: ",
+                  nchar(user_motifs$motifs[[motif_i]]@consensus), " bp)  \n"))
         
         cat("\n#### By Experiment Type {- .unlisted}  \n")
         cat("The top graph shows peak counts by distance from the motif",
@@ -616,6 +626,7 @@ if (!user_motif_metrics) {
                 "Absolute Median Distance" = median(abs(distance)),
                 "Standard Deviation" = round(sd(distance), 2)
             ) %>%
+            rename("Experiment Type" = exp_type) %>%
             print_DT(html_tags = TRUE) %>%
             print()
         
@@ -676,10 +687,10 @@ Summary of all the general metrics for the input datasets.
 tibble::tibble(
     "Experiment Label" = result$exp_label,
     "Experiment Type" = result$exp_type,
-    "Cell Count" = params$cell_count,
+    "Cell Count" = ifelse((cellcount_metrics), params$cell_count, NA),
     "Read Count" = result$read_count,
     "Peak Count" = result$peak_count,
-    "FRiP Score" = round(frip_df$frip, 3),
+    "FRiP Score" = ifelse((alignment_metrics), round(frip_df$frip, 3), NA),
     "Mean Peak Width" = peak_width_df_all$`Mean Peak Width`,
 ) %>%
     arrange(`Experiment Type`, `Experiment Label`) %>%
@@ -723,7 +734,7 @@ MAY be attributed to different peak length.
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
     " *Skipping motif-summit distance plots as either no motifs files",
-    " are not provided, or only a single of dataset is provided.*\n")
+    " was not provided, or only a single dataset was provided.*\n")
 } else {
     tab_header_flag <- FALSE # Print tabset header just once
     
@@ -736,7 +747,8 @@ if (!user_motif_metrics) {
         cat(paste0("\n## ", user_motifs$motifs[[motif_i]]@name,
                    " {- .unlisted .tabset}  \n"))
         cat(paste0("**Motif Consensus Sequence:** ",
-                   user_motifs$motifs[[motif_i]]@consensus, "  \n"))
+                  user_motifs$motifs[[motif_i]]@consensus, " (Length: ",
+                  nchar(user_motifs$motifs[[motif_i]]@consensus), " bp)  \n"))
         
         cat("<br>**Select Comparison Group:**  \n")
         

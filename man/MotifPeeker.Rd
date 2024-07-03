@@ -16,14 +16,14 @@ MotifPeeker(
   cell_counts = NULL,
   denovo_motif_discovery = TRUE,
   denovo_motifs = 3,
-  motif_db = NULL,
+  filter_n = 6,
   trim_seq_width = NULL,
+  motif_db = NULL,
   download_buttons = TRUE,
   meme_path = NULL,
   output_dir = tempdir(),
   save_runfiles = FALSE,
   display = NULL,
-  use_cache = TRUE,
   workers = 2,
   quiet = TRUE,
   debug = FALSE,
@@ -91,12 +91,9 @@ de-novo motif discovery for the third section of the report. (default = TRUE)}
 \item{denovo_motifs}{An integer specifying the number of de-novo motifs to
 discover. (default = 3) Note that higher values take longer to compute.}
 
-\item{motif_db}{Path to \code{.meme} format file to use as reference
-database, or a list of \code{\link[universalmotif]{universalmotif-class}}
-objects. (optional) Results from de-novo motif discovery are searched against
-this database to find similar motifs. If not provided, JASPAR CORE database
-will be used. \strong{NOTE}: p-value estimates are inaccurate when the
-database has fewer than 50 entries.}
+\item{filter_n}{An integer specifying the number of consecutive nucleotide
+repeats a de-novo discovered motif must contain to be filtered out.
+(default = 6)}
 
 \item{trim_seq_width}{An integer specifying the width of the sequence to
 extract around the summit (default = NULL). This sequence is used to search
@@ -105,6 +102,13 @@ This parameter is intended to reduce the search space and speed up motif
 discovery; therefore, a value less than the average peak width is
 recommended. Peaks are trimmed symmetrically around the summit while
 respecting the peak bounds.}
+
+\item{motif_db}{Path to \code{.meme} format file to use as reference
+database, or a list of \code{\link[universalmotif]{universalmotif-class}}
+objects. (optional) Results from de-novo motif discovery are searched against
+this database to find similar motifs. If not provided, JASPAR CORE database
+will be used. \strong{NOTE}: p-value estimates are inaccurate when the
+database has fewer than 50 entries.}
 
 \item{download_buttons}{A logical indicating whether to include download
 buttons for various files within the HTML report. (default = TRUE)}
@@ -126,9 +130,6 @@ report once it is generated. (default = NULL) Options are:
     \item \code{"rstudio"}: Open the report in the RStudio Viewer.
     \item \code{NULL}: Do not open the report.
 }}
-
-\item{use_cache}{A logical indicating whether to use cached results from
-previous runs. (default = TRUE)}
 
 \item{workers}{The number of workers to use for parallel processing.}
 
@@ -199,7 +200,6 @@ MotifPeeker(
     motif_db = NULL,
     download_buttons = TRUE,
     output_dir = tempdir(),
-    use_cache = TRUE,
     workers = 2,
     debug = FALSE,
     quiet = TRUE,

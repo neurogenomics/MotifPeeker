@@ -46,10 +46,9 @@ test_that("MotifPeeker produces output files", {
         motif_db = NULL,
         download_buttons = TRUE,
         output_dir = tempdir(),
-        use_cache = TRUE,
         display = NULL,
-        debug = TRUE,
-        verbose = TRUE
+        debug = FALSE,
+        verbose = FALSE
     )
     expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
     
@@ -66,13 +65,13 @@ test_that("MotifPeeker produces output files", {
       cell_counts = NULL,
       denovo_motif_discovery = TRUE,
       denovo_motifs = 3,
+      trim_seq_width = 100,
       motif_db = NULL,
       download_buttons = TRUE,
       output_dir = tempdir(),
-      use_cache = TRUE,
       display = NULL,
-      debug = TRUE,
-      verbose = TRUE
+      debug = FALSE,
+      verbose = FALSE
     )
     expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
     
@@ -89,13 +88,13 @@ test_that("MotifPeeker produces output files", {
       cell_counts = NULL,
       denovo_motif_discovery = TRUE,
       denovo_motifs = 3,
+      trim_seq_width = 100,
       motif_db = NULL,
       download_buttons = TRUE,
       output_dir = tempdir(),
-      use_cache = TRUE,
       display = NULL,
-      debug = TRUE,
-      verbose = TRUE
+      debug = FALSE,
+      verbose = FALSE
     )
     expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
 })
