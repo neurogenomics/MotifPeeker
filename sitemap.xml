@@ -55,6 +55,9 @@
     <loc>/reference/check_genome_build.html</loc>
   </url>
   <url>
+    <loc>/reference/compare_motifs.html</loc>
+  </url>
+  <url>
     <loc>/reference/confirm_meme_install.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>/reference/filter_repeats.html</loc>
+  </url>
+  <url>
+    <loc>/reference/find_motifs.html</loc>
   </url>
   <url>
     <loc>/reference/format_exptype.html</loc>

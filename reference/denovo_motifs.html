@@ -81,6 +81,7 @@ with a high number of nucleotide repeats</p>
 <span>  maxw <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  filter_n <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  workers <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -134,6 +135,11 @@ repeats a de-novo discovered motif must contain to be filtered out.
 <dt>out_dir</dt>
 <dd><p>A <code>character</code> vector of output directory to save STREME
 results to. (default = <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>)</p></dd>
+
+
+<dt>meme_path</dt>
+<dd><p>path to "meme/bin/" (default: <code>NULL</code>). Will use default
+search behavior as described in <code>check_meme_install()</code> if unset.</p></dd>
 
 
 <dt>workers</dt>
