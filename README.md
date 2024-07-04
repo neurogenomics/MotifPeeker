@@ -16,7 +16,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 Authors: <i>Hiranyamaya Dash, Thomas Roberts, Nathan Skene</i>  
 </h4>
 <h4>  
-Updated: <i>Jul-02-2024</i>  
+Updated: <i>Jul-04-2024</i>  
 </h4>
 
 # Introduction
@@ -43,10 +43,19 @@ package outputs an HTML report consisting of three sections:
 which relies on a local install of the [MEME
 suite](https://meme-suite.org/meme/). Installation instructions can be
 found
-[here](https://www.bioconductor.org/packages/release/bioc/vignettes/memes/inst/doc/install_guide.html).
+[here](https://www.bioconductor.org/packages/release/bioc/vignettes/%20memes/inst/doc/install_guide.html).
 
-Once the MEME suite is installed, `MotifPeeker` can be installed using
-the following code:
+**NOTE:** It is important that Perl dependencies associated with MEME
+suite are also installed, particularly `XML::Parser`, which can be
+installed using the following command in the terminal:
+
+    cpan install XML::Parser
+
+For more information, refer to the Perl dependency section of the MEME
+suite [here](https://meme-suite.org/meme/doc/install.html#prereq_perl).
+
+Once the MEME suite and its associated Perl dependencies are installed,
+`MotifPeeker` can be installed using the following code:
 
 ``` r
 if(!require("remotes")) install.packages("remotes")
@@ -99,8 +108,8 @@ utils::sessionInfo()
     ## [22] munsell_0.5.1       pillar_1.9.0        RColorBrewer_1.1-3 
     ## [25] rlang_1.1.4         utf8_1.2.4          cachem_1.1.0       
     ## [28] badger_0.2.4        xfun_0.45           fs_1.6.4           
-    ## [31] memoise_2.0.1       cli_3.6.2           magrittr_2.0.3     
-    ## [34] rworkflows_1.0.1    digest_0.6.35       grid_4.4.1         
+    ## [31] memoise_2.0.1       cli_3.6.3           magrittr_2.0.3     
+    ## [34] rworkflows_1.0.1    digest_0.6.36       grid_4.4.1         
     ## [37] rstudioapi_0.16.0   lifecycle_1.0.4     vctrs_0.6.5        
     ## [40] data.table_1.15.4   evaluate_0.24.0     glue_1.7.0         
     ## [43] fansi_1.0.6         colorspace_2.1-0    rmarkdown_2.27     

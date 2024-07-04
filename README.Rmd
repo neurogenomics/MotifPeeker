@@ -40,11 +40,20 @@ motifs.
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
 which relies on a local install of the
 [MEME suite](https://meme-suite.org/meme/). Installation instructions can be
-found [here](https://www.bioconductor.org/packages/release/bioc/vignettes/memes/inst/doc/install_guide.html).
+found [here](https://www.bioconductor.org/packages/release/bioc/vignettes/
+memes/inst/doc/install_guide.html).
 
+**NOTE:** It is important that Perl dependencies associated with MEME suite are
+also installed, particularly `XML::Parser`, which can be installed using the
+following command in the terminal:
+```
+cpan install XML::Parser
+```
+For more information, refer to the Perl dependency section of the MEME suite
+[here](https://meme-suite.org/meme/doc/install.html#prereq_perl).
 
-Once the MEME suite is installed, `MotifPeeker` can be installed using the
-following code:
+Once the MEME suite and its associated Perl dependencies are installed,
+`MotifPeeker` can be installed using the following code:
 ```R
 if(!require("remotes")) install.packages("remotes")
 
