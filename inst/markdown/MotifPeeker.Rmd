@@ -157,7 +157,6 @@ motif_summit_dist_df <- get_df_distances(
         params$meme_path, params$debug
     )
 
-
 if (comparison_metrics) {
     ### Known-motif Analysis ###
     comparison_indices <- setdiff(seq_along(result$peaks),
@@ -175,18 +174,24 @@ if (comparison_metrics) {
               params$meme_path, params$verbose
           )
     }
-    
-    ### De-Novo Motif Analysis ###
-    ## Run STREME
-    if (params$denovo_motif_discovery) {
-        result$streme <- denovo_motifs(
-          unlist(segregated_peaks), params$trim_seq_width, genome_build,
-          params$denovo_motifs, filter_n = params$filter_n,
-          out_dir = out_dir_extra, workers = params$workers,
-          verbose = params$verbose, debug = params$debug
-        )
-    }
 }
+    
+### De-Novo Motif Analysis ###
+## Run STREME
+if (params$denovo_motif_discovery && comparison_metrics) {
+    result$streme <- denovo_motifs(
+      unlist(segregated_peaks), params$trim_seq_width, genome_build,
+      params$denovo_motifs, filter_n = params$filter_n,
+      out_dir = out_dir_extra, meme_path = params$meme_path,
+      workers = params$workers, verbose = params$verbose, debug = params$debug
+    )
+    result$streme_similar <- find_motifs(
+        result$streme, motif_db, out_dir = out_dir_extra,
+        meme_path = params$meme_path, workers = params$workers,
+        verbose = params$verbose, debug = params$debug
+    )
+}
+
 
 ```
 

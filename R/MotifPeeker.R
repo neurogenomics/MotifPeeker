@@ -55,12 +55,6 @@
 #' file. (optional) Creates additional comparisons based on cell counts.
 #' @param denovo_motif_discovery A logical indicating whether to perform
 #' de-novo motif discovery for the third section of the report. (default = TRUE)
-#' @param motif_db Path to \code{.meme} format file to use as reference
-#' database, or a list of \code{\link[universalmotif]{universalmotif-class}}
-#' objects. (optional) Results from de-novo motif discovery are searched against
-#' this database to find similar motifs. If not provided, JASPAR CORE database
-#' will be used. \strong{NOTE}: p-value estimates are inaccurate when the
-#' database has fewer than 50 entries.
 #' @param download_buttons A logical indicating whether to include download
 #' buttons for various files within the HTML report. (default = TRUE)
 #' @param output_dir A character string specifying the directory to save the
@@ -87,6 +81,7 @@
 #' @inheritParams get_bpparam
 #' @inheritParams memes::runFimo
 #' @inheritParams denovo_motifs
+#' @inheritParams find_motifs
 #' 
 #' @import ggplot2
 #' @import dplyr

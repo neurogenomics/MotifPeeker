@@ -2,7 +2,7 @@
 % Please edit documentation in R/pretty_number.R
 \name{pretty_number}
 \alias{pretty_number}
-\title{Convert integers to more readable strings}
+\title{Convert numbers to more readable strings}
 \usage{
 pretty_number(x, decimal_digits = 2)
 }
@@ -12,7 +12,8 @@ pretty_number(x, decimal_digits = 2)
 \item{decimal_digits}{Number of decimal digits to round to.}
 }
 \value{
-A character string of the formatted number.
+A character string of the formatted number. \code{NA} is returned as
+"NA".
 }
 \description{
 Format raw numbers to more readable strings. For example, 1000 will be

@@ -57,6 +57,7 @@ denovo_motifs <- function(seqs,
                             maxw = 25,
                             filter_n = 6,
                             out_dir = tempdir(),
+                            meme_path = NULL,
                             workers = 1,
                             verbose = FALSE,
                             debug = FALSE,
@@ -86,6 +87,7 @@ denovo_motifs <- function(seqs,
                 minw = 8,
                 maxw = 25,
                 nmotifs = denovo_motifs,
+                meme_path = meme_path,
                 ...
             )
             

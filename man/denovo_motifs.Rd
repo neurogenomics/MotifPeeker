@@ -13,6 +13,7 @@ denovo_motifs(
   maxw = 25,
   filter_n = 6,
   out_dir = tempdir(),
+  meme_path = NULL,
   workers = 1,
   verbose = FALSE,
   debug = FALSE,
@@ -49,6 +50,9 @@ repeats a de-novo discovered motif must contain to be filtered out.
 
 \item{out_dir}{A \code{character} vector of output directory to save STREME
 results to. (default = \code{tempdir()})}
+
+\item{meme_path}{path to "meme/bin/" (default: \code{NULL}). Will use default
+search behavior as described in \code{check_meme_install()} if unset.}
 
 \item{workers}{The number of workers to use for parallel processing.}
 
