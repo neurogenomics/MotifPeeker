@@ -58,7 +58,13 @@
     <loc>/reference/confirm_meme_install.html</loc>
   </url>
   <url>
+    <loc>/reference/denovo_motifs.html</loc>
+  </url>
+  <url>
     <loc>/reference/dt_enrichment_individual.html</loc>
+  </url>
+  <url>
+    <loc>/reference/filter_repeats.html</loc>
   </url>
   <url>
     <loc>/reference/format_exptype.html</loc>

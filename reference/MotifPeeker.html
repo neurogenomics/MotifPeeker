@@ -86,14 +86,14 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  cell_counts <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  filter_n <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  trim_seq_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  save_runfiles <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  display <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  use_cache <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  workers <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -179,13 +179,10 @@ de-novo motif discovery for the third section of the report. (default = TRUE)</p
 discover. (default = 3) Note that higher values take longer to compute.</p></dd>
 
 
-<dt>motif_db</dt>
-<dd><p>Path to <code>.meme</code> format file to use as reference
-database, or a list of <code><a href="https://rdrr.io/pkg/universalmotif/man/universalmotif-class.html" class="external-link">universalmotif-class</a></code>
-objects. (optional) Results from de-novo motif discovery are searched against
-this database to find similar motifs. If not provided, JASPAR CORE database
-will be used. <strong>NOTE</strong>: p-value estimates are inaccurate when the
-database has fewer than 50 entries.</p></dd>
+<dt>filter_n</dt>
+<dd><p>An integer specifying the number of consecutive nucleotide
+repeats a de-novo discovered motif must contain to be filtered out.
+(default = 6)</p></dd>
 
 
 <dt>trim_seq_width</dt>
@@ -196,6 +193,15 @@ This parameter is intended to reduce the search space and speed up motif
 discovery; therefore, a value less than the average peak width is
 recommended. Peaks are trimmed symmetrically around the summit while
 respecting the peak bounds.</p></dd>
+
+
+<dt>motif_db</dt>
+<dd><p>Path to <code>.meme</code> format file to use as reference
+database, or a list of <code><a href="https://rdrr.io/pkg/universalmotif/man/universalmotif-class.html" class="external-link">universalmotif-class</a></code>
+objects. (optional) Results from de-novo motif discovery are searched against
+this database to find similar motifs. If not provided, JASPAR CORE database
+will be used. <strong>NOTE</strong>: p-value estimates are inaccurate when the
+database has fewer than 50 entries.</p></dd>
 
 
 <dt>download_buttons</dt>
@@ -225,11 +231,6 @@ report once it is generated. (default = NULL) Options are:</p><ul><li><p><code>"
 <li><p><code>"rstudio"</code>: Open the report in the RStudio Viewer.</p></li>
 <li><p><code>NULL</code>: Do not open the report.</p></li>
 </ul></dd>
-
-
-<dt>use_cache</dt>
-<dd><p>A logical indicating whether to use cached results from
-previous runs. (default = TRUE)</p></dd>
 
 
 <dt>workers</dt>
@@ -309,13 +310,12 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>    motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    use_cache <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    workers <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>    debug <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpbOxi74/MotifPeeker_20240702_155427"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpml5CJa/MotifPeeker_20240704_105852"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

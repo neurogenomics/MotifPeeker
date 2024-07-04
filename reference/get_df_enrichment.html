@@ -80,6 +80,7 @@ segregated peaks.</p>
 <span>  reference_index <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  workers <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -144,6 +145,11 @@ use as the reference dataset for comparison. Indexing starts from 1.
 
 <dt>workers</dt>
 <dd><p>The number of workers to use for parallel processing.</p></dd>
+
+
+<dt>meme_path</dt>
+<dd><p>path to <code>meme/bin/</code> (optional). Defaut: <code>NULL</code>, searches
+"MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".</p></dd>
 
 
 <dt>verbose</dt>
