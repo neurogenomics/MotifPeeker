@@ -7,7 +7,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -32,7 +32,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -48,20 +48,20 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/neurogenomics/MotifPeeker/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Benchmark epigenomic profiling methods using motif enrichment</h1>
-    <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/HEAD/R/MotifPeeker.R" class="external-link"><code>R/MotifPeeker.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/master/R/MotifPeeker.R" class="external-link"><code>R/MotifPeeker.R</code></a></small>
     <div class="hidden name"><code>MotifPeeker.Rd</code></div>
     </div>
 
@@ -91,7 +91,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  save_runfiles <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  display <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  workers <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -103,7 +103,9 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>peak_files</dt>
+
+
+<dl><dt id="arg-peak-files">peak_files<a class="anchor" aria-label="anchor" href="#arg-peak-files"></a></dt>
 <dd><p>A character vector of path to peak files, or a vector of
 GRanges objects generated using <code><a href="read_peak_file.html">read_peak_file</a></code>. Currently,
 peak files from the following peak-calling tools are supported:</p><ul><li><p>MACS2: <code>.narrowPeak</code> files</p></li>
@@ -112,13 +114,13 @@ peak files from the following peak-calling tools are supported:</p><ul><li><p>MA
 the ENCODE database.</p></dd>
 
 
-<dt>reference_index</dt>
+<dt id="arg-reference-index">reference_index<a class="anchor" aria-label="anchor" href="#arg-reference-index"></a></dt>
 <dd><p>An integer specifying the index of the peak file to
 use as the reference dataset for comparison. Indexing starts from 1.
 (default = 1)</p></dd>
 
 
-<dt>alignment_files</dt>
+<dt id="arg-alignment-files">alignment_files<a class="anchor" aria-label="anchor" href="#arg-alignment-files"></a></dt>
 <dd><p>A character vector of path to alignment files, or a
 vector of <code><a href="https://rdrr.io/pkg/Rsamtools/man/BamFile-class.html" class="external-link">BamFile</a></code> objects. (optional)
 Alignment files are used to calculate read-related metrics like FRiP score.
@@ -126,12 +128,12 @@ ENCODE file IDs can also be provided to automatically fetch alignment file(s)
 from the ENCODE database.</p></dd>
 
 
-<dt>exp_labels</dt>
+<dt id="arg-exp-labels">exp_labels<a class="anchor" aria-label="anchor" href="#arg-exp-labels"></a></dt>
 <dd><p>A character vector of labels for each peak file. (optional)
 If not provided, capital letters will be used as labels in the report.</p></dd>
 
 
-<dt>exp_type</dt>
+<dt id="arg-exp-type">exp_type<a class="anchor" aria-label="anchor" href="#arg-exp-type"></a></dt>
 <dd><p>A character vector of experimental types for each peak file.
 (optional) Useful for comparison of different methods. If not provided,
 all datasets will be classified as "unknown" experiment types in the report.
@@ -144,48 +146,48 @@ You can also input custom strings. Datasets will be grouped as long as they
 match their respective <code>exp_type</code>.</p></dd>
 
 
-<dt>genome_build</dt>
+<dt id="arg-genome-build">genome_build<a class="anchor" aria-label="anchor" href="#arg-genome-build"></a></dt>
 <dd><p>A character string with the abbreviated genome build
 name, or a BSGenome object. At the moment, only <code>hg38</code> and <code>hg19</code>
 are supported as abbreviated input.</p></dd>
 
 
-<dt>motif_files</dt>
+<dt id="arg-motif-files">motif_files<a class="anchor" aria-label="anchor" href="#arg-motif-files"></a></dt>
 <dd><p>A character vector of path to motif files, or a vector of
 <code><a href="https://rdrr.io/pkg/universalmotif/man/universalmotif-class.html" class="external-link">universalmotif-class</a></code> objects. (optional)
 Required to run <em>Known Motif Enrichment Analysis</em>. JASPAR matrix IDs
 can also be provided to automatically fetch motifs from the JASPAR.</p></dd>
 
 
-<dt>motif_labels</dt>
+<dt id="arg-motif-labels">motif_labels<a class="anchor" aria-label="anchor" href="#arg-motif-labels"></a></dt>
 <dd><p>A character vector of labels for each motif file.
 (optional) Only used if path to file names are passed in
 <code>motif_files</code>. If not provided, the motif file names will be used as
 labels.</p></dd>
 
 
-<dt>cell_counts</dt>
+<dt id="arg-cell-counts">cell_counts<a class="anchor" aria-label="anchor" href="#arg-cell-counts"></a></dt>
 <dd><p>An integer vector of experiment cell counts for each peak
 file. (optional) Creates additional comparisons based on cell counts.</p></dd>
 
 
-<dt>denovo_motif_discovery</dt>
+<dt id="arg-denovo-motif-discovery">denovo_motif_discovery<a class="anchor" aria-label="anchor" href="#arg-denovo-motif-discovery"></a></dt>
 <dd><p>A logical indicating whether to perform
 de-novo motif discovery for the third section of the report. (default = TRUE)</p></dd>
 
 
-<dt>denovo_motifs</dt>
+<dt id="arg-denovo-motifs">denovo_motifs<a class="anchor" aria-label="anchor" href="#arg-denovo-motifs"></a></dt>
 <dd><p>An integer specifying the number of de-novo motifs to
 discover. (default = 3) Note that higher values take longer to compute.</p></dd>
 
 
-<dt>filter_n</dt>
+<dt id="arg-filter-n">filter_n<a class="anchor" aria-label="anchor" href="#arg-filter-n"></a></dt>
 <dd><p>An integer specifying the number of consecutive nucleotide
 repeats a de-novo discovered motif must contain to be filtered out.
 (default = 6)</p></dd>
 
 
-<dt>trim_seq_width</dt>
+<dt id="arg-trim-seq-width">trim_seq_width<a class="anchor" aria-label="anchor" href="#arg-trim-seq-width"></a></dt>
 <dd><p>An integer specifying the width of the sequence to
 extract around the summit (default = NULL). This sequence is used to search
 for de novo motifs. If not provided, the entire peak region will be used.
@@ -195,7 +197,7 @@ recommended. Peaks are trimmed symmetrically around the summit while
 respecting the peak bounds.</p></dd>
 
 
-<dt>motif_db</dt>
+<dt id="arg-motif-db">motif_db<a class="anchor" aria-label="anchor" href="#arg-motif-db"></a></dt>
 <dd><p>Path to <code>.meme</code> format file to use as reference
 database, or a list of <code><a href="https://rdrr.io/pkg/universalmotif/man/universalmotif-class.html" class="external-link">universalmotif-class</a></code>
 objects. (optional) Results from de-novo motif discovery are searched against
@@ -204,28 +206,28 @@ will be used. <strong>NOTE</strong>: p-value estimates are inaccurate when the
 database has fewer than 50 entries.</p></dd>
 
 
-<dt>download_buttons</dt>
+<dt id="arg-download-buttons">download_buttons<a class="anchor" aria-label="anchor" href="#arg-download-buttons"></a></dt>
 <dd><p>A logical indicating whether to include download
 buttons for various files within the HTML report. (default = TRUE)</p></dd>
 
 
-<dt>meme_path</dt>
+<dt id="arg-meme-path">meme_path<a class="anchor" aria-label="anchor" href="#arg-meme-path"></a></dt>
 <dd><p>path to <code>meme/bin/</code> (optional). Defaut: <code>NULL</code>, searches
 "MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".</p></dd>
 
 
-<dt>output_dir</dt>
+<dt id="arg-out-dir">out_dir<a class="anchor" aria-label="anchor" href="#arg-out-dir"></a></dt>
 <dd><p>A character string specifying the directory to save the
 output files. (default = <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>) A sub-directory with the output
 files will be created in this directory.</p></dd>
 
 
-<dt>save_runfiles</dt>
+<dt id="arg-save-runfiles">save_runfiles<a class="anchor" aria-label="anchor" href="#arg-save-runfiles"></a></dt>
 <dd><p>A logical indicating whether to save intermediate files
 generated during the run, such as those from FIMO and AME. (default = FALSE)</p></dd>
 
 
-<dt>display</dt>
+<dt id="arg-display">display<a class="anchor" aria-label="anchor" href="#arg-display"></a></dt>
 <dd><p>A character vector specifying the display mode for the HTML
 report once it is generated. (default = NULL) Options are:</p><ul><li><p><code>"browser"</code>: Open the report in the default web browser.</p></li>
 <li><p><code>"rstudio"</code>: Open the report in the RStudio Viewer.</p></li>
@@ -233,30 +235,28 @@ report once it is generated. (default = NULL) Options are:</p><ul><li><p><code>"
 </ul></dd>
 
 
-<dt>workers</dt>
+<dt id="arg-workers">workers<a class="anchor" aria-label="anchor" href="#arg-workers"></a></dt>
 <dd><p>The number of workers to use for parallel processing.</p></dd>
 
 
-<dt>quiet</dt>
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>A logical indicating whether to print markdown knit messages.
 (default = FALSE)</p></dd>
 
 
-<dt>debug</dt>
+<dt id="arg-debug">debug<a class="anchor" aria-label="anchor" href="#arg-debug"></a></dt>
 <dd><p>A logical indicating whether to print debug/error messages in
 the HTML report. (default = FALSE)</p></dd>
 
 
-<dt>verbose</dt>
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Path to the output directory.</p>
+    <p>Path to the output directory.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -309,13 +309,13 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>    denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>    motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>    output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    workers <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>    debug <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpbxe5dC/MotifPeeker_20240704_170001"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmp4ul5Po/MotifPeeker_20240708_150229"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -331,15 +331,15 @@ value can also reduce the runtime significantly.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

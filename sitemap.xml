@@ -1,168 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/docker.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/templateR.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CTCF_ChIP_peaks.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CTCF_TIP_peaks.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MotifPeeker.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bpapply.html</loc>
-  </url>
-  <url>
-    <loc>/reference/calc_frip.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_ENCODE.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_JASPAR.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_dep.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_duplicates.html</loc>
-  </url>
-  <url>
-    <loc>/reference/check_genome_build.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compare_motifs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/confirm_meme_install.html</loc>
-  </url>
-  <url>
-    <loc>/reference/denovo_motifs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dt_enrichment_individual.html</loc>
-  </url>
-  <url>
-    <loc>/reference/filter_repeats.html</loc>
-  </url>
-  <url>
-    <loc>/reference/find_motifs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/format_exptype.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_JASPARCORE.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_bpparam.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_df_distances.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_df_enrichment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/link_JASPAR.html</loc>
-  </url>
-  <url>
-    <loc>/reference/markov_background_model.html</loc>
-  </url>
-  <url>
-    <loc>/reference/messager.html</loc>
-  </url>
-  <url>
-    <loc>/reference/motif_MA1102.3.html</loc>
-  </url>
-  <url>
-    <loc>/reference/motif_MA1930.2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/motif_enrichment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_enrichment_individual.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_enrichment_overall.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pretty_number.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print_DT.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print_labels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/random_string.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_motif_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_peak_file.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_peak_file_macs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/read_peak_file_seacr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/report_command.html</loc>
-  </url>
-  <url>
-    <loc>/reference/report_header.html</loc>
-  </url>
-  <url>
-    <loc>/reference/segregate_seqs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/stopper.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summit_to_motif.html</loc>
-  </url>
-  <url>
-    <loc>/reference/to_plotly.html</loc>
-  </url>
-  <url>
-    <loc>/reference/trim_seqs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/use_cache.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/docker.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/templateR.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/CTCF_ChIP_peaks.html</loc></url>
+<url><loc>/reference/CTCF_TIP_peaks.html</loc></url>
+<url><loc>/reference/MotifPeeker.html</loc></url>
+<url><loc>/reference/bpapply.html</loc></url>
+<url><loc>/reference/calc_frip.html</loc></url>
+<url><loc>/reference/check_ENCODE.html</loc></url>
+<url><loc>/reference/check_JASPAR.html</loc></url>
+<url><loc>/reference/check_dep.html</loc></url>
+<url><loc>/reference/check_duplicates.html</loc></url>
+<url><loc>/reference/check_genome_build.html</loc></url>
+<url><loc>/reference/confirm_meme_install.html</loc></url>
+<url><loc>/reference/denovo_motifs.html</loc></url>
+<url><loc>/reference/download_button.html</loc></url>
+<url><loc>/reference/dt_enrichment_individual.html</loc></url>
+<url><loc>/reference/filter_repeats.html</loc></url>
+<url><loc>/reference/find_motifs.html</loc></url>
+<url><loc>/reference/format_exptype.html</loc></url>
+<url><loc>/reference/get_JASPARCORE.html</loc></url>
+<url><loc>/reference/get_bpparam.html</loc></url>
+<url><loc>/reference/get_df_distances.html</loc></url>
+<url><loc>/reference/get_df_enrichment.html</loc></url>
+<url><loc>/reference/get_download_buttons.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/link_JASPAR.html</loc></url>
+<url><loc>/reference/markov_background_model.html</loc></url>
+<url><loc>/reference/messager.html</loc></url>
+<url><loc>/reference/motif_MA1102.3.html</loc></url>
+<url><loc>/reference/motif_MA1930.2.html</loc></url>
+<url><loc>/reference/motif_enrichment.html</loc></url>
+<url><loc>/reference/motif_similarity.html</loc></url>
+<url><loc>/reference/pipe.html</loc></url>
+<url><loc>/reference/plot_enrichment_individual.html</loc></url>
+<url><loc>/reference/plot_enrichment_overall.html</loc></url>
+<url><loc>/reference/plot_motif_comparison.html</loc></url>
+<url><loc>/reference/pretty_number.html</loc></url>
+<url><loc>/reference/print_DT.html</loc></url>
+<url><loc>/reference/print_denovo_sections.html</loc></url>
+<url><loc>/reference/print_labels.html</loc></url>
+<url><loc>/reference/random_string.html</loc></url>
+<url><loc>/reference/read_motif_file.html</loc></url>
+<url><loc>/reference/read_peak_file.html</loc></url>
+<url><loc>/reference/read_peak_file_macs.html</loc></url>
+<url><loc>/reference/read_peak_file_seacr.html</loc></url>
+<url><loc>/reference/report_command.html</loc></url>
+<url><loc>/reference/report_header.html</loc></url>
+<url><loc>/reference/save_peak_file.html</loc></url>
+<url><loc>/reference/segregate_seqs.html</loc></url>
+<url><loc>/reference/stopper.html</loc></url>
+<url><loc>/reference/summit_to_motif.html</loc></url>
+<url><loc>/reference/to_plotly.html</loc></url>
+<url><loc>/reference/trim_seqs.html</loc></url>
+<url><loc>/reference/use_cache.html</loc></url>
 </urlset>
+
