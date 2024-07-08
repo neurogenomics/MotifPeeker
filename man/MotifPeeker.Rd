@@ -21,7 +21,7 @@ MotifPeeker(
   motif_db = NULL,
   download_buttons = TRUE,
   meme_path = NULL,
-  output_dir = tempdir(),
+  out_dir = tempdir(),
   save_runfiles = FALSE,
   display = NULL,
   workers = 2,
@@ -116,7 +116,7 @@ buttons for various files within the HTML report. (default = TRUE)}
 \item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
 "MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
 
-\item{output_dir}{A character string specifying the directory to save the
+\item{out_dir}{A character string specifying the directory to save the
 output files. (default = \code{tempdir()}) A sub-directory with the output
 files will be created in this directory.}
 
@@ -199,7 +199,7 @@ MotifPeeker(
     denovo_motifs = 3,
     motif_db = NULL,
     download_buttons = TRUE,
-    output_dir = tempdir(),
+    out_dir = tempdir(),
     workers = 2,
     debug = FALSE,
     quiet = TRUE,

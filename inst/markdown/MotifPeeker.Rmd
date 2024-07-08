@@ -28,7 +28,7 @@ params:
     cell_counts:
         value: NULL
     denovo_motif_discovery:
-        value: NULL
+        value: TRUE
     denovo_motifs:
         value: 3
     filter_n:
@@ -41,7 +41,7 @@ params:
         value: NULL
     meme_path:
         value: NULL
-    output_dir:
+    out_dir:
         value: NULL
     save_runfiles:
         value: NULL
@@ -100,9 +100,8 @@ result$alignments <- unname(result$alignments)
 result$peaks <- unname(result$peaks)
 user_motifs$motifs <- unname(user_motifs$motifs)
 
-out_dir_extra <- ifelse(params$save_runfiles, params$out_dir,
-                       file.path(tempdir(), paste0("MotifPeeker_temp_",
-                                                   random_string(5))))
+temp_dir <- file.path(tempdir(), paste0("MotifPeeker_temp_", random_string(5)))
+out_dir_extra <- ifelse(params$save_runfiles, params$out_dir, temp_dir)
 label_colours <- c("#c83e73", "#2b83ba") # No, Yes
 
 ## Flags for optional plots
@@ -111,14 +110,17 @@ cellcount_metrics <- ifelse((length(params$cell_counts) == 0), FALSE, TRUE)
 user_motif_metrics <- ifelse((length(user_motifs$motifs) == 0 ||
                                     result_len == 1), FALSE, TRUE)
 comparison_metrics <- ifelse(result_len == 1, FALSE, TRUE)
+denovo_metrics <- params$denovo_motif_discovery && comparison_metrics
 
 ## Misc
 ex_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
                 emoji::emoji("exclamation"), "!!")
 
 ## Check motif_db
-motif_db <- ifelse(params$denovo_motif_discovery && is.null(params$motif_db),
-                    get_JASPARCORE(), params$motif_db)
+using_jaspar_db <- if (denovo_metrics) ifelse(is.null(params$motif_db),
+                                       TRUE, FALSE)
+motif_db <- if (denovo_metrics) ifelse(is.null(params$motif_db),
+                                       get_JASPARCORE(), params$motif_db)
 
 ### General Metrics ###
 ## Peak Counts
@@ -177,22 +179,26 @@ if (comparison_metrics) {
 }
     
 ### De-Novo Motif Analysis ###
-## Run STREME
-if (params$denovo_motif_discovery && comparison_metrics) {
-    result$streme <- denovo_motifs(
+if (denovo_metrics) {
+    denovo_res <- list()
+    ## Run STREME
+    denovo_res$streme <- denovo_motifs(
       unlist(segregated_peaks), params$trim_seq_width, genome_build,
       params$denovo_motifs, filter_n = params$filter_n,
       out_dir = out_dir_extra, meme_path = params$meme_path,
       workers = params$workers, verbose = params$verbose, debug = params$debug
     )
-    result$streme_similar <- find_motifs(
-        result$streme, motif_db, out_dir = out_dir_extra,
+    ## Run TOMTOM
+    denovo_res$similar_motifs <- find_motifs(
+        denovo_res$streme, motif_db, out_dir = out_dir_extra,
         meme_path = params$meme_path, workers = params$workers,
         verbose = params$verbose, debug = params$debug
     )
+    ## Compare motifs
+    denovo_res$comparisons <- motif_similarity(
+        denovo_res$streme, workers = params$workers
+    )
 }
-
-
 ```
 
 ```{r setup_misc, include = FALSE}
@@ -248,9 +254,6 @@ for (i in seq_along(user_motifs$motifs)) {
 ```{r report_command}
 cat(report_command(params))
 ```
-
-## Summary Plot {-}
-Lorem ipusm
 
 <hr>
 
@@ -404,6 +407,8 @@ individual experiments and cell counts, reported in base pairs.
 ### By Experiment Type {- .unlisted}
 ```{r peakwidths_exp_plot1}
 peak_width_plt1 <- peak_width_df %>%
+    filter(peak_width >= stats::quantile(peak_width, 0.025) &
+           peak_width <= stats::quantile(peak_width, 0.975)) %>%
     ggplot(aes(x = peak_width, fill = exp_type)) +
         geom_histogram(bins = 30, alpha = 0.5, position = "identity") +
         labs(
@@ -419,6 +424,8 @@ peak_width_plt1 <- peak_width_df %>%
 
 ```{r peakwidths_exp_plot2}
 peak_width_plt2 <- peak_width_df %>%
+    filter(peak_width >= stats::quantile(peak_width, 0.025) &
+           peak_width <= stats::quantile(peak_width, 0.975)) %>%
     ggplot(aes(x = exp_type, y = peak_width, fill = exp_type)) +
         geom_boxplot(alpha = 0.5) +
         labs(
@@ -450,6 +457,8 @@ peak_width_df %>%
 ### By Individual Dataset {- .unlisted}
 ```{r peakwidths_ind_plot}
 peak_width_plt3 <- peak_width_df %>%
+    filter(peak_width >= stats::quantile(peak_width, 0.025) &
+           peak_width <= stats::quantile(peak_width, 0.975)) %>%
     ggplot(aes(x = exp_label, y = peak_width, fill = exp_type)) +
         geom_boxplot(alpha = 0.5) +
         theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
@@ -480,9 +489,9 @@ peak_width_df_all <- peak_width_df_all %>%
     summarise(
         "Mean Peak Width" = round(mean(peak_width), 1),
         "Median Peak Width" = round(median(peak_width), 3),
-        "2.5th Quantile" = round(quantile(peak_width, 0.025), 3),
-        "97.5th Quantile" = round(quantile(peak_width, 0.975), 3),
-        "Standard Deviation" = round(sd(peak_width), 1),
+        "2.5th Quantile" = round(stats::quantile(peak_width, 0.025), 3),
+        "97.5th Quantile" = round(stats::quantile(peak_width, 0.975), 3),
+        "Standard Deviation" = round(stats::sd(peak_width), 1),
         .groups = "drop"
     ) %>%
     rename(
@@ -576,9 +585,17 @@ if (!user_motif_metrics) {
         "center, while the bottom graph depicts the probability density of",
         "these distances. Different colors represent experiment types, and",
         "each density curve sums to 1.  \n")
+        ## Limits
+        motif_summit_dist_lims <- motif_summit_dist_df %>%
+                      filter(motif_indice == motif_i) %>%
+                      pull(distance) %>%
+                      stats::quantile(c(0.025, 0.975))
+        
         ## Raw count plot
         motif_summit_dist_plt1 <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
+            filter(distance >= motif_summit_dist_lims[1] &
+                    distance <= motif_summit_dist_lims[2]) %>%
             ggplot(aes(x = distance, color = exp_type,
                         text = paste("<b>Experiment Type</b>:", exp_type))) +
             geom_freqpoly(bins = 30, linewidth = 1) +
@@ -603,7 +620,8 @@ if (!user_motif_metrics) {
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
                 x = "Distance (bp)", 
-                y = "Count")
+                y = "Count") +
+            scale_x_continuous(limits = motif_summit_dist_lims)
         motif_summit_dist_plt2 <- to_plotly(motif_summit_dist_plt2,
                                             html_tags = FALSE)
         
@@ -689,7 +707,7 @@ if (!user_motif_metrics) {
 Summary of all the general metrics for the input datasets.
 
 ```{r summary_table}
-tibble::tibble(
+dplyr::tibble(
     "Experiment Label" = result$exp_label,
     "Experiment Type" = result$exp_type,
     "Cell Count" = ifelse((cellcount_metrics), params$cell_count, NA),
@@ -784,7 +802,7 @@ if (!user_motif_metrics) {
         ### Individual Comparison Plots ###
         for (i in comparison_indices) {
             print_labels(result$exp_labels, params$reference_index, i,
-                        result$read_count)
+                        "known_motif", result$read_count)
             ## Plot
             plot_enrichment_individual(result, enrichment_df, i, motif_i,
                                     label_colours, params$reference_index) %>%
@@ -799,6 +817,100 @@ if (!user_motif_metrics) {
     }
 }
 ```
+
+# {- .unlisted}
+<hr>  
+
+
+# De-novo Motif Analysis {.tabset #denovo-motif-analysis}
+Comparison of PWM matrices for de-novo motifs discovered in unique and common
+sets. Comparison measurement used is Pearson correlation, with the Pearson
+correlation coefficient (PCC) score ranging from -1 to +1. A higher PCC score
+indicates a higher similarity between the two motifs.  
+
+Explanation of the plots can be found as follows:  
+  
+1. `common_motif_comparison`: High correlation of motifs here validates that
+the common peaks from both experiments are enriched for similar motifs, as
+expected.  
+2. `unique_motif_comparison`: Checks if the unique peaks from both experiments
+capture similar motifs. Presence of similar motifs here indicate that both
+experiments miss out on capturing a likely legitimate motif. This may be
+caused by strict peak calling thresholds.  
+3. `cross_motif_comparison_1/2`: Compares motifs from unique peaks from one
+experiment to the motifs from common peaks of the other experiment (refer
+axis labels). Presence of high correlation suggests that the experiment, from
+which unique peaks are being compared, captures a higher count of motifs
+shared by peaks from both experiments.  
+
+Not all plots may be rendered if either no peaks are present in any of the
+groups, or if no motifs are identified in the group.  
+  
+**NOTE**: Motifs with poly-nucleotide repeats (such as "AAAAA") should be
+avoided due to inflated correlation scores. Motifs containing `filter_n` or more
+repeats are not included in the comparison heat maps.  
+
+```{r de_novo_motif_check, eval = !denovo_metrics, include = !denovo_metrics}
+cat("\n", ex_emo,
+    " *Skipping de-novo motif analysis as either `denovo_motif_discovery` was",
+    " set to `FALSE` or only a single dataset was provided.*\n")
+```
+
+```{r de_novo_motif, eval = denovo_metrics, include = denovo_metrics}
+tab_header_flag <- FALSE # Print tabset header just once
+for (i in seq_along(comparison_indices)) {
+    comparison_i <- comparison_indices[i]
+    if (!tab_header_flag) {
+        cat("**Select Comparison Group:**  \n")
+        tab_header_flag <- TRUE
+    }
+  print_labels(result$exp_labels, params$reference_index, comparison_i,
+              "denovo_motif", result$read_count)
+  cat("<br>**Select Plot:**  \n")
+  start_i <- 1 + (i - 1) * 4
+  end_i <- i * 4
+  streme_motifs <- denovo_res$streme[seq(start_i, end_i)]
+  similar_motifs <- denovo_res$similar_motifs[seq(start_i, end_i)]
+  comparison_matrices <- denovo_res$comparisons[seq(start_i, end_i)]
+  denovo_plts <- plot_motif_comparison(comparison_matrices, exp_labels = c(
+      result$exp_labels[params$reference_index],
+      result$exp_labels[comparison_i]
+  ), width = 650, height = 500)
+  download_btns <-
+    get_download_buttons(i, start_i, segregated_peaks, out_dir = out_dir_extra,
+          add_buttons = params$download_buttons, verbose = params$verbose)
+  .print_denovo_sections_i <- function(x, y) {
+    print_denovo_sections(streme_motifs, similar_motifs, segregated_peaks[[i]],
+                      c(x, y), jaspar_link = using_jaspar_db,
+                      download_buttons = download_btns)
+  }
+  
+  cat("\n### Common Motif Comparison  {- .unlisted}  \n")
+  cat("\n#### Motif Similarity Plot  {- .unlisted}  \n")
+  print(denovo_plts[[1]])
+  cat("\n#### Motif Details  {- .unlisted}  \n")
+  .print_denovo_sections_i(1, 2)
+  
+  cat("\n### Unique Motif Comparison {- .unlisted}  \n")
+  cat("\n#### Motif Similarity Plot  {- .unlisted}  \n")
+  print(denovo_plts[[2]])
+  cat("\n#### Motif Details  {- .unlisted}  \n")
+  .print_denovo_sections_i(3, 4)
+  
+  cat("\n### Cross Motif Comparison A {- .unlisted}  \n")
+  cat("\n#### Motif Similarity Plot  {- .unlisted}  \n")
+  print(denovo_plts[[3]])
+  cat("\n#### Motif Details  {- .unlisted}  \n")
+  .print_denovo_sections_i(3, 2)
+  
+  cat("\n### Cross Motif Comparison B {- .unlisted}  \n")
+  cat("\n#### Motif Similarity Plot  {- .unlisted}  \n")
+  print(denovo_plts[[4]])
+  cat("\n#### Motif Details  {- .unlisted}  \n")
+  .print_denovo_sections_i(4, 1)
+} 
+```
+
 
 # {- .unlisted}
 <hr>  

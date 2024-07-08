@@ -77,6 +77,7 @@ if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
 }
 \seealso{
 Other plot functions: 
-\code{\link{plot_enrichment_individual}()}
+\code{\link{plot_enrichment_individual}()},
+\code{\link{plot_motif_comparison}()}
 }
 \concept{plot functions}

@@ -18,6 +18,7 @@ link_JASPAR <- function(motif_id, download = FALSE) {
                         motif_id, ".jaspar"))
     } else {
         ## Return HTML embeddable matrix profile link
-        return(paste0("https://jaspar.elixir.no/matrix/", motif_id))
+        return(paste0("<a href='https://jaspar.elixir.no/matrix/", motif_id,
+                    "' target='_blank'>", motif_id, "</a>"))
     }
 }

@@ -44,5 +44,9 @@ for the specified \code{comparison_i} and \code{motif_i}.
 Get \code{\link[DT]{datatable}} for motif-enrichment of individual
 experiments.
 }
+\seealso{
+Other datatable functions: 
+\code{\link{print_denovo_sections}()}
+}
 \concept{datatable functions}
 \keyword{internal}

@@ -57,7 +57,7 @@
 #' de-novo motif discovery for the third section of the report. (default = TRUE)
 #' @param download_buttons A logical indicating whether to include download
 #' buttons for various files within the HTML report. (default = TRUE)
-#' @param output_dir A character string specifying the directory to save the
+#' @param out_dir A character string specifying the directory to save the
 #' output files. (default = \code{tempdir()}) A sub-directory with the output
 #' files will be created in this directory.
 #' @param save_runfiles A logical indicating whether to save intermediate files
@@ -86,7 +86,7 @@
 #' @import ggplot2
 #' @import dplyr
 #' @import tidyr
-#' @import tibble
+#' @importFrom stats quantile sd
 #' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
@@ -134,7 +134,7 @@
 #'     denovo_motifs = 3,
 #'     motif_db = NULL,
 #'     download_buttons = TRUE,
-#'     output_dir = tempdir(),
+#'     out_dir = tempdir(),
 #'     workers = 2,
 #'     debug = FALSE,
 #'     quiet = TRUE,
@@ -159,7 +159,7 @@ MotifPeeker <- function(
         motif_db = NULL,
         download_buttons = TRUE,
         meme_path = NULL,
-        output_dir = tempdir(),
+        out_dir = tempdir(),
         save_runfiles = FALSE,
         display = NULL,
         workers = 2,
@@ -203,15 +203,16 @@ MotifPeeker <- function(
     }
     
     ### Create output folder ###
-    if (!dir.exists(output_dir)) {
+    if (!dir.exists(out_dir)) {
         stp_msg <- "Output directory does not exist."
         stopper(stp_msg)
     }
-    output_dir <- file.path(
-        output_dir,
+    out_dir <- file.path(
+        out_dir,
         paste0("MotifPeeker_", format(Sys.time(), "%Y%m%d_%H%M%S"))
         )
-    dir.create(output_dir, showWarnings = debug)
+    dir.create(out_dir, showWarnings = debug)
+    out_dir <- normalizePath(out_dir)
     
     ### Store arguments in a list ###
     args_list <- list(
@@ -231,7 +232,7 @@ MotifPeeker <- function(
         trim_seq_width = trim_seq_width,
         download_buttons = download_buttons,
         meme_path = meme_path,
-        output_dir = output_dir,
+        out_dir = out_dir,
         save_runfiles = save_runfiles,
         workers = workers,
         debug = debug,
@@ -243,7 +244,7 @@ MotifPeeker <- function(
                             "MotifPeeker.Rmd", package = "MotifPeeker")
     rmarkdown::render(
         input = rmd_file,
-        output_dir = output_dir,
+        output_dir = out_dir,
         output_file = "MotifPeeker.html",
         quiet = quiet,
         params = args_list
@@ -252,7 +253,7 @@ MotifPeeker <- function(
     ### Display report ###
     messager(
         "Script run successfully. \nOutput saved at:",
-        output_dir,
+        out_dir,
         "\nTime taken:",
         round(difftime(Sys.time(), start_time, units = "mins"), 2), "mins.",
         v = verbose
@@ -262,11 +263,11 @@ MotifPeeker <- function(
         display <- tolower(display)
         if (display == "browser") {
             check_dep("utils")
-            utils::browseURL(file.path(output_dir, "MotifPeeker.html"))
+            utils::browseURL(file.path(out_dir, "MotifPeeker.html"))
         } else if (display == "rstudio") {
-            file.show(file.path(output_dir, "MotifPeeker.html"))
+            file.show(file.path(out_dir, "MotifPeeker.html"))
         }
     }
     
-    return(output_dir)
+    return(out_dir)
 }

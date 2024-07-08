@@ -43,17 +43,15 @@
 #'                         filter_n = 6,
 #'                         out_dir = tempdir(),
 #'                         workers = 1)
-#'     similarity_matrices <- compare_motifs(denovo_motifs)
+#'     similarity_matrices <- motif_similarity(denovo_motifs)
 #'     print(similarity_matrices)
 #' }
 #' 
-#' 
 #' @export
-compare_motifs <- function(streme_out,
+motif_similarity <- function(streme_out,
                             method = "PCC",
                             normalise.scores = TRUE,
                             workers = 1,
-                            verbose = FALSE,
                             ...) {
     ## Motif group sequence -   #1 Common seqs - Reference (1)
     ## (4 Groups per            #2 Common seqs - Comparison (2)
@@ -61,14 +59,9 @@ compare_motifs <- function(streme_out,
     ##                          #4 Unique seqs - Comparison (2)
     group_indices <- rep(seq_len(length(streme_out) / 4), each = 4)
     seg_indices <- rep(seq_len(4), length.out = length(streme_out))
-    comparison_groups <- list(
-        "1" = c(1, 2),
-        "2" = c(3, 4),
-        "3" = c(3, 2),
-        "4" = c(4, 1)
-    )
+    comparison_groups <- list(c(1, 2), c(3, 4), c(3, 2), c(4, 1))
     
-    res <- bpapply(
+    res <- lapply(
         seq_along(streme_out), function(x) {
             comparison_group <- comparison_groups[[seg_indices[x]]]
             .motifsx <- function(m) streme_out[[comparison_group[m] *
@@ -80,6 +73,7 @@ compare_motifs <- function(streme_out,
                         list(m1, m2),
                         method = method,
                         normalise.scores = normalise.scores,
+                        nthreads = workers,
                         ...
                     )
             row_indices <- seq(1, length(m1))
@@ -87,7 +81,7 @@ compare_motifs <- function(streme_out,
             
             res_x <- res_x[row_indices, col_indices, drop = FALSE]
             return(res_x)
-        }, workers = workers, verbose = verbose
+        }
     )
     
     ## Output: Comparison Pair 1 - 1. common_(1) <-> common_(2)

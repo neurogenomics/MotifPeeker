@@ -31,7 +31,7 @@ test_that("MotifPeeker produces output files", {
     )
     
     ## All optional features enabled
-    output_dir <- MotifPeeker(
+    out_dir <- MotifPeeker(
         peak_files = peaks,
         reference_index = 1,
         alignment_files = alignments,
@@ -45,15 +45,15 @@ test_that("MotifPeeker produces output files", {
         denovo_motifs = 3,
         motif_db = NULL,
         download_buttons = TRUE,
-        output_dir = tempdir(),
+        out_dir = tempdir(),
         display = NULL,
         debug = FALSE,
         verbose = FALSE
     )
-    expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
+    expect_true(file.exists(file.path(out_dir, "MotifPeeker.html")))
     
     ## No alignment and motif files
-    output_dir <- MotifPeeker(
+    out_dir <- MotifPeeker(
       peak_files = peaks,
       reference_index = 1,
       alignment_files = NULL,
@@ -64,19 +64,19 @@ test_that("MotifPeeker produces output files", {
       motif_labels = NULL,
       cell_counts = NULL,
       denovo_motif_discovery = TRUE,
-      denovo_motifs = 3,
+      denovo_motifs = 1,
       trim_seq_width = 100,
       motif_db = NULL,
       download_buttons = TRUE,
-      output_dir = tempdir(),
+      out_dir = tempdir(),
       display = NULL,
       debug = FALSE,
       verbose = FALSE
     )
-    expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
-    
+    expect_true(file.exists(file.path(out_dir, "MotifPeeker.html")))
+
     ## Single set of files
-    output_dir <- MotifPeeker(
+    out_dir <- MotifPeeker(
       peak_files = peaks[1],
       reference_index = 1,
       alignment_files = alignments[1],
@@ -87,14 +87,14 @@ test_that("MotifPeeker produces output files", {
       motif_labels = NULL,
       cell_counts = NULL,
       denovo_motif_discovery = TRUE,
-      denovo_motifs = 3,
+      denovo_motifs = 1,
       trim_seq_width = 100,
       motif_db = NULL,
       download_buttons = TRUE,
-      output_dir = tempdir(),
+      out_dir = tempdir(),
       display = NULL,
       debug = FALSE,
       verbose = FALSE
     )
-    expect_true(file.exists(file.path(output_dir, "MotifPeeker.html")))
+    expect_true(file.exists(file.path(out_dir, "MotifPeeker.html")))
 })

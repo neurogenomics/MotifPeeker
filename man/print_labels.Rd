@@ -4,7 +4,13 @@
 \alias{print_labels}
 \title{Print the labels of the reference and comparison experiments}
 \usage{
-print_labels(exp_labels, reference_index, comparison_index, read_counts = NULL)
+print_labels(
+  exp_labels,
+  reference_index,
+  comparison_index,
+  header_type,
+  read_counts = NULL
+)
 }
 \arguments{
 \item{exp_labels}{A character vector of experiment labels.}
@@ -12,6 +18,9 @@ print_labels(exp_labels, reference_index, comparison_index, read_counts = NULL)
 \item{reference_index}{The index of the reference experiment.}
 
 \item{comparison_index}{The index of the comparison experiment.}
+
+\item{header_type}{Label for the section to print the header for. Options
+are: "known_motif" and "denovo_motif".}
 
 \item{read_counts}{A numeric vector of read counts for each experiment.
 (optional)}

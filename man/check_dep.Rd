@@ -4,10 +4,15 @@
 \alias{check_dep}
 \title{Check attached dependency}
 \usage{
-check_dep(pkg)
+check_dep(pkg, fatal = TRUE, custom_msg = NULL)
 }
 \arguments{
 \item{pkg}{a character string of the package name}
+
+\item{fatal}{a logical value indicating whether to stop execution if the
+package is not attached.}
+
+\item{custom_msg}{a custom message to display if the package is not attached.}
 }
 \value{
 Null

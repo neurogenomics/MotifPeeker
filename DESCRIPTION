@@ -61,7 +61,9 @@ Imports:
     dplyr,
     purrr,
     tidyr,
-    tibble
+    heatmaply,
+    stats,
+    utils
 Suggests:
     BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
@@ -73,7 +75,6 @@ Suggests:
     remotes,
     rworkflows,
     testthat (>= 3.0.0),
-    utils,
     withr,
     emoji,
     curl,

@@ -3,6 +3,8 @@
 #' @param exp_labels A character vector of experiment labels.
 #' @param reference_index The index of the reference experiment.
 #' @param comparison_index The index of the comparison experiment.
+#' @param header_type Label for the section to print the header for. Options
+#' are: "known_motif" and "denovo_motif".
 #' @param read_counts A numeric vector of read counts for each experiment.
 #' (optional)
 #' 
@@ -12,8 +14,14 @@
 print_labels <- function(exp_labels,
                         reference_index,
                         comparison_index,
+                        header_type,
                         read_counts = NULL) {
-    cat("\n### ", exp_labels[comparison_index], " {- .unlisted}  \n")
+    if (header_type == "known_motif") {
+        cat("\n### ", exp_labels[comparison_index], " {- .unlisted}  \n")
+    } else if (header_type == "denovo_motif") {
+        cat("\n## ", exp_labels[comparison_index], " {- .unlisted .tabset ",
+        ".tabset-fade .tabset-pills}  \n")
+    }
     cat("**Reference Experiment Label**: ",
         exp_labels[reference_index])
     if (!is.null(read_counts)) {
