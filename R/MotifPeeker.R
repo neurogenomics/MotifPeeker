@@ -176,11 +176,15 @@ MotifPeeker <- function(
     force(genome_build)
     
     ### Check argument lengths ###
-    if (!is.null(alignment_files) &&
-        length(peak_files) != length(alignment_files)) {
+    if (!is.null(alignment_files)) {
         stp_msg <- paste("Length of", shQuote("peak_files"), "and",
         shQuote("alignment_files"), "must be equal.")
-        stopper(stp_msg)
+        len_peak_files <- if (is.list(peak_files)) length(peak_files) else 1
+        len_alignment_files <- if (is.list(alignment_files))
+            length(alignment_files) else 1
+        if (len_peak_files != len_alignment_files) {
+            stopper(stp_msg)
+        }
     }
     if (!is.null(cell_counts) && length(cell_counts) != length(peak_files)) {
         stp_msg <- paste0("Length of ", shQuote("cell_counts"), " must be ",
@@ -212,7 +216,12 @@ MotifPeeker <- function(
         paste0("MotifPeeker_", format(Sys.time(), "%Y%m%d_%H%M%S"))
         )
     dir.create(out_dir, showWarnings = debug)
+    
+    ### Normalise input paths ###
     out_dir <- normalizePath(out_dir)
+    peak_files <- normalise_paths(peak_files)
+    alignment_files <- normalise_paths(alignment_files)
+    motif_files <- normalise_paths(motif_files)
     
     ### Store arguments in a list ###
     args_list <- list(

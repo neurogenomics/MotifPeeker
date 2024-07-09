@@ -80,20 +80,11 @@ result <- list(
     peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
     alignments = lapply(alignment_files_encode, Rsamtools::BamFile),
     exp_labels = params$exp_labels,
-    exp_type = unname(Vectorize(format_exptype,
-                        "exp_type")(exp_types))
+    exp_type = unname(Vectorize(format_exptype, "exp_type")(exp_types))
 )
-motif_files_jaspar <- if (motif_len > 1) {
-        Vectorize(check_JASPAR, "motif_id")(params$motif_files)
-    } else {
-        check_JASPAR(params$motif_files)
-    }
+motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
 user_motifs <- list(
-    motifs = if (motif_len > 1) {
-            Vectorize(read_motif_file, "motif_file")(motif_files_jaspar)
-        } else if (motif_len == 1) {
-            read_motif_file(motif_files_jaspar)
-        },
+    motifs = Vectorize(read_motif_file, "motif_file")(motif_files_jaspar),
     motif_labels = params$motif_labels
 )
 result$alignments <- unname(result$alignments)
@@ -152,8 +143,6 @@ peak_width_df <-
                 peak_width = unlist(result$peak_widths))
 
 ## Motif-Summit Distances
-if (length(user_motifs$motifs) == 1) user_motifs$motifs <-
-    list(user_motifs$motifs)
 motif_summit_dist_df <- get_df_distances(
         result, user_motifs, genome_build, out_dir_extra, params$workers,
         params$meme_path, params$debug

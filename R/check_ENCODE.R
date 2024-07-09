@@ -20,6 +20,7 @@
 #' 
 #' @export
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {
+    if (!all(is.character(encode_id))) return(encode_id)
     ### Validate ENCODE ID ###
     id_pattern <- "^ENC(SR|BS|DO|GM|AB|LB|FF|PL)\\d{3}[A-Z]{3}$"
     if (!all(grepl(id_pattern, encode_id))) return(encode_id)
