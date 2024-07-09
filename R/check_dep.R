@@ -17,7 +17,7 @@ check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
     }
     if (!requireNamespace(pkg, quietly = TRUE)) {
         if (fatal) {
-            stop(custom_msg)
+            stopper(custom_msg)
         } else {
             warning(custom_msg)
         }

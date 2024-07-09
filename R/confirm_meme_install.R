@@ -19,6 +19,6 @@ confirm_meme_install <- function(meme_path = NULL) {
     )
     
     if (!memes::meme_is_installed(meme_path)) {
-        stop(stp_msg)
+        stopper(stp_msg)
     }
 }
