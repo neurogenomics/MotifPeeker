@@ -161,7 +161,7 @@ MotifPeeker <- function(
         meme_path = NULL,
         out_dir = tempdir(),
         save_runfiles = FALSE,
-        display = NULL,
+        display = ifelse(interactive(), "browser", NULL),
         workers = 2,
         quiet = TRUE,
         debug = FALSE,
