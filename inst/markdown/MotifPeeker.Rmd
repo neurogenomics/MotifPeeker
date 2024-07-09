@@ -206,25 +206,28 @@ if (denovo_metrics) {
 plotly::plot_ly(x = c(1,2,3), type = "histogram")
 ```
 
-[`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker) compares different
-epigenomic datasets using motif enrichment as the key metric.
+[`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker) compares and
+analyses datasets from different epigenomic profiling methods using motif
+enrichment as a key benchmark.
 
 # Summary {-}
 ## Table of Contents {-}
 The report consists of the following sections:  
 
-1. [General Metrics](#general-metrics): Overview of general metrics related to
-peaks in the datasets (FRiP scores, peak widths, and motif-summit distances).
+1. [General Metrics](#general-metrics): Provides an overview of metrics related
+to dataset peaks, including FRiP scores, peak widths, and motif-to-summit
+distances.  
 
-2. [Known Motif Enrichment Analysis](#motif-enrichment-analysis): Statistics on
-the frequency of motifs enriched in the datasets. Also compares enriched motifs
-between common and unique peaks identified in the datasets.
+2. [Known Motif Enrichment Analysis](#motif-enrichment-analysis): Presents
+statistics on the frequency of enriched user-supplied motifs in the datasets and
+compares them between the common and unique peaks from comparison and reference
+datasets.  
 
-3. [De-Novo Motif Enrichment Analysis](#denovo-motif-analysis): Statistics on
-de-novo motifs discovered between common and unique peaks identified in the
-datasets. Also checks for similarity between motifs in each set and finds the
-closest known motif in the [JASPAR database](https://jaspar.uio.no/downloads/)
-(or the supplied database).
+3. [De-Novo Motif Enrichment Analysis](#denovo-motif-analysis): Details the
+statistics of de-novo discovered motifs in common and unique peaks from
+comparison and reference datasets. Examines motif similarities and identifies
+the closest known motifs in the [JASPAR](https://jaspar.uio.no/downloads/)
+or the provided database.  
 
 ## Input Datasets {-}
 Experimental dataset labels used:  
@@ -241,7 +244,7 @@ cat("\n- **Reference dataset**: ", result$exp_labels[params$reference_index],
 ```
 
 User-provided motifs used:  
-
+  
 ```{r echo = FALSE}
 if (length(user_motifs$motifs) == 0) cat("- **None**  \n")
 for (i in seq_along(user_motifs$motifs)) {
@@ -260,9 +263,9 @@ cat(report_command(params))
 # General Metrics {.tabset #general-metrics}
 
 ## FRiP Score {-}
-**Fraction of Reads in Peaks (FRiP)** is defined as the ratio of reads
-overlapping peaks to the total number of reads in the experiment. Higher FRiP
-score indicates higher enrichment of reads in peaks.  
+**Fraction of Reads in Peaks (FRiP)** is the proportion of sequencing reads
+within identified peak regions. Higher FRiP scores suggest higher
+signal-to-noise ratios in the dataset.   
 $$\text{FRiP (Fraction of Reads in Peaks)} = 
 \frac{\text{Reads in Peaks}}{\text{Total Reads}}$$
 ```{r frip_exp_plot}
@@ -401,8 +404,8 @@ if (alignment_metrics) {
 ```
 
 ## Peak Width Distribution {-}
-This section presents the peak width distribution for each experiment type,
-individual experiments and cell counts, reported in base pairs.
+This section presents the peak width distribution for each experiment type, as
+well as for individual experiments and cell counts, reported in base pairs.
 
 ### By Experiment Type {- .unlisted}
 ```{r peakwidths_exp_plot1}
@@ -558,8 +561,11 @@ if (!cellcount_metrics) {
 
 ## Motif-Summit Distance {- .tabset .tabset-fade .tabset-pills}
 This section reports the distances between the peak summit and the centre of the
-nearest motif. The distances are calculated for every peak in the dataset and
-plotted.
+nearest motif. MEME suite's [FIMO](https://meme-suite.org/meme/doc/fimo.html)
+tool is used to scan the sequences in the peak file to identify all occurrences
+of the provided motifs, and the distances between the centres of each motif
+occurrence and the closest peak summit are calculated.  
+
 ```{r motif_summit_dist}
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
@@ -655,8 +661,8 @@ if (!user_motif_metrics) {
             print()
         
         cat("\n#### By Individual Dataset {- .unlisted}\n")
-        cat("The plot shows the average of the absolute distance between peak",
-        "summits and the nearest motif center for each experiment label.  \n")
+        cat("This plot shows the average of the absolute distance between peak",
+        "summits and the nearest motif center for each input experiment.  \n")
         ## Absolute mean distance plot
         motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
@@ -725,34 +731,23 @@ dplyr::tibble(
 <hr>  
 
 # Known Motif Enrichment Analysis {.tabset .tabset-fade .tabset-pills #motif-enrichment-analysis}
-Pair-wise comparison of peaks enriched for motifs in total, common and unique
-peaks between the the reference experiment and others.  
-  
-The overall summary plot compacts all the individual comparison plots into one
-interactive plot. It can be used to quickly identify the relative enrichment of
-motifs in the peaks of the reference experiment compared to the other comparison
-experiments.  
-The sub-plots have been arranged in a 2x2 grid. The rows represent the peaks
-from the reference experiment and the comparison experiments, respectively.
-The columns differentiate between peaks that are common (shared) across
-the comparison and reference experiments and those that are unique to either of
-the experiments.  
-  
-The sub-plots for individual experiments can be interpreted as follows:  
-  
-1. `all_(experiment)_peaks`: Looks for the presence of motif in all the peaks
-produced in an experiment.  
-2. `common_(experiment)_peaks`: Looks for presence of motif in peaks which
-overlap with the peaks from the other experiment. The overlapping peaks may be
-of different lengths for each experiment, necessitating two distinct peak groups 
-(one for each experiment).  
-3. `unique_(experiment)_peaks`: Looks for presence of motif in peaks which have
-no overlap with peaks from the other experiment.  
+This section provides a comprehensive pair-wise comparison of motif enrichment
+patterns between the reference and comparison experiments. The presence of
+user-provided motif in the peaks was determined using
+[AME](https://meme-suite.org/meme/doc/ame.html) tool from MEME suite.  
 
-Each comparison compares the reference dataset with others.
+The overall summary plot compacts all the individual comparisons into one for
+quick assessment of relative motif enrichment across experiments. The individual
+comparison plots provide a detailed view of the proportion of peaks with the
+motif of interest for all, common and unique peaks in the respective reference
+and comparison plots.  
+
+Peaks are considered common to both comparison and reference datasets if they
+overlap by at least 1 base pair. All other peaks are classified as unique.  
   
-**NOTE**: Discrepancy in motif enrichment in common peaks between experiments
-MAY be attributed to different peak length.  
+**NOTE**: Discrepancies in motif enrichment in common peaks between experiments
+may arise due to variations in peak lengths. Experiment with longer peaks may
+have a higher proportion of peaks with the motif of interest purely by chance.  
 
 ```{r motif_enrichment_analysis}
 if (!user_motif_metrics) {
@@ -778,6 +773,10 @@ if (!user_motif_metrics) {
         
         ### Overall Summary Plot ###
         cat("\n### **Overall** {- .unlisted}  \n")
+        cat("These plots are organised in a 2x2 grid comparing motif",
+            "enrichment: top row for the comparison experiment and bottom row",
+            "for the reference experiment, while columns represent common",
+            "peaks on the left and unique peaks on the right.  \n<br>")
         cat("<details><summary>**Show Comparison-Reference Pair Labels**",
         "</summary>  \n")
         cat("(Pair Number. Comparison Experiment - Reference Experiment)  \n  ")
@@ -787,7 +786,7 @@ if (!user_motif_metrics) {
             result$exp_labels[params$reference_index], "  \n"
           ))
         }
-        cat("  \n</details>  \n")
+        cat("  \n</details>  \n<br>  \n")
         enrichment_overall_plots <- plot_enrichment_overall(
             enrichment_df, motif_i, label_colours,
             reference_label = result$exp_labels[params$reference_index]
@@ -824,32 +823,43 @@ if (!user_motif_metrics) {
 
 
 # De-novo Motif Analysis {.tabset #denovo-motif-analysis}
-Comparison of PWM matrices for de-novo motifs discovered in unique and common
-sets. Comparison measurement used is Pearson correlation, with the Pearson
-correlation coefficient (PCC) score ranging from -1 to +1. A higher PCC score
-indicates a higher similarity between the two motifs.  
-
-Explanation of the plots can be found as follows:  
+De-novo motif discovery identifies novel motif sequences in the common and
+unique peaks of the reference and comparison peak files. The Position Weight
+Matrix (PWM) of these motifs, representing the probability of each base at
+each position in the motif, are compared across different peak sets to identify
+similarities.  
   
-1. `common_motif_comparison`: High correlation of motifs here validates that
-the common peaks from both experiments are enriched for similar motifs, as
-expected.  
-2. `unique_motif_comparison`: Checks if the unique peaks from both experiments
-capture similar motifs. Presence of similar motifs here indicate that both
-experiments miss out on capturing a likely legitimate motif. This may be
-caused by strict peak calling thresholds.  
-3. `cross_motif_comparison_1/2`: Compares motifs from unique peaks from one
-experiment to the motifs from common peaks of the other experiment (refer
-axis labels). Presence of high correlation suggests that the experiment, from
-which unique peaks are being compared, captures a higher count of motifs
-shared by peaks from both experiments.  
-
-Not all plots may be rendered if either no peaks are present in any of the
-groups, or if no motifs are identified in the group.  
+Similarity is quantified using the Pearson correlation coefficient (PCC) score,
+ranging from -1 to +1, with higher values indicating greater similarity. The
+scores are also normalised to penalise disparities between motifs of different
+lengths. De-novo motifs were discovered using the
+[STREME](https://meme-suite.org/meme/doc/streme.html) tool from MEME suite.
+  
+Explanation of the plots:  
+  
+1. `Common Motif Comparison`: High correlation between motifs in this plot
+validates that the common peaks from both the reference and comparison datasets
+are enriched for similar motifs. This suggests consistent binding of shared
+regulatory factors across the experiments.  
+2. `Unique Motif Comparison`: This plot examines whether unique peaks from both
+experiments capture similar motifs. The presence of highly correlated motifs
+here indicates that both experiments miss out on capturing peaks with a likely
+legitimate motif. This may be caused by strict peak calling thresholds,
+potentially excluding true positive signals.  
+3. `Cross Motif Comparison A/B`: These plots compare motifs from unique peaks in
+one experiment to motifs from common peaks in the other experiment (refer to
+axis labels). Higher correlation scores suggests that the experiment
+contributing the unique peaks captures a higher proportion of motifs that are
+actually shared between the two experiments, suggesting higher sensitivity of
+the experiment with unique peaks.
+  
+The discovered motifs are also compared to motifs from the JASPAR or the
+provided database to identify any similar known motifs using
+[TOMTOM](https://meme-suite.org/meme/doc/tomtom.html) from MEME suite.
   
 **NOTE**: Motifs with poly-nucleotide repeats (such as "AAAAA") should be
 avoided due to inflated correlation scores. Motifs containing `filter_n` or more
-repeats are not included in the comparison heat maps.  
+repeats are not included in the results.  
 
 ```{r de_novo_motif_check, eval = !denovo_metrics, include = !denovo_metrics}
 cat("\n", ex_emo,
