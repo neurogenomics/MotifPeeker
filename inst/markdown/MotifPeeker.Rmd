@@ -610,6 +610,8 @@ if (!user_motif_metrics) {
         ## Density plot
         motif_summit_dist_plt2 <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
+            filter(distance >= motif_summit_dist_lims[1] &
+                    distance <= motif_summit_dist_lims[2]) %>%
             ggplot(aes(x = distance, fill = exp_type, color = exp_type,
                         text = paste("<b>Experiment Type</b>:", exp_type))) +
             geom_density(alpha = 0.5) +
@@ -620,8 +622,7 @@ if (!user_motif_metrics) {
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
                 x = "Distance (bp)", 
-                y = "Count") +
-            scale_x_continuous(limits = motif_summit_dist_lims)
+                y = "Count")
         motif_summit_dist_plt2 <- to_plotly(motif_summit_dist_plt2,
                                             html_tags = FALSE)
         
