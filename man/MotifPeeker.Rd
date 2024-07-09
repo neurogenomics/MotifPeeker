@@ -23,7 +23,7 @@ MotifPeeker(
   meme_path = NULL,
   out_dir = tempdir(),
   save_runfiles = FALSE,
-  display = NULL,
+  display = if (interactive()) "browser",
   workers = 2,
   quiet = TRUE,
   debug = FALSE,
