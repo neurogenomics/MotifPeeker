@@ -1,0 +1,7 @@
+url: https://neurogenomics.github.io/MotifPeeker/
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#603f8b"
+    secondary: "#a16ae8"
+    light: "#f4ebff"
