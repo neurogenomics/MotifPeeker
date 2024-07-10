@@ -4,4 +4,4 @@ template:
   bslib:
     primary: "#603f8b"
     secondary: "#a16ae8"
-    light: "#f4ebff"
+    light: "#f3ecff"
