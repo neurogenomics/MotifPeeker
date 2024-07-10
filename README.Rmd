@@ -1,12 +1,9 @@
 ---
-title: "<code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment"  
-author: "`r rworkflows::use_badges()`" 
-date: "<h4>Updated: <i>`r format( Sys.Date(), '%b-%d-%Y')`</i></h4>"
 output:
   github_document
 ---
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo = FALSE, include = FALSE}
 pkg <- read.dcf("DESCRIPTION", fields = "Package")[1]
 title <- gsub("\n"," ",read.dcf("DESCRIPTION", fields = "Title")[1])
 description <- gsub("\n"," ",read.dcf("DESCRIPTION", fields = "Description")[1])
@@ -15,8 +12,16 @@ owner <- strsplit(URL,"/")[[1]][4]
 repo <- strsplit(URL,"/")[[1]][5]
 ```
 
+# <code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment  
+![](https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png){style='height: 300px !important;'}
 
-# Introduction
+`r rworkflows::use_badges(add_hex = FALSE, add_authors = FALSE)`
+
+**Authors: Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene**  
+**Updated:** ***`r format(Sys.Date(), '%b-%d-%Y')`***  
+
+
+## Introduction
 
 `MotifPeeker` is used to compare and analyse datasets from epigenomic
 profiling methods with motif enrichment as the key benchmark. The package
@@ -34,7 +39,7 @@ motifs.
 
 <!-- > `r utils::citation(pkg)$textVersion` -->
 
-# Installation 
+## Installation 
 
 `MotifPeeker` uses
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
@@ -60,14 +65,18 @@ if(!require("remotes")) install.packages("remotes")
 remotes::install_github("`r paste(owner,repo,sep='/')`")
 library(`r pkg`)
 ```
-## Documentation 
 
-### [Website](https://`r owner`.github.io/`r repo`) 
-### [Getting started](https://`r owner`.github.io/`r repo`/articles/`r pkg`) 
+
+### Documentation 
+
+#### [EpiCompare Website](https://`r owner`.github.io/`r repo`) 
+#### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html) 
+#### [Docker/Singularity Container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html) 
+
 
 <hr>
 
-## Session Info
+### Session Info
 
 <details>
 ```{r}

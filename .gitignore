@@ -48,3 +48,4 @@ inst/markdown/test.Rmd
 .gitignore
 codecov.yml
 !.github/codecov.yml
+docs/

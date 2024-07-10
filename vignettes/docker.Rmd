@@ -1,9 +1,5 @@
 ---
 title: Docker/Singularity Containers
-author: '<h4>Authors: <i>`r auths <- eval(parse(text = gsub("person","c",read.dcf("../DESCRIPTION",
-  fields = "Authors@R"))));paste(auths[names(auths)=="given"],auths[names(auths)=="family"],
-  collapse = ", ")`</i></h4>'
-date: '<h4>Vignette updated: <i>`r format(Sys.Date(), "%b-%d-%Y")`</i></h4>'
 output:
   rmarkdown::html_document:
     md_extensions: -autolink_bare_uris
@@ -19,6 +15,8 @@ vignette: |
     %\usepackage[utf8]{inputenc}
     %\VignetteEngine{knitr::rmarkdown}
 ---
+
+**Updated:** ***`r format(Sys.Date(), '%b-%d-%Y')`***  
 
 
 ```{r setup, include=FALSE}
@@ -70,8 +68,6 @@ docker run \
     `r cont`
 ```  
 
-Access RStudio by visiting [http://localhost:8900/](http://localhost:8900/).
-
 ### NOTES
 
 * Make sure to replace `<your_password>` above with whatever you want your
@@ -101,8 +97,6 @@ For troubleshooting, see the [Singularity documentation](https://docs.sylabs.io/
 Finally, launch the containerised Rstudio by entering the 
 following URL in any web browser:
 *http://localhost:8900/*
-
-Login using the credentials set during the Installation steps.  
 
 
 # Session Info 

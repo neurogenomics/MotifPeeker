@@ -1,7 +1,10 @@
-<code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods
-Using Motif Enrichment
-================
-<img src='https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png' title='Hex sticker for MotifPeeker' height='300'><br>
+
+# <code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
+
+<img
+src="https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png"
+style="height: 300px !important;" />
+
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
 [![](https://img.shields.io/badge/devel%20version-0.99.0-black.svg)](https://github.com/neurogenomics/MotifPeeker)
@@ -11,15 +14,12 @@ Using Motif Enrichment
 status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg)](https://github.com/neurogenomics/MotifPeeker/actions)
 [![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg)](https://app.codecov.io/gh/neurogenomics/MotifPeeker)
 <br>
-<a href='https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master' target='_blank'><img src='https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg' title='Codecov icicle graph' width='200' height='50' style='vertical-align: top;'></a>  
-<h4>  
-Authors: <i>Hiranyamaya Dash, Thomas Roberts, Nathan Skene</i>  
-</h4>
-<h4>  
-Updated: <i>Jul-04-2024</i>  
-</h4>
+<a href='https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master' target='_blank'><img src='https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg' title='Codecov icicle graph' width='200' height='50' style='vertical-align: top;'></a>
 
-# Introduction
+**Authors: Hiranyamaya Dash, Thomas Roberts, Nathan Skene**  
+**Updated:** ***Jul-10-2024***
+
+## Introduction
 
 `MotifPeeker` is used to compare and analyse datasets from epigenomic
 profiling methods with motif enrichment as the key benchmark. The
@@ -36,7 +36,7 @@ package outputs an HTML report consisting of three sections:
 <!-- If you use `MotifPeeker`, please cite:  -->
 <!-- >  -->
 
-# Installation
+## Installation
 
 `MotifPeeker` uses
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
@@ -64,15 +64,17 @@ remotes::install_github("neurogenomics/MotifPeeker")
 library(MotifPeeker)
 ```
 
-## Documentation
+### Documentation
 
-### [Website](https://neurogenomics.github.io/MotifPeeker)
+#### [EpiCompare Website](https://neurogenomics.github.io/MotifPeeker)
 
-### [Getting started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker)
+#### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker-doc.html)
+
+#### [Docker/Singularity Container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html)
 
 <hr>
 
-## Session Info
+### Session Info
 
 <details>
 
