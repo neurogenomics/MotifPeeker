@@ -14,7 +14,7 @@ normalise_paths <- function(path_list) {
         path_list <- list(path_list)
     
     ## Return input as is if not character
-    if (!all(sapply(path_list, is.character))) return(path_list)
+    if (!all(vapply(path_list, is.character, logical(1)))) return(path_list)
     
     ## Normalise paths
     lapply(path_list, function(path) {
