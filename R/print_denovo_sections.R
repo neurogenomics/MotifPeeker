@@ -56,8 +56,8 @@ print_denovo_sections <- function(motif_list,
             select("name", "consensus.x", "total_sites", "best_match_name",
                     "best_match_altname", "best_match_offset") %>%
             mutate("Motif Identifier" = substr(.data$name, 1, 3),
-                   "Motif Width" = nchar(.data$consensus.x),
-                   "% Peaks With Motif" = round(as.integer(.data$total_sites) /
+                    "Motif Width" = nchar(.data$consensus.x),
+                    "% Peaks With Motif" = round(as.integer(.data$total_sites) /
                                     length(segregated_peaks[[i]]) * 100, 1)) %>%
             rename("Consensus Sequence" = "consensus.x",
                     "Peaks With Motif" = "total_sites",
