@@ -64,8 +64,11 @@ motif_similarity <- function(streme_out,
     res <- lapply(
         seq_along(streme_out), function(x) {
             comparison_group <- comparison_groups[[seg_indices[x]]]
-            .motifsx <- function(m) streme_out[[comparison_group[m] *
-                                                    group_indices[[x]]]]$motif
+            .motifsx <- function(m) {
+                    motif_i <- comparison_group[2] +
+                        (4 * (group_indices[[x]] - 1))
+                    streme_out[[motif_i]]$motif
+                }
             m1 <- .motifsx(1)
             m2 <- .motifsx(2)
             if (length(m1) == 0 || length(m2) == 0) return(matrix(NA))
