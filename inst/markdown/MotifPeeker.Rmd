@@ -394,7 +394,10 @@ if (alignment_metrics) {
 
 ## Peak Width Distribution {-}
 This section presents the peak width distribution for each experiment type, as
-well as for individual experiments and cell counts, reported in base pairs.
+well as for individual experiments and cell counts, reported in base pairs.  
+
+The data plotted represents the central 95% of the overall data, with values
+below the 2.5th percentile and above the 97.5th percentile excluded.  
 
 ### By Experiment Type {- .unlisted}
 ```{r peakwidths_exp_plot1}
@@ -554,6 +557,9 @@ nearest motif. MEME suite's [FIMO](https://meme-suite.org/meme/doc/fimo.html)
 tool is used to scan the sequences in the peak file to identify all occurrences
 of the provided motifs, and the distances between the centres of each motif
 occurrence and the closest peak summit are calculated.  
+
+The data plotted represents the central 95% of the overall data, with values
+below the 2.5th percentile and above the 97.5th percentile excluded.  
 
 ```{r motif_summit_dist}
 if (!user_motif_metrics) {
