@@ -32,13 +32,13 @@ print_denovo_sections <- function(motif_list,
                                 jaspar_link = FALSE,
                                 download_buttons = NULL) {
     headers <- list(
-        paste0("\n**Reference Group - Common Motifs**  \nTotal peaks in ",
+        paste0("\n**Reference Group - Common Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$common_seqs1), "  \n"),
-        paste0("\n**Comparison Group - Common Motifs**  \nTotal peaks in ",
+        paste0("\n**Comparison Group - Common Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$common_seqs2), "  \n"),
-        paste0("\n**Reference Group - Unique Motifs**  \nTotal peaks in ",
+        paste0("\n**Reference Group - Unique Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$unique_seqs1), "  \n"),
-        paste0("\n**Comparison Group - Unique Motifs**  \nTotal peaks in ",
+        paste0("\n**Comparison Group - Unique Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$unique_seqs2), "  \n")
     )
     
