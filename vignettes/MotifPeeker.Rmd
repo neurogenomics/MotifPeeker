@@ -75,7 +75,7 @@ package.
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
 which relies on a local install of the
 [MEME suite](https://meme-suite.org/meme/), which can be installed as follows:
-```
+```bash
 MEME_VERSION=5.5.5  # or the latest version
 
 wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
@@ -94,7 +94,7 @@ source ~/.bashrc
 **NOTE:** It is important that Perl dependencies associated with MEME suite are
 also installed, particularly `XML::Parser`, which can be installed using the
 following command in the terminal:
-```
+```bash
 cpan install XML::Parser
 ```
 For more information, refer to the [Perl dependency section of the MEME suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).

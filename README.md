@@ -50,25 +50,29 @@ package outputs an HTML report consisting of three sections:
 which relies on a local install of the [MEME
 suite](https://meme-suite.org/meme/), which can be installed as follows:
 
-    MEME_VERSION=5.5.5  # or the latest version
+``` bash
+MEME_VERSION=5.5.5  # or the latest version
 
-    wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
-    tar zxf meme-$MEME_VERSION.tar.gz
-    cd meme-$MEME_VERSION
-    ./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ \
-    --enable-build-libxml2 --enable-build-libxslt
-    make
-    make install
+wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
+tar zxf meme-$MEME_VERSION.tar.gz
+cd meme-$MEME_VERSION
+./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ \
+--enable-build-libxml2 --enable-build-libxslt
+make
+make install
 
-    # Add to PATH
-    echo 'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH' >> ~/.bashrc
-    source ~/.bashrc
+# Add to PATH
+echo 'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
 
 **NOTE:** It is important that Perl dependencies associated with MEME
 suite are also installed, particularly `XML::Parser`, which can be
 installed using the following command in the terminal:
 
-    cpan install XML::Parser
+``` bash
+cpan install XML::Parser
+```
 
 For more information, refer to the [Perl dependency section of the MEME
 suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
