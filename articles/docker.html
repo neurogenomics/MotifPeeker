@@ -67,7 +67,7 @@
       <h1>Docker/Singularity Containers</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/master/vignettes/docker.Rmd" class="external-link"><code>vignettes/docker.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/master/vignettes/articles/docker.Rmd" class="external-link"><code>vignettes/articles/docker.Rmd</code></a></small>
       <div class="d-none name"><code>docker.Rmd</code></div>
     </div>
 
@@ -87,16 +87,16 @@ pre-installed.</p>
 Docker</a> if you have not already.</p>
 <p>Create an image of the <a href="https://www.docker.com/" class="external-link">Docker</a>
 container in command line:</p>
-<pre><code>docker pull ghcr.io/neurogenomics/motifpeeker</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">docker</span> pull ghcr.io/neurogenomics/motifpeeker</span></code></pre></div>
 <p>Once the image has been created, you can launch it with:</p>
-<pre><code>docker run \
-    -d \
-    -e ROOT=true \
-    -e PASSWORD="&lt;your_password&gt;" \
-    -v ~/Desktop:/Desktop \
-    -v /Volumes:/Volumes \
-    -p 8900:8787 \
-    ghcr.io/neurogenomics/motifpeeker</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="at">-d</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="at">-e</span> ROOT=true <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="at">-e</span> PASSWORD=<span class="st">"&lt;your_password&gt;"</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="at">-v</span> ~/Desktop:/Desktop <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="at">-v</span> /Volumes:/Volumes <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="at">-p</span> 8900:8787 <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    ghcr.io/neurogenomics/motifpeeker</span></code></pre></div>
 <div class="section level4">
 <h4 id="notes">NOTES<a class="anchor" aria-label="anchor" href="#notes"></a>
 </h4>
@@ -123,7 +123,7 @@ Desktop</a> to easily manage your containers.</li>
 <p>If you are using a system that does not allow Docker (as is the case
 for many institutional computing clusters), you can instead <a href="https://docs.sylabs.io/guides/2.6/user-guide/singularity_and_docker.html" class="external-link">install
 Docker images via Singularity</a>.</p>
-<pre><code>singularity pull docker://ghcr.io/neurogenomics/motifpeeker</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">singularity</span> pull docker://ghcr.io/neurogenomics/motifpeeker</span></code></pre></div>
 <p>For troubleshooting, see the <a href="https://docs.sylabs.io/guides/latest/user-guide/singularity_and_docker.html#github-container-registry" class="external-link">Singularity
 documentation</a>.</p>
 </div>

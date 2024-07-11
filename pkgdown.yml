@@ -2,10 +2,10 @@ pandoc: '3.2'
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
-  docker: docker.html
+  articles/docker: docker.html
   MotifPeeker: MotifPeeker.html
   troubleshooting: troubleshooting.html
-last_built: 2024-07-11T16:48Z
+last_built: 2024-07-11T17:21Z
 urls:
   reference: https://neurogenomics.github.io/MotifPeeker/reference
   article: https://neurogenomics.github.io/MotifPeeker/articles

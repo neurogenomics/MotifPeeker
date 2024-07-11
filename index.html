@@ -82,21 +82,21 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p><code>MotifPeeker</code> uses <a href="https://www.bioconductor.org/packages/release/bioc/html/memes.html" class="external-link"><code>memes</code></a> which relies on a local install of the <a href="https://meme-suite.org/meme/" class="external-link">MEME suite</a>, which can be installed as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>MEME_VERSION<span class="ot">=</span><span class="dv">5</span>.<span class="fl">5.5</span>  <span class="co"># or the latest version</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="va">MEME_VERSION</span><span class="op">=</span>5.5.5  <span class="co"># or the latest version</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>meme<span class="sc">-</span>suite.org<span class="sc">/</span>meme<span class="sc">/</span>meme<span class="sc">-</span>software<span class="sc">/</span><span class="er">$</span>MEME_VERSION<span class="sc">/</span>meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION.tar.gz</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>tar zxf meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION.tar.gz</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>cd meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">$</span>HOME<span class="sc">/</span>meme <span class="sc">--</span>with<span class="sc">-</span>url<span class="ot">=</span>http<span class="sc">:</span><span class="er">//</span>meme<span class="sc">-</span>suite.org<span class="sc">/</span> \</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="sc">--</span>enable<span class="sc">-</span>build<span class="sc">-</span>libxml2 <span class="sc">--</span>enable<span class="sc">-</span>build<span class="sc">-</span>libxslt</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>make</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>make install</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">wget</span> https://meme-suite.org/meme/meme-software/<span class="va">$MEME_VERSION</span>/meme-<span class="va">$MEME_VERSION</span>.tar.gz</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">tar</span> zxf meme-<span class="va">$MEME_VERSION</span>.tar.gz</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="bu">cd</span> meme-<span class="va">$MEME_VERSION</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="ex">./configure</span> <span class="at">--prefix</span><span class="op">=</span><span class="va">$HOME</span>/meme <span class="at">--with-url</span><span class="op">=</span>http://meme-suite.org/ <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>--enable-build-libxml2 <span class="at">--enable-build-libxslt</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">make</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">make</span> install</span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>echo <span class="st">'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH'</span> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">~/</span>.bashrc</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>source <span class="sc">~</span><span class="er">/</span>.bashrc</span></code></pre></div>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
 <p><strong>NOTE:</strong> It is important that Perl dependencies associated with MEME suite are also installed, particularly <code>XML::Parser</code>, which can be installed using the following command in the terminal:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>cpan install XML<span class="sc">::</span>Parser</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">cpan</span> install XML::Parser</span></code></pre></div>
 <p>For more information, refer to the <a href="https://meme-suite.org/meme/doc/install.html#prereq_perl" class="external-link">Perl dependency section of the MEME suite</a>.</p>
 <p>Once the MEME suite and its associated Perl dependencies are installed, the development version of <code>MotifPeeker</code> can be installed using the following code:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
