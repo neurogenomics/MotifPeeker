@@ -9,28 +9,334 @@ vignette: |
 
 **Updated:** ***`r format(Sys.Date(), '%b-%d-%Y')`***  
 
-```{r, echo=FALSE, include=FALSE}
-pkg <- read.dcf("../DESCRIPTION", fields = "Package")[1]
-library(pkg, character.only = TRUE)
+# Overview
+
+The *MotifPeeker* package facilitates the comparison and validation of datasets
+from epigenomic profiling methods, using motif enrichment as the key benchmark.
+The package generates a comprehensive summary report with results from various
+downstream analyses by processing peak, alignment, and motif files. This allows
+for detailed statistical analysis of multiple epigenomic datasets without any
+coding, ensuring both accessibility and robustness.  
+
+# Introduction
+
+The rapidly advancing field of epigenomics has led to the development of various
+techniques for profiling protein interactions with DNA, enhancing our
+understanding of gene regulatory mechanisms and genetic factors behind complex
+diseases. However, the validation of these newer methods, such as CUT&RUN,
+CUT&TAG and TIP-Seq, remains a critical area that requires further exploration,
+especially given their potential to address the challenges of traditional
+ChIP-Seq.  
+
+Common epigenomic profiling techniques rely on target proteins, such as the
+transcriptional regulator CTCF, binding to their respective sites on the DNA to
+isolate the sequences for sequencing. These binding sites may contain specific
+sequences recognised by the transcription factors, called motifs. *MotifPeeker*
+checks for the presence of these motifs in the sequences enriched from
+epigenomic profiling methods as a novel strategy to benchmark them.
+
+At the same time, general metrics like FRiP scores and peak width distributions 
+are also reported to add more context to the comparisons. While the goal remains
+to benchmark different epigenomic datasets, *MotifPeeker* can also be used to
+compare the effects of various downstream processing, such as the thresholds for
+peak calling and the choice of the peak caller itself. The package can also help
+identify differences arising from different experimental conditions or protocol
+optimisations.
+
+# Data
+
+*MotifPeeker* comes with a small subset of two epigenomic datasets targeting
+CTCF in HCT116 cells, generated using ChIP-Seq and TIP-Seq.  
+
+- ChIP-Seq alignment file (`CTCF_ChIP_alignment.bam`) sourced from the ENCODE
+  project ([Accession: ENCFF091ODJ](https://www.encodeproject.org/files/ENCFF091ODJ/)).  
+- TIP-Seq alignment file (`CTCF_TIP_alignment.bam`) was manually processed using
+  the [`nf-core/cutandrun`](https://nf-co.re/cutandrun/3.2.2) pipeline. The raw
+  read files were sourced from *NIH Sequence Read Archives*
+  ([*ID: SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166)).  
+
+The alignment files were processed using the *MACS3* peak caller to produce
+their respective peak files with the `q-value` parameter set to 0.01.  
+
+Two motif files for CTCF are also bundled with the package:  
+
+- JASPAR motif file - [MA1930.2](https://jaspar.elixir.no/matrix/MA1930.2/)  
+- JASPAR motif file - [MA1102.3](https://jaspar.elixir.no/matrix/MA1102.3/)  
+
+Please note that the peaks and alignments included are a very small subset
+(*chr10:65,654,529-74,841,155*) of the actual data. It only serves as an example
+to demonstrate the package and run tests to maintain the integrity of the
+package.
+
+# Installation
+
+`MotifPeeker` uses
+[`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
+which relies on a local install of the
+[MEME suite](https://meme-suite.org/meme/), which can be installed as follows:
+```
+MEME_VERSION=5.5.5  # or the latest version
+
+wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
+tar zxf meme-$MEME_VERSION.tar.gz
+cd meme-$MEME_VERSION
+./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ \
+--enable-build-libxml2 --enable-build-libxslt
+make
+make install
+
+# Add to PATH
+echo 'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH' >> ~/.bashrc
+source ~/.bashrc
 ```
 
+**NOTE:** It is important that Perl dependencies associated with MEME suite are
+also installed, particularly `XML::Parser`, which can be installed using the
+following command in the terminal:
+```
+cpan install XML::Parser
+```
+For more information, refer to the [Perl dependency section of the MEME suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
 
+Once the MEME suite and its associated Perl dependencies are installed, the
+latest development version of `MotifPeeker` can be installed using the following
+code:
 ```R
-library(`r pkg`)
+if(!require("remotes")) install.packages("remotes")
+
+remotes::install_github("neurogenomics/MotifPeeker")
+library(MotifPeeker)
 ```
 
-# Examples
+Alternatively, you can use the [Docker/Singularity container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html) to
+run the package out-of-the-box.
 
-```{r}
+# Running *MotifPeeker*
 
+In this example, we will compare the bundled ChIP-Seq dataset against the
+TIP-Seq dataset.
+
+## Load the package
+
+Once installed, load the package using:
+```{r load-package}
+library(MotifPeeker)
 ```
 
+## Load the example datasets
+```{r load-data}
+## Peak files processed using read_peak_file()
+data("CTCF_ChIP_peaks", package = "MotifPeeker")
+data("CTCF_TIP_peaks", package = "MotifPeeker")
+
+## Motif files processed using read_motif_file()
+data("motif_MA1102.3", package = "MotifPeeker")
+data("motif_MA1930.2", package = "MotifPeeker")
+```
+
+## Prepare input data
+
+### Peak Files
+*MotifPeeker* accepts lists of both `GRanges` objects produced by
+`read_peak_file()`, or paths to the *MACS2/3* `.narrowPeak` files or *SEACR*
+`.bed` files, or ENCODE file IDs to automatically download the respective files.  
+```R
+## MACS2/3 peak files
+peak_files <- list("/path/to/peak1.narrowPeak",
+                   "/path/to/peak2.narrowPeak")
+                   
+## or SEACR peak files
+peak_files <- list("/path/to/peak1.bed",
+                   "/path/to/peak2.bed")
+```
+
+In this example, we will use the bundled `GRanges` peaks:  
+```{r prepare-peak-files}
+peak_files <- list(CTCF_ChIP_peaks, CTCF_TIP_peaks)
+```
+
+### Alignment Files
+Optionally provide a list of path to `.bam` alignment files, or ENCODE file IDs 
+to generate additional comparisons like FRiP scores.  
+
+In this example, we will use the built-in alignment files.  
+```{r prepare-alignment-files}
+## Alignment files
+CTCF_ChIP_alignment <- system.file("extdata", "CTCF_ChIP_alignment.bam",
+                                    package = "MotifPeeker")
+CTCF_TIP_alignment <- system.file("extdata", "CTCF_TIP_alignment.bam",
+                                    package = "MotifPeeker")
+
+alignment_files <- list(CTCF_ChIP_alignment, CTCF_TIP_alignment)
+```
+
+### Motif Files
+*MotifPeeker* accepts a list of either `universalmotif` objects, or paths to the
+`.jaspar` files.  
+```R
+## JASPAR motif files
+peak_files <- list("/path/to/motif1.jaspar",
+                   "/path/to/motif2.jaspar")
+```
+If you use JASPAR motif files, it is recommended that you label them by using
+the `motif_labels` parameter of the `MotifPeeker()` function.  
+
+In this example, we will use the bundled `universalmotif` motifs:
+```{r prepare-motif-files}
+motif_files <- list(motif_MA1102.3, motif_MA1930.2)
+```
+
+## Run *MotifPeeker*
+The report can be generated by using the main function `MotifPeeker()`. For more
+run customisations, refer to the next sections.
+
+```{r run-motifpeeker}
+MotifPeeker(
+    peak_files = peak_files,
+    reference_index = 2,  # Set TIP-seq experiment as reference
+    alignment_files = alignment_files,
+    exp_labels = c("ChIP", "TIP"),
+    exp_type = c("chipseq", "tipseq"),
+    genome_build = "hg38",  # Use hg38 genome build
+    motif_files = motif_files,
+    cell_counts = NULL,  # No cell-count information
+    denovo_motif_discovery = TRUE,
+    denovo_motifs = 3,  # Discover top 3 motifs
+    motif_db = NULL,  # Use default motif database (JASPAR)
+    download_buttons = TRUE,
+    out_dir = tempdir(),  # Save output in a temporary directory
+    workers = 2,  # Use two CPU cores on a 16GB RAM machine
+    debug = FALSE,
+    quiet = TRUE,
+    verbose = TRUE
+)
+```
+
+### Required Inputs
+
+These input parameters must be provided:  
+
+<details>
+<summary><strong>Details</strong></summary>
+
+- `peak_files`: A list of path to peak files or `GRanges` objects with the
+  peaks to analyse. Currently, only peak files from `MACS2/3` (`.narrowPeak`)
+  and `SEACR` (`.bed`) are supported. ENCODE file IDs can also be provided to
+  automatically fetch peak file(s) from the ENCODE database.  
+- `reference_index`: An integer specifying the index of the reference dataset
+  in the `peak_files` list to use as reference for various comparisons.
+  (default = 1)  
+- `genome_build`: A character string or a `BSgenome` object specifying the
+  genome build of the datasets. At the moment, only hg38 and hg19 are supported
+  as abbreviated input.  
+- `out_dir`: A character string specifying the output directory to save the
+  HTML report and other files.  
+
+</details>
+
+### Optional Inputs
+
+These input parameters optional, but *recommended* to add more analyses, or
+enhance them:  
+
+<details>
+<summary><strong>Details</strong></summary>
+
+- `alignment_files`: A list of path to alignment files or `Rsamtools::BamFile`
+  objects with the alignment sequences to analyse. Alignment files are used to
+  calculate read-related metrics like FRiP score. ENCODE file IDs can also be
+  provided to automatically fetch alignment file(s) from the ENCODE database.  
+- `exp_labels`: A character vector of labels for each peak file. If not
+  provided, capital letters will be used as labels in the report.
+- `exp_type`: A character vector of experimental types for each peak file.  
+  Useful for comparison of different methods. If not provided, all datasets will
+  be classified as "unknown" experiment types in the report. `exp_type` is used
+  only for labelling. It does not affect the analyses. You can also input custom
+  strings. Datasets will be grouped as long as they match their respective
+  `exp_type`. Supported experimental types are:  
+    - `chipseq`: ChIP-seq data  
+    - `tipseq`: TIP-seq data  
+    - `cuttag`: CUT&Tag data  
+    - `cutrun`: CUT&Run data  
+- `motif_files`: A character vector of path to motif files, or a vector of
+  `universalmotif-class` objects. Required to run Known Motif Enrichment
+  Analysis. JASPAR matrix IDs can also be provided to automatically fetch motifs
+  from the JASPAR.  
+- `motif_labels`: A character vector of labels for each motif file. Only used if
+  path to file names are passed in motif_files. If not provided, the motif file
+  names will be used as labels.  
+- `cell_counts`: An integer vector of experiment cell counts for each peak file
+  (if available). Creates additional comparisons based on cell counts.  
+- `motif_db`: Path to `.meme` format file to use as reference database, or a
+  list of `universalmotif-class` objects. Results from de-novo motif discovery
+  are searched against this database to find similar motifs. If not provided,
+  JASPAR CORE database will be used, making this parameter **truly optional**.
+  **NOTE**: p-value estimates are inaccurate when the database has fewer than
+  50 entries.  
+
+</details>
+
+### Other Options
+
+For more information on additional parameters, please refer to the documentation
+for [`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.html).  
+
+### Runtime Guidance {#runtime}
+
+For 4 datasets, the runtime is approximately 3 minutes with
+denovo_motif_discovery disabled. However, de-novo motif discovery can take
+hours to complete.  
+
+To make computation faster, we highly recommend tuning the following arguments:  
+
+<details>
+<summary><strong>Details</strong></summary>
+
+- `workers`: Running motif discovery in parallel can significantly reduce
+  runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per
+  thread. Memory starvation can greatly slow the process, so set `workers` with
+  caution.  
+- `denovo_motifs`: The number of motifs to discover per sequence group
+  exponentially increases runtime. We recommend no more than 5 motifs to make a
+  meaningful inference.  
+- `trim_seq_width`: Trimming sequences before running de-novo motif discovery
+  can significantly reduce the search space. Sequence length can exponentially
+  increase runtime. We recommend running the script with
+  `denovo_motif_discovery = FALSE` and studying the motif-summit distance
+  distribution under general metrics to find the sequence length that captures
+  most motifs. A good starting point is 150 but it can be reduced further if
+  appropriate.
+
+</details>
+
+## Outputs
+  
+`MotifPeeker` generates its output in a new folder within he `out_dir`
+directory. The folder is named `MotifPeeker_YYYYMMDD_HHMMSS` and contains the
+following files:  
+
+- `MotifPeeker.html`: The main HTML report, including all analyses and plots.  
+- Output from various MEME suite tools in their respecive sub-directories, if
+  `save_runfiles` is set to `TRUE`.  
+  
+## Troubleshooting
+
+If something does not work as expected, refer to
+[troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html).
+  
+# Future Enhancements
+
+- Add support for outputs from more peak callers.  
+- Automatically detect ideal `trim_peak_width` to reduce de-novo motif discovery
+  runtime.  
+- Add more [troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html)
+  steps to the documentation.  
 
 # Session Info 
 
 <details> 
 
-```{r Session Info}
+```{r session-info}
 utils::sessionInfo()
 ```
 
