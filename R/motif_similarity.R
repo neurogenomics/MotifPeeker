@@ -65,7 +65,7 @@ motif_similarity <- function(streme_out,
         seq_along(streme_out), function(x) {
             comparison_group <- comparison_groups[[seg_indices[x]]]
             .motifsx <- function(m) {
-                    motif_i <- comparison_group[2] +
+                    motif_i <- comparison_group[m] +
                         (4 * (group_indices[[x]] - 1))
                     streme_out[[motif_i]]$motif
                 }
