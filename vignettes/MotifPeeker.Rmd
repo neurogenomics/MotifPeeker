@@ -31,7 +31,8 @@ ChIP-Seq.
 Common epigenomic profiling techniques rely on target proteins, such as the
 transcriptional regulator CTCF, binding to their respective sites on the DNA to
 isolate the sequences for sequencing. These binding sites may contain specific
-sequences recognised by the transcription factors, called motifs. *MotifPeeker*
+sequences recognised by the transcription factors, called motifs. Unlike other
+comparison tools like *ChIPseeker* and *EpiCompare*, *MotifPeeker*
 checks for the presence of these motifs in the sequences enriched from
 epigenomic profiling methods as a novel strategy to benchmark them.
 
