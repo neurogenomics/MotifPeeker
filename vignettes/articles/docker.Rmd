@@ -21,7 +21,7 @@ vignette: |
 
 ```{r setup, include=FALSE}
 #### Package name ####
-PKG <- read.dcf("../DESCRIPTION", fields = "Package")[1]
+PKG <- read.dcf("../../DESCRIPTION", fields = "Package")[1]
 library(PKG, character.only = TRUE)
 ## Docker containers must be lowercase
 pkg <- tolower(PKG)
@@ -51,13 +51,13 @@ if you have not already.
 Create an image of the [Docker](https://www.docker.com/) container 
 in command line:  
 
-```
+```bash
 docker pull `r cont`
 ```
 
 Once the image has been created, you can launch it with:  
 
-```
+```bash
 docker run \
     -d \
     -e ROOT=true \
@@ -86,7 +86,7 @@ If you are using a system that does not allow Docker
 (as is the case for many institutional computing clusters), 
 you can instead [install Docker images via Singularity](https://docs.sylabs.io/guides/2.6/user-guide/singularity_and_docker.html).  
 
-```
+```bash
 singularity pull docker://`r cont`
 ```
 
