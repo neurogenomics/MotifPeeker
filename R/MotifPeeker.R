@@ -6,10 +6,26 @@
 #' and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 #' (3) De-novo Motif Enrichment Analysis.
 #' 
-#' The function can optionally call peaks using MACS3, but it is recommended
-#' that the peak files be supplied directly and produced using fine-tuned
-#' parameters.
-#' 
+#' Runtime guidance: For 4 datasets, the runtime is approximately 3 minutes with
+#' denovo_motif_discovery disabled. However, de-novo motif discovery can take
+#' hours to complete. To make computation faster, we highly recommend tuning the
+#' following arguments:
+#' \describe{
+#'     \item{\code{workers}}{Running motif discovery in parallel can
+#'     significantly reduce runtime, but it is very memory-intensive, consuming
+#'     upwards of 10GB of RAM per thread. Memory starvation can greatly slow the
+#'     process, so set \code{workers} with caution.}
+#'     \item{\code{denovo_motifs}}{The number of motifs to discover per sequence
+#'     group exponentially increases runtime. We recommend no more than 5
+#'     motifs to make a meaningful inference.}
+#'     \item{\code{trim_seq_width}}{Trimming sequences before running de-novo
+#'     motif discovery can significantly reduce the search space. Sequence
+#'     length can exponentially increase runtime. We recommend running the
+#'     script with \code{denovo_motif_discovery = FALSE} and studying the
+#'     motif-summit distance distribution under general metrics to find the
+#'     sequence length that captures most motifs. A good starting point is 150
+#'     but it can be reduced further if appropriate.}
+#' }
 #' 
 #' @param peak_files A character vector of path to peak files, or a vector of
 #' GRanges objects generated using \code{\link{read_peak_file}}. Currently,
@@ -69,6 +85,10 @@
 #'     \item \code{"rstudio"}: Open the report in the RStudio Viewer.
 #'     \item \code{NULL}: Do not open the report.
 #' }
+#' @param workers An integer specifying the number of threads to use for
+#' parallel processing. (default = 1)\cr
+#' \strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
+#' memory (RAM) is available as `denovo_motif_discovery` is memory-intensive.
 #' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
 #' @param debug A logical indicating whether to print debug/error messages in
@@ -100,23 +120,23 @@
 #' 
 #' @examples
 #' peaks <- list(
-#' system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
+#'     system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
 #'            package = "MotifPeeker"),
-#' system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
+#'     system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
 #'             package = "MotifPeeker")
 #' )
 #' 
 #' alignments <- list(
-#' system.file("extdata", "CTCF_ChIP_alignment.bam",
+#'     system.file("extdata", "CTCF_ChIP_alignment.bam",
 #'             package = "MotifPeeker"),
-#' system.file("extdata", "CTCF_TIP_alignment.bam",
+#'     system.file("extdata", "CTCF_TIP_alignment.bam",
 #'             package = "MotifPeeker")
 #' )
 #' 
 #' motifs <- list(
-#' system.file("extdata", "motif_MA1930.2.jaspar",
+#'     system.file("extdata", "motif_MA1930.2.jaspar",
 #'             package = "MotifPeeker"),
-#' system.file("extdata", "motif_MA1102.3.jaspar",
+#'     system.file("extdata", "motif_MA1102.3.jaspar",
 #'             package = "MotifPeeker")
 #' )
 #' 

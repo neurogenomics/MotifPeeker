@@ -47,7 +47,10 @@ use as the reference dataset for comparison. Indexing starts from 1.
 
 \item{out_dir}{A \code{character} vector of output directory.}
 
-\item{workers}{The number of workers to use for parallel processing.}
+\item{workers}{An integer specifying the number of threads to use for
+parallel processing. (default = 1)\cr
+\strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
+memory (RAM) is available as `denovo_motif_discovery` is memory-intensive.}
 
 \item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
 "MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
