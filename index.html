@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment • MotifPeeker</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
@@ -37,6 +43,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/docker.html">Docker/Singularity Containers</a></li>
+    <li><a class="dropdown-item" href="articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -59,37 +66,49 @@
 </h1></div>
 <p><img src="https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png" style="height: 300px !important;"></p>
 <p><a href="https://cran.r-project.org/web/licenses/GPL%20(%3E=%203)" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg" alt="License: GPL (&gt;= 3)"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.99.0-black.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker/commits/master" class="external-link"><img src="https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg"></a> <br><a href="https://github.com/neurogenomics/MotifPeeker/actions" class="external-link"><img src="https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg" alt="R build status"></a> <a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg"></a> <br><a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master" target="_blank" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg" title="Codecov icicle graph" width="200" height="50" style="vertical-align: top;"></a></p>
-<p><strong>Authors: Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</strong><br><strong>Updated:</strong> <strong><em>Jul-10-2024</em></strong></p>
+<p><strong>Authors:</strong> <strong><em>Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</em></strong><br><strong>Updated:</strong> <strong><em>Jul-11-2024</em></strong></p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p><code>MotifPeeker</code> is used to compare and analyse datasets from epigenomic profiling methods with motif enrichment as the key benchmark. The package outputs an HTML report consisting of three sections:</p>
 <ol style="list-style-type: decimal">
-<li>
-<strong>General Metrics</strong>: Overview of peaks-related general metrics for the datasets (FRiP scores, peak widths and motif-summit distances).</li>
-<li>
-<strong>Known Motif Enrichment Analysis</strong>: Statistics for the frequency of user-provided motifs enriched in the datasets.</li>
-<li>
-<strong>De-Novo Motif Enrichment Analysis</strong>: Statistics for the frequency of de-novo discovered motifs enriched in the datasets and compared with known motifs.</li>
+<li><p><strong>General Metrics</strong>: Provides an overview of metrics related to dataset peaks, including FRiP scores, peak widths, and motif-to-summit distances.</p></li>
+<li><p><strong>Known Motif Enrichment Analysis</strong>: Presents statistics on the frequency of enriched user-supplied motifs in the datasets and compares them between the common and unique peaks from comparison and reference datasets.</p></li>
+<li><p><strong>De-Novo Motif Enrichment Analysis</strong>: Details the statistics of de-novo discovered motifs in common and unique peaks from comparison and reference datasets. Examines motif similarities and identifies the closest known motifs in the JASPAR or the provided database.</p></li>
 </ol>
 <!-- If you use `MotifPeeker`, please cite:  --><!-- >  -->
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>MotifPeeker</code> uses <a href="https://www.bioconductor.org/packages/release/bioc/html/memes.html" class="external-link"><code>memes</code></a> which relies on a local install of the <a href="https://meme-suite.org/meme/" class="external-link">MEME suite</a>. Installation instructions can be found <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/%20memes/inst/doc/install_guide.html" class="external-link">here</a>.</p>
+<p><code>MotifPeeker</code> uses <a href="https://www.bioconductor.org/packages/release/bioc/html/memes.html" class="external-link"><code>memes</code></a> which relies on a local install of the <a href="https://meme-suite.org/meme/" class="external-link">MEME suite</a>, which can be installed as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>MEME_VERSION<span class="ot">=</span><span class="dv">5</span>.<span class="fl">5.5</span>  <span class="co"># or the latest version</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>wget https<span class="sc">:</span><span class="er">//</span>meme<span class="sc">-</span>suite.org<span class="sc">/</span>meme<span class="sc">/</span>meme<span class="sc">-</span>software<span class="sc">/</span><span class="er">$</span>MEME_VERSION<span class="sc">/</span>meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION.tar.gz</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>tar zxf meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION.tar.gz</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>cd meme<span class="sc">-</span><span class="er">$</span>MEME_VERSION</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>.<span class="sc">/</span>configure <span class="sc">--</span>prefix<span class="ot">=</span><span class="er">$</span>HOME<span class="sc">/</span>meme <span class="sc">--</span>with<span class="sc">-</span>url<span class="ot">=</span>http<span class="sc">:</span><span class="er">//</span>meme<span class="sc">-</span>suite.org<span class="sc">/</span> \</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="sc">--</span>enable<span class="sc">-</span>build<span class="sc">-</span>libxml2 <span class="sc">--</span>enable<span class="sc">-</span>build<span class="sc">-</span>libxslt</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>make</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>make install</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>echo <span class="st">'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH'</span> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">~/</span>.bashrc</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>source <span class="sc">~</span><span class="er">/</span>.bashrc</span></code></pre></div>
 <p><strong>NOTE:</strong> It is important that Perl dependencies associated with MEME suite are also installed, particularly <code>XML::Parser</code>, which can be installed using the following command in the terminal:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>cpan install XML<span class="sc">::</span>Parser</span></code></pre></div>
-<p>For more information, refer to the Perl dependency section of the MEME suite <a href="https://meme-suite.org/meme/doc/install.html#prereq_perl" class="external-link">here</a>.</p>
-<p>Once the MEME suite and its associated Perl dependencies are installed, <code>MotifPeeker</code> can be installed using the following code:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>cpan install XML<span class="sc">::</span>Parser</span></code></pre></div>
+<p>For more information, refer to the <a href="https://meme-suite.org/meme/doc/install.html#prereq_perl" class="external-link">Perl dependency section of the MEME suite</a>.</p>
+<p>Once the MEME suite and its associated Perl dependencies are installed, the development version of <code>MotifPeeker</code> can be installed using the following code:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"neurogenomics/MotifPeeker"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/neurogenomics/MotifPeeker" class="external-link">MotifPeeker</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
-</h3>
+<p>Alternatively, you can use the <a href="https://neurogenomics.github.io/MotifPeeker/articles/docker.html">Docker/Singularity container</a> to run the package out-of-the-box.</p>
+</div>
+<div class="section level2">
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h2>
 <div class="section level4">
 <h4 id="epicompare-website">
 <a href="https://neurogenomics.github.io/MotifPeeker">EpiCompare Website</a><a class="anchor" aria-label="anchor" href="#epicompare-website"></a>
@@ -104,56 +123,232 @@
 <h4 id="dockersingularity-container">
 <a href="https://neurogenomics.github.io/MotifPeeker/articles/docker.html">Docker/Singularity Container</a><a class="anchor" aria-label="anchor" href="#dockersingularity-container"></a>
 </h4>
-<hr>
 </div>
+<div class="section level4">
+<h4 id="troubleshooting">
+<a href="https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html">Troubleshooting</a><a class="anchor" aria-label="anchor" href="#troubleshooting"></a>
+</h4>
+</div>
+</div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>Load the package and example datasets.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/neurogenomics/MotifPeeker" class="external-link">MotifPeeker</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_ChIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_TIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1102.2"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1930.2"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></code></pre></div>
+<p>Prepare input files.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">CTCF_ChIP_peaks</span>, <span class="va">CTCF_TIP_peaks</span><span class="op">)</span></span>
+<span><span class="va">alignment_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"CTCF_ChIP_alignment.bam"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"CTCF_TIP_alignment.bam"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">motif_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">motif_MA1102.2</span>, <span class="va">motif_MA1930.2</span><span class="op">)</span></span></code></pre></div>
+<p>Run <code><a href="reference/MotifPeeker.html">MotifPeeker()</a></code>:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/MotifPeeker.html">MotifPeeker</a></span><span class="op">(</span></span>
+<span>    peak_files <span class="op">=</span> <span class="va">peak_files</span>,</span>
+<span>    reference_index <span class="op">=</span> <span class="fl">2</span>,  <span class="co"># Set TIP-seq experiment as reference</span></span>
+<span>    alignment_files <span class="op">=</span> <span class="va">alignment_files</span>,</span>
+<span>    exp_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChIP"</span>, <span class="st">"TIP"</span><span class="op">)</span>,</span>
+<span>    exp_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chipseq"</span>, <span class="st">"tipseq"</span><span class="op">)</span>,</span>
+<span>    genome_build <span class="op">=</span> <span class="st">"hg38"</span>,</span>
+<span>    motif_files <span class="op">=</span> <span class="va">motif_files</span>,</span>
+<span>    cell_counts <span class="op">=</span> <span class="cn">NULL</span>,  <span class="co"># No cell-count information</span></span>
+<span>    denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    workers <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="required-inputs">Required Inputs<a class="anchor" aria-label="anchor" href="#required-inputs"></a>
+</h3>
+<p>These input parameters must be provided:</p>
+<details><summary><strong>Details</strong>
+</summary><ul>
+<li>
+<code>peak_files</code>: A list of path to peak files or <code>GRanges</code> objects with the peaks to analyse. Currently, only peak files from <code>MACS2/3</code> (<code>.narrowPeak</code>) and <code>SEACR</code> (<code>.bed</code>) are supported. ENCODE file IDs can also be provided to automatically fetch peak file(s) from the ENCODE database.<br>
+</li>
+<li>
+<code>reference_index</code>: An integer specifying the index of the reference dataset in the <code>peak_files</code> list to use as reference for various comparisons. (default = 1)<br>
+</li>
+<li>
+<code>genome_build</code>: A character string or a <code>BSgenome</code> object specifying the genome build of the datasets. At the moment, only hg38 and hg19 are supported as abbreviated input.<br>
+</li>
+<li>
+<code>out_dir</code>: A character string specifying the output directory to save the HTML report and other files.</li>
+</ul></details>
+</div>
+<div class="section level3">
+<h3 id="optional-inputs">Optional Inputs<a class="anchor" aria-label="anchor" href="#optional-inputs"></a>
+</h3>
+<p>These input parameters optional, but <em>recommended</em> to add more analyses, or enhance them:</p>
+<details><summary><strong>Details</strong>
+</summary><ul>
+<li>
+<code>alignment_files</code>: A list of path to alignment files or <code><a href="https://rdrr.io/pkg/Rsamtools/man/BamFile-class.html" class="external-link">Rsamtools::BamFile</a></code> objects with the alignment sequences to analyse. Alignment files are used to calculate read-related metrics like FRiP score. ENCODE file IDs can also be provided to automatically fetch alignment file(s) from the ENCODE database.<br>
+</li>
+<li>
+<code>exp_labels</code>: A character vector of labels for each peak file. If not provided, capital letters will be used as labels in the report.</li>
+<li>
+<code>exp_type</code>: A character vector of experimental types for each peak file.<br>
+Useful for comparison of different methods. If not provided, all datasets will be classified as “unknown” experiment types in the report. <code>exp_type</code> is used only for labelling. It does not affect the analyses. You can also input custom strings. Datasets will be grouped as long as they match their respective <code>exp_type</code>. Supported experimental types are:
+<ul>
+<li>
+<code>chipseq</code>: ChIP-seq data<br>
+</li>
+<li>
+<code>tipseq</code>: TIP-seq data<br>
+</li>
+<li>
+<code>cuttag</code>: CUT&amp;Tag data<br>
+</li>
+<li>
+<code>cutrun</code>: CUT&amp;Run data<br>
+</li>
+</ul>
+</li>
+<li>
+<code>motif_files</code>: A character vector of path to motif files, or a vector of <code>universalmotif-class</code> objects. Required to run Known Motif Enrichment Analysis. JASPAR matrix IDs can also be provided to automatically fetch motifs from the JASPAR.<br>
+</li>
+<li>
+<code>motif_labels</code>: A character vector of labels for each motif file. Only used if path to file names are passed in motif_files. If not provided, the motif file names will be used as labels.<br>
+</li>
+<li>
+<code>cell_counts</code>: An integer vector of experiment cell counts for each peak file (if available). Creates additional comparisons based on cell counts.<br>
+</li>
+<li>
+<code>motif_db</code>: Path to <code>.meme</code> format file to use as reference database, or a list of <code>universalmotif-class</code> objects. Results from de-novo motif discovery are searched against this database to find similar motifs. If not provided, JASPAR CORE database will be used, making this parameter <strong>truly optional</strong>. <strong>NOTE</strong>: p-value estimates are inaccurate when the database has fewer than 50 entries.</li>
+</ul></details>
+</div>
+<div class="section level3">
+<h3 id="other-options">Other Options<a class="anchor" aria-label="anchor" href="#other-options"></a>
+</h3>
+<p>For more information on additional parameters, please refer to the documentation for <a href="https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.html"><code>MotifPeeker()</code></a>.</p>
+</div>
+<div class="section level3">
+<h3 id="runtime-guidance">Runtime Guidance<a class="anchor" aria-label="anchor" href="#runtime-guidance"></a>
+</h3>
+<p>For 4 datasets, the runtime is approximately 3 minutes with denovo_motif_discovery disabled. However, de-novo motif discovery can take hours to complete.</p>
+<p>To make computation faster, we highly recommend tuning the following arguments:</p>
+<details><summary><strong>Details</strong>
+</summary><ul>
+<li>
+<code>workers</code>: Running motif discovery in parallel can significantly reduce runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per thread. Memory starvation can greatly slow the process, so set <code>workers</code> with caution.<br>
+</li>
+<li>
+<code>denovo_motifs</code>: The number of motifs to discover per sequence group exponentially increases runtime. We recommend no more than 5 motifs to make a meaningful inference.<br>
+</li>
+<li>
+<code>trim_seq_width</code>: Trimming sequences before running de-novo motif discovery can significantly reduce the search space. Sequence length can exponentially increase runtime. We recommend running the script with <code>denovo_motif_discovery = FALSE</code> and studying the motif-summit distance distribution under general metrics to find the sequence length that captures most motifs. A good starting point is 150 but it can be reduced further if appropriate.</li>
+</ul></details>
+</div>
+<div class="section level3">
+<h3 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
+</h3>
+<p><code>MotifPeeker</code> generates its output in a new folder within he <code>out_dir</code> directory. The folder is named <code>MotifPeeker_YYYYMMDD_HHMMSS</code> and contains the following files:</p>
+<ul>
+<li>
+<code>MotifPeeker.html</code>: The main HTML report, including all analyses and plots.<br>
+</li>
+<li>Output from various MEME suite tools in their respecive sub-directories, if <code>save_runfiles</code> is set to <code>TRUE</code>.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a>
+</h2>
+<p><code>MotifPeeker</code> comes with several datasets bundled:</p>
+<details><summary><strong>Details</strong>
+</summary><ul>
+<li>
+<code>CTCF_TIP_peaks</code>: Human CTCF peak file generated with TIP-seq using HCT116 cell-line. No control files were used to generate the peak file. The peaks were called using <code>MACS3</code> with <code>CTCF_TIP_alignment.bam</code> as input.<br>
+</li>
+<li>
+<code>CTCF_ChIP_peaks</code>: Human CTCF peak file generated with ChIP-seq using HCT116 cell-line. No control files were used to generate the peak file. The peaks were called using <code>MACS3</code> with <code>CTCF_ChIP_alignment.bam</code> as input.<br>
+</li>
+<li>
+<code>motif_MA1102.3</code>: The JASPAR motif for CTCFL (MA1102.3) for <em>Homo Sapiens</em>. Sourced from <a href="https://jaspar.elixir.no/matrix/MA1102.3/" class="external-link">JASPAR</a>
+</li>
+<li>
+<code>motif_MA1930.2</code>: The JASPAR motif for CTCFL (MA1930.2) for <em>Homo Sapiens</em>. Sourced from <a href="https://jaspar.elixir.no/matrix/MA1930.2/" class="external-link">JASPAR</a>
+</li>
+<li>
+<code>CTCF_TIP_alignment.bam</code>: Human CTCF alignment file generated with TIP-seq using HCT116 cell-line. The alignment file was generated using the <a href="https://nf-co.re/cutandrun/3.2.2" class="external-link"><code>nf-core/cutandrun</code></a> pipeline. Raw read files were sourced from <em>NIH Sequence Read Archives</em> <a href="https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&amp;acc=SRR16963166" class="external-link"><em>ID: SRR16963166</em></a>. Only available as <em>extdata</em>.<br>
+</li>
+<li>
+<code>CTCF_ChIP_alignment.bam</code>: Human CTCF alignment file generated with ChIP-seq using HCT116 cell-line. Sourced from <a href="https://www.encodeproject.org/files/ENCFF091ODJ/" class="external-link">ENCODE (Accession: ENCFF091ODJ)</a>. Only available as <em>extdata</em>.</li>
+</ul></details><p>Please note that the peaks and alignments included are a very small subset (<em>chr10:65,654,529-74,841,155</em>) of the actual data. It only serves as an example to demonstrate the package and run tests to maintain the integrity of the package.</p>
+</div>
+<div class="section level2">
+<h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a>
+</h2>
+<div class="section level3">
+<h3 id="neurogenomics-lab">
+<a href="https://www.neurogenomics.co.uk/inst/report/EpiCompare.html" class="external-link">Neurogenomics Lab</a><a class="anchor" aria-label="anchor" href="#neurogenomics-lab"></a>
+</h3>
+<p>UK Dementia Research Institute<br>
+Department of Brain Sciences<br>
+Faculty of Medicine<br>
+Imperial College London<br><a href="https://github.com/neurogenomics" class="external-link">GitHub</a></p>
+<hr>
 </div>
 <div class="section level3">
 <h3 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h3>
-<details><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<details><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## R version 4.4.1 (2024-06-14)</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="do">## Platform: x86_64-pc-linux-gnu</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">## Running under: Ubuntu 22.04.4 LTS</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Matrix products: default</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## locale:</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="do">## time zone: UTC</span></span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="do">## tzcode source: system (glibc)</span></span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="do">## attached base packages:</span></span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="do">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="do">## other attached packages:</span></span>
-<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="do">## [1] rmarkdown_2.27</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
-<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="do">##  [1] gtable_0.3.5        jsonlite_1.8.8      renv_1.0.7         </span></span>
-<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="do">##  [4] dplyr_1.1.4         compiler_4.4.1      BiocManager_1.30.23</span></span>
-<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a><span class="do">##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.3.0       </span></span>
-<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="do">## [10] yaml_2.3.9          fastmap_1.2.0       here_1.0.1         </span></span>
-<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a><span class="do">## [13] ggplot2_3.5.1       R6_2.5.1            generics_0.1.3     </span></span>
-<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a><span class="do">## [16] knitr_1.48          yulab.utils_0.1.4   tibble_3.2.1       </span></span>
-<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a><span class="do">## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.0.4    </span></span>
-<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a><span class="do">## [22] munsell_0.5.1       pillar_1.9.0        RColorBrewer_1.1-3 </span></span>
-<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a><span class="do">## [25] rlang_1.1.4         utf8_1.2.4          cachem_1.1.0       </span></span>
-<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="do">## [28] badger_0.2.4        xfun_0.45           fs_1.6.4           </span></span>
-<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a><span class="do">## [31] memoise_2.0.1       cli_3.6.3           magrittr_2.0.3     </span></span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a><span class="do">## [34] rworkflows_1.0.1    digest_0.6.36       grid_4.4.1         </span></span>
-<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a><span class="do">## [37] lifecycle_1.0.4     vctrs_0.6.5         data.table_1.15.4  </span></span>
-<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a><span class="do">## [40] evaluate_0.24.0     glue_1.7.0          fansi_1.0.6        </span></span>
-<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a><span class="do">## [43] colorspace_2.1-0    tools_4.4.1         pkgconfig_2.0.3    </span></span>
-<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a><span class="do">## [46] htmltools_0.5.8.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## R version 4.4.1 (2024-06-14)</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## Platform: x86_64-pc-linux-gnu</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## Running under: Ubuntu 22.04.4 LTS</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## Matrix products: default</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## locale:</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="do">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="do">## time zone: UTC</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="do">## tzcode source: system (glibc)</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="do">## attached base packages:</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="do">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="do">## other attached packages:</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="do">## [1] rmarkdown_2.27</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="do">##  [1] gtable_0.3.5        jsonlite_1.8.8      renv_1.0.7         </span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="do">##  [4] dplyr_1.1.4         compiler_4.4.1      BiocManager_1.30.23</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="do">##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.3.0       </span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="do">## [10] yaml_2.3.9          fastmap_1.2.0       here_1.0.1         </span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="do">## [13] ggplot2_3.5.1       R6_2.5.1            generics_0.1.3     </span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="do">## [16] knitr_1.48          yulab.utils_0.1.4   tibble_3.2.1       </span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="do">## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.0.4    </span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="do">## [22] munsell_0.5.1       pillar_1.9.0        RColorBrewer_1.1-3 </span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="do">## [25] rlang_1.1.4         utf8_1.2.4          cachem_1.1.0       </span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="do">## [28] badger_0.2.4        xfun_0.45           fs_1.6.4           </span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="do">## [31] memoise_2.0.1       cli_3.6.3           magrittr_2.0.3     </span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="do">## [34] rworkflows_1.0.1    digest_0.6.36       grid_4.4.1         </span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="do">## [37] lifecycle_1.0.4     vctrs_0.6.5         data.table_1.15.4  </span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="do">## [40] evaluate_0.24.0     glue_1.7.0          fansi_1.0.6        </span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="do">## [43] colorspace_2.1-0    tools_4.4.1         pkgconfig_2.0.3    </span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="do">## [46] htmltools_0.5.8.1</span></span></code></pre></div>
 </details>
 </div>
 </div>
