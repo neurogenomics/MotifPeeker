@@ -62,6 +62,7 @@ make install
 
 # Add to PATH
 echo 'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH' >> ~/.bashrc
+echo 'export MEME_BIN=$HOME/meme/bin' >> ~/.bashrc
 source ~/.bashrc
 ```
 
