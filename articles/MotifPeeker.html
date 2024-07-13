@@ -73,7 +73,7 @@
 
     
     
-<p><strong>Updated:</strong> <strong><em>Jul-11-2024</em></strong></p>
+<p><strong>Updated:</strong> <strong><em>Jul-13-2024</em></strong></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -162,7 +162,8 @@ installed as follows:</p>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export MEME_BIN=$HOME/meme/bin'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
 <p><strong>NOTE:</strong> It is important that Perl dependencies
 associated with MEME suite are also installed, particularly
 <code>XML::Parser</code>, which can be installed using the following
@@ -290,7 +291,7 @@ next sections.</p>
 <span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "/tmp/Rtmpl6F8DO/MotifPeeker_20240711_172352"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/tmp/Rtmp0boxsU/MotifPeeker_20240713_000842"</span></span></code></pre>
 <div class="section level4">
 <h4 id="required-inputs">Required Inputs<a class="anchor" aria-label="anchor" href="#required-inputs"></a>
 </h4>
@@ -500,7 +501,7 @@ steps to the documentation.</li>
 <span><span class="co">##   [7] BiocIO_1.15.0                     zlibbioc_1.51.1                  </span></span>
 <span><span class="co">##   [9] ragg_1.3.2                        vctrs_0.6.5                      </span></span>
 <span><span class="co">##  [11] memoise_2.0.1                     Rsamtools_2.21.0                 </span></span>
-<span><span class="co">##  [13] b64_0.1.1                         RCurl_1.98-1.14                  </span></span>
+<span><span class="co">##  [13] b64_0.1.1                         RCurl_1.98-1.16                  </span></span>
 <span><span class="co">##  [15] webshot_0.5.5                     htmltools_0.5.8.1                </span></span>
 <span><span class="co">##  [17] S4Arrays_1.5.4                    curl_5.2.1                       </span></span>
 <span><span class="co">##  [19] SparseArray_1.5.18                sass_0.4.9                       </span></span>

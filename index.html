@@ -66,7 +66,7 @@
 </h1></div>
 <p><img src="https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png" style="height: 300px !important;"></p>
 <p><a href="https://cran.r-project.org/web/licenses/GPL%20(%3E=%203)" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg" alt="License: GPL (&gt;= 3)"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.99.0-black.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker/commits/master" class="external-link"><img src="https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg"></a> <br><a href="https://github.com/neurogenomics/MotifPeeker/actions" class="external-link"><img src="https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg" alt="R build status"></a> <a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg"></a> <br><a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master" target="_blank" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg" title="Codecov icicle graph" width="200" height="50" style="vertical-align: top;"></a></p>
-<p><strong>Authors:</strong> <strong><em>Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</em></strong><br><strong>Updated:</strong> <strong><em>Jul-11-2024</em></strong></p>
+<p><strong>Authors:</strong> <strong><em>Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</em></strong><br><strong>Updated:</strong> <strong><em>Jul-13-2024</em></strong></p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -94,7 +94,8 @@
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export PATH=$HOME/meme/bin:/meme/libexec/meme-$MEME_VERSION:$PATH'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">echo</span> <span class="st">'export MEME_BIN=$HOME/meme/bin'</span> <span class="op">&gt;&gt;</span> ~/.bashrc</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code></pre></div>
 <p><strong>NOTE:</strong> It is important that Perl dependencies associated with MEME suite are also installed, particularly <code>XML::Parser</code>, which can be installed using the following command in the terminal:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">cpan</span> install XML::Parser</span></code></pre></div>
 <p>For more information, refer to the <a href="https://meme-suite.org/meme/doc/install.html#prereq_perl" class="external-link">Perl dependency section of the MEME suite</a>.</p>
