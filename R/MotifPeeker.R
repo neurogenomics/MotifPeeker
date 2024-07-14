@@ -88,7 +88,8 @@
 #' @param workers An integer specifying the number of threads to use for
 #' parallel processing. (default = 1)\cr
 #' \strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
-#' memory (RAM) is available as `denovo_motif_discovery` is memory-intensive.
+#' memory (RAM) is available as \code{denovo_motif_discovery} is
+#' memory-intensive.
 #' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
 #' @param debug A logical indicating whether to print debug/error messages in
