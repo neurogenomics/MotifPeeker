@@ -6,7 +6,7 @@
 #' @param url A character string specifying the URL of the file to check for.
 #' @inheritParams MotifPeeker
 #' 
-#' @importFrom BiocFileCache BiocFileCache bfcinfo
+#' @importFrom BiocFileCache BiocFileCache bfcinfo bfcrpath
 #' 
 #' @returns A character string specifying the path to the cached file.
 #' 
