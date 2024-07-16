@@ -177,7 +177,7 @@ alignment_files <- list(CTCF_ChIP_alignment, CTCF_TIP_alignment)
 `.jaspar` files.  
 ```R
 ## JASPAR motif files
-peak_files <- list("/path/to/motif1.jaspar",
+motif_files <- list("/path/to/motif1.jaspar",
                    "/path/to/motif2.jaspar")
 ```
 If you use JASPAR motif files, it is recommended that you label them by using
