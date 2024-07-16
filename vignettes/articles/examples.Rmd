@@ -16,7 +16,9 @@ code used to produce them.
 
 ## [Reports Home](https://neurogenomics.github.io/MotifPeeker-reports/)
 
-### Reports
+### Reports  
+
+<br>  
 
 #### [CTCF ChIP-seq - TIP-seq](https://neurogenomics.github.io/MotifPeeker-reports/CTCF_ChIP-TIP/output/MotifPeeker_20240711_230621/MotifPeeker.html)
 <details><summary>Dataset Details</summary>
@@ -24,16 +26,16 @@ Compares three public ChIP-seq datasets against a TIP-seq dataset for CTCF in
 HCT116 cells. Details of the datasets used are as follows:  
 
 1. <code>ChIPSeq1</code>  
-  ENCODE Accession: [ENCFF172XLC](https://www.encodeproject.org/files/ENCFF172XLC/)  
+    ENCODE Accession: [ENCFF172XLC](https://www.encodeproject.org/files/ENCFF172XLC/)  
 2. <code>ChIPSeq2</code>  
-  ENCODE Accession: [ENCFF411OOS](https://www.encodeproject.org/files/ENCFF411OOS/)  
+    ENCODE Accession: [ENCFF411OOS](https://www.encodeproject.org/files/ENCFF411OOS/)  
 3. <code>ChIPSeq3</code>  
-  ENCODE Accession: [ENCFF091ODJ](https://www.encodeproject.org/files/ENCFF091ODJ/)
+    ENCODE Accession: [ENCFF091ODJ](https://www.encodeproject.org/files/ENCFF091ODJ/)
 4. <code>TIPSeq</code>  
-  Alignment file produced by running the
-  [`nf-core/cutandrun`](https://nf-co.re/cutandrun/) pipeline on the raw
-  sequencing data sourced from *NIH Sequence Read Archives*
-  [*ID: SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166&display=metadata).  
+    Alignment file produced by running the
+    [`nf-core/cutandrun`](https://nf-co.re/cutandrun/) pipeline on the raw
+    sequencing data sourced from *NIH Sequence Read Archives*
+    [*ID: SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166&display=metadata).  
   
 Peak calling was performed using
 [`MACS3`](https://github.com/macs3-project/MACS) using the following commands:

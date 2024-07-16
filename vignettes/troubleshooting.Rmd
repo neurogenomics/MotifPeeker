@@ -20,27 +20,27 @@ If you encounter an issue that is not covered, please open an issue on the
 #### MEME Suite Related
 
 1. **Error: Cannot find MEME Suite**  
-   If You have ensured that the MEME Suite is installed, but still encounter
-   this error, set the path to the MEME suite binaries (`.../meme/bin/`) using
-   the `meme_path` parameter in the `MotifPeeker()` function call.  
+    If You have ensured that the MEME Suite is installed, but still encounter
+    this error, set the path to the MEME suite binaries (`.../meme/bin/`) using
+    the `meme_path` parameter in the `MotifPeeker()` function call.  
 
 2. **Error: Failed to generate .html file.**  
-   Please ensure that the
-   [Perl dependencies required by the MEME Suite](https://meme-suite.org/meme/doc/install.html#prereq_perl)
-   are installed, particularly `XML::Parser`, which can be installed using the
-   following command in the terminal:  
-   ```bash
-   cpan install XML::Parser
-   ```
+    Please ensure that the
+    [Perl dependencies required by the MEME Suite](https://meme-suite.org/meme/doc/install.html#prereq_perl)
+    are installed, particularly `XML::Parser`, which can be installed using the
+    following command in the terminal:  
+    ```bash
+    cpan install XML::Parser
+    ```
 
 #### `MotifPeeker()` Related
 
 1. **Function takes too long to run**  
-  It is likely de-novo motif discovery is what is taking too long to run. Try
-  reducing the number of `workers` if you are running out of memory while
-  running the `MotifPeeker()` function.  
-  Additionally, follow the [runtime guidance](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html#runtime)
-  for `MotifPeeker()`.  
+    It is likely de-novo motif discovery is what is taking too long to run. Try
+    reducing the number of `workers` if you are running out of memory while
+    running the `MotifPeeker()` function.  
+    Additionally, follow the [runtime guidance](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html#runtime)
+    for `MotifPeeker()`.  
 
 
 # Session Info 

@@ -50,11 +50,11 @@ optimisations.
 CTCF in HCT116 cells, generated using ChIP-Seq and TIP-Seq.  
 
 - ChIP-Seq alignment file (`CTCF_ChIP_alignment.bam`) sourced from the ENCODE
-  project ([Accession: ENCFF091ODJ](https://www.encodeproject.org/files/ENCFF091ODJ/)).  
+    project ([Accession: ENCFF091ODJ](https://www.encodeproject.org/files/ENCFF091ODJ/)).  
 - TIP-Seq alignment file (`CTCF_TIP_alignment.bam`) was manually processed using
-  the [`nf-core/cutandrun`](https://nf-co.re/cutandrun/3.2.2) pipeline. The raw
-  read files were sourced from *NIH Sequence Read Archives*
-  ([*ID: SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166)).  
+    the [`nf-core/cutandrun`](https://nf-co.re/cutandrun/3.2.2) pipeline. The
+    raw read files were sourced from *NIH Sequence Read Archives*
+    ([*ID: SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166)).  
 
 The alignment files were processed using the *MACS3* peak caller to produce
 their respective peak files with the `q-value` parameter set to 0.01.  
@@ -144,12 +144,10 @@ data("motif_MA1930.2", package = "MotifPeeker")
 `.bed` files, or ENCODE file IDs to automatically download the respective files.  
 ```R
 ## MACS2/3 peak files
-peak_files <- list("/path/to/peak1.narrowPeak",
-                   "/path/to/peak2.narrowPeak")
-                   
+peak_files <- list("/path/to/peak1.narrowPeak", "/path/to/peak2.narrowPeak")
+
 ## or SEACR peak files
-peak_files <- list("/path/to/peak1.bed",
-                   "/path/to/peak2.bed")
+peak_files <- list("/path/to/peak1.bed", "/path/to/peak2.bed")
 ```
 
 In this example, we will use the bundled `GRanges` peaks:  
@@ -177,8 +175,7 @@ alignment_files <- list(CTCF_ChIP_alignment, CTCF_TIP_alignment)
 `.jaspar` files.  
 ```R
 ## JASPAR motif files
-motif_files <- list("/path/to/motif1.jaspar",
-                   "/path/to/motif2.jaspar")
+motif_files <- list("/path/to/motif1.jaspar", "/path/to/motif2.jaspar")
 ```
 If you use JASPAR motif files, it is recommended that you label them by using
 the `motif_labels` parameter of the `MotifPeeker()` function.  
@@ -222,17 +219,17 @@ These input parameters must be provided:
 <summary><strong>Details</strong></summary>
 
 - `peak_files`: A list of path to peak files or `GRanges` objects with the
-  peaks to analyse. Currently, only peak files from `MACS2/3` (`.narrowPeak`)
-  and `SEACR` (`.bed`) are supported. ENCODE file IDs can also be provided to
-  automatically fetch peak file(s) from the ENCODE database.  
+    peaks to analyse. Currently, only peak files from `MACS2/3` (`.narrowPeak`)
+    and `SEACR` (`.bed`) are supported. ENCODE file IDs can also be provided to
+    automatically fetch peak file(s) from the ENCODE database.  
 - `reference_index`: An integer specifying the index of the reference dataset
-  in the `peak_files` list to use as reference for various comparisons.
-  (default = 1)  
+    in the `peak_files` list to use as reference for various comparisons.
+    (default = 1)  
 - `genome_build`: A character string or a `BSgenome` object specifying the
-  genome build of the datasets. At the moment, only hg38 and hg19 are supported
-  as abbreviated input.  
+    genome build of the datasets. At the moment, only hg38 and hg19 are
+    supported as abbreviated input.  
 - `out_dir`: A character string specifying the output directory to save the
-  HTML report and other files.  
+    HTML report and other files.  
 
 </details>
 
@@ -245,36 +242,36 @@ enhance them:
 <summary><strong>Details</strong></summary>
 
 - `alignment_files`: A list of path to alignment files or `Rsamtools::BamFile`
-  objects with the alignment sequences to analyse. Alignment files are used to
-  calculate read-related metrics like FRiP score. ENCODE file IDs can also be
-  provided to automatically fetch alignment file(s) from the ENCODE database.  
+    objects with the alignment sequences to analyse. Alignment files are used to
+    calculate read-related metrics like FRiP score. ENCODE file IDs can also be
+    provided to automatically fetch alignment file(s) from the ENCODE database.  
 - `exp_labels`: A character vector of labels for each peak file. If not
-  provided, capital letters will be used as labels in the report.
+    provided, capital letters will be used as labels in the report.
 - `exp_type`: A character vector of experimental types for each peak file.  
-  Useful for comparison of different methods. If not provided, all datasets will
-  be classified as "unknown" experiment types in the report. `exp_type` is used
-  only for labelling. It does not affect the analyses. You can also input custom
-  strings. Datasets will be grouped as long as they match their respective
-  `exp_type`. Supported experimental types are:  
-    - `chipseq`: ChIP-seq data  
-    - `tipseq`: TIP-seq data  
-    - `cuttag`: CUT&Tag data  
-    - `cutrun`: CUT&Run data  
+    Useful for comparison of different methods. If not provided, all datasets
+    will be classified as "unknown" experiment types in the report. `exp_type`
+    is used only for labelling. It does not affect the analyses. You can also
+    input custom strings. Datasets will be grouped as long as they match their
+    respective `exp_type`. Supported experimental types are:  
+        - `chipseq`: ChIP-seq data  
+        - `tipseq`: TIP-seq data  
+        - `cuttag`: CUT&Tag data  
+        - `cutrun`: CUT&Run data  
 - `motif_files`: A character vector of path to motif files, or a vector of
-  `universalmotif-class` objects. Required to run Known Motif Enrichment
-  Analysis. JASPAR matrix IDs can also be provided to automatically fetch motifs
-  from the JASPAR.  
+    `universalmotif-class` objects. Required to run Known Motif Enrichment
+    Analysis. JASPAR matrix IDs can also be provided to automatically fetch
+    motifs from the JASPAR.  
 - `motif_labels`: A character vector of labels for each motif file. Only used if
-  path to file names are passed in motif_files. If not provided, the motif file
-  names will be used as labels.  
+    path to file names are passed in motif_files. If not provided, the motif
+    file names will be used as labels.  
 - `cell_counts`: An integer vector of experiment cell counts for each peak file
-  (if available). Creates additional comparisons based on cell counts.  
+    (if available). Creates additional comparisons based on cell counts.  
 - `motif_db`: Path to `.meme` format file to use as reference database, or a
-  list of `universalmotif-class` objects. Results from de-novo motif discovery
-  are searched against this database to find similar motifs. If not provided,
-  JASPAR CORE database will be used, making this parameter **truly optional**.
-  **NOTE**: p-value estimates are inaccurate when the database has fewer than
-  50 entries.  
+    list of `universalmotif-class` objects. Results from de-novo motif discovery
+    are searched against this database to find similar motifs. If not provided,
+    JASPAR CORE database will be used, making this parameter **truly optional**.
+    **NOTE**: p-value estimates are inaccurate when the database has fewer than
+    50 entries.  
 
 </details>
 
@@ -295,44 +292,44 @@ To make computation faster, we highly recommend tuning the following arguments:
 <summary><strong>Details</strong></summary>
 
 - `workers`: Running motif discovery in parallel can significantly reduce
-  runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per
-  thread. Memory starvation can greatly slow the process, so set `workers` with
-  caution.  
+    runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM
+    per thread. Memory starvation can greatly slow the process, so set `workers`
+    with caution.  
 - `denovo_motifs`: The number of motifs to discover per sequence group
-  exponentially increases runtime. We recommend no more than 5 motifs to make a
-  meaningful inference.  
+    exponentially increases runtime. We recommend no more than 5 motifs to make
+    a meaningful inference.  
 - `trim_seq_width`: Trimming sequences before running de-novo motif discovery
-  can significantly reduce the search space. Sequence length can exponentially
-  increase runtime. We recommend running the script with
-  `denovo_motif_discovery = FALSE` and studying the motif-summit distance
-  distribution under general metrics to find the sequence length that captures
-  most motifs. A good starting point is 150 but it can be reduced further if
-  appropriate.
+    can significantly reduce the search space. Sequence length can exponentially
+    increase runtime. We recommend running the script with
+    `denovo_motif_discovery = FALSE` and studying the motif-summit distance
+    distribution under general metrics to find the sequence length that captures
+    most motifs. A good starting point is 150 but it can be reduced further if
+    appropriate.
 
 </details>
 
 ## Outputs
-  
+
 `MotifPeeker` generates its output in a new folder within he `out_dir`
 directory. The folder is named `MotifPeeker_YYYYMMDD_HHMMSS` and contains the
 following files:  
 
 - `MotifPeeker.html`: The main HTML report, including all analyses and plots.  
 - Output from various MEME suite tools in their respecive sub-directories, if
-  `save_runfiles` is set to `TRUE`.  
-  
+    `save_runfiles` is set to `TRUE`.  
+
 ## Troubleshooting
 
 If something does not work as expected, refer to
 [troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html).
-  
+
 # Future Enhancements
 
 - Add support for outputs from more peak callers.  
 - Automatically detect ideal `trim_peak_width` to reduce de-novo motif discovery
-  runtime.  
+    runtime.  
 - Add more [troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html)
-  steps to the documentation.  
+    steps to the documentation.  
 
 # Session Info 
 
