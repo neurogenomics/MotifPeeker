@@ -41,6 +41,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/docker.html">Docker/Singularity Containers</a></li>
+    <li><a class="dropdown-item" href="../articles/examples.html">Example Reports</a></li>
     <li><a class="dropdown-item" href="../articles/troubleshooting.html">Troubleshooting</a></li>
   </ul>
 </li>
@@ -73,7 +74,7 @@
 
     
     
-<p><strong>Updated:</strong> <strong><em>Jul-14-2024</em></strong></p>
+<p><strong>Updated:</strong> <strong><em>Jul-16-2024</em></strong></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -219,12 +220,10 @@ objects produced by <code><a href="../reference/read_peak_file.html">read_peak_f
 the respective files.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## MACS2/3 peak files</span></span>
-<span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/peak1.narrowPeak"</span>,</span>
-<span>                   <span class="st">"/path/to/peak2.narrowPeak"</span><span class="op">)</span></span>
-<span>                   </span>
+<span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/peak1.narrowPeak"</span>, <span class="st">"/path/to/peak2.narrowPeak"</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co">## or SEACR peak files</span></span>
-<span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/peak1.bed"</span>,</span>
-<span>                   <span class="st">"/path/to/peak2.bed"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/peak1.bed"</span>, <span class="st">"/path/to/peak2.bed"</span><span class="op">)</span></span></code></pre></div>
 <p>In this example, we will use the bundled <code>GRanges</code>
 peaks:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -254,8 +253,7 @@ scores.</p>
 <code>.jaspar</code> files.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## JASPAR motif files</span></span>
-<span><span class="va">peak_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/motif1.jaspar"</span>,</span>
-<span>                   <span class="st">"/path/to/motif2.jaspar"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">motif_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"/path/to/motif1.jaspar"</span>, <span class="st">"/path/to/motif2.jaspar"</span><span class="op">)</span></span></code></pre></div>
 <p>If you use JASPAR motif files, it is recommended that you label them
 by using the <code>motif_labels</code> parameter of the
 <code><a href="../reference/MotifPeeker.html">MotifPeeker()</a></code> function.</p>
@@ -291,7 +289,7 @@ next sections.</p>
 <span>    quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "/tmp/RtmpHrez6J/MotifPeeker_20240714_224552"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/tmp/RtmptJFnWL/MotifPeeker_20240716_121309"</span></span></code></pre>
 <div class="section level4">
 <h4 id="required-inputs">Required Inputs<a class="anchor" aria-label="anchor" href="#required-inputs"></a>
 </h4>
@@ -348,21 +346,11 @@ datasets will be classified as “unknown” experiment types in the report.
 <code>exp_type</code> is used only for labelling. It does not affect the
 analyses. You can also input custom strings. Datasets will be grouped as
 long as they match their respective <code>exp_type</code>. Supported
-experimental types are:
-<ul>
-<li>
-<code>chipseq</code>: ChIP-seq data<br>
-</li>
-<li>
-<code>tipseq</code>: TIP-seq data<br>
-</li>
-<li>
-<code>cuttag</code>: CUT&amp;Tag data<br>
-</li>
-<li>
-<code>cutrun</code>: CUT&amp;Run data<br>
-</li>
-</ul>
+experimental types are:<br>
+- <code>chipseq</code>: ChIP-seq data<br>
+- <code>tipseq</code>: TIP-seq data<br>
+- <code>cuttag</code>: CUT&amp;Tag data<br>
+- <code>cutrun</code>: CUT&amp;Run data<br>
 </li>
 <li>
 <code>motif_files</code>: A character vector of path to motif files,
@@ -504,7 +492,7 @@ steps to the documentation.</li>
 <span><span class="co">##  [13] b64_0.1.1                         RCurl_1.98-1.16                  </span></span>
 <span><span class="co">##  [15] webshot_0.5.5                     htmltools_0.5.8.1                </span></span>
 <span><span class="co">##  [17] S4Arrays_1.5.4                    curl_5.2.1                       </span></span>
-<span><span class="co">##  [19] SparseArray_1.5.19                sass_0.4.9                       </span></span>
+<span><span class="co">##  [19] SparseArray_1.5.20                sass_0.4.9                       </span></span>
 <span><span class="co">##  [21] bslib_0.7.0                       htmlwidgets_1.6.4                </span></span>
 <span><span class="co">##  [23] desc_1.4.3                        plyr_1.8.9                       </span></span>
 <span><span class="co">##  [25] testthat_3.2.1.1                  lubridate_1.9.3                  </span></span>
