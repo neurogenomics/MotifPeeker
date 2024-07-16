@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Jul-16-2024***
+**Updated:** ***Jul-17-2024***
 
 ## Introduction
 
@@ -95,7 +95,7 @@ to run the package out-of-the-box.
 
 ## Documentation
 
-#### [EpiCompare Website](https://neurogenomics.github.io/MotifPeeker)
+#### [MotifPeeker Website](https://neurogenomics.github.io/MotifPeeker)
 
 #### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html)
 
