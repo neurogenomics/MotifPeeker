@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Jul-13-2024***
+**Updated:** ***Jul-16-2024***
 
 ## Introduction
 
@@ -100,6 +100,8 @@ to run the package out-of-the-box.
 #### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html)
 
 #### [Docker/Singularity Container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html)
+
+#### [Example Reports](https://neurogenomics.github.io/MotifPeeker/articles/examples.html)
 
 #### [Troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html)
 

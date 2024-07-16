@@ -91,6 +91,7 @@ run the package out-of-the-box.
 #### [EpiCompare Website](https://`r owner`.github.io/`r repo`) 
 #### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html) 
 #### [Docker/Singularity Container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html) 
+#### [Example Reports](https://neurogenomics.github.io/MotifPeeker/articles/examples.html) 
 #### [Troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html) 
 
 ## Usage
