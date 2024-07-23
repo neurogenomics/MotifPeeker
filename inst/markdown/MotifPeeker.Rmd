@@ -712,10 +712,10 @@ Summary of all the general metrics for the input datasets.
 dplyr::tibble(
     "Experiment Label" = result$exp_label,
     "Experiment Type" = result$exp_type,
-    "Cell Count" = ifelse((cellcount_metrics), params$cell_count, NA),
+    "Cell Count" = if (cellcount_metrics) params$cell_counts else NA,
     "Read Count" = result$read_count,
     "Peak Count" = result$peak_count,
-    "FRiP Score" = ifelse((alignment_metrics), round(frip_df$frip, 3), NA),
+    "FRiP Score" = if (alignment_metrics) round(result$frip, 3) else NA,
     "Mean Peak Width" = peak_width_df_all$`Mean Peak Width`,
 ) %>%
     arrange(`Experiment Type`, `Experiment Label`) %>%
