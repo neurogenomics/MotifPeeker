@@ -45,8 +45,6 @@ params:
         value: NULL
     save_runfiles:
         value: NULL
-    use_cache:
-        value: NULL
     workers:
         value: NULL
     debug:
