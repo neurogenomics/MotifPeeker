@@ -713,10 +713,10 @@ dplyr::tibble(
     "Cell Count" = if (cellcount_metrics) params$cell_counts else NA,
     "Read Count" = result$read_count,
     "Peak Count" = result$peak_count,
-    "FRiP Score" = if (alignment_metrics) round(result$frip, 3) else NA,
-    "Mean Peak Width" = peak_width_df_all$`Mean Peak Width`,
+    "FRiP Score" = if (alignment_metrics) round(result$frip, 3) else NA
 ) %>%
     arrange(`Experiment Type`, `Experiment Label`) %>%
+    mutate("Mean Peak Width" = peak_width_df_all$`Mean Peak Width`) %>%
     print_DT(extra = TRUE)
 ```
 
