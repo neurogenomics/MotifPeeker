@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Jul-23-2024***
+**Updated:** ***Jul-29-2024***
 
 ## Introduction
 
@@ -41,6 +41,7 @@ package outputs an HTML report consisting of three sections:
     the closest known motifs in the JASPAR or the provided database.
 
 <!-- If you use `MotifPeeker`, please cite:  -->
+
 <!-- >  -->
 
 ## Installation
@@ -157,7 +158,9 @@ MotifPeeker(
 These input parameters must be provided:
 
 <details>
+
 <summary>
+
 <strong>Details</strong>
 </summary>
 
@@ -183,7 +186,9 @@ These input parameters optional, but *recommended* to add more analyses,
 or enhance them:
 
 <details>
+
 <summary>
+
 <strong>Details</strong>
 </summary>
 
@@ -241,7 +246,9 @@ To make computation faster, we highly recommend tuning the following
 arguments:
 
 <details>
+
 <summary>
+
 <strong>Details</strong>
 </summary>
 
@@ -278,7 +285,9 @@ contains the following files:
 `MotifPeeker` comes with several datasets bundled:
 
 <details>
+
 <summary>
+
 <strong>Details</strong>
 </summary>
 
@@ -313,6 +322,16 @@ Please note that the peaks and alignments included are a very small
 subset (*chr10:65,654,529-74,841,155*) of the actual data. It only
 serves as an example to demonstrate the package and run tests to
 maintain the integrity of the package.
+
+## Licensing Restrictions
+
+MotifPeeker incorporates the MEME Suite, which is available free of
+charge for educational, research, and non-profit purposes. Users
+intending to use MotifPeeker for commercial purposes are required to
+purchase a license for the MEME Suite.
+
+For more details, please refer to the [MEME Suite Copyright
+Page](https://meme-suite.org/meme/doc/copyright.html).
 
 ## Contact
 

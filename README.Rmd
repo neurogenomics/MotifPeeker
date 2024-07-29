@@ -280,6 +280,14 @@ Please note that the peaks and alignments included are a very small subset
 to demonstrate the package and run tests to maintain the integrity of the
 package.
 
+## Licensing Restrictions
+MotifPeeker incorporates the MEME Suite, which is available free of charge for
+educational, research, and non-profit purposes. Users intending to use
+MotifPeeker for commercial purposes are required to purchase a license for the
+MEME Suite.
+
+For more details, please refer to the [MEME Suite Copyright Page](https://meme-suite.org/meme/doc/copyright.html).
+
 ## Contact
 
 ### [Neurogenomics Lab](https://www.neurogenomics.co.uk/inst/report/EpiCompare.html)  
