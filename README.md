@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Jul-29-2024***
+**Updated:** ***Aug-05-2024***
 
 ## Introduction
 
@@ -374,18 +374,18 @@ utils::sessionInfo()
     ##  [1] gtable_0.3.5        jsonlite_1.8.8      renv_1.0.7         
     ##  [4] dplyr_1.1.4         compiler_4.4.1      BiocManager_1.30.23
     ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.3.0       
-    ## [10] yaml_2.3.9          fastmap_1.2.0       here_1.0.1         
+    ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.1         
     ## [13] ggplot2_3.5.1       R6_2.5.1            generics_0.1.3     
     ## [16] knitr_1.48          yulab.utils_0.1.4   tibble_3.2.1       
     ## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.0.4    
     ## [22] munsell_0.5.1       pillar_1.9.0        RColorBrewer_1.1-3 
     ## [25] rlang_1.1.4         utf8_1.2.4          cachem_1.1.0       
-    ## [28] badger_0.2.4        xfun_0.45           fs_1.6.4           
+    ## [28] badger_0.2.4        xfun_0.46           fs_1.6.4           
     ## [31] memoise_2.0.1       cli_3.6.3           magrittr_2.0.3     
     ## [34] rworkflows_1.0.1    digest_0.6.36       grid_4.4.1         
     ## [37] rstudioapi_0.16.0   lifecycle_1.0.4     vctrs_0.6.5        
     ## [40] data.table_1.15.4   evaluate_0.24.0     glue_1.7.0         
-    ## [43] fansi_1.0.6         colorspace_2.1-0    rmarkdown_2.27     
+    ## [43] fansi_1.0.6         colorspace_2.1-1    rmarkdown_2.27     
     ## [46] tools_4.4.1         pkgconfig_2.0.3     htmltools_0.5.8.1
 
 </details>

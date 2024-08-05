@@ -75,7 +75,7 @@ package.
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
 which relies on a local install of the
 [MEME suite](https://meme-suite.org/meme/), which can be installed as follows:
-```bash
+```{bash, eval = FALSE}
 MEME_VERSION=5.5.5  # or the latest version
 
 wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
@@ -95,7 +95,7 @@ source ~/.bashrc
 **NOTE:** It is important that Perl dependencies associated with MEME suite are
 also installed, particularly `XML::Parser`, which can be installed using the
 following command in the terminal:
-```bash
+```{bash, eval = FALSE}
 cpan install XML::Parser
 ```
 For more information, refer to the [Perl dependency section of the MEME suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
@@ -103,7 +103,7 @@ For more information, refer to the [Perl dependency section of the MEME suite](h
 Once the MEME suite and its associated Perl dependencies are installed, the
 latest development version of `MotifPeeker` can be installed using the following
 code:
-```R
+```{r, eval = FALSE}
 if(!require("remotes")) install.packages("remotes")
 
 remotes::install_github("neurogenomics/MotifPeeker")
@@ -142,7 +142,7 @@ data("motif_MA1930.2", package = "MotifPeeker")
 *MotifPeeker* accepts lists of both `GRanges` objects produced by
 `read_peak_file()`, or paths to the *MACS2/3* `.narrowPeak` files or *SEACR*
 `.bed` files, or ENCODE file IDs to automatically download the respective files.  
-```R
+```{r, eval = FALSE}
 ## MACS2/3 peak files
 peak_files <- list("/path/to/peak1.narrowPeak", "/path/to/peak2.narrowPeak")
 
@@ -173,7 +173,7 @@ alignment_files <- list(CTCF_ChIP_alignment, CTCF_TIP_alignment)
 ### Motif Files
 *MotifPeeker* accepts a list of either `universalmotif` objects, or paths to the
 `.jaspar` files.  
-```R
+```{r, eval = FALSE}
 ## JASPAR motif files
 motif_files <- list("/path/to/motif1.jaspar", "/path/to/motif2.jaspar")
 ```

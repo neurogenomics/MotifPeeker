@@ -39,7 +39,7 @@ HCT116 cells. Details of the datasets used are as follows:
   
 Peak calling was performed using
 [`MACS3`](https://github.com/macs3-project/MACS) using the following commands:
-```R
+```{r, eval = FALSE}
 ## For ChIP-Seq datasets
 MACSr::callpeak(
         tfile = ...,

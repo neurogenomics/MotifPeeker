@@ -19,7 +19,7 @@ vignette: |
 **Updated:** ***`r format(Sys.Date(), '%b-%d-%Y')`***  
 
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 #### Package name ####
 PKG <- read.dcf("../../DESCRIPTION", fields = "Package")[1]
 library(PKG, character.only = TRUE)
@@ -39,9 +39,9 @@ docker_url <- if(grepl("ghcr.io",docker_registry)){
 
 # Installation 
 
-`r PKG` is now available via [`r docker_registry`](`r docker_url`) 
-as a containerised environment with Rstudio and 
-all necessary dependencies pre-installed.
+MotifPeeker is now available via
+[ghcr.io](https://ghcr.io/ghcr.io/neurogenomics/motifpeeker) as a containerised
+environment with Rstudio and  all necessary dependencies pre-installed.
 
 ## Method 1: via Docker
 
@@ -51,13 +51,13 @@ if you have not already.
 Create an image of the [Docker](https://www.docker.com/) container 
 in command line:  
 
-```bash
-docker pull `r cont`
+```{bash, eval = FALSE}
+docker pull ghcr.io/neurogenomics/motifpeeker
 ```
 
 Once the image has been created, you can launch it with:  
 
-```bash
+```{bash, eval = FALSE}
 docker run \
     -d \
     -e ROOT=true \
@@ -65,7 +65,7 @@ docker run \
     -v ~/Desktop:/Desktop \
     -v /Volumes:/Volumes \
     -p 8900:8787 \
-    `r cont`
+    ghcr.io/neurogenomics/motifpeeker
 ```  
 
 ### NOTES
@@ -86,8 +86,8 @@ If you are using a system that does not allow Docker
 (as is the case for many institutional computing clusters), 
 you can instead [install Docker images via Singularity](https://docs.sylabs.io/guides/2.6/user-guide/singularity_and_docker.html).  
 
-```bash
-singularity pull docker://`r cont`
+```{bash, eval = FALSE}
+singularity pull docker://ghcr.io/neurogenomics/motifpeeker
 ```
 
 For troubleshooting, see the [Singularity documentation](https://docs.sylabs.io/guides/latest/user-guide/singularity_and_docker.html#github-container-registry).

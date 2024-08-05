@@ -49,7 +49,7 @@ the JASPAR or the provided database.
 [`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
 which relies on a local install of the
 [MEME suite](https://meme-suite.org/meme/), which can be installed as follows:
-```bash
+```{bash, eval = FALSE}
 MEME_VERSION=5.5.5  # or the latest version
 
 wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
@@ -69,18 +69,18 @@ source ~/.bashrc
 **NOTE:** It is important that Perl dependencies associated with MEME suite are
 also installed, particularly `XML::Parser`, which can be installed using the
 following command in the terminal:
-```bash
+```{bash, eval = FALSE}
 cpan install XML::Parser
 ```
 For more information, refer to the [Perl dependency section of the MEME suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
 
 Once the MEME suite and its associated Perl dependencies are installed, the
 development version of `MotifPeeker` can be installed using the following code:
-```R
+```{r, eval = FALSE}
 if(!require("remotes")) install.packages("remotes")
 
-remotes::install_github("`r paste(owner,repo,sep='/')`")
-library(`r pkg`)
+remotes::install_github("neurogenomics/MotifPeeker")
+library(MotifPeeker)
 ```
 
 Alternatively, you can use the [Docker/Singularity container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html) to
@@ -97,7 +97,7 @@ run the package out-of-the-box.
 ## Usage
 
 Load the package and example datasets.  
-```R
+```{r, eval = FALSE}
 library(MotifPeeker)
 data("CTCF_ChIP_peaks", package = "MotifPeeker")
 data("CTCF_TIP_peaks", package = "MotifPeeker")
@@ -106,7 +106,7 @@ data("motif_MA1930.2", package = "MotifPeeker")
 ```
 
 Prepare input files.  
-```R
+```{r, eval = FALSE}
 peak_files <- list(CTCF_ChIP_peaks, CTCF_TIP_peaks)
 alignment_files <- list(
     system.file("extdata", "CTCF_ChIP_alignment.bam", package = "MotifPeeker"),
@@ -116,7 +116,7 @@ motif_files <- list(motif_MA1102.2, motif_MA1930.2)
 ```
 
 Run `MotifPeeker()`:  
-```R
+```{r, eval = FALSE}
 MotifPeeker(
     peak_files = peak_files,
     reference_index = 2,  # Set TIP-seq experiment as reference
@@ -142,8 +142,7 @@ MotifPeeker(
 
 These input parameters must be provided:  
 
-<details>
-<summary><strong>Details</strong></summary>
+<details><summary><strong>Details</strong></summary>
 
 - `peak_files`: A list of path to peak files or `GRanges` objects with the
   peaks to analyse. Currently, only peak files from `MACS2/3` (`.narrowPeak`)
@@ -165,8 +164,7 @@ These input parameters must be provided:
 These input parameters optional, but *recommended* to add more analyses, or
 enhance them:  
 
-<details>
-<summary><strong>Details</strong></summary>
+<details><summary><strong>Details</strong></summary>
 
 - `alignment_files`: A list of path to alignment files or `Rsamtools::BamFile`
   objects with the alignment sequences to analyse. Alignment files are used to
@@ -215,8 +213,7 @@ hours to complete.
 
 To make computation faster, we highly recommend tuning the following arguments:  
 
-<details>
-<summary><strong>Details</strong></summary>
+<details><summary><strong>Details</strong></summary>
 
 - `workers`: Running motif discovery in parallel can significantly reduce
   runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per
@@ -249,8 +246,7 @@ following files:
 
 `MotifPeeker` comes with several datasets bundled:  
 
-<details>
-<summary><strong>Details</strong></summary>
+<details><summary><strong>Details</strong></summary>
 
 - `CTCF_TIP_peaks`: Human CTCF peak file generated with TIP-seq using
   HCT116 cell-line. No control files were used to generate the peak file. The
@@ -281,6 +277,7 @@ to demonstrate the package and run tests to maintain the integrity of the
 package.
 
 ## Licensing Restrictions
+
 MotifPeeker incorporates the MEME Suite, which is available free of charge for
 educational, research, and non-profit purposes. Users intending to use
 MotifPeeker for commercial purposes are required to purchase a license for the
