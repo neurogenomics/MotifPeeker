@@ -7,7 +7,7 @@ style="height: 300px !important;" />
 
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-0.99.0-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-0.99.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Aug-05-2024***
+**Updated:** ***Aug-09-2024***
 
 ## Introduction
 
@@ -376,7 +376,7 @@ utils::sessionInfo()
     ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.3.0       
     ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.1         
     ## [13] ggplot2_3.5.1       R6_2.5.1            generics_0.1.3     
-    ## [16] knitr_1.48          yulab.utils_0.1.4   tibble_3.2.1       
+    ## [16] knitr_1.48          yulab.utils_0.1.5   tibble_3.2.1       
     ## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.0.4    
     ## [22] munsell_0.5.1       pillar_1.9.0        RColorBrewer_1.1-3 
     ## [25] rlang_1.1.4         utf8_1.2.4          cachem_1.1.0       
