@@ -217,11 +217,11 @@ MotifPeeker(
     motif_labels = NULL,
     cell_counts = NULL,
     denovo_motif_discovery = TRUE,
-    denovo_motifs = 3,
+    denovo_motifs = 1,
     motif_db = NULL,
     download_buttons = TRUE,
     out_dir = tempdir(),
-    workers = 2,
+    workers = 1,
     debug = FALSE,
     quiet = TRUE,
     verbose = FALSE

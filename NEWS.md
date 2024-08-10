@@ -3,6 +3,8 @@
 ## Miscellaneous
  
 * Substitute `system()` with `system2()`.
+* Reduce `denovo_motifs` in examples and tests to reduce R CMD CHECK runtime.
+* Add `.BBSoptions` to `.Rbuildignore`.
 
 
 # MotifPeeker 0.99.1

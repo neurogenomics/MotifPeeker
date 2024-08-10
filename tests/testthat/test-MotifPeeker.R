@@ -42,9 +42,10 @@ test_that("MotifPeeker produces output files", {
         motif_labels = c("MA1930.2", "MA1102.3"),
         cell_counts = NULL,
         denovo_motif_discovery = TRUE,
-        denovo_motifs = 3,
+        denovo_motifs = 2,
         motif_db = NULL,
         download_buttons = TRUE,
+        workers = 1,
         out_dir = tempdir(),
         display = NULL,
         debug = FALSE,
@@ -69,6 +70,7 @@ test_that("MotifPeeker produces output files", {
       motif_db = NULL,
       download_buttons = TRUE,
       out_dir = tempdir(),
+      workers = 1,
       display = NULL,
       debug = FALSE,
       verbose = FALSE
@@ -95,6 +97,7 @@ test_that("MotifPeeker produces output files", {
       motif_db = NULL,
       download_buttons = TRUE,
       out_dir = tempdir(),
+      workers = 1,
       display = NULL,
       debug = FALSE,
       verbose = FALSE
