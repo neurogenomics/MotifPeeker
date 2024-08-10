@@ -1,3 +1,5 @@
+skip_if_offline()
+
 test_that("check_ENCODE works", {
     expect_equal(check_ENCODE("/a/path"), "/a/path")
     

@@ -1,3 +1,5 @@
+skip_if_offline()
+
 test_that("check_JASPAR works", {
     expect_equal(check_JASPAR("/a/path.jaspar"), "/a/path.jaspar")
     
