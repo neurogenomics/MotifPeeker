@@ -19,7 +19,7 @@ messager <- function(...,
     msg <- paste(...)
     
     message_parallel <- function(...) {
-        system(sprintf('echo "%s"', paste0(..., collapse = "")))
+        system2("echo", args = paste0(..., collpase = ""))
     }
     if(isTRUE(parallel)){
         if(v) try({message_parallel(msg)})

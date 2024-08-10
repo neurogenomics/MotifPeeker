@@ -1,3 +1,10 @@
+# MotifPeeker 0.99.2
+
+## Miscellaneous
+ 
+* Substitute `system()` with `system2()`.
+
+
 # MotifPeeker 0.99.1
 
 ## Miscellaneous
