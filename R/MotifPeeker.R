@@ -120,28 +120,29 @@
 #' value can also reduce the runtime significantly.
 #' 
 #' @examples
+#' peaks <- list(
+#'     system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
+#'                 package = "MotifPeeker"),
+#'     system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
+#'                 package = "MotifPeeker")
+#' )
+#' 
+#' alignments <- list(
+#'     system.file("extdata", "CTCF_ChIP_alignment.bam",
+#'                 package = "MotifPeeker"),
+#'     system.file("extdata", "CTCF_TIP_alignment.bam",
+#'                 package = "MotifPeeker")
+#' )
+#' 
+#' motifs <- list(
+#'     system.file("extdata", "motif_MA1930.2.jaspar",
+#'                 package = "MotifPeeker"),
+#'     system.file("extdata", "motif_MA1102.3.jaspar",
+#'                 package = "MotifPeeker")
+#' )
+#' 
 #' \donttest{
-#'     peaks <- list(
-#'         system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
-#'               package = "MotifPeeker"),
-#'         system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
-#'                 package = "MotifPeeker")
-#'     )
-#' 
-#'     alignments <- list(
-#'         system.file("extdata", "CTCF_ChIP_alignment.bam",
-#'                 package = "MotifPeeker"),
-#'         system.file("extdata", "CTCF_TIP_alignment.bam",
-#'                 package = "MotifPeeker")
-#'     )
-#' 
-#'     motifs <- list(
-#'         system.file("extdata", "motif_MA1930.2.jaspar",
-#'                 package = "MotifPeeker"),
-#'         system.file("extdata", "motif_MA1102.3.jaspar",
-#'                 package = "MotifPeeker")
-#'     )
-#' 
+#'     # MotifPeeker takes time to run
 #'     MotifPeeker(
 #'         peak_files = peaks,
 #'         reference_index = 1,

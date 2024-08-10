@@ -20,8 +20,9 @@
 #' @inherit memes::runTomTom return
 #' 
 #' @examples
+#' data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     
 #' \donttest{
-#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
 #'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38

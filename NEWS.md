@@ -3,6 +3,8 @@
 ## Miscellaneous
  
 * Switch to a smaller file to download in `check_ENCODE` example.
+* Move some code outside `\donttest{}` to prevent `BiocCheck()` error about
+  missing examples.
 
 
 # MotifPeeker 0.99.3

@@ -53,10 +53,10 @@ background sequences using Analysis of Motif Enrichment (AME) from
 \link{memes}.
 }
 \examples{
-\donttest{
-    data("CTCF_TIP_peaks", package = "MotifPeeker")
-    data("motif_MA1102.3", package = "MotifPeeker")
+data("CTCF_TIP_peaks", package = "MotifPeeker")
+data("motif_MA1102.3", package = "MotifPeeker")
 
+\donttest{
     res <- motif_enrichment(
         peak_input = CTCF_TIP_peaks,
         motif = motif_MA1102.3,

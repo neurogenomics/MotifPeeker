@@ -58,8 +58,9 @@ Search through provided motif database to find similar motifs to the input.
 Light wrapper around \code{TOMTOM} from MEME Suite.
 }
 \examples{
+data("CTCF_TIP_peaks", package = "MotifPeeker")
+    
 \donttest{
-    data("CTCF_TIP_peaks", package = "MotifPeeker")
     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
         genome_build <-
             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38

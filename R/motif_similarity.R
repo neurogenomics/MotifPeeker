@@ -30,10 +30,10 @@
 #' The list is repeated for each set of comparison groups in input.
 #' 
 #' @examples
-#' \donttest{
-#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
-#'     data("CTCF_ChIP_peaks", package = "MotifPeeker")
+#' data("CTCF_TIP_peaks", package = "MotifPeeker")
+#' data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' 
+#' \donttest{
 #'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
