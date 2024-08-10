@@ -27,7 +27,7 @@ ID format. Uses BiocFileCache to cache downloads. Only works for files.
 \examples{
 if (requireNamespace("curl", quietly = TRUE) &&
     requireNamespace("jsonlite", quietly = TRUE)) {
-    check_ENCODE("ENCFF109VAD", expect_format = "bam")
+    check_ENCODE("ENCFF920TXI", expect_format = c("bed", "gz"))
 }
 
 }

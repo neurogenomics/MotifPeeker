@@ -1,3 +1,10 @@
+# MotifPeeker 0.99.4
+
+## Miscellaneous
+ 
+* Switch to a smaller file to download in `check_ENCODE` example.
+
+
 # MotifPeeker 0.99.3
 
 ## Miscellaneous
