@@ -152,21 +152,24 @@ are of little use for motifs with a different number of alphabet letters
 }
 }
 \examples{
-data("CTCF_TIP_peaks", package = "MotifPeeker")
-data("CTCF_ChIP_peaks", package = "MotifPeeker")
+\donttest{
+    data("CTCF_TIP_peaks", package = "MotifPeeker")
+    data("CTCF_ChIP_peaks", package = "MotifPeeker")
 
-if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
-    genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
-    segregated_peaks <- segregate_seqs(CTCF_TIP_peaks, CTCF_ChIP_peaks)
-    denovo_motifs <- denovo_motifs(unlist(segregated_peaks),
-                        trim_seq_width = 100,
-                        genome_build = genome_build,
-                        denovo_motifs = 2,
-                        filter_n = 6,
-                        out_dir = tempdir(),
-                        workers = 1)
-    similarity_matrices <- motif_similarity(denovo_motifs)
-    print(similarity_matrices)
+    if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
+        genome_build <-
+            BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+        segregated_peaks <- segregate_seqs(CTCF_TIP_peaks, CTCF_ChIP_peaks)
+        denovo_motifs <- denovo_motifs(unlist(segregated_peaks),
+                            trim_seq_width = 100,
+                            genome_build = genome_build,
+                            denovo_motifs = 2,
+                            filter_n = 6,
+                            out_dir = tempdir(),
+                            workers = 1)
+        similarity_matrices <- motif_similarity(denovo_motifs)
+        print(similarity_matrices)
+    }
 }
 
 }

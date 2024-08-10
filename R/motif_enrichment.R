@@ -24,15 +24,18 @@
 #' to the proportion of peaks with a motif.
 #'
 #' @examples
-#' data("CTCF_TIP_peaks", package = "MotifPeeker")
-#' data("motif_MA1102.3", package = "MotifPeeker")
+#' \donttest{
+#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     data("motif_MA1102.3", package = "MotifPeeker")
 #' 
-#' res <- motif_enrichment(
-#'     peak_input = CTCF_TIP_peaks,
-#'     motif = motif_MA1102.3,
-#'     genome_build = BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
-#' )
-#' print(res)
+#'     res <- motif_enrichment(
+#'         peak_input = CTCF_TIP_peaks,
+#'         motif = motif_MA1102.3,
+#'         genome_build =
+#'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+#'     )
+#'     print(res)
+#' }
 #'
 #' @seealso \code{\link[memes]{runAme}}
 #' 

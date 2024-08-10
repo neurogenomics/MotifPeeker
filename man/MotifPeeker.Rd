@@ -185,46 +185,48 @@ runtime (higher values take longer). Setting \code{trim_seq_width} to a lower
 value can also reduce the runtime significantly.
 }
 \examples{
-peaks <- list(
-    system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
-           package = "MotifPeeker"),
-    system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
-            package = "MotifPeeker")
-)
+\donttest{
+    peaks <- list(
+        system.file("extdata", "CTCF_ChIP_peaks.narrowPeak",
+              package = "MotifPeeker"),
+        system.file("extdata", "CTCF_TIP_peaks.narrowPeak",
+                package = "MotifPeeker")
+    )
 
-alignments <- list(
-    system.file("extdata", "CTCF_ChIP_alignment.bam",
-            package = "MotifPeeker"),
-    system.file("extdata", "CTCF_TIP_alignment.bam",
-            package = "MotifPeeker")
-)
+    alignments <- list(
+        system.file("extdata", "CTCF_ChIP_alignment.bam",
+                package = "MotifPeeker"),
+        system.file("extdata", "CTCF_TIP_alignment.bam",
+                package = "MotifPeeker")
+    )
 
-motifs <- list(
-    system.file("extdata", "motif_MA1930.2.jaspar",
-            package = "MotifPeeker"),
-    system.file("extdata", "motif_MA1102.3.jaspar",
-            package = "MotifPeeker")
-)
+    motifs <- list(
+        system.file("extdata", "motif_MA1930.2.jaspar",
+                package = "MotifPeeker"),
+        system.file("extdata", "motif_MA1102.3.jaspar",
+                package = "MotifPeeker")
+    )
 
-MotifPeeker(
-    peak_files = peaks,
-    reference_index = 1,
-    alignment_files = alignments,
-    exp_labels = c("ChIP", "TIP"),
-    exp_type = c("chipseq", "tipseq"),
-    genome_build = "hg38",
-    motif_files = motifs,
-    motif_labels = NULL,
-    cell_counts = NULL,
-    denovo_motif_discovery = TRUE,
-    denovo_motifs = 1,
-    motif_db = NULL,
-    download_buttons = TRUE,
-    out_dir = tempdir(),
-    workers = 1,
-    debug = FALSE,
-    quiet = TRUE,
-    verbose = FALSE
-)
+    MotifPeeker(
+        peak_files = peaks,
+        reference_index = 1,
+        alignment_files = alignments,
+        exp_labels = c("ChIP", "TIP"),
+        exp_type = c("chipseq", "tipseq"),
+        genome_build = "hg38",
+        motif_files = motifs,
+        motif_labels = NULL,
+        cell_counts = NULL,
+        denovo_motif_discovery = TRUE,
+        denovo_motifs = 1,
+        motif_db = NULL,
+        download_buttons = TRUE,
+        out_dir = tempdir(),
+        workers = 1,
+        debug = FALSE,
+        quiet = TRUE,
+        verbose = FALSE
+    )
+}
 
 }

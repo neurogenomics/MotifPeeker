@@ -20,19 +20,22 @@
 #' @inherit memes::runTomTom return
 #' 
 #' @examples
-#' data("CTCF_TIP_peaks", package = "MotifPeeker")
-#' if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
-#'     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+#' \donttest{
+#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
+#'         genome_build <-
+#'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 #'    
-#'     res <- denovo_motifs(list(CTCF_TIP_peaks),
+#'         res <- denovo_motifs(list(CTCF_TIP_peaks),
 #'                         trim_seq_width = 100,
 #'                         genome_build = genome_build,
 #'                         denovo_motifs = 2,
 #'                         filter_n = 6,
 #'                         out_dir = tempdir())
-#'     res2 <- find_motifs(res, motif_db = get_JASPARCORE(),
-#'                         out_dir = tempdir())
-#'     print(res2)
+#'         res2 <- find_motifs(res, motif_db = get_JASPARCORE(),
+#'                             out_dir = tempdir())
+#'         print(res2)
+#'     }
 #' }
 #' 
 #' @export

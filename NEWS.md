@@ -1,3 +1,10 @@
+# MotifPeeker 0.99.3
+
+## Miscellaneous
+ 
+* Wrap certain examples under `\donttest{}` to reduce R CMD CHECK runtime.
+
+
 # MotifPeeker 0.99.2
 
 ## Miscellaneous
