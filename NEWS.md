@@ -3,6 +3,7 @@
 ## Miscellaneous
  
 * Wrap certain examples under `\donttest{}` to reduce R CMD CHECK runtime.
+* [GitHub] Add `CODECOV_TOKEN` secret to `rworkflows`.
 
 
 # MotifPeeker 0.99.2

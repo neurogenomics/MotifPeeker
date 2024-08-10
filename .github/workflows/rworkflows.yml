@@ -41,6 +41,7 @@ jobs:
         has_latex: ${{ false }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         docker_user: hdasht
         docker_org: neurogenomicslab
         run_docker: ${{ true }}
