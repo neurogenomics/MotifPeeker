@@ -6,12 +6,16 @@ name: rworkflows
     - main
     - devel
     - RELEASE_**
+    - '*'
+    - '!gh-pages'
   pull_request:
     branches:
     - master
     - main
     - devel
     - RELEASE_**
+    - '*'
+    - '!gh-pages'
 jobs:
   rworkflows:
     permissions: write-all
