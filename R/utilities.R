@@ -191,6 +191,7 @@ check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
 
 #' Stop if MEME suite is not installed
 #' 
+#' @param continue Continue code execution if MEME suite is not installed.
 #' @inheritParams memes::runFimo
 #' 
 #' @importFrom memes meme_is_installed
@@ -200,8 +201,8 @@ check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
 #' @seealso \code{\link[memes]{check_meme_install}}
 #' 
 #' @keywords internal
-confirm_meme_install <- function(meme_path = NULL) {
-    stp_msg <- paste(
+confirm_meme_install <- function(meme_path = NULL, continue = FALSE) {
+    msg <- paste(
         "Cannot find MEME suite installation. If installed, try setting the",
         "path", shQuote("MEME_BIN"), "environment varaible, or use the",
         shQuote("meme_path"), "parameter in the MotifPeeker function call.",
@@ -210,8 +211,14 @@ confirm_meme_install <- function(meme_path = NULL) {
     )
     
     if (!memes::meme_is_installed(meme_path)) {
-        stopper(stp_msg)
+        if (continue) {
+            messager(msg)
+            return(FALSE)
+        } else {
+            stopper(msg)
+        }
     }
+    return(TRUE)
 }
 
 #' Generate a random string

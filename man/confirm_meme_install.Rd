@@ -4,11 +4,13 @@
 \alias{confirm_meme_install}
 \title{Stop if MEME suite is not installed}
 \usage{
-confirm_meme_install(meme_path = NULL)
+confirm_meme_install(meme_path = NULL, continue = FALSE)
 }
 \arguments{
 \item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches
 "MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".}
+
+\item{continue}{Continue code execution if MEME suite is not installed.}
 }
 \value{
 Null
