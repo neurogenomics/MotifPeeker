@@ -100,13 +100,9 @@ cpan install XML::Parser
 ```
 For more information, refer to the [Perl dependency section of the MEME suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
 
-Once the MEME suite and its associated Perl dependencies are installed, the
-latest development version of `MotifPeeker` can be installed using the following
-code:
+Once the MEME suite and its associated Perl dependencies are installed, install
+and load `MotifPeeker`:
 ```{r, eval = FALSE}
-if(!require("remotes")) install.packages("remotes")
-
-remotes::install_github("neurogenomics/MotifPeeker")
 library(MotifPeeker)
 ```
 
