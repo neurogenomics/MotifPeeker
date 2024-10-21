@@ -46,7 +46,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">confirm_meme_install</span><span class="op">(</span>meme_path <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">confirm_meme_install</span><span class="op">(</span>meme_path <span class="op">=</span> <span class="cn">NULL</span>, continue <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -56,6 +56,10 @@
 <dl><dt id="arg-meme-path">meme_path<a class="anchor" aria-label="anchor" href="#arg-meme-path"></a></dt>
 <dd><p>path to <code>meme/bin/</code> (optional). Defaut: <code>NULL</code>, searches
 "MEME_PATH" environment variable or "meme_path" option for path to "meme/bin/".</p></dd>
+
+
+<dt id="arg-continue">continue<a class="anchor" aria-label="anchor" href="#arg-continue"></a></dt>
+<dd><p>Continue code execution if MEME suite is not installed.</p></dd>
 
 </dl></div>
     <div class="section level2">
