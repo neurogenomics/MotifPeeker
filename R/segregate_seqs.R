@@ -37,7 +37,7 @@
 #' 
 #' @seealso \link[GenomicRanges]{findOverlaps}
 #' 
-#' @export
+#' @keywords internal
 segregate_seqs <- function(seqs1, seqs2) {
     common_seqs_ranges <- GenomicRanges::findOverlaps(seqs1, seqs2,
                                                         type = "any")

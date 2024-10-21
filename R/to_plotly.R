@@ -18,7 +18,7 @@
 #' 
 #' @seealso \link[plotly]{ggplotly}
 #' 
-#' @export
+#' @keywords internal
 to_plotly <- function(p, html_tags = TRUE, tooltip = "text", ...) {
     pltly <- plotly::ggplotly(p, tooltip = tooltip, ...)
     

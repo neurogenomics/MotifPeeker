@@ -37,3 +37,4 @@ trimmed_seqs <- trim_seqs(peaks, peak_width = 100,
 summary(GenomicRanges::width(trimmed_seqs))
 
 }
+\keyword{internal}

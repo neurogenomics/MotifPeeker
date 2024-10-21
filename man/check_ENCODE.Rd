@@ -31,3 +31,4 @@ if (requireNamespace("curl", quietly = TRUE) &&
 }
 
 }
+\keyword{internal}

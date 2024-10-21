@@ -20,3 +20,4 @@ the \emph{MotifPeeker.Rmd} template.
 report_header()
 
 }
+\keyword{internal}

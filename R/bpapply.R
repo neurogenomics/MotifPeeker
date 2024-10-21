@@ -22,7 +22,7 @@
 #' res <- bpapply(x, half_it, workers = 2)
 #' print(res)
 #' 
-#' @export
+#' @keywords internal
 bpapply <- function(
         X,
         FUN,

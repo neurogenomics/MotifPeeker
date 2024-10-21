@@ -61,7 +61,7 @@
 #' 
 #' @family plot functions
 #' 
-#' @export
+#' @keywords internal
 plot_enrichment_individual <- function(result,
                                         enrichment_df,
                                         comparison_i,

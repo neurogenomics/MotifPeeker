@@ -45,3 +45,4 @@ to_plotly(p, html_tags = FALSE)
 \seealso{
 \link[plotly]{ggplotly}
 }
+\keyword{internal}

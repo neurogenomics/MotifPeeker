@@ -14,8 +14,7 @@
 #'    exp_labels = c("exp1", "exp2"),
 #'    genome_build = "hg19"))
 #' 
-#' 
-#' @export
+#' @keywords internal
 report_command <- function(params) {
     tab_spaces <- paste(rep(" ", nchar("MotifPeeker)")), collapse = "")
     

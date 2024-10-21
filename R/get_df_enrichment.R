@@ -58,7 +58,7 @@
 #' 
 #' @family generate data.frames
 #' 
-#' @export
+#' @keywords internal
 get_df_enrichment <- function(result,
                             segregated_peaks,
                             user_motifs,

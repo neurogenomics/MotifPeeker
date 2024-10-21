@@ -23,5 +23,5 @@ report_command(params = list(
    exp_labels = c("exp1", "exp2"),
    genome_build = "hg19"))
 
-
 }
+\keyword{internal}

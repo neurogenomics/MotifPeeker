@@ -1,5 +1,5 @@
 ---
-title: "`r MotifPeeker::report_header()`"
+title: "`r MotifPeeker:::report_header()`"
 date: "`r format(Sys.Date(), '%b-%d-%Y')`"
 output: 
     html_document: 
@@ -70,15 +70,15 @@ if (is.null(params$exp_type)) {
 } else {
     exp_types <- params$exp_type
 }
-peak_files_encode <- Vectorize(check_ENCODE, "encode_id")(
+peak_files_encode <- Vectorize(MotifPeeker:::check_ENCODE, "encode_id")(
     params$peak_files, expect_format = c("narrowPeak", "bed"))
-alignment_files_encode <- Vectorize(check_ENCODE, "encode_id")(
+alignment_files_encode <- Vectorize(MotifPeeker:::check_ENCODE, "encode_id")(
     params$alignment_files, expect_format = "bam")
 result <- list(
     peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
     alignments = lapply(alignment_files_encode, Rsamtools::BamFile),
     exp_labels = params$exp_labels,
-    exp_type = unname(Vectorize(format_exptype, "exp_type")(exp_types))
+    exp_type = unname(Vectorize(MotifPeeker:::format_exptype, "exp_type")(exp_types))
 )
 motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
 user_motifs <- list(
@@ -151,13 +151,13 @@ if (comparison_metrics) {
     comparison_indices <- setdiff(seq_along(result$peaks),
                                   params$reference_index)
     segregated_peaks <- lapply(comparison_indices, function(x) {
-        segregate_seqs(result$peaks[[params$reference_index]],
-                      result$peaks[[x]])
+        MotifPeeker:::segregate_seqs(result$peaks[[params$reference_index]],
+                        result$peaks[[x]])
     })
     
     ## Calculate enrichment for segregated peaks
     if (user_motif_metrics) {
-      enrichment_df <- get_df_enrichment(
+      enrichment_df <- MotifPeeker:::get_df_enrichment(
               result, segregated_peaks, user_motifs, genome_build,
               params$reference_index, out_dir_extra, params$workers,
               params$meme_path, params$verbose
@@ -242,7 +242,7 @@ for (i in seq_along(user_motifs$motifs)) {
 ## Command {-}
 `MotifPeeker` report was generated with the following command:
 ```{r report_command}
-cat(report_command(params))
+cat(MotifPeeker:::report_command(params))
 ```
 
 <hr>
@@ -282,7 +282,7 @@ if (!alignment_metrics) {
         scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
     
-    print(to_plotly(frip_exp_plot))
+    print(MotifPeeker:::to_plotly(frip_exp_plot))
 }
 ```
 
@@ -319,7 +319,7 @@ if (alignment_metrics) {
         scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
     
-    print(to_plotly(frip_individual_plot))
+    print(MotifPeeker:::to_plotly(frip_individual_plot))
 }
 ```
 ```{r frip_individual_dt, include = alignment_metrics}
@@ -385,7 +385,7 @@ if (alignment_metrics) {
             scale_color_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                            option = "A")
         
-        print(to_plotly(frip_cellcount_plot))
+        print(MotifPeeker:::to_plotly(frip_cellcount_plot))
     }
 }
 ```
@@ -412,7 +412,7 @@ peak_width_plt1 <- peak_width_df %>%
         scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
                             option = "A")
     
-    print(to_plotly(peak_width_plt1))
+    print(MotifPeeker:::to_plotly(peak_width_plt1))
 ```
 
 ```{r peakwidths_exp_plot2}
@@ -429,7 +429,7 @@ peak_width_plt2 <- peak_width_df %>%
         scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
                             option = "A")
 
-    print(to_plotly(peak_width_plt2))
+    print(MotifPeeker:::to_plotly(peak_width_plt2))
 ```
 
 ```{r peakwidths_exp_dt}
@@ -463,7 +463,7 @@ peak_width_plt3 <- peak_width_df %>%
         scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                             option = "A")
 
-    print(to_plotly(peak_width_plt3))
+    print(MotifPeeker:::to_plotly(peak_width_plt3))
 ```
 
 ```{r peakwidths_ind_dt}
@@ -545,7 +545,7 @@ if (!cellcount_metrics) {
         scale_color_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                        option = "A")
     
-    print(to_plotly(peak_width_cellcount_plot))
+    print(MotifPeeker:::to_plotly(peak_width_cellcount_plot))
 }
 ```
 
@@ -603,7 +603,7 @@ if (!user_motif_metrics) {
             labs(color = "Experiment Type",
                 x = "Distance (bp)", 
                 y = "Count")
-        motif_summit_dist_plt1 <- to_plotly(motif_summit_dist_plt1,
+        motif_summit_dist_plt1 <- MotifPeeker:::to_plotly(motif_summit_dist_plt1,
                                             html_tags = FALSE)
             
         ## Density plot
@@ -622,7 +622,7 @@ if (!user_motif_metrics) {
                 fill = "Experiment Type",
                 x = "Distance (bp)", 
                 y = "Count")
-        motif_summit_dist_plt2 <- to_plotly(motif_summit_dist_plt2,
+        motif_summit_dist_plt2 <- MotifPeeker:::to_plotly(motif_summit_dist_plt2,
                                             html_tags = FALSE)
         
         motif_summit_dist_exp_plt <-
@@ -678,7 +678,7 @@ if (!user_motif_metrics) {
             scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
                                option = "A")
         
-            print(to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+            print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
         
         ## DT
         motif_summit_dist_df %>%
@@ -797,12 +797,12 @@ if (!user_motif_metrics) {
             print_labels(result$exp_labels, params$reference_index, i,
                         "known_motif", result$read_count)
             ## Plot
-            plot_enrichment_individual(result, enrichment_df, i, motif_i,
-                                    label_colours, params$reference_index) %>%
+            MotifPeeker:::plot_enrichment_individual(result, enrichment_df, i,
+                motif_i, label_colours, params$reference_index) %>%
                 print()
             ## DT
             cat("  \n  ")
-            dt_enrichment_individual(result, enrichment_df, i, motif_i,
+            MotifPeeker:::dt_enrichment_individual(result, enrichment_df, i, motif_i,
                                     params$reference_index) %>%
                 print()
             cat("  \n  ")

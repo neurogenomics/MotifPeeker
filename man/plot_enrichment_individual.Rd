@@ -96,3 +96,4 @@ Other plot functions:
 \code{\link{plot_motif_comparison}()}
 }
 \concept{plot functions}
+\keyword{internal}

@@ -9,7 +9,7 @@
 #' @examples 
 #' report_header()
 #' 
-#' @export
+#' @keywords internal
 report_header <- function() {
     paste0(
         "<div class='report-header'>",

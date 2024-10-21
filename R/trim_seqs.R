@@ -26,7 +26,7 @@
 #'                          genome_build = genome_build)
 #' summary(GenomicRanges::width(trimmed_seqs))
 #' 
-#' @export
+#' @keywords internal
 trim_seqs <- function(peaks, peak_width, genome_build, respect_bounds = TRUE) {
     peak_width <- round(peak_width / 2, 0)
     max_len <- GenomeInfoDb::seqlengths(genome_build)[as.character(

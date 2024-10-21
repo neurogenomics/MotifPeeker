@@ -1,3 +1,12 @@
+# MotifPeeker 0.99.5
+
+## Miscellaneous
+ 
+* Replace `magrittr` import by `dplyr::%>%`.
+* Reduce the number of exported functions.
+* Move utility functions to 'utilities.R'.
+
+
 # MotifPeeker 0.99.4
 
 ## Miscellaneous
