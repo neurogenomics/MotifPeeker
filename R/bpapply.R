@@ -19,7 +19,7 @@
 #' half_it <- function(arg1) return(arg1 / 2)
 #' x <- seq_len(10)
 #' 
-#' res <- bpapply(x, half_it, workers = 2)
+#' res <- MotifPeeker:::bpapply(x, half_it, workers = 2)
 #' print(res)
 #' 
 #' @keywords internal

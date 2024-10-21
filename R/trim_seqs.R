@@ -22,7 +22,7 @@
 #' peaks <- CTCF_TIP_peaks
 #' genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 #' 
-#' trimmed_seqs <- trim_seqs(peaks, peak_width = 100,
+#' trimmed_seqs <- MotifPeeker:::trim_seqs(peaks, peak_width = 100,
 #'                          genome_build = genome_build)
 #' summary(GenomicRanges::width(trimmed_seqs))
 #' 

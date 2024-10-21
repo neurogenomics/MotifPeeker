@@ -116,4 +116,3 @@ Other generate data.frames:
 \code{\link{get_df_distances}()}
 }
 \concept{generate data.frames}
-\keyword{internal}

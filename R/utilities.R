@@ -10,7 +10,7 @@
 #' "NA".
 #' 
 #' @examples
-#' print(pretty_number(134999))
+#' print(MotifPeeker:::pretty_number(134999))
 #' 
 #' @keywords internal
 pretty_number <- function(x, decimal_digits = 2) {
@@ -46,8 +46,6 @@ pretty_number <- function(x, decimal_digits = 2) {
 #' seq_len(10) %>% sum
 #' 
 #' @return The result of calling `rhs(lhs)`.
-#' 
-#' @keywords internal
 NULL
 
 #' Format exp_type
@@ -69,7 +67,7 @@ NULL
 #' @return A character vector of formatted exp_type.
 #' 
 #' @examples
-#' format_exptype("chipseq")
+#' MotifPeeker:::format_exptype("chipseq")
 #' 
 #' @keywords internal
 format_exptype <- function(exp_type) {
@@ -214,4 +212,41 @@ confirm_meme_install <- function(meme_path = NULL) {
     if (!memes::meme_is_installed(meme_path)) {
         stopper(stp_msg)
     }
+}
+
+#' Generate a random string
+#'
+#' @param length The length of the random string to generate.
+#'
+#' @returns A random string of the specified length.
+#' 
+#' @keywords internal
+random_string <- function(length) {
+    char_base <- c(0:9, letters)
+    random_chars <- sample(char_base, length, replace = TRUE)
+    return(paste(random_chars, collapse = ""))
+}
+
+#' Apply \code{\link[base]{normalizePath}} to a list of paths
+#' 
+#' @param path_list A list of paths.
+#' 
+#' @return A list of normalised paths or the input as is if contents are not
+#' a character.
+#' 
+#' @keywords internal
+normalise_paths <- function(path_list) {
+    if (all(is.null(path_list))) return(path_list)
+    
+    ## Convert objects to list if not already
+    if (!is.list(path_list) &&(!is.vector(path_list) || length(path_list) == 1))
+        path_list <- list(path_list)
+    
+    ## Return input as is if not character
+    if (!all(vapply(path_list, is.character, logical(1)))) return(path_list)
+    
+    ## Normalise paths
+    lapply(path_list, function(path) {
+        normalizePath(path)
+    })
 }

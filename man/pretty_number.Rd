@@ -20,7 +20,7 @@ Format raw numbers to more readable strings. For example, 1000 will be
 converted to "1K". Supported suffixes are "K", "M", and "B".
 }
 \examples{
-print(pretty_number(134999))
+print(MotifPeeker:::pretty_number(134999))
 
 }
 \keyword{internal}

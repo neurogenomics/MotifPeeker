@@ -18,7 +18,7 @@
 #'     check_ENCODE("ENCFF920TXI", expect_format = c("bed", "gz"))
 #' }
 #' 
-#' @keywords internal
+#' @export
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {
     if (!all(is.character(encode_id))) return(encode_id)
     ### Validate ENCODE ID ###

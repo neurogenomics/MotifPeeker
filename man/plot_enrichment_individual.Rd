@@ -76,14 +76,15 @@ motifs <- list(
         genome_build <-
             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
         enrichment_df <- get_df_enrichment(
-            input, segregated_input, motifs, genome_build, reference_index = 1,
-            workers = 1
+            input, segregated_input, motifs, genome_build,
+            reference_index = 1, workers = 1
         )
         label_colours <- c("red", "cyan")
     
-        plt <- plot_enrichment_individual(
+        plt <- MotifPeeker:::plot_enrichment_individual(
             input, enrichment_df, comparison_i = 2, motif_i = 1,
-            label_colours = label_colours, reference_index = 1, html_tags = FALSE
+            label_colours = label_colours, reference_index = 1,
+            html_tags = FALSE
         )
         print(plt)
     }

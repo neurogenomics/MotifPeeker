@@ -47,4 +47,3 @@ print(res)
 \seealso{
 \link[GenomicRanges]{findOverlaps}
 }
-\keyword{internal}

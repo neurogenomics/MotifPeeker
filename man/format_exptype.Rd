@@ -26,7 +26,7 @@ A character vector of formatted exp_type.
 Format input exp_type to look pretty.
 }
 \examples{
-format_exptype("chipseq")
+MotifPeeker:::format_exptype("chipseq")
 
 }
 \keyword{internal}
