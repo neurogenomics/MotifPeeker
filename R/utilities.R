@@ -159,7 +159,7 @@ check_duplicates <- function(x) {
     stp_msg <- paste("Duplicated items found in the label list. Please input",
                      "unique experiment and motif labels.")
     if (any(duplicated(x))) {
-        stopper(stp_msg)
+        stop(stp_msg)
     }
 }
 
@@ -182,7 +182,7 @@ check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
     }
     if (!requireNamespace(pkg, quietly = TRUE)) {
         if (fatal) {
-            stopper(custom_msg)
+            stop(custom_msg)
         } else {
             warning(custom_msg)
         }
@@ -215,7 +215,7 @@ confirm_meme_install <- function(meme_path = NULL, continue = FALSE) {
             messager(msg)
             return(FALSE)
         } else {
-            stopper(msg)
+            stop(msg)
         }
     }
     return(TRUE)

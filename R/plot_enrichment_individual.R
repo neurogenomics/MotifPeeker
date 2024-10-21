@@ -71,7 +71,7 @@ plot_enrichment_individual <- function(result,
                                         reference_index = 1,
                                         html_tags = TRUE) {
     stp_msg <- "reference_index cannot be the same as comparison_i."
-    if (reference_index == comparison_i) stopper(stp_msg)
+    if (reference_index == comparison_i) stop(stp_msg)
     
     ref_label <- result$exp_labels[reference_index]
     comp_label <- result$exp_labels[comparison_i]

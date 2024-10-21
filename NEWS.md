@@ -6,6 +6,7 @@
 * Reduce the number of exported functions.
 * Move utility functions to 'utilities.R'.
 * Allow vignettes to run without MEME suite installed.
+* Remove `stopper()` wrapper around `stop()`.
 
 
 # MotifPeeker 0.99.4

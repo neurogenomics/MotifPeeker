@@ -46,7 +46,7 @@ save_peak_file <- function(peak_obj,
     ## Verify peak_obj columns
     x <- data.frame(peak_obj)
     if (!all(c("seqnames", "start", "end", "name") %in% colnames(x))) {
-        stopper("peak_obj must have columns: seqnames, start, end, name.")
+        stop("peak_obj must have columns: seqnames, start, end, name.")
     }
     
     names(x)[names(x) == "seqnames"] <- "chr"

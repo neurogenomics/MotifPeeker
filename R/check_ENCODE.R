@@ -38,14 +38,14 @@ check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {
     if (!grepl(id_pattern, json_data$accession) || is.null(json_data$href)) {
         stp_msg <- paste("Error downloading ENCODE JSON data.",
                             "Check if ID is correct and leads to a file.")
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     ext <- basename(tools::file_ext(json_data$href))
     if (!ext %in% expect_format) {
         stp_msg <- paste0("Error downloading file from ENCODE.\n",
                             "Expected file format: ", expect_format,
                             " but got: ", ext)
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     
     ### Fetch file ###

@@ -54,7 +54,7 @@ read_peak_file <- function(peak_file, file_format = "auto", verbose = FALSE) {
                 ". Please provide a valid file format",
                 "(MACS2/3 narrowPeak, or SEACR BED)."
             )
-            stopper(stp_msg)
+            stop(stp_msg)
         }
         messager(
             "Auto-inferred peak file format as",

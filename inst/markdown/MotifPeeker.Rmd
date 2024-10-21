@@ -263,7 +263,7 @@ if (!alignment_metrics) {
 } else {
     if (length(result$alignments) != length(result$peaks)) {
         stp_msg <- "Number of alignment files and peak files do not match."
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     cat("\n### By Experiment Type {- .unlisted}  \n")
     frip_exp_plot <- frip_df %>%

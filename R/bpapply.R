@@ -36,7 +36,7 @@ bpapply <- function(
     stp_msg <- paste("Supplied apply_fun is not a valid BiocParallel function.")
     apply_fun_package <- attr(apply_fun, "package")
     if (length(apply_fun_package) == 0 ||
-        apply_fun_package != "BiocParallel")  stopper(stp_msg)
+        apply_fun_package != "BiocParallel")  stop(stp_msg)
     
     BPPARAM <- get_bpparam(workers = workers,
                             progressbar = progressbar,
