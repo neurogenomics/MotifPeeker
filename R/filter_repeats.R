@@ -17,8 +17,7 @@ filter_repeats <- function(motifs, filter_n = 6) {
     if (is.null(filter_n) || filter_n < 1) return(motifs)
     
     if (filter_n < 4) {
-        warn_msg <- paste("It is not recommended to filter out motifs with",
-        "less than 4 consecutive nucleotide repeats.")
+        warn_msg <- "It is not recommended to filter out motifs with less than 4 consecutive nucleotide repeats."
         warning(warn_msg)
     }
     
