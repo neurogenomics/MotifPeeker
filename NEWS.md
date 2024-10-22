@@ -7,6 +7,7 @@
 * Move utility functions to 'utilities.R'.
 * Allow vignettes to run without MEME suite installed.
 * Remove `stopper()` wrapper around `stop()`.
+* Use message() for parallel executions
 
 
 # MotifPeeker 0.99.4

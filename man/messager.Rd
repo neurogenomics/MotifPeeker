@@ -4,13 +4,10 @@
 \alias{messager}
 \title{Print messages}
 \usage{
-messager(..., v = Sys.getenv("VERBOSE") != "FALSE", parallel = TRUE)
+messager(..., v = Sys.getenv("VERBOSE") != "FALSE")
 }
 \arguments{
 \item{v}{Whether to print messages or not.}
-
-\item{parallel}{Whether to enable message print when wrapped 
-in parallelised functions.}
 }
 \value{
 Null

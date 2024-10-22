@@ -102,25 +102,13 @@ format_exptype <- function(exp_type) {
 #'  
 #' 
 #' @param v Whether to print messages or not.
-#' @param parallel Whether to enable message print when wrapped 
-#' in parallelised functions.
 #' 
 #' @return Null
 #' 
 #' @keywords internal 
-messager <- function(...,
-                     v = Sys.getenv("VERBOSE") != "FALSE", 
-                     parallel = TRUE) {
+messager <- function(..., v = Sys.getenv("VERBOSE") != "FALSE") {
     msg <- paste(...)
-    
-    message_parallel <- function(...) {
-        system2("echo", args = paste0(..., collpase = ""))
-    }
-    if(isTRUE(parallel)){
-        if(v) try({message_parallel(msg)})
-    } else {
-        if (v) try({message(msg)})
-    }
+    if (v) try({message(msg)})
 }
 
 #' Check, add and access files in cache
