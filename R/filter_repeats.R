@@ -22,14 +22,7 @@ filter_repeats <- function(motifs, filter_n = 6) {
     }
     
     repeat_pattern <- paste0("([A-Z])\\1{", filter_n - 1, ",}")
-    good_motif_indices <- vapply(seq_along(motifs$consensus), function(i) {
-        if (!grepl(repeat_pattern, motifs$consensus[i])) {
-            return(i)
-        } else {
-            return(-1)
-        }
-    }, numeric(1))
-    good_motif_indices <- good_motif_indices[good_motif_indices != -1]
+    good_motif_indices <- grep(repeat_pattern, motifs$consensus, invert = TRUE)
     filtered_motifs <- motifs[good_motif_indices,]
     return(filtered_motifs)
 }
