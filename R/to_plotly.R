@@ -9,7 +9,7 @@
 #' @importFrom plotly ggplotly
 #' @importFrom htmltools tagList
 #' 
-#' @return A \code{plotly} object.
+#' @returns A \code{plotly} object.
 #' 
 #' @examples
 #' x <- data.frame(a = c(1,2,3), b = c(2,3,4))

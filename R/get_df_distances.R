@@ -26,7 +26,7 @@
 #' 
 #' @importFrom purrr map_df
 #' 
-#' @return A \code{data.frame} with the following columns:
+#' @returns A \code{data.frame} with the following columns:
 #' \describe{
 #'  \item{exp_label}{Experiment labels.}
 #'  \item{exp_type}{Experiment types.}

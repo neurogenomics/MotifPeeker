@@ -6,7 +6,7 @@
 #' @param x A number.
 #' @param decimal_digits Number of decimal digits to round to.
 #' 
-#' @return A character string of the formatted number. \code{NA} is returned as
+#' @returns A character string of the formatted number. \code{NA} is returned as
 #' "NA".
 #' 
 #' @examples
@@ -45,7 +45,7 @@ pretty_number <- function(x, decimal_digits = 2) {
 #' @examples
 #' seq_len(10) %>% sum
 #' 
-#' @return The result of calling `rhs(lhs)`.
+#' @returns The result of calling `rhs(lhs)`.
 NULL
 
 #' Format exp_type
@@ -64,7 +64,7 @@ NULL
 #' }
 #' Any item not mentioned above will be returned as-is.
 #' 
-#' @return A character vector of formatted exp_type.
+#' @returns A character vector of formatted exp_type.
 #' 
 #' @examples
 #' MotifPeeker:::format_exptype("chipseq")
@@ -103,7 +103,7 @@ format_exptype <- function(exp_type) {
 #' 
 #' @param v Whether to print messages or not.
 #' 
-#' @return Null
+#' @returns Null
 #' 
 #' @keywords internal 
 messager <- function(..., v = Sys.getenv("VERBOSE") != "FALSE") {
@@ -160,7 +160,7 @@ check_duplicates <- function(x) {
 #' package is not attached.
 #' @param custom_msg a custom message to display if the package is not attached.
 #' 
-#' @return Null
+#' @returns Null
 #' 
 #' @keywords internal
 check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
@@ -226,7 +226,7 @@ random_string <- function(length) {
 #' 
 #' @param path_list A list of paths.
 #' 
-#' @return A list of normalised paths or the input as is if contents are not
+#' @returns A list of normalised paths or the input as is if contents are not
 #' a character.
 #' 
 #' @keywords internal
