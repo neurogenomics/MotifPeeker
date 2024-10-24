@@ -1,3 +1,15 @@
+# MotifPeeker 0.99.5
+
+## Miscellaneous
+ 
+* Replace `magrittr` import by `dplyr::%>%`.
+* Reduce the number of exported functions.
+* Move utility functions to 'utilities.R'.
+* Allow vignettes to run without MEME suite installed.
+* Remove `stopper()` wrapper around `stop()`.
+* Use message() for parallel executions
+
+
 # MotifPeeker 0.99.4
 
 ## Miscellaneous

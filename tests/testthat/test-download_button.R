@@ -6,4 +6,8 @@ test_that("download_button works", {
                             type = "file",
                             button_label = "Download Peaks")
     expect_true(grepl("button", btn))
+    expect_invisible(download_button(out, type = "file",
+                                    button_label = "Download Peaks",
+                                    add_button = FALSE))
 })
+

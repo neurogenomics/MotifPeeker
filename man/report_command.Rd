@@ -18,10 +18,10 @@ Reconstruct the \code{\link{MotifPeeker}} command from the parameters used to
 generate the HTML report.
 }
 \examples{
-report_command(params = list(
+MotifPeeker:::report_command(params = list(
    alignment_files = c("file1.bam", "file2.bam"),
    exp_labels = c("exp1", "exp2"),
    genome_build = "hg19"))
 
-
 }
+\keyword{internal}

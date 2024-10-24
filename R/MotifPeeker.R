@@ -207,18 +207,18 @@ MotifPeeker <- function(
         len_alignment_files <- if (is.list(alignment_files))
             length(alignment_files) else 1
         if (len_peak_files != len_alignment_files) {
-            stopper(stp_msg)
+            stop(stp_msg)
         }
     }
     if (!is.null(cell_counts) && length(cell_counts) != length(peak_files)) {
         stp_msg <- paste0("Length of ", shQuote("cell_counts"), " must be ",
         "equal to ", shQuote("peak_files"), ".")
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     if (denovo_motif_discovery &&
         (is.null(denovo_motifs) || denovo_motifs < 1)) {
         stp_msg <- "Number of de-novo motifs to find must be greater than 0."
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     
     ### Check duplicate labels ###
@@ -233,7 +233,7 @@ MotifPeeker <- function(
     ### Create output folder ###
     if (!dir.exists(out_dir)) {
         stp_msg <- "Output directory does not exist."
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     out_dir <- file.path(
         out_dir,

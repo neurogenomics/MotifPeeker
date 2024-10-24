@@ -9,13 +9,12 @@
 #' \code{\link{MotifPeeker}} command.
 #' 
 #' @examples
-#' report_command(params = list(
+#' MotifPeeker:::report_command(params = list(
 #'    alignment_files = c("file1.bam", "file2.bam"),
 #'    exp_labels = c("exp1", "exp2"),
 #'    genome_build = "hg19"))
 #' 
-#' 
-#' @export
+#' @keywords internal
 report_command <- function(params) {
     tab_spaces <- paste(rep(" ", nchar("MotifPeeker)")), collapse = "")
     

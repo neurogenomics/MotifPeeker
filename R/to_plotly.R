@@ -9,16 +9,16 @@
 #' @importFrom plotly ggplotly
 #' @importFrom htmltools tagList
 #' 
-#' @return A \code{plotly} object.
+#' @returns A \code{plotly} object.
 #' 
 #' @examples
 #' x <- data.frame(a = c(1,2,3), b = c(2,3,4))
 #' p <- ggplot2::ggplot(x, ggplot2::aes(x = a, y = b)) + ggplot2::geom_point()
-#' to_plotly(p, html_tags = FALSE)
+#' MotifPeeker:::to_plotly(p, html_tags = FALSE)
 #' 
 #' @seealso \link[plotly]{ggplotly}
 #' 
-#' @export
+#' @keywords internal
 to_plotly <- function(p, html_tags = TRUE, tooltip = "text", ...) {
     pltly <- plotly::ggplotly(p, tooltip = tooltip, ...)
     

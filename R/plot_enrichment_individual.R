@@ -46,14 +46,15 @@
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 #'         enrichment_df <- get_df_enrichment(
-#'             input, segregated_input, motifs, genome_build, reference_index = 1,
-#'             workers = 1
+#'             input, segregated_input, motifs, genome_build,
+#'             reference_index = 1, workers = 1
 #'         )
 #'         label_colours <- c("red", "cyan")
 #'     
-#'         plt <- plot_enrichment_individual(
+#'         plt <- MotifPeeker:::plot_enrichment_individual(
 #'             input, enrichment_df, comparison_i = 2, motif_i = 1,
-#'             label_colours = label_colours, reference_index = 1, html_tags = FALSE
+#'             label_colours = label_colours, reference_index = 1,
+#'             html_tags = FALSE
 #'         )
 #'         print(plt)
 #'     }
@@ -61,7 +62,7 @@
 #' 
 #' @family plot functions
 #' 
-#' @export
+#' @keywords internal
 plot_enrichment_individual <- function(result,
                                         enrichment_df,
                                         comparison_i,
@@ -70,7 +71,7 @@ plot_enrichment_individual <- function(result,
                                         reference_index = 1,
                                         html_tags = TRUE) {
     stp_msg <- "reference_index cannot be the same as comparison_i."
-    if (reference_index == comparison_i) stopper(stp_msg)
+    if (reference_index == comparison_i) stop(stp_msg)
     
     ref_label <- result$exp_labels[reference_index]
     comp_label <- result$exp_labels[comparison_i]

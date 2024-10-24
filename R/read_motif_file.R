@@ -61,7 +61,7 @@ read_motif_file <- function(motif_file,
     if (!file_format %in% names(read_functions)) {
         stp_msg <- paste("Unsupported file format. The motif file must be one",
                         "of homer, jaspar, meme, transfac or uniprobe.")
-        stopper(stp_msg)
+        stop(stp_msg)
     }
     read_function <- read_functions[[file_format]]
     motif <- read_function(motif_file)

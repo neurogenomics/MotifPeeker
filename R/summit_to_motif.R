@@ -65,7 +65,7 @@ summit_to_motif <- function(peak_input,
     ## p-value calculation for desired fp_rate
     fimo_threshold <- fp_rate / (2 * mean(GenomicRanges::width(peaks)))
     messager("The p-value threshold for motif scanning with FIMO is",
-            fimo_threshold, v = verbose, parallel = TRUE)
+            fimo_threshold, v = verbose)
     fimo_df <- memes::runFimo(sequences = peak_sequences,
                                 motifs = motif,
                                 bfile = bfile,

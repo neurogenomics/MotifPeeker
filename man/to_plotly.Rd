@@ -39,9 +39,10 @@ Convert ggplot2 objects to plotly
 \examples{
 x <- data.frame(a = c(1,2,3), b = c(2,3,4))
 p <- ggplot2::ggplot(x, ggplot2::aes(x = a, y = b)) + ggplot2::geom_point()
-to_plotly(p, html_tags = FALSE)
+MotifPeeker:::to_plotly(p, html_tags = FALSE)
 
 }
 \seealso{
 \link[plotly]{ggplotly}
 }
+\keyword{internal}

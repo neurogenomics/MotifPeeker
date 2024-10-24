@@ -7,9 +7,9 @@
 #' @returns Header string to be rendering within Rmarkdown file.
 #' 
 #' @examples 
-#' report_header()
+#' MotifPeeker:::report_header()
 #' 
-#' @export
+#' @keywords internal
 report_header <- function() {
     paste0(
         "<div class='report-header'>",

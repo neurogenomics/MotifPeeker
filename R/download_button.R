@@ -27,37 +27,29 @@ download_button <- function(path,
                             icon = "fa fa-save",
                             add_button = TRUE,
                             ...) {
-    if (add_button) {
-        wrn_msg <- paste("Package", shQuote("downloadthis"), "is required to",
-                        "add download buttons to the HTML report. Skipping",
-                        "download buttons...")
-        check_dep("downloadthis", fatal = FALSE, custom_msg = wrn_msg)
-        
-        type <- tolower(type)
-        if (type == "dir") {
-            btn <- downloadthis::download_dir(
-                path = path,
-                output_name = output_name,
-                button_label = button_label,
-                button_type = button_type,
-                has_icon = has_icon,
-                icon = icon,
-                self_contained = TRUE
-            )
-        } else if (type == "file") {
-            btn <- downloadthis::download_file(
-                path = path,
-                output_name = output_name,
-                button_label = button_label,
-                button_type = button_type,
-                has_icon = has_icon,
-                icon = icon,
-                self_contained = TRUE
-            )
-        }
-        
-        return(btn)
-    } else {
-        return(invisible())
-    }
+    if (!add_button) return(invisible())
+    
+    wrn_msg <- paste("Package", shQuote("downloadthis"), "is required to",
+                    "add download buttons to the HTML report. Skipping",
+                    "download buttons...")
+    check_dep("downloadthis", fatal = FALSE, custom_msg = wrn_msg)
+    
+    btn_args <- list(
+        path = path,
+        output_name = output_name,
+        button_label = button_label,
+        button_type = button_type,
+        has_icon = has_icon,
+        icon = icon,
+        self_contained = TRUE
+    )
+    
+    type <- tolower(type)
+    btn <- switch(
+        type,
+        "dir" = do.call(downloadthis::download_dir, btn_args),
+        "file" = do.call(downloadthis::download_file, btn_args)
+    )
+    
+    return(btn)
 }

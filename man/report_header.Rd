@@ -17,6 +17,7 @@ Generate a header for \link[MotifPeeker]{MotifPeeker} reports generated using
 the \emph{MotifPeeker.Rmd} template.
 }
 \examples{
-report_header()
+MotifPeeker:::report_header()
 
 }
+\keyword{internal}

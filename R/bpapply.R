@@ -19,10 +19,10 @@
 #' half_it <- function(arg1) return(arg1 / 2)
 #' x <- seq_len(10)
 #' 
-#' res <- bpapply(x, half_it, workers = 2)
+#' res <- MotifPeeker:::bpapply(x, half_it, workers = 2)
 #' print(res)
 #' 
-#' @export
+#' @keywords internal
 bpapply <- function(
         X,
         FUN,
@@ -36,7 +36,7 @@ bpapply <- function(
     stp_msg <- paste("Supplied apply_fun is not a valid BiocParallel function.")
     apply_fun_package <- attr(apply_fun, "package")
     if (length(apply_fun_package) == 0 ||
-        apply_fun_package != "BiocParallel")  stopper(stp_msg)
+        apply_fun_package != "BiocParallel")  stop(stp_msg)
     
     BPPARAM <- get_bpparam(workers = workers,
                             progressbar = progressbar,

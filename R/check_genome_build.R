@@ -34,5 +34,5 @@ check_genome_build <- function(genome_build) {
         ". ",
         "Try passing a BSgenome object."
     )
-    stopper(stp_msg)
+    stop(stp_msg)
 }
