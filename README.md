@@ -7,7 +7,7 @@ style="height: 300px !important;" />
 
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-0.99.5-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-0.99.6-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Oct-22-2024***
+**Updated:** ***Oct-28-2024***
 
 ## Introduction
 
@@ -371,7 +371,7 @@ utils::sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] gtable_0.3.5        jsonlite_1.8.9      renv_1.0.11        
+    ##  [1] gtable_0.3.6        jsonlite_1.8.9      renv_1.0.11        
     ##  [4] dplyr_1.1.4         compiler_4.4.1      BiocManager_1.30.25
     ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.3.0       
     ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.1         
@@ -382,7 +382,7 @@ utils::sessionInfo()
     ## [25] rlang_1.1.4         utf8_1.2.4          badger_0.2.4       
     ## [28] xfun_0.48           fs_1.6.4            cli_3.6.3          
     ## [31] magrittr_2.0.3      rworkflows_1.0.2    digest_0.6.37      
-    ## [34] grid_4.4.1          rstudioapi_0.16.0   lifecycle_1.0.4    
+    ## [34] grid_4.4.1          rstudioapi_0.17.1   lifecycle_1.0.4    
     ## [37] vctrs_0.6.5         evaluate_1.0.1      glue_1.8.0         
     ## [40] data.table_1.16.2   fansi_1.0.6         colorspace_2.1-1   
     ## [43] rmarkdown_2.28      tools_4.4.1         pkgconfig_2.0.3    
