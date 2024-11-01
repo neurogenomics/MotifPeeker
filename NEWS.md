@@ -1,4 +1,4 @@
-# MotifPeeker 0.99.5
+# MotifPeeker 0.99.5 / 0.99.6
 
 ## Miscellaneous
  
