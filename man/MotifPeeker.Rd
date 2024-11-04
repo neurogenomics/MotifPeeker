@@ -207,6 +207,7 @@ motifs <- list(
 )
 
 \donttest{
+    if (memes::meme_is_installed()) {
     # MotifPeeker takes time to run
     MotifPeeker(
         peak_files = peaks,
@@ -228,6 +229,7 @@ motifs <- list(
         quiet = TRUE,
         verbose = FALSE
     )
+    }
 }
 
 }

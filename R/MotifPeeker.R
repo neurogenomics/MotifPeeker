@@ -142,6 +142,7 @@
 #' )
 #' 
 #' \donttest{
+#'     if (memes::meme_is_installed()) {
 #'     # MotifPeeker takes time to run
 #'     MotifPeeker(
 #'         peak_files = peaks,
@@ -163,6 +164,7 @@
 #'         quiet = TRUE,
 #'         verbose = FALSE
 #'     )
+#'     }
 #' }
 #' 
 #' @export

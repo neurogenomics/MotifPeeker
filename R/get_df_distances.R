@@ -35,6 +35,7 @@
 #' }
 #' 
 #' @examples
+#' if (memes::meme_is_installed()) {
 #' data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' data("motif_MA1102.3", package = "MotifPeeker")
 #' data("motif_MA1930.2", package = "MotifPeeker")
@@ -55,6 +56,7 @@
 #'     distances_df <- get_df_distances(input, motifs, genome_build, 
 #'                          workers = 1)
 #'     print(distances_df)
+#' }
 #' }
 #' 
 #' @family generate data.frames

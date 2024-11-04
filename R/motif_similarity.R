@@ -30,6 +30,7 @@
 #' The list is repeated for each set of comparison groups in input.
 #' 
 #' @examples
+#' if (memes::meme_is_installed()) {
 #' data("CTCF_TIP_peaks", package = "MotifPeeker")
 #' data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' 
@@ -48,6 +49,7 @@
 #'         similarity_matrices <- motif_similarity(denovo_motifs)
 #'         print(similarity_matrices)
 #'     }
+#' }
 #' }
 #' 
 #' @export

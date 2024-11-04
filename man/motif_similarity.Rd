@@ -152,6 +152,7 @@ are of little use for motifs with a different number of alphabet letters
 }
 }
 \examples{
+if (memes::meme_is_installed()) {
 data("CTCF_TIP_peaks", package = "MotifPeeker")
 data("CTCF_ChIP_peaks", package = "MotifPeeker")
 
@@ -170,6 +171,7 @@ data("CTCF_ChIP_peaks", package = "MotifPeeker")
         similarity_matrices <- motif_similarity(denovo_motifs)
         print(similarity_matrices)
     }
+}
 }
 
 }

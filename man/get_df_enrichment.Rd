@@ -80,6 +80,7 @@ suitable for plots. The \code{data.frame} contains values for all and
 segregated peaks.
 }
 \examples{
+if (memes::meme_is_installed()) {
 data("CTCF_ChIP_peaks", package = "MotifPeeker")
 data("CTCF_TIP_peaks", package = "MotifPeeker")
 data("motif_MA1102.3", package = "MotifPeeker")
@@ -108,6 +109,7 @@ reference_index <- 1
             reference_index = 1, workers = 1
         )
     }
+}
 }
 
 }

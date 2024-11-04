@@ -5,6 +5,8 @@
 * Remove `cat()` calls in functions.
 * Implement helper `check_input()` to validate input before passing them to
   other functions.
+* Run examples and tests only if MEME Suite is detected (only for functions
+which require MEME Suite).
 
 
 # MotifPeeker 0.99.5 / 0.99.6

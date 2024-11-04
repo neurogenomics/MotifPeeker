@@ -61,6 +61,7 @@ Light wrapper around \code{TOMTOM} from MEME Suite.
 data("CTCF_TIP_peaks", package = "MotifPeeker")
     
 \donttest{
+    if (memes::meme_is_installed()) {
     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
         genome_build <-
             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -74,6 +75,7 @@ data("CTCF_TIP_peaks", package = "MotifPeeker")
         res2 <- find_motifs(res, motif_db = get_JASPARCORE(),
                             out_dir = tempdir())
         print(res2)
+    }
     }
 }
 
