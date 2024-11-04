@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("enrichment plotting and datatable functions works", {
     ### Prepare input ###
     data("CTCF_ChIP_peaks", package = "MotifPeeker")

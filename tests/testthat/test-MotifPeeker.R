@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("MotifPeeker fails without genome_build input", {
   expect_error(MotifPeeker())
 })

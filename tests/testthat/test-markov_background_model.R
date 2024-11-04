@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("file created by markov_background_model function", {
     temp_dir <- withr::local_tempdir()
     

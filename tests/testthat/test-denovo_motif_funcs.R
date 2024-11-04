@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("De-novo motif enrichment functions works", {
     data("CTCF_TIP_peaks", package = "MotifPeeker")
     data("CTCF_ChIP_peaks", package = "MotifPeeker")
