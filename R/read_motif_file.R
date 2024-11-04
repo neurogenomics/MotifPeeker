@@ -32,9 +32,11 @@ read_motif_file <- function(motif_file,
                             file_format = "auto",
                             verbose = FALSE) {
     ### Check if motif_file is a universalmotif object ###
+
     if (inherits(motif_file, "universalmotif")) {
-        return(motif_file)
+        stop("The motif_file is already a universalmotif object.")
     }
+    if (!is.character(motif_file)) stop("Input must be a character string.")
     
     ### Load supported read functions ###
     read_functions <- list(

@@ -9,8 +9,7 @@
 #' thrown.
 #' @inheritParams MotifPeeker
 #' 
-#' @returns A character string specifying the path to the downloaded file. If
-#' the input is not in ENCODE ID format, the input is returned as-is.
+#' @returns A character string specifying the path to the downloaded file.
 #' 
 #' @examples
 #' if (requireNamespace("curl", quietly = TRUE) &&
@@ -20,10 +19,12 @@
 #' 
 #' @export
 check_ENCODE <- function(encode_id, expect_format, verbose = FALSE) {
-    if (!all(is.character(encode_id))) return(encode_id)
     ### Validate ENCODE ID ###
+    stp_msg <- "Input is not a ENCODE ID string."
     id_pattern <- "^ENC(SR|BS|DO|GM|AB|LB|FF|PL)\\d{3}[A-Z]{3}$"
-    if (!all(grepl(id_pattern, encode_id))) return(encode_id)
+    if (!(all(is.character(encode_id)) && all(grepl(id_pattern, encode_id)))) {
+        stop(stp_msg)
+    }
     
     ### Verify existence of file on ENCODE ###
     check_dep("curl")

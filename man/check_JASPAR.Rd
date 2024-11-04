@@ -13,8 +13,7 @@ check_JASPAR(motif_id, verbose = FALSE)
 running the function. (default = FALSE)}
 }
 \value{
-A character string specifying the path to the downloaded file. If
-the input is not in JASPAR ID format, the input is returned as-is.
+A character string specifying the path to the downloaded file.
 }
 \description{
 Check and get files from JASPAR. Requires the input to be in JASPAR

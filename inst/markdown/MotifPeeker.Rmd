@@ -70,19 +70,30 @@ if (is.null(params$exp_type)) {
 } else {
     exp_types <- params$exp_type
 }
-peak_files_encode <- Vectorize(check_ENCODE, "encode_id")(
-    params$peak_files, expect_format = c("narrowPeak", "bed"))
-alignment_files_encode <- Vectorize(check_ENCODE, "encode_id")(
-    params$alignment_files, expect_format = "bam")
+peak_files_encode <-
+  Vectorize(function(x) check_input(
+    x, "encode_id", check_ENCODE, expect_format = c("narrowPeak", "bed"),
+    verbose = FALSE), "x")(params$peak_files)
+alignment_files_encode <-
+  Vectorize(function(x) check_input(
+    x, "encode_id", check_ENCODE, expect_format = c("bam"),
+    verbose = FALSE), "x")(params$alignment_files)
 result <- list(
     peaks = Vectorize(read_peak_file, "peak_file")(peak_files_encode),
     alignments = lapply(alignment_files_encode, Rsamtools::BamFile),
     exp_labels = params$exp_labels,
-    exp_type = unname(Vectorize(MotifPeeker:::format_exptype, "exp_type")(exp_types))
+    exp_type = unname(Vectorize(MotifPeeker:::format_exptype,
+                                "exp_type")(exp_types))
 )
-motif_files_jaspar <- Vectorize(check_JASPAR, "motif_id")(params$motif_files)
+motif_files_jaspar <- Vectorize(
+  function(x) check_input(x, "jaspar_id", check_JASPAR,
+                          verbose = params$verbose), "x")(params$motif_files)
 user_motifs <- list(
-    motifs = Vectorize(read_motif_file, "motif_file")(motif_files_jaspar),
+    # motifs = Vectorize(read_motif_file, "motif_file")(motif_files_jaspar),
+    motifs = Vectorize(
+      function(x) check_input(x, "motif", read_motif_file, inverse = TRUE,
+                              verbose = params$verbose),
+      "x")(motif_files_jaspar),
     motif_labels = params$motif_labels
 )
 result$alignments <- unname(result$alignments)
