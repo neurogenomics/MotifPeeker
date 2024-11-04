@@ -26,7 +26,7 @@ are: "known_motif" and "denovo_motif".}
 (optional)}
 }
 \value{
-None (invisible \code{NULL})
+String with the labels of the reference and comparison experiments.
 }
 \description{
 Print the labels of the reference and comparison experiments

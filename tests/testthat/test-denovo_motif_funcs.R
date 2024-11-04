@@ -60,9 +60,7 @@ test_that("De-novo motif enrichment functions works", {
     expect_type(res5, "list")
 
     ### print_denovo_sections ###
-    .call_print_denovo_sections <- function() {
-        print_denovo_sections(res, res2, segregated_peaks, c(1,2),
+    section_out <- print_denovo_sections(res, res2, segregated_peaks, c(1,2),
                             jaspar_link = TRUE, download_buttons = res5)
-    }
-    expect_invisible(.call_print_denovo_sections())
+    expect_type(section_out, "list")
 })

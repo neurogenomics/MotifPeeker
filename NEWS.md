@@ -1,3 +1,10 @@
+# MotifPeeker 0.99.7
+
+## Miscellaneous
+ 
+* Remove `cat()` calls in functions.
+
+
 # MotifPeeker 0.99.5 / 0.99.6
 
 ## Miscellaneous

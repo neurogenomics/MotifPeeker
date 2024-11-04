@@ -6,6 +6,7 @@ Icon?
 ^doc$
 ^Meta$
 ^codecov\.yml$
+^\.DS_Store$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

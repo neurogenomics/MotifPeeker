@@ -49,8 +49,8 @@ plot_motif_comparison <- function(comparison_matrices,
                 xlab <- axis_labels$reference_common
             }
             if (all(is.na(matrices[[x]]))) {
-                msg <- utils::capture.output(cat("*No motifs were discovered",
-                "in one or both the comparison groups. Skipping plot...*  \n"))
+                msg <- paste("*No motifs were discovered",
+                "in one or both the comparison groups. Skipping plot...*  \n")
                 return(msg)
             }
             if (nrow(matrices[[x]]) < 2 || ncol(matrices[[x]]) < 2) {

@@ -7,7 +7,7 @@ style="height: 300px !important;" />
 
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-0.99.6-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-0.99.7-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Oct-28-2024***
+**Updated:** ***Nov-01-2024***
 
 ## Introduction
 
@@ -355,7 +355,7 @@ utils::sessionInfo()
 
     ## R version 4.4.1 (2024-06-14)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS 15.0.1
+    ## Running under: macOS 15.1
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
