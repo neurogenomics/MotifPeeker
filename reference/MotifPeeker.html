@@ -15,7 +15,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 
     <a class="navbar-brand me-2" href="../index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Benchmark epigenomic profiling methods using motif enrichment</h1>
-      <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/master/R/MotifPeeker.R" class="external-link"><code>R/MotifPeeker.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/neurogenomics/MotifPeeker/blob/bioc_review/R/MotifPeeker.R" class="external-link"><code>R/MotifPeeker.R</code></a></small>
       <div class="d-none name"><code>MotifPeeker.Rd</code></div>
     </div>
 
@@ -304,6 +304,7 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="fu">memes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/memes/man/meme_is_installed.html" class="external-link">meme_is_installed</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="co"># MotifPeeker takes time to run</span></span></span>
 <span class="r-in"><span>    <span class="fu">MotifPeeker</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        peak_files <span class="op">=</span> <span class="va">peaks</span>,</span></span>
@@ -325,7 +326,8 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpjSiINu/MotifPeeker_20241101_110507"</span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpqpywwf/MotifPeeker_20241104_162433"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
