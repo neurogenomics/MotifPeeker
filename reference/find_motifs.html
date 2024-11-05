@@ -54,7 +54,7 @@ Light wrapper around <code>TOMTOM</code> from MEME Suite.</p>
 <span>  <span class="va">motif_db</span>,</span>
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  workers <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -88,8 +88,9 @@ results to. (default = <code><a href="https://rdrr.io/r/base/tempfile.html" clas
 search behavior as described in <code>check_meme_install()</code> if unset.</p></dd>
 
 
-<dt id="arg-workers">workers<a class="anchor" aria-label="anchor" href="#arg-workers"></a></dt>
-<dd><p>The number of workers to use for parallel processing.</p></dd>
+<dt id="arg-bpparam">BPPARAM<a class="anchor" aria-label="anchor" href="#arg-bpparam"></a></dt>
+<dd><p>A <code><a href="https://rdrr.io/pkg/BiocParallel/man/BiocParallelParam-class.html" class="external-link">BiocParallelParam-class</a></code> object
+specifying run parameters. (default = bpparam())</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -98,8 +99,8 @@ running the function. (default = FALSE)</p></dd>
 
 
 <dt id="arg-debug">debug<a class="anchor" aria-label="anchor" href="#arg-debug"></a></dt>
-<dd><p>A logical indicating whether to print debug/error messages in
-the HTML report. (default = FALSE)</p></dd>
+<dd><p>A logical indicating whether to print debug messages while
+running the function. (default = FALSE)</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -149,8 +150,8 @@ this will print.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;mot:m01_..&gt; m01_GCCCTCTGSTGGC STREME-1 GCCMYCTGSTGGC      DNA     +-</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    icscore nsites pval type pseudocount          bkg best_match_name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 15.22492     54 0.12  PCM           0 0.241, 0....        MA0139.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_altname                                             best_db_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               CTCF 22eb665f8684_JASPAR2024_CORE_non-redundant_pfms_meme.txt</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_altname                                            best_db_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               CTCF 5c5308926ec_JASPAR2024_CORE_non-redundant_pfms_meme.txt</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_offset best_match_pval best_match_eval best_match_qval</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                 2        3.33e-13        7.81e-10        1.56e-09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_strand best_match_motif       tomtom</span>
@@ -163,8 +164,8 @@ this will print.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 &lt;mot:m02_..&gt; m02_GGAAGTAA STREME-2  GGAAGTAA      DNA     +- 10.9251     21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   pval type pseudocount          bkg best_match_name best_match_altname</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.5  PCM           0 0.241, 0....        MA1931.1        ELK1::HOXA1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               best_db_name best_match_offset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 22eb665f8684_JASPAR2024_CORE_non-redundant_pfms_meme.txt                 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                              best_db_name best_match_offset</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5c5308926ec_JASPAR2024_CORE_non-redundant_pfms_meme.txt                 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_pval best_match_eval best_match_qval best_match_strand</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        1.55e-05          0.0365          0.0725                 +</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   best_match_motif       tomtom</span>

@@ -78,7 +78,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  save_runfiles <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  display <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="st">"browser"</span>,</span>
-<span>  workers <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/SerialParam-class.html" class="external-link">SerialParam</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -219,9 +219,16 @@ report once it is generated. (default = NULL) Options are:</p><ul><li><p><code>"
 </ul></dd>
 
 
-<dt id="arg-workers">workers<a class="anchor" aria-label="anchor" href="#arg-workers"></a></dt>
-<dd><p>An integer specifying the number of threads to use for
-parallel processing. (default = 1)<br><strong>IMPORTANT:</strong> For each worker, please ensure a minimum of 6GB of
+<dt id="arg-bpparam">BPPARAM<a class="anchor" aria-label="anchor" href="#arg-bpparam"></a></dt>
+<dd><p>A <code><a href="https://rdrr.io/pkg/BiocParallel/man/BiocParallelParam-class.html" class="external-link">BiocParallelParam-class</a></code> object
+enabling parallel execution. (default = SerialParam(), single-CPU run)<br><br>
+Following are two examples of how to set up parallel processing:</p><ul><li><p><code>BPPARAM = BiocParallel::MulticoreParam(4)</code>: Uses 4
+  CPU cores for parallel processing.</p></li>
+<li><p><code><a href="https://github.com/Bioconductor/BiocParallel" class="external-link">library("BiocParallel")</a></code> followed by
+  <code>register(MulticoreParam(4))</code> sets all subsequent BiocParallel
+  functions to use 4 CPU cores. <code>Motifpeeker()</code> must be run
+  with <code>BPPARAM = BiocParallel::MulticoreParam()</code>.</p></li>
+</ul><p><strong>IMPORTANT:</strong> For each worker, please ensure a minimum of 8GB of
 memory (RAM) is available as <code>denovo_motif_discovery</code> is
 memory-intensive.</p></dd>
 
@@ -250,25 +257,25 @@ running the function. (default = FALSE)</p></dd>
     <p>Runtime guidance: For 4 datasets, the runtime is approximately 3 minutes with
 denovo_motif_discovery disabled. However, de-novo motif discovery can take
 hours to complete. To make computation faster, we highly recommend tuning the
-following arguments:</p><dl><dt><code>workers</code></dt>
-<dd><p>Running motif discovery in parallel can
-    significantly reduce runtime, but it is very memory-intensive, consuming
-    upwards of 10GB of RAM per thread. Memory starvation can greatly slow the
-    process, so set <code>workers</code> with caution.</p></dd>
+following arguments:</p><dl><dt><code>BPPARAM=MulticoreParam(x)</code></dt>
+<dd><p>Running motif discovery in
+   parallel can significantly reduce runtime, but it is very
+   memory-intensive, consuming 10+GB of RAM per thread. Memory starvation can
+   greatly slow the process, so set the number of cores with caution.</p></dd>
 
-    <dt><code>denovo_motifs</code></dt>
+   <dt><code>denovo_motifs</code></dt>
 <dd><p>The number of motifs to discover per sequence
-    group exponentially increases runtime. We recommend no more than 5
-    motifs to make a meaningful inference.</p></dd>
+   group exponentially increases runtime. We recommend no more than 5
+   motifs to make a meaningful inference.</p></dd>
 
-    <dt><code>trim_seq_width</code></dt>
+   <dt><code>trim_seq_width</code></dt>
 <dd><p>Trimming sequences before running de-novo
-    motif discovery can significantly reduce the search space. Sequence
-    length can exponentially increase runtime. We recommend running the
-    script with <code>denovo_motif_discovery = FALSE</code> and studying the
-    motif-summit distance distribution under general metrics to find the
-    sequence length that captures most motifs. A good starting point is 150
-    but it can be reduced further if appropriate.</p></dd>
+   motif discovery can significantly reduce the search space. Sequence
+   length can exponentially increase runtime. We recommend running the
+   script with <code>denovo_motif_discovery = FALSE</code> and studying the
+   motif-summit distance distribution under general metrics to find the
+   sequence length that captures most motifs. A good starting point is 150
+   but it can be reduced further if appropriate.</p></dd>
 
 
 </dl></div>
@@ -321,13 +328,12 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>        download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>        workers <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>        debug <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>        quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmp7e65j3/MotifPeeker_20241104_165523"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpVdDakC/MotifPeeker_20241105_115426"</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

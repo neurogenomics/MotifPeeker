@@ -57,7 +57,7 @@ for plots.</p>
 <span>  <span class="va">user_motifs</span>,</span>
 <span>  <span class="va">genome_build</span>,</span>
 <span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  workers <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/register.html" class="external-link">bpparam</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  meme_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -112,9 +112,16 @@ are supported as abbreviated input.</p></dd>
 <dd><p>A <code>character</code> vector of output directory.</p></dd>
 
 
-<dt id="arg-workers">workers<a class="anchor" aria-label="anchor" href="#arg-workers"></a></dt>
-<dd><p>An integer specifying the number of threads to use for
-parallel processing. (default = 1)<br><strong>IMPORTANT:</strong> For each worker, please ensure a minimum of 6GB of
+<dt id="arg-bpparam">BPPARAM<a class="anchor" aria-label="anchor" href="#arg-bpparam"></a></dt>
+<dd><p>A <code><a href="https://rdrr.io/pkg/BiocParallel/man/BiocParallelParam-class.html" class="external-link">BiocParallelParam-class</a></code> object
+enabling parallel execution. (default = SerialParam(), single-CPU run)<br><br>
+Following are two examples of how to set up parallel processing:</p><ul><li><p><code>BPPARAM = BiocParallel::MulticoreParam(4)</code>: Uses 4
+  CPU cores for parallel processing.</p></li>
+<li><p><code><a href="https://github.com/Bioconductor/BiocParallel" class="external-link">library("BiocParallel")</a></code> followed by
+  <code>register(MulticoreParam(4))</code> sets all subsequent BiocParallel
+  functions to use 4 CPU cores. <code>Motifpeeker()</code> must be run
+  with <code>BPPARAM = BiocParallel::MulticoreParam()</code>.</p></li>
+</ul><p><strong>IMPORTANT:</strong> For each worker, please ensure a minimum of 8GB of
 memory (RAM) is available as <code>denovo_motif_discovery</code> is
 memory-intensive.</p></dd>
 
@@ -171,8 +178,7 @@ running the function. (default = FALSE)</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BSgenome.Hsapiens.UCSC.hg38"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>    <span class="va">genome_build</span> <span class="op">&lt;-</span> <span class="fu">BSgenome.Hsapiens.UCSC.hg38</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BSgenome.Hsapiens.UCSC.hg38/man/package.html" class="external-link">BSgenome.Hsapiens.UCSC.hg38</a></span></span></span>
-<span class="r-in"><span>    <span class="va">distances_df</span> <span class="op">&lt;-</span> <span class="fu">get_df_distances</span><span class="op">(</span><span class="va">input</span>, <span class="va">motifs</span>, <span class="va">genome_build</span>, </span></span>
-<span class="r-in"><span>                         workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">distances_df</span> <span class="op">&lt;-</span> <span class="fu">get_df_distances</span><span class="op">(</span><span class="va">input</span>, <span class="va">motifs</span>, <span class="va">genome_build</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">distances_df</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
