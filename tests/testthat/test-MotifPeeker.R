@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("MotifPeeker fails without genome_build input", {
   expect_error(MotifPeeker())
 })
@@ -45,7 +47,6 @@ test_that("MotifPeeker produces output files", {
         denovo_motifs = 2,
         motif_db = NULL,
         download_buttons = TRUE,
-        workers = 1,
         out_dir = tempdir(),
         display = NULL,
         debug = FALSE,
@@ -70,7 +71,6 @@ test_that("MotifPeeker produces output files", {
       motif_db = NULL,
       download_buttons = TRUE,
       out_dir = tempdir(),
-      workers = 1,
       display = NULL,
       debug = FALSE,
       verbose = FALSE
@@ -97,7 +97,6 @@ test_that("MotifPeeker produces output files", {
       motif_db = NULL,
       download_buttons = TRUE,
       out_dir = tempdir(),
-      workers = 1,
       display = NULL,
       debug = FALSE,
       verbose = FALSE

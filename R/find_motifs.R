@@ -13,6 +13,7 @@
 #' @param ... Additional arguments to pass to \code{TOMTOM}. For more
 #' information, refer to the official MEME Suite documentation on
 #' \href{https://meme-suite.org/meme/doc/tomtom.html}{TOMTOM}.
+#' @inheritParams bpapply
 #' @inheritParams denovo_motifs
 #' 
 #' @importFrom memes runTomTom
@@ -23,6 +24,7 @@
 #' data("CTCF_TIP_peaks", package = "MotifPeeker")
 #'     
 #' \donttest{
+#'     if (memes::meme_is_installed()) {
 #'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -37,6 +39,7 @@
 #'                             out_dir = tempdir())
 #'         print(res2)
 #'     }
+#'     }
 #' }
 #' 
 #' @export
@@ -44,7 +47,7 @@ find_motifs <- function(streme_out,
                         motif_db,
                         out_dir = tempdir(),
                         meme_path = NULL,
-                        workers = 1,
+                        BPPARAM = BiocParallel::bpparam(),
                         verbose = FALSE,
                         debug = FALSE,
                         ...) {
@@ -64,7 +67,7 @@ find_motifs <- function(streme_out,
                 )
                 return(res_x)
             })
-        }, workers = workers, verbose = verbose
+        }, BPPARAM = BPPARAM, verbose = verbose
     )
     return(res)
 }

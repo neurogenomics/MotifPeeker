@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("enrichment plotting and datatable functions works", {
     ### Prepare input ###
     data("CTCF_ChIP_peaks", package = "MotifPeeker")
@@ -20,8 +22,7 @@ test_that("enrichment plotting and datatable functions works", {
     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
     
     enrichment_df <- get_df_enrichment(
-        input, segregated_input, motifs, genome_build, reference_index = 1,
-        workers = 1
+        input, segregated_input, motifs, genome_build, reference_index = 1
     )
     
     label_colours <- c("red", "cyan")

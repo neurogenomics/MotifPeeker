@@ -25,17 +25,21 @@
 #' (default = 6)
 #' @param out_dir A \code{character} vector of output directory to save STREME
 #' results to. (default = \code{tempdir()})
+#' @param BPPARAM A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+#' specifying run parameters. (default = SerialParam(), single core run)
+#' @param debug A logical indicating whether to print debug messages while
+#' running the function. (default = FALSE)
 #' @param ... Additional arguments to pass to \code{STREME}. For more
 #' information, refer to the official MEME Suite documentation on
 #' \href{https://meme-suite.org/meme/doc/streme.html}{STREME}.
 #' @inheritParams bpapply
 #' @inheritParams motif_enrichment
-#' @inheritParams MotifPeeker
 #' 
 #' @returns A list of \code{\link[universalmotif]{universalmotif}} objects and
 #' associated metadata.
 #' 
 #' @examples
+#' if (memes::meme_is_installed()) {
 #' data("CTCF_TIP_peaks", package = "MotifPeeker")
 #' if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
 #'     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -48,6 +52,7 @@
 #'                         out_dir = tempdir())
 #'     print(res[[1]]$consensus)
 #' }
+#' }
 #' @export
 denovo_motifs <- function(seqs,
                             trim_seq_width,
@@ -58,7 +63,7 @@ denovo_motifs <- function(seqs,
                             filter_n = 6,
                             out_dir = tempdir(),
                             meme_path = NULL,
-                            workers = 1,
+                            BPPARAM = BiocParallel::SerialParam(),
                             verbose = FALSE,
                             debug = FALSE,
                             ...) {
@@ -94,7 +99,7 @@ denovo_motifs <- function(seqs,
             ### Filter motifs ###
             out <- filter_repeats(streme_out, filter_n)
             return(out)
-        }, workers = workers, verbose = verbose
+        }, BPPARAM = BPPARAM, verbose = verbose
     )
     messager("STREME run complete.", v = verbose)
     return(res)

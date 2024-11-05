@@ -8,7 +8,7 @@ bpapply(
   X,
   FUN,
   apply_fun = BiocParallel::bplapply,
-  workers = 1,
+  BPPARAM = BiocParallel::bpparam(),
   progressbar = FALSE,
   force_snowparam = FALSE,
   verbose = FALSE,
@@ -28,27 +28,12 @@ bpapply(
 \item{apply_fun}{A \code{\link[BiocParallel]{BiocParallel}} function to use
 for parallel processing. (default = \code{BiocParallel::bplapply})}
 
-\item{workers}{The number of workers to use for parallel processing.}
-
-\item{progressbar}{
-    \code{logical(1)} Enable progress bar (based on plyr:::progress_text).
-  }
-
-\item{force_snowparam}{A logical indicating whether to force the use of
-\link[BiocParallel]{SnowParam} object.}
-
-\item{verbose}{A logical indicating whether to print verbose messages while
-running the function. (default = FALSE)}
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+specifying run parameters. (default = bpparam())}
 
 \item{...}{
   Arguments passed on to \code{\link[BiocParallel:bplapply]{BiocParallel::bplapply}}, \code{\link[BiocParallel:bpmapply]{BiocParallel::bpmapply}}
   \describe{
-    \item{\code{BPPARAM}}{
-    An optional \code{\link[BiocParallel]{BiocParallelParam}} instance
-    determining the parallel back-end to be used during evaluation, or a
-    \code{list} of \code{BiocParallelParam} instances, to be applied in
-    sequence for nested calls to \pkg{BiocParallel} functions.
-  }
     \item{\code{BPREDO}}{A \code{list} of output from \code{bplapply} with one or
     more failed elements. When a list is given in \code{BPREDO},
     \code{bpok} is used to identify errors, tasks are rerun and inserted
@@ -72,14 +57,13 @@ Output relevant to the \code{apply_fun} specified.
 }
 \description{
 Light wrapper around \code{\link[BiocParallel]{BiocParallel}} functions that
-automatically sets the appropriate parameters based on the number of workers
-specified.
+automatically applies appropriate parallel function.
 }
 \examples{
 half_it <- function(arg1) return(arg1 / 2)
 x <- seq_len(10)
 
-res <- MotifPeeker:::bpapply(x, half_it, workers = 2)
+res <- MotifPeeker:::bpapply(x, half_it)
 print(res)
 
 }

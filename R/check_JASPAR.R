@@ -6,8 +6,7 @@
 #' @inheritParams link_JASPAR
 #' @inheritParams MotifPeeker
 #' 
-#' @returns A character string specifying the path to the downloaded file. If
-#' the input is not in JASPAR ID format, the input is returned as-is.
+#' @returns A character string specifying the path to the downloaded file.
 #' 
 #' @examples
 #' check_JASPAR("MA1930.2")
@@ -15,9 +14,10 @@
 #' @export
 check_JASPAR <- function(motif_id, verbose = FALSE) {
     ### Validate JASPAR ID ###
-    if (!is.character(motif_id)) return(motif_id)
-    if (!startsWith(motif_id, "MA")) return(motif_id)
+    stp_msg <- "Input is not a JASPAR ID string."
+    if (!(is.character(motif_id) && startsWith(motif_id, "MA"))) stop(stp_msg)
     
     ### Fetch file ###
     return(use_cache(link_JASPAR(motif_id, download = TRUE), verbose = verbose))
 }
+

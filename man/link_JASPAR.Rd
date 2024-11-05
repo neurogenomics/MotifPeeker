@@ -13,8 +13,7 @@ link_JASPAR(motif_id, download = FALSE)
 HTML embeddable matrix profile link. (default = FALSE)}
 }
 \value{
-A character string containing the JASPAR motif link. If
-\code{motif_id} is not a valid JASPAR motif ID, it is returned as is.
+A character string containing the JASPAR motif link.
 }
 \description{
 Get JASPAR link for motifs

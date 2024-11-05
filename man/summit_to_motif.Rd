@@ -82,6 +82,7 @@ the approximate formula:
 \href{https://meme-suite.org/meme/doc/fimo-tutorial.html}{FIMO documentation})
 }
 \examples{
+if (memes::meme_is_installed()) {
 data("CTCF_TIP_peaks", package = "MotifPeeker")
 data("motif_MA1102.3", package = "MotifPeeker")
 
@@ -92,6 +93,7 @@ res <- summit_to_motif(
     genome_build = BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 )
 print(res)
+}
 
 }
 \seealso{

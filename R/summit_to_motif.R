@@ -30,6 +30,7 @@
 #' distances for each valid peak.
 #'
 #' @examples
+#' if (memes::meme_is_installed()) {
 #' data("CTCF_TIP_peaks", package = "MotifPeeker")
 #' data("motif_MA1102.3", package = "MotifPeeker")
 #' 
@@ -40,6 +41,7 @@
 #'     genome_build = BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 #' )
 #' print(res)
+#' }
 #'
 #' @seealso \code{\link[memes]{runAme}}
 #' 

@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("list outputted by summit_to_motif function", {
     temp_dir <- withr::local_tempdir()
     

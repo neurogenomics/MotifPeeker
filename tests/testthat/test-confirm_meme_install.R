@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("confirm_meme_install works", {
   if (memes::meme_is_installed()) {
     expect_silent(confirm_meme_install())

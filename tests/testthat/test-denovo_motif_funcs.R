@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("De-novo motif enrichment functions works", {
     data("CTCF_TIP_peaks", package = "MotifPeeker")
     data("CTCF_ChIP_peaks", package = "MotifPeeker")
@@ -12,7 +14,6 @@ test_that("De-novo motif enrichment functions works", {
                         denovo_motifs = 2,
                         filter_n = 6,
                         out_dir = tempdir(),
-                        workers = 1,
                         verbose = FALSE,
                         debug = FALSE))
     
@@ -27,14 +28,13 @@ test_that("De-novo motif enrichment functions works", {
     motif_db <- get_JASPARCORE()
     res2 <- find_motifs(res,
                         motif_db = motif_db,
-                        workers = 1,
                         verbose = TRUE,
                         debug = TRUE)
     expect_length(res2, 4)
     expect_equal(res2[[1]][[1]]$motif[[1]]@alphabet, "DNA")
 
     ## motif_similarity ###
-    res3 <- motif_similarity(res, workers = 1)
+    res3 <- motif_similarity(res)
     expect_true(all(vapply(res3, is.matrix, logical(1))))
 
     ### plot_motif_comparison ###
@@ -60,9 +60,7 @@ test_that("De-novo motif enrichment functions works", {
     expect_type(res5, "list")
 
     ### print_denovo_sections ###
-    .call_print_denovo_sections <- function() {
-        print_denovo_sections(res, res2, segregated_peaks, c(1,2),
+    section_out <- print_denovo_sections(res, res2, segregated_peaks, c(1,2),
                             jaspar_link = TRUE, download_buttons = res5)
-    }
-    expect_invisible(.call_print_denovo_sections())
+    expect_type(section_out, "list")
 })

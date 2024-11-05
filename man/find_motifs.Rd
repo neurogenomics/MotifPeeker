@@ -9,7 +9,7 @@ find_motifs(
   motif_db,
   out_dir = tempdir(),
   meme_path = NULL,
-  workers = 1,
+  BPPARAM = BiocParallel::bpparam(),
   verbose = FALSE,
   debug = FALSE,
   ...
@@ -31,13 +31,14 @@ results to. (default = \code{tempdir()})}
 \item{meme_path}{path to "meme/bin/" (default: \code{NULL}). Will use default
 search behavior as described in \code{check_meme_install()} if unset.}
 
-\item{workers}{The number of workers to use for parallel processing.}
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+specifying run parameters. (default = bpparam())}
 
 \item{verbose}{A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)}
 
-\item{debug}{A logical indicating whether to print debug/error messages in
-the HTML report. (default = FALSE)}
+\item{debug}{A logical indicating whether to print debug messages while
+running the function. (default = FALSE)}
 
 \item{...}{Additional arguments to pass to \code{TOMTOM}. For more
 information, refer to the official MEME Suite documentation on
@@ -61,6 +62,7 @@ Light wrapper around \code{TOMTOM} from MEME Suite.
 data("CTCF_TIP_peaks", package = "MotifPeeker")
     
 \donttest{
+    if (memes::meme_is_installed()) {
     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
         genome_build <-
             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -74,6 +76,7 @@ data("CTCF_TIP_peaks", package = "MotifPeeker")
         res2 <- find_motifs(res, motif_db = get_JASPARCORE(),
                             out_dir = tempdir())
         print(res2)
+    }
     }
 }
 

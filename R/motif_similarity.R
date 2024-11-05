@@ -10,6 +10,7 @@
 #' @inheritDotParams universalmotif::compare_motifs
 #' 
 #' @importFrom universalmotif compare_motifs
+#' @importFrom BiocParallel bpnworkers
 #' 
 #' @inherit universalmotif::compare_motifs details
 #' 
@@ -30,6 +31,7 @@
 #' The list is repeated for each set of comparison groups in input.
 #' 
 #' @examples
+#' if (memes::meme_is_installed()) {
 #' data("CTCF_TIP_peaks", package = "MotifPeeker")
 #' data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' 
@@ -43,18 +45,18 @@
 #'                             genome_build = genome_build,
 #'                             denovo_motifs = 2,
 #'                             filter_n = 6,
-#'                             out_dir = tempdir(),
-#'                             workers = 1)
+#'                             out_dir = tempdir())
 #'         similarity_matrices <- motif_similarity(denovo_motifs)
 #'         print(similarity_matrices)
 #'     }
+#' }
 #' }
 #' 
 #' @export
 motif_similarity <- function(streme_out,
                             method = "PCC",
                             normalise.scores = TRUE,
-                            workers = 1,
+                            BPPARAM = BiocParallel::bpparam(),
                             ...) {
     ## Motif group sequence -   #1 Common seqs - Reference (1)
     ## (4 Groups per            #2 Common seqs - Comparison (2)
@@ -79,7 +81,7 @@ motif_similarity <- function(streme_out,
                         list(m1, m2),
                         method = method,
                         normalise.scores = normalise.scores,
-                        nthreads = workers,
+                        nthreads = BiocParallel::bpnworkers(BPPARAM),
                         ...
                     )
             row_indices <- seq(1, length(m1))

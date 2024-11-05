@@ -14,7 +14,7 @@ denovo_motifs(
   filter_n = 6,
   out_dir = tempdir(),
   meme_path = NULL,
-  workers = 1,
+  BPPARAM = BiocParallel::SerialParam(),
   verbose = FALSE,
   debug = FALSE,
   ...
@@ -54,13 +54,14 @@ results to. (default = \code{tempdir()})}
 \item{meme_path}{path to "meme/bin/" (default: \code{NULL}). Will use default
 search behavior as described in \code{check_meme_install()} if unset.}
 
-\item{workers}{The number of workers to use for parallel processing.}
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+specifying run parameters. (default = SerialParam(), single core run)}
 
 \item{verbose}{A logical indicating whether to print verbose messages while
 running the function. (default = FALSE)}
 
-\item{debug}{A logical indicating whether to print debug/error messages in
-the HTML report. (default = FALSE)}
+\item{debug}{A logical indicating whether to print debug messages while
+running the function. (default = FALSE)}
 
 \item{...}{Additional arguments to pass to \code{STREME}. For more
 information, refer to the official MEME Suite documentation on
@@ -77,6 +78,7 @@ the search space. The result is then optionally filtered to remove motifs
 with a high number of nucleotide repeats
 }
 \examples{
+if (memes::meme_is_installed()) {
 data("CTCF_TIP_peaks", package = "MotifPeeker")
 if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -88,5 +90,6 @@ if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
                         filter_n = 6,
                         out_dir = tempdir())
     print(res[[1]]$consensus)
+}
 }
 }

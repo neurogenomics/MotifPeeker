@@ -8,7 +8,7 @@
 #' @param read_counts A numeric vector of read counts for each experiment.
 #' (optional)
 #' 
-#' @returns None (invisible \code{NULL})
+#' @returns String with the labels of the reference and comparison experiments.
 #' 
 #' @keywords internal
 print_labels <- function(exp_labels,
@@ -16,29 +16,37 @@ print_labels <- function(exp_labels,
                         comparison_index,
                         header_type,
                         read_counts = NULL) {
+    label_str <- ""
     if (header_type == "known_motif") {
-        cat("\n### ", exp_labels[comparison_index], " {- .unlisted}  \n")
+        label_str <- paste0(label_str,
+                            "\n### ", exp_labels[comparison_index],
+                            " {- .unlisted}  \n")
     } else if (header_type == "denovo_motif") {
-        cat("\n## ", exp_labels[comparison_index], " {- .unlisted .tabset ",
-        ".tabset-fade .tabset-pills}  \n")
+        label_str <- paste0(label_str,
+                            "\n## ", exp_labels[comparison_index],
+                            " {- .unlisted .tabset ",
+                            ".tabset-fade .tabset-pills}  \n")
     }
-    cat("**Reference Experiment Label**: ",
-        exp_labels[reference_index])
+    
+    label_str <- paste0(label_str, "**Reference Experiment Label**: ", 
+                        exp_labels[reference_index])
     if (!is.null(read_counts)) {
-        cat(" (Total Reads: ", paste0(
-                pretty_number(read_counts[reference_index]), ")  \n"
-            ))
+        label_str <- paste0(label_str, " (Total Reads: ",
+                            pretty_number(read_counts[reference_index]),
+                            ")  \n")
     } else {
-        cat("  \n")
+        label_str <- paste0(label_str, "  \n")
     }
         
-    cat("**Comparison Experiment Label**: ",
-        exp_labels[comparison_index])
+    label_str <- paste0(label_str, "**Comparison Experiment Label**: ",
+                                    exp_labels[comparison_index])
     if (!is.null(read_counts)) {
-        cat(" (Total Reads: ", paste0(
-                pretty_number(read_counts[comparison_index]), ")  \n"
-            ))
+        label_str <- paste0(label_str, " (Total Reads: ",
+                            pretty_number(read_counts[comparison_index]),
+                            ")  \n")
     } else {
-        cat("  \n")
+        label_str <- paste0(label_str, "  \n")
     }
+    
+    return(label_str)
 }

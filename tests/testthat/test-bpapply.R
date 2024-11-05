@@ -11,17 +11,12 @@ test_that("bpapply works", {
                                        apply_fun = "does_not_exist"))
     
     ### bplapply ###
-    res <- MotifPeeker:::bpapply(x, test_func, workers = 2)
-    expect_equal(unlist(res), x)
-    
-    ### SnowParam ###
-    res <- MotifPeeker:::bpapply(x, test_func, workers = 1,
-                            force_snowparam = TRUE, progressbar = FALSE)
+    res <- MotifPeeker:::bpapply(x, test_func)
     expect_equal(unlist(res), x)
     
     ### bpmapply ###
     res <- MotifPeeker:::bpapply(x, test_func,
-                    apply_fun = BiocParallel::bpmapply, workers = 2,
+                    apply_fun = BiocParallel::bpmapply,
                     MoreArgs = list(arg2 = y), progressbar = FALSE)
     expect_equal(res[1,2], 3)
 })

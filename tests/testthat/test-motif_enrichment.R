@@ -1,3 +1,5 @@
+skip_if_not(memes::meme_is_installed(), "MEME is not installed")
+
 test_that("list outputted by motif_enrichment function", {
     data("CTCF_TIP_peaks", package = "MotifPeeker")
     data("motif_MA1102.3", package = "MotifPeeker")

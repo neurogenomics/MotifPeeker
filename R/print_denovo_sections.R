@@ -41,13 +41,13 @@ print_denovo_sections <- function(motif_list,
         paste0("\n**Comparison Group - Unique Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$unique_seqs2), "  \n")
     )
+    out <- list()
     
     ### DT Func ###
     .print_dt <- function(i) {
         if (length(motif_list[[i]]) == 0 || length(similar_motifs[[i]]) == 0) {
-            msg <- utils::capture.output(
-            cat("*Either no motifs were discovered for this group, or no",
-            "similar motifs were found.*  \n"))
+            msg <- paste("*Either no motifs were discovered for this group, or",
+                        "no similar motifs were found.*  \n")
             return(msg)
         }
         similar_motifs_i <- purrr::map_df(similar_motifs[[i]], as.data.frame)
@@ -84,21 +84,22 @@ print_denovo_sections <- function(motif_list,
     }
     
     for (i in indices) {
-        cat(headers[[i]])
+        out$first <- paste(headers[[i]], "\n ")
         
         ### DT ###
-        cat("  \n  ")
-        print(.print_dt(i))
-        cat("  \n  ")
-            
+        out$DT <- .print_dt(i)
+        out$third <- "  \n  "
+        
         ### Download Buttons ###
         if (!is.null(download_buttons)) {
             if (!is.null(download_buttons$peak_file[[i]]))
-                print(download_buttons$peak_file[[i]])
+                out$fourth <- download_buttons$peak_file[[i]]
             if (!is.null(download_buttons$streme_output[[i]]))
-                print(download_buttons$streme_output[[i]])
+                out$fifth <- download_buttons$streme_output[[i]]
             if (!is.null(download_buttons$tomtom_output[[i]]))
-                print(download_buttons$tomtom_output[[i]])
+                out$sixth <- download_buttons$tomtom_output[[i]]
         }
     }
+    
+    return(out)
 }

@@ -8,7 +8,7 @@ motif_similarity(
   streme_out,
   method = "PCC",
   normalise.scores = TRUE,
-  workers = 1,
+  BPPARAM = BiocParallel::bpparam(),
   ...
 )
 }
@@ -24,7 +24,8 @@ Similarity scores are multiplied by the ratio of
 aligned positions to the total number of positions in the larger motif,
 and the inverse for distance scores.}
 
-\item{workers}{The number of workers to use for parallel processing.}
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+specifying run parameters. (default = bpparam())}
 
 \item{...}{
   Arguments passed on to \code{\link[universalmotif:compare_motifs]{universalmotif::compare_motifs}}
@@ -152,6 +153,7 @@ are of little use for motifs with a different number of alphabet letters
 }
 }
 \examples{
+if (memes::meme_is_installed()) {
 data("CTCF_TIP_peaks", package = "MotifPeeker")
 data("CTCF_ChIP_peaks", package = "MotifPeeker")
 
@@ -165,11 +167,11 @@ data("CTCF_ChIP_peaks", package = "MotifPeeker")
                             genome_build = genome_build,
                             denovo_motifs = 2,
                             filter_n = 6,
-                            out_dir = tempdir(),
-                            workers = 1)
+                            out_dir = tempdir())
         similarity_matrices <- motif_similarity(denovo_motifs)
         print(similarity_matrices)
     }
+}
 }
 
 }

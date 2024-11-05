@@ -4,14 +4,13 @@
 #' @param download A logical specifying whether to return a download link or an
 #' HTML embeddable matrix profile link. (default = FALSE)
 #' 
-#' @returns A character string containing the JASPAR motif link. If
-#' \code{motif_id} is not a valid JASPAR motif ID, it is returned as is.
+#' @returns A character string containing the JASPAR motif link.
 #' 
 #' @keywords internal
 link_JASPAR <- function(motif_id, download = FALSE) {
-    if (is.na(motif_id) || !startsWith(motif_id, "MA")) {
-        return(motif_id)
-    }
+    stp_msg <- "Input is not a JASPAR ID string."
+    if (is.na(motif_id) || !startsWith(motif_id, "MA")) stop(stp_msg)
+    
     if (download) {
         ## Return download link
         return(paste0("https://jaspar.elixir.no/api/v1/matrix/",
