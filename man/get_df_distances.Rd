@@ -9,7 +9,7 @@ get_df_distances(
   user_motifs,
   genome_build,
   out_dir = tempdir(),
-  workers = 1,
+  BPPARAM = BiocParallel::bpparam(),
   meme_path = NULL,
   verbose = FALSE
 )
@@ -38,9 +38,18 @@ are supported as abbreviated input.}
 
 \item{out_dir}{A \code{character} vector of output directory.}
 
-\item{workers}{An integer specifying the number of threads to use for
-parallel processing. (default = 1)\cr
-\strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+enabling parallel execution. (default = SerialParam(), single-CPU run)\cr\cr
+Following are two examples of how to set up parallel processing:
+\itemize{
+  \item \code{BPPARAM = BiocParallel::MulticoreParam(4)}: Uses 4
+  CPU cores for parallel processing.
+  \item \code{library("BiocParallel")} followed by
+  \code{register(MulticoreParam(4))} sets all subsequent BiocParallel
+  functions to use 4 CPU cores. \code{Motifpeeker()} must be run
+  with \code{BPPARAM = BiocParallel::MulticoreParam()}.
+}
+\strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
 memory (RAM) is available as \code{denovo_motif_discovery} is
 memory-intensive.}
 
@@ -83,8 +92,7 @@ motifs <- list(
 
 if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
-    distances_df <- get_df_distances(input, motifs, genome_build, 
-                         workers = 1)
+    distances_df <- get_df_distances(input, motifs, genome_build)
     print(distances_df)
 }
 }

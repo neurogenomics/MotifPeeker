@@ -45,7 +45,7 @@ params:
         value: NULL
     save_runfiles:
         value: NULL
-    workers:
+    BPPARAM:
         value: NULL
     debug:
         value: FALSE
@@ -153,7 +153,7 @@ peak_width_df <-
 
 ## Motif-Summit Distances
 motif_summit_dist_df <- get_df_distances(
-        result, user_motifs, genome_build, out_dir_extra, params$workers,
+        result, user_motifs, genome_build, out_dir_extra, params$BPPARAM,
         params$meme_path, params$debug
     )
 
@@ -170,7 +170,7 @@ if (comparison_metrics) {
     if (user_motif_metrics) {
       enrichment_df <- get_df_enrichment(
               result, segregated_peaks, user_motifs, genome_build,
-              params$reference_index, out_dir_extra, params$workers,
+              params$reference_index, out_dir_extra, params$BPPARAM,
               params$meme_path, params$verbose
           )
     }
@@ -184,17 +184,17 @@ if (denovo_metrics) {
       unlist(segregated_peaks), params$trim_seq_width, genome_build,
       params$denovo_motifs, filter_n = params$filter_n,
       out_dir = out_dir_extra, meme_path = params$meme_path,
-      workers = params$workers, verbose = params$verbose, debug = params$debug
+      BPPARAM = params$BPPARAM, verbose = params$verbose, debug = params$debug
     )
     ## Run TOMTOM
     denovo_res$similar_motifs <- find_motifs(
         denovo_res$streme, motif_db, out_dir = out_dir_extra,
-        meme_path = params$meme_path, workers = params$workers,
+        meme_path = params$meme_path, BPPARAM = params$BPPARAM,
         verbose = params$verbose, debug = params$debug
     )
     ## Compare motifs
     denovo_res$comparisons <- motif_similarity(
-        denovo_res$streme, workers = params$workers
+        denovo_res$streme, BPPARAM = params$BPPARAM
     )
 }
 ```

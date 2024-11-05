@@ -53,8 +53,7 @@
 #' 
 #' if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
 #'     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
-#'     distances_df <- get_df_distances(input, motifs, genome_build, 
-#'                          workers = 1)
+#'     distances_df <- get_df_distances(input, motifs, genome_build)
 #'     print(distances_df)
 #' }
 #' }
@@ -66,7 +65,7 @@ get_df_distances <- function(result,
                             user_motifs,
                             genome_build,
                             out_dir = tempdir(),
-                            workers = 1,
+                            BPPARAM = BiocParallel::bpparam(),
                             meme_path = NULL,
                             verbose = FALSE) {
     if (!is.list(result$peaks)) result$peaks <- list(result$peaks)
@@ -95,7 +94,7 @@ get_df_distances <- function(result,
                 )$distance_to_summit
             )
         },
-        workers = workers, verbose = verbose) %>%
+        BPPARAM = BPPARAM, verbose = verbose) %>%
         purrr::map_df(as.data.frame)
     
     ## Output: Peak 1 - Motif 1, 2...

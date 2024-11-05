@@ -11,7 +11,7 @@ get_df_enrichment(
   genome_build,
   reference_index = 1,
   out_dir = tempdir(),
-  workers = 1,
+  BPPARAM = BiocParallel::bpparam(),
   meme_path = NULL,
   verbose = FALSE
 )
@@ -47,9 +47,18 @@ use as the reference dataset for comparison. Indexing starts from 1.
 
 \item{out_dir}{A \code{character} vector of output directory.}
 
-\item{workers}{An integer specifying the number of threads to use for
-parallel processing. (default = 1)\cr
-\strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
+\item{BPPARAM}{A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+enabling parallel execution. (default = SerialParam(), single-CPU run)\cr\cr
+Following are two examples of how to set up parallel processing:
+\itemize{
+  \item \code{BPPARAM = BiocParallel::MulticoreParam(4)}: Uses 4
+  CPU cores for parallel processing.
+  \item \code{library("BiocParallel")} followed by
+  \code{register(MulticoreParam(4))} sets all subsequent BiocParallel
+  functions to use 4 CPU cores. \code{Motifpeeker()} must be run
+  with \code{BPPARAM = BiocParallel::MulticoreParam()}.
+}
+\strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
 memory (RAM) is available as \code{denovo_motif_discovery} is
 memory-intensive.}
 
@@ -106,7 +115,7 @@ reference_index <- 1
     
         enrichment_df <- get_df_enrichment(
             input, segregated_input, motifs, genome_build,
-            reference_index = 1, workers = 1
+            reference_index = 1
         )
     }
 }

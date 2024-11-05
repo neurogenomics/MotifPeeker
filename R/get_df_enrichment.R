@@ -52,7 +52,7 @@
 #'     
 #'         enrichment_df <- get_df_enrichment(
 #'             input, segregated_input, motifs, genome_build,
-#'             reference_index = 1, workers = 1
+#'             reference_index = 1
 #'         )
 #'     }
 #' }
@@ -67,7 +67,7 @@ get_df_enrichment <- function(result,
                             genome_build,
                             reference_index = 1,
                             out_dir = tempdir(),
-                            workers = 1,
+                            BPPARAM = BiocParallel::bpparam(),
                             meme_path = NULL,
                             verbose = FALSE) {
     if (!is.list(result$peaks)) result$peaks <- list(result$peaks)
@@ -113,7 +113,7 @@ get_df_enrichment <- function(result,
                 run_index = i
             )
         },
-        workers = workers, verbose = verbose) %>%
+        BPPARAM = BPPARAM, verbose = verbose) %>%
         purrr::map_df(as.data.frame)
     
     ## 2. Segregated peaks
@@ -165,7 +165,7 @@ get_df_enrichment <- function(result,
                 run_index = i
             )
         },
-        workers = workers, verbose = verbose) %>%
+        BPPARAM = BPPARAM, verbose = verbose) %>%
         purrr::map_df(as.data.frame)
 
     enrichment_df <- rbind(enrichment_df_all, enrichment_df_seg)

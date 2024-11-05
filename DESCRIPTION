@@ -64,7 +64,6 @@ Imports:
     stats,
     utils
 Suggests:
-    BiocStyle,
     BSgenome.Hsapiens.UCSC.hg19,
     BSgenome.Hsapiens.UCSC.hg38,
     downloadthis,

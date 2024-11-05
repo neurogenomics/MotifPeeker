@@ -1,5 +1,9 @@
 # MotifPeeker 0.99.7
 
+## New Features
+* Replace `workers` argument with `BPPARAM`. Give users more control over the
+BiocParallel implementation.
+
 ## Miscellaneous
  
 * Remove `cat()` calls in functions.

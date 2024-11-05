@@ -14,7 +14,6 @@ test_that("De-novo motif enrichment functions works", {
                         denovo_motifs = 2,
                         filter_n = 6,
                         out_dir = tempdir(),
-                        workers = 1,
                         verbose = FALSE,
                         debug = FALSE))
     
@@ -29,14 +28,13 @@ test_that("De-novo motif enrichment functions works", {
     motif_db <- get_JASPARCORE()
     res2 <- find_motifs(res,
                         motif_db = motif_db,
-                        workers = 1,
                         verbose = TRUE,
                         debug = TRUE)
     expect_length(res2, 4)
     expect_equal(res2[[1]][[1]]$motif[[1]]@alphabet, "DNA")
 
     ## motif_similarity ###
-    res3 <- motif_similarity(res, workers = 1)
+    res3 <- motif_similarity(res)
     expect_true(all(vapply(res3, is.matrix, logical(1))))
 
     ### plot_motif_comparison ###

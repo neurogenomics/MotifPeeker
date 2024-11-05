@@ -11,28 +11,28 @@
 #' hours to complete. To make computation faster, we highly recommend tuning the
 #' following arguments:
 #' \describe{
-#'     \item{\code{workers}}{Running motif discovery in parallel can
-#'     significantly reduce runtime, but it is very memory-intensive, consuming
-#'     upwards of 10GB of RAM per thread. Memory starvation can greatly slow the
-#'     process, so set \code{workers} with caution.}
-#'     \item{\code{denovo_motifs}}{The number of motifs to discover per sequence
-#'     group exponentially increases runtime. We recommend no more than 5
-#'     motifs to make a meaningful inference.}
-#'     \item{\code{trim_seq_width}}{Trimming sequences before running de-novo
-#'     motif discovery can significantly reduce the search space. Sequence
-#'     length can exponentially increase runtime. We recommend running the
-#'     script with \code{denovo_motif_discovery = FALSE} and studying the
-#'     motif-summit distance distribution under general metrics to find the
-#'     sequence length that captures most motifs. A good starting point is 150
-#'     but it can be reduced further if appropriate.}
+#'    \item{\code{BPPARAM=MulticoreParam(x)}}{Running motif discovery in
+#'    parallel can significantly reduce runtime, but it is very
+#'    memory-intensive, consuming 10+GB of RAM per thread. Memory starvation can
+#'    greatly slow the process, so set the number of cores with caution.}
+#'    \item{\code{denovo_motifs}}{The number of motifs to discover per sequence
+#'    group exponentially increases runtime. We recommend no more than 5
+#'    motifs to make a meaningful inference.}
+#'    \item{\code{trim_seq_width}}{Trimming sequences before running de-novo
+#'    motif discovery can significantly reduce the search space. Sequence
+#'    length can exponentially increase runtime. We recommend running the
+#'    script with \code{denovo_motif_discovery = FALSE} and studying the
+#'    motif-summit distance distribution under general metrics to find the
+#'    sequence length that captures most motifs. A good starting point is 150
+#'    but it can be reduced further if appropriate.}
 #' }
 #' 
 #' @param peak_files A character vector of path to peak files, or a vector of
 #' GRanges objects generated using \code{\link{read_peak_file}}. Currently,
 #' peak files from the following peak-calling tools are supported:
 #' \itemize{
-#'    \item MACS2: \code{.narrowPeak} files
-#'    \item SEACR: \code{.bed} files
+#'   \item MACS2: \code{.narrowPeak} files
+#'   \item SEACR: \code{.bed} files
 #' }
 #' ENCODE file IDs can also be provided to automatically fetch peak file(s) from
 #' the ENCODE database.
@@ -81,13 +81,22 @@
 #' @param display A character vector specifying the display mode for the HTML
 #' report once it is generated. (default = NULL) Options are:
 #' \itemize{
-#'     \item \code{"browser"}: Open the report in the default web browser.
-#'     \item \code{"rstudio"}: Open the report in the RStudio Viewer.
-#'     \item \code{NULL}: Do not open the report.
+#'   \item \code{"browser"}: Open the report in the default web browser.
+#'   \item \code{"rstudio"}: Open the report in the RStudio Viewer.
+#'   \item \code{NULL}: Do not open the report.
 #' }
-#' @param workers An integer specifying the number of threads to use for
-#' parallel processing. (default = 1)\cr
-#' \strong{IMPORTANT:} For each worker, please ensure a minimum of 6GB of
+#' @param BPPARAM A \code{\link[BiocParallel]{BiocParallelParam-class}} object
+#' enabling parallel execution. (default = SerialParam(), single-CPU run)\cr\cr
+#' Following are two examples of how to set up parallel processing:
+#' \itemize{
+#'   \item \code{BPPARAM = BiocParallel::MulticoreParam(4)}: Uses 4
+#'   CPU cores for parallel processing.
+#'   \item \code{library("BiocParallel")} followed by
+#'   \code{register(MulticoreParam(4))} sets all subsequent BiocParallel
+#'   functions to use 4 CPU cores. \code{Motifpeeker()} must be run
+#'   with \code{BPPARAM = BiocParallel::MulticoreParam()}.
+#' }
+#' \strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
 #' memory (RAM) is available as \code{denovo_motif_discovery} is
 #' memory-intensive.
 #' @param quiet A logical indicating whether to print markdown knit messages.
@@ -99,7 +108,7 @@
 #' @inheritParams check_genome_build
 #' @inheritParams read_motif_file
 #' @inheritParams check_genome_build
-#' @inheritParams get_bpparam
+#' @inheritParams bpapply
 #' @inheritParams memes::runFimo
 #' @inheritParams denovo_motifs
 #' @inheritParams find_motifs
@@ -111,6 +120,7 @@
 #' @importFrom viridis scale_fill_viridis scale_color_viridis
 #' @importFrom tools file_path_sans_ext
 #' @importFrom rmarkdown render
+#' @importFrom BiocParallel bpnworkers
 #' 
 #' @return Path to the output directory.
 #' 
@@ -159,7 +169,6 @@
 #'         motif_db = NULL,
 #'         download_buttons = TRUE,
 #'         out_dir = tempdir(),
-#'         workers = 1,
 #'         debug = FALSE,
 #'         quiet = TRUE,
 #'         verbose = FALSE
@@ -188,7 +197,7 @@ MotifPeeker <- function(
         out_dir = tempdir(),
         save_runfiles = FALSE,
         display = if (interactive()) "browser",
-        workers = 2,
+        BPPARAM = BiocParallel::SerialParam(),  # Default to single-core
         quiet = TRUE,
         debug = FALSE,
         verbose = FALSE
@@ -269,7 +278,7 @@ MotifPeeker <- function(
         meme_path = meme_path,
         out_dir = out_dir,
         save_runfiles = save_runfiles,
-        workers = workers,
+        BPPARAM = BPPARAM,
         debug = debug,
         verbose = verbose
     )
@@ -277,6 +286,8 @@ MotifPeeker <- function(
     ### Knit Rmd ###
     rmd_file <- system.file("markdown",
                             "MotifPeeker.Rmd", package = "MotifPeeker")
+    messager("Starting run with", BiocParallel::bpnworkers(BPPARAM), "cores.",
+            v = verbose)
     rmarkdown::render(
         input = rmd_file,
         output_dir = out_dir,
