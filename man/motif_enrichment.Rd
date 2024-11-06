@@ -44,7 +44,7 @@ webpage for more information (Default: FALSE).}
   }}
 }
 \value{
-A list containing a FIMO results data frame and a numeric referring
+A list containing a AME results data frame and a numeric referring
 to the proportion of peaks with a motif.
 }
 \description{
@@ -54,18 +54,17 @@ background sequences using Analysis of Motif Enrichment (AME) from
 }
 \examples{
 if (memes::meme_is_installed()) {
-data("CTCF_TIP_peaks", package = "MotifPeeker")
-data("motif_MA1102.3", package = "MotifPeeker")
+    data("CTCF_TIP_peaks", package = "MotifPeeker")
+    data("motif_MA1102.3", package = "MotifPeeker")
 
-\donttest{
     res <- motif_enrichment(
         peak_input = CTCF_TIP_peaks,
         motif = motif_MA1102.3,
         genome_build =
-            BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+            BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38,
+        
     )
     print(res)
-}
 }
 
 }

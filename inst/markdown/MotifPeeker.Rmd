@@ -791,7 +791,7 @@ if (!user_motif_metrics) {
           ))
         }
         cat("  \n</details>  \n<br>  \n")
-        enrichment_overall_plots <- plot_enrichment_overall(
+        enrichment_overall_plots <- MotifPeeker:::plot_enrichment_overall(
             enrichment_df, motif_i, label_colours,
             reference_label = result$exp_labels[params$reference_index]
         )

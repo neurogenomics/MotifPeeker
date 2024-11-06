@@ -27,25 +27,24 @@
 #' 
 #' @examples
 #' if (memes::meme_is_installed()) {
-#' data("CTCF_ChIP_peaks", package = "MotifPeeker")
-#' data("CTCF_TIP_peaks", package = "MotifPeeker")
-#' data("motif_MA1102.3", package = "MotifPeeker")
-#' data("motif_MA1930.2", package = "MotifPeeker")
-#' input <- list(
-#'     peaks = list(CTCF_ChIP_peaks, CTCF_TIP_peaks),
-#'     exp_type = c("ChIP", "TIP"),
-#'     exp_labels = c("CTCF_ChIP", "CTCF_TIP"),
-#'     read_count = c(150, 200),
-#'     peak_count = c(100, 120)
-#' )
-#' segregated_input <- segregate_seqs(input$peaks[[1]], input$peaks[[2]])
-#' motifs <- list(
-#'     motifs = list(motif_MA1930.2, motif_MA1102.3),
-#'     motif_labels = list("MA1930.2", "MA1102.3")
-#' )
-#' reference_index <- 1
+#'     data("CTCF_ChIP_peaks", package = "MotifPeeker")
+#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     data("motif_MA1102.3", package = "MotifPeeker")
+#'     data("motif_MA1930.2", package = "MotifPeeker")
+#'     input <- list(
+#'         peaks = list(CTCF_ChIP_peaks, CTCF_TIP_peaks),
+#'         exp_type = c("ChIP", "TIP"),
+#'         exp_labels = c("CTCF_ChIP", "CTCF_TIP"),
+#'         read_count = c(150, 200),
+#'         peak_count = c(100, 120)
+#'     )
+#'     segregated_input <- segregate_seqs(input$peaks[[1]], input$peaks[[2]])
+#'     motifs <- list(
+#'         motifs = list(motif_MA1930.2, motif_MA1102.3),
+#'         motif_labels = list("MA1930.2", "MA1102.3")
+#'     )
+#'     reference_index <- 1
 #' 
-#' \donttest{
 #'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
@@ -55,7 +54,6 @@
 #'             reference_index = 1
 #'         )
 #'     }
-#' }
 #' }
 #' 
 #' @family generate data.frames
@@ -89,7 +87,7 @@ get_df_enrichment <- function(result,
         function(i) {
             peak <- peak_combinations[[i]]
             motif <- motif_combinations[[i]]
-            res <- MotifPeeker::motif_enrichment(
+            res <- motif_enrichment(
                 peak, motif,
                 genome_build = genome_build,
                 out_dir = file.path(out_dir, "ame_all", i),

@@ -84,10 +84,12 @@ if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
     genome_build <- BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
    
     res <- denovo_motifs(list(CTCF_TIP_peaks),
-                        trim_seq_width = 100,
+                        trim_seq_width = 50,
                         genome_build = genome_build,
-                        denovo_motifs = 2,
+                        denovo_motifs = 1,
                         filter_n = 6,
+                        minw = 8,
+                        maxw = 8,
                         out_dir = tempdir())
     print(res[[1]]$consensus)
 }

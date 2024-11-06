@@ -145,7 +145,7 @@ use_cache <- function(url, verbose = FALSE) {
 #' @keywords internal
 check_duplicates <- function(x) {
     stp_msg <- paste("Duplicated items found in the label list. Please input",
-                     "unique experiment and motif labels.")
+                    "unique experiment and motif labels.")
     if (any(duplicated(x))) {
         stop(stp_msg)
     }

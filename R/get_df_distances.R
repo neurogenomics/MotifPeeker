@@ -85,7 +85,7 @@ get_df_distances <- function(result,
                 exp_label = exp_label_combinations[i],
                 exp_type = exp_type_combinations[i],
                 motif_indice = rep(seq_len(motif_len), result_len)[i],
-                distance = MotifPeeker::summit_to_motif(
+                distance = summit_to_motif(
                     peak, motif,
                     genome_build = genome_build,
                     out_dir = file.path(out_dir, "fimo", i),

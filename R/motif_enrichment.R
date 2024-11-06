@@ -20,23 +20,22 @@
 #' @importFrom memes runAme
 #' @importFrom utils read.table
 #'
-#' @returns A list containing a FIMO results data frame and a numeric referring
+#' @returns A list containing a AME results data frame and a numeric referring
 #' to the proportion of peaks with a motif.
 #'
 #' @examples
 #' if (memes::meme_is_installed()) {
-#' data("CTCF_TIP_peaks", package = "MotifPeeker")
-#' data("motif_MA1102.3", package = "MotifPeeker")
+#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     data("motif_MA1102.3", package = "MotifPeeker")
 #' 
-#' \donttest{
 #'     res <- motif_enrichment(
 #'         peak_input = CTCF_TIP_peaks,
 #'         motif = motif_MA1102.3,
 #'         genome_build =
-#'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
+#'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38,
+#'         
 #'     )
 #'     print(res)
-#' }
 #' }
 #'
 #' @seealso \code{\link[memes]{runAme}}
@@ -66,8 +65,8 @@ motif_enrichment <- function(peak_input,
     peak_sequences <- BSgenome::getSeq(genome_build, peak_input)
     
     ## Generate 0-order background model from the input sequences
-    bfile <- markov_background_model(sequences = peak_sequences,
-                                    out_dir = out_dir)
+    # bfile <- markov_background_model(sequences = peak_sequences,
+    #                                 out_dir = out_dir)
     ame_out <- memes::runAme(peak_sequences,
                             database = list(motif),
                             outdir = out_dir,

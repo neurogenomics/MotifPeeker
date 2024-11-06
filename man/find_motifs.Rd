@@ -59,24 +59,22 @@ Search through provided motif database to find similar motifs to the input.
 Light wrapper around \code{TOMTOM} from MEME Suite.
 }
 \examples{
-data("CTCF_TIP_peaks", package = "MotifPeeker")
+if (memes::meme_is_installed()) {
+    data("CTCF_TIP_peaks", package = "MotifPeeker")
     
-\donttest{
-    if (memes::meme_is_installed()) {
     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
         genome_build <-
             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
    
         res <- denovo_motifs(list(CTCF_TIP_peaks),
-                        trim_seq_width = 100,
+                        trim_seq_width = 50,
                         genome_build = genome_build,
-                        denovo_motifs = 2,
-                        filter_n = 6,
+                        denovo_motifs = 1,
+                        filter_n = 10,
                         out_dir = tempdir())
         res2 <- find_motifs(res, motif_db = get_JASPARCORE(),
                             out_dir = tempdir())
         print(res2)
-    }
     }
 }
 
