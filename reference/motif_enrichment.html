@@ -11,7 +11,7 @@ memes."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +115,7 @@ webpage for more information (Default: FALSE).</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list containing a FIMO results data frame and a numeric referring
+    <p>A list containing a AME results data frame and a numeric referring
 to the proportion of peaks with a motif.</p>
     </div>
     <div class="section level2">
@@ -126,18 +126,17 @@ to the proportion of peaks with a motif.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">memes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/memes/man/meme_is_installed.html" class="external-link">meme_is_installed</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_TIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1102.3"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_TIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1102.3"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span>    <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">motif_enrichment</span><span class="op">(</span></span></span>
 <span class="r-in"><span>        peak_input <span class="op">=</span> <span class="va">CTCF_TIP_peaks</span>,</span></span>
 <span class="r-in"><span>        motif <span class="op">=</span> <span class="va">motif_MA1102.3</span>,</span></span>
 <span class="r-in"><span>        genome_build <span class="op">=</span></span></span>
-<span class="r-in"><span>            <span class="fu">BSgenome.Hsapiens.UCSC.hg38</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BSgenome.Hsapiens.UCSC.hg38/man/package.html" class="external-link">BSgenome.Hsapiens.UCSC.hg38</a></span></span></span>
+<span class="r-in"><span>            <span class="fu">BSgenome.Hsapiens.UCSC.hg38</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BSgenome.Hsapiens.UCSC.hg38/man/package.html" class="external-link">BSgenome.Hsapiens.UCSC.hg38</a></span>,</span></span>
+<span class="r-in"><span>        </span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 73.00 40.11</span>

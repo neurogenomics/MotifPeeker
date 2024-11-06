@@ -13,7 +13,7 @@ segregated peaks."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -192,25 +192,24 @@ running the function. (default = FALSE)</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu">memes</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/memes/man/meme_is_installed.html" class="external-link">meme_is_installed</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_ChIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_TIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1102.3"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1930.2"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    peaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">CTCF_ChIP_peaks</span>, <span class="va">CTCF_TIP_peaks</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    exp_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChIP"</span>, <span class="st">"TIP"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    exp_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTCF_ChIP"</span>, <span class="st">"CTCF_TIP"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    read_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">200</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    peak_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">segregated_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="segregate_seqs.html">segregate_seqs</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">peaks</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">input</span><span class="op">$</span><span class="va">peaks</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">motifs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    motifs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">motif_MA1930.2</span>, <span class="va">motif_MA1102.3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    motif_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"MA1930.2"</span>, <span class="st">"MA1102.3"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">reference_index</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_ChIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"CTCF_TIP_peaks"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1102.3"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"motif_MA1930.2"</span>, package <span class="op">=</span> <span class="st">"MotifPeeker"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        peaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">CTCF_ChIP_peaks</span>, <span class="va">CTCF_TIP_peaks</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        exp_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ChIP"</span>, <span class="st">"TIP"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        exp_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CTCF_ChIP"</span>, <span class="st">"CTCF_TIP"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        read_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">200</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        peak_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">segregated_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="segregate_seqs.html">segregate_seqs</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">peaks</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">input</span><span class="op">$</span><span class="va">peaks</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">motifs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        motifs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">motif_MA1930.2</span>, <span class="va">motif_MA1102.3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        motif_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"MA1930.2"</span>, <span class="st">"MA1102.3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">reference_index</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BSgenome.Hsapiens.UCSC.hg38"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>        <span class="va">genome_build</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>            <span class="fu">BSgenome.Hsapiens.UCSC.hg38</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/BSgenome.Hsapiens.UCSC.hg38/man/package.html" class="external-link">BSgenome.Hsapiens.UCSC.hg38</a></span></span></span>
@@ -220,7 +219,6 @@ running the function. (default = FALSE)</p></dd>
 <span class="r-in"><span>            reference_index <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
