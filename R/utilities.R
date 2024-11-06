@@ -160,7 +160,8 @@ check_duplicates <- function(x) {
 #' package is not attached.
 #' @param custom_msg a custom message to display if the package is not attached.
 #' 
-#' @returns Null
+#' @returns TRUE if the package is available or else FALSE if
+#' \code{fatal = FALSE}.
 #' 
 #' @keywords internal
 check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
@@ -173,8 +174,10 @@ check_dep <- function(pkg, fatal = TRUE, custom_msg = NULL){
             stop(custom_msg)
         } else {
             warning(custom_msg)
+            return(FALSE)
         }
     }
+    return(TRUE)
 }
 
 #' Stop if MEME suite is not installed

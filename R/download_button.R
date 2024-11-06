@@ -32,7 +32,9 @@ download_button <- function(path,
     wrn_msg <- paste("Package", shQuote("downloadthis"), "is required to",
                     "add download buttons to the HTML report. Skipping",
                     "download buttons...")
-    check_dep("downloadthis", fatal = FALSE, custom_msg = wrn_msg)
+    if (!check_dep("downloadthis", fatal = FALSE, custom_msg = wrn_msg)) {
+        return(NULL)
+    }
     
     btn_args <- list(
         path = path,

@@ -15,7 +15,8 @@ package is not attached.}
 \item{custom_msg}{a custom message to display if the package is not attached.}
 }
 \value{
-Null
+TRUE if the package is available or else FALSE if
+\code{fatal = FALSE}.
 }
 \description{
 Stop execution if a package is not attached.

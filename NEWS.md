@@ -1,3 +1,10 @@
+# MotifPeeker 0.99.9
+
+## Bug Fixes
+
+* Fix `download_button()` error when `downloadthis` package is not available.
+
+
 # MotifPeeker 0.99.8
 
 ## Miscellaneous
