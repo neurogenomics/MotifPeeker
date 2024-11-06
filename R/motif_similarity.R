@@ -32,24 +32,24 @@
 #' 
 #' @examples
 #' if (memes::meme_is_installed()) {
-#' data("CTCF_TIP_peaks", package = "MotifPeeker")
-#' data("CTCF_ChIP_peaks", package = "MotifPeeker")
+#'     data("CTCF_TIP_peaks", package = "MotifPeeker")
+#'     data("CTCF_ChIP_peaks", package = "MotifPeeker")
 #' 
-#' \donttest{
 #'     if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38")) {
 #'         genome_build <-
 #'             BSgenome.Hsapiens.UCSC.hg38::BSgenome.Hsapiens.UCSC.hg38
 #'         segregated_peaks <- segregate_seqs(CTCF_TIP_peaks, CTCF_ChIP_peaks)
 #'         denovo_motifs <- denovo_motifs(unlist(segregated_peaks),
-#'                             trim_seq_width = 100,
+#'                             trim_seq_width = 50,
 #'                             genome_build = genome_build,
-#'                             denovo_motifs = 2,
+#'                             denovo_motifs = 1,
 #'                             filter_n = 6,
+#'                             maxw = 8,
+#'                             minw = 8,
 #'                             out_dir = tempdir())
 #'         similarity_matrices <- motif_similarity(denovo_motifs)
 #'         print(similarity_matrices)
 #'     }
-#' }
 #' }
 #' 
 #' @export

@@ -1,3 +1,11 @@
+# MotifPeeker 0.99.8
+
+## Miscellaneous
+ 
+* Optimise examples and remove `\donttest{}` blocks.
+* Add GitHub Actions for rworkflows without MEME Suite.
+
+
 # MotifPeeker 0.99.7
 
 ## New Features
