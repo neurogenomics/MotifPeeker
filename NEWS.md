@@ -1,4 +1,4 @@
-# MotifPeeker 0.99.9
+# MotifPeeker 0.99.9 / 0.99.10
 
 ## Bug Fixes
 
