@@ -3,11 +3,11 @@
 as the key metric. The output is an easy-to-interpret HTML document with the
 results. The report contains three main sections: (1) General Metrics on peak
 and alignment files (if provided), (2) Known Motif Enrichment Analysis and
-(3) De-novo Motif Enrichment Analysis."><meta property="og:description" content="This function compares different epigenomic datasets using motif enrichment
+(3) Discovered Motif Enrichment Analysis."><meta property="og:description" content="This function compares different epigenomic datasets using motif enrichment
 as the key metric. The output is an easy-to-interpret HTML document with the
 results. The report contains three main sections: (1) General Metrics on peak
 and alignment files (if provided), (2) Known Motif Enrichment Analysis and
-(3) De-novo Motif Enrichment Analysis."></head><body>
+(3) Discovered Motif Enrichment Analysis."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -15,7 +15,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 
     <a class="navbar-brand me-2" href="../index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 as the key metric. The output is an easy-to-interpret HTML document with the
 results. The report contains three main sections: (1) General Metrics on peak
 and alignment files (if provided), (2) Known Motif Enrichment Analysis and
-(3) De-novo Motif Enrichment Analysis.</p>
+(3) Discovered Motif Enrichment Analysis.</p>
     </div>
 
     <div class="section level2">
@@ -68,8 +68,8 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  motif_files <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  motif_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cell_counts <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  motif_discovery_count <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  filter_n <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  trim_seq_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -155,26 +155,26 @@ labels.</p></dd>
 file. (optional) Creates additional comparisons based on cell counts.</p></dd>
 
 
-<dt id="arg-denovo-motif-discovery">denovo_motif_discovery<a class="anchor" aria-label="anchor" href="#arg-denovo-motif-discovery"></a></dt>
+<dt id="arg-motif-discovery">motif_discovery<a class="anchor" aria-label="anchor" href="#arg-motif-discovery"></a></dt>
 <dd><p>A logical indicating whether to perform
-de-novo motif discovery for the third section of the report. (default = TRUE)</p></dd>
+motif discovery for the third section of the report. (default = TRUE)</p></dd>
 
 
-<dt id="arg-denovo-motifs">denovo_motifs<a class="anchor" aria-label="anchor" href="#arg-denovo-motifs"></a></dt>
-<dd><p>An integer specifying the number of de-novo motifs to
+<dt id="arg-motif-discovery-count">motif_discovery_count<a class="anchor" aria-label="anchor" href="#arg-motif-discovery-count"></a></dt>
+<dd><p>An integer specifying the number of motifs to
 discover. (default = 3) Note that higher values take longer to compute.</p></dd>
 
 
 <dt id="arg-filter-n">filter_n<a class="anchor" aria-label="anchor" href="#arg-filter-n"></a></dt>
 <dd><p>An integer specifying the number of consecutive nucleotide
-repeats a de-novo discovered motif must contain to be filtered out.
+repeats a discovered motif must contain to be filtered out.
 (default = 6)</p></dd>
 
 
 <dt id="arg-trim-seq-width">trim_seq_width<a class="anchor" aria-label="anchor" href="#arg-trim-seq-width"></a></dt>
 <dd><p>An integer specifying the width of the sequence to
 extract around the summit (default = NULL). This sequence is used to search
-for de novo motifs. If not provided, the entire peak region will be used.
+for discovered motifs. If not provided, the entire peak region will be used.
 This parameter is intended to reduce the search space and speed up motif
 discovery; therefore, a value less than the average peak width is
 recommended. Peaks are trimmed symmetrically around the summit while
@@ -229,7 +229,7 @@ Following are two examples of how to set up parallel processing:</p><ul><li><p><
   functions to use 4 CPU cores. <code>Motifpeeker()</code> must be run
   with <code>BPPARAM = BiocParallel::MulticoreParam()</code>.</p></li>
 </ul><p><strong>IMPORTANT:</strong> For each worker, please ensure a minimum of 8GB of
-memory (RAM) is available as <code>denovo_motif_discovery</code> is
+memory (RAM) is available as <code>motif_discovery</code> is
 memory-intensive.</p></dd>
 
 
@@ -255,7 +255,7 @@ running the function. (default = FALSE)</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Runtime guidance: For 4 datasets, the runtime is approximately 3 minutes with
-denovo_motif_discovery disabled. However, de-novo motif discovery can take
+motif_discovery disabled. However, motif discovery can take
 hours to complete. To make computation faster, we highly recommend tuning the
 following arguments:</p><dl><dt><code>BPPARAM=MulticoreParam(x)</code></dt>
 <dd><p>Running motif discovery in
@@ -263,16 +263,16 @@ following arguments:</p><dl><dt><code>BPPARAM=MulticoreParam(x)</code></dt>
    memory-intensive, consuming 10+GB of RAM per thread. Memory starvation can
    greatly slow the process, so set the number of cores with caution.</p></dd>
 
-   <dt><code>denovo_motifs</code></dt>
-<dd><p>The number of motifs to discover per sequence
-   group exponentially increases runtime. We recommend no more than 5
-   motifs to make a meaningful inference.</p></dd>
+   <dt><code>motif_discovery_count</code></dt>
+<dd><p>The number of motifs to discover per
+   sequence group exponentially increases runtime. We recommend no more than
+   5 motifs to make a meaningful inference.</p></dd>
 
    <dt><code>trim_seq_width</code></dt>
-<dd><p>Trimming sequences before running de-novo
+<dd><p>Trimming sequences before running
    motif discovery can significantly reduce the search space. Sequence
    length can exponentially increase runtime. We recommend running the
-   script with <code>denovo_motif_discovery = FALSE</code> and studying the
+   script with <code>motif_discovery = FALSE</code> and studying the
    motif-summit distance distribution under general metrics to find the
    sequence length that captures most motifs. A good starting point is 150
    but it can be reduced further if appropriate.</p></dd>
@@ -281,7 +281,7 @@ following arguments:</p><dl><dt><code>BPPARAM=MulticoreParam(x)</code></dt>
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Running de-novo motif discovery is computationally expensive and can
+    <p>Running motif discovery is computationally expensive and can
 require from minutes to hours. <code>denovo_motifs</code> can widely affect the
 runtime (higher values take longer). Setting <code>trim_seq_width</code> to a lower
 value can also reduce the runtime significantly.</p>
@@ -321,8 +321,8 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        motif_files <span class="op">=</span> <span class="va">motifs</span>,</span></span>
 <span class="r-in"><span>        motif_labels <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>        cell_counts <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
-<span class="r-in"><span>        denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>        denovo_motifs <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>        motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>        motif_discovery_count <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>        motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>        download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
@@ -331,7 +331,7 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpNriO61/MotifPeeker_20241111_142733"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpIsNB8F/MotifPeeker_20241112_135904"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

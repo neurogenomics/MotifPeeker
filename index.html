@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,8 +66,8 @@
 <code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment<a class="anchor" aria-label="anchor" href="#motifpeeker-benchmarking-epigenomic-profiling-methods-using-motif-enrichment"></a>
 </h1></div>
 <p><img src="https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png" style="height: 300px !important;"></p>
-<p><a href="https://cran.r-project.org/web/licenses/GPL%20(%3E=%203)" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg" alt="License: GPL (&gt;= 3)"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.99.10-black.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker/commits/master" class="external-link"><img src="https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg"></a> <br><a href="https://github.com/neurogenomics/MotifPeeker/actions" class="external-link"><img src="https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg" alt="R build status"></a> <a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg"></a> <br><a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master" target="_blank" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg" title="Codecov icicle graph" width="200" height="50" style="vertical-align: top;"></a></p>
-<p><strong>Authors:</strong> <strong><em>Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</em></strong><br><strong>Updated:</strong> <strong><em>Nov-11-2024</em></strong></p>
+<p><a href="https://cran.r-project.org/web/licenses/GPL%20(%3E=%203)" class="external-link"><img src="https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg" alt="License: GPL (&gt;= 3)"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.99.11-black.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker" class="external-link"><img src="https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg"></a> <a href="https://github.com/neurogenomics/MotifPeeker/commits/master" class="external-link"><img src="https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg"></a> <br><a href="https://github.com/neurogenomics/MotifPeeker/actions" class="external-link"><img src="https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg" alt="R build status"></a> <a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg"></a> <br><a href="https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master" target="_blank" class="external-link"><img src="https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg" title="Codecov icicle graph" width="200" height="50" style="vertical-align: top;"></a></p>
+<p><strong>Authors:</strong> <strong><em>Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene</em></strong><br><strong>Updated:</strong> <strong><em>Nov-12-2024</em></strong></p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -75,7 +75,7 @@
 <ol style="list-style-type: decimal">
 <li><p><strong>General Metrics</strong>: Provides an overview of metrics related to dataset peaks, including FRiP scores, peak widths, and motif-to-summit distances.</p></li>
 <li><p><strong>Known Motif Enrichment Analysis</strong>: Presents statistics on the frequency of enriched user-supplied motifs in the datasets and compares them between the common and unique peaks from comparison and reference datasets.</p></li>
-<li><p><strong>De-Novo Motif Enrichment Analysis</strong>: Details the statistics of de-novo discovered motifs in common and unique peaks from comparison and reference datasets. Examines motif similarities and identifies the closest known motifs in the JASPAR or the provided database.</p></li>
+<li><p><strong>Discovered Motif Enrichment Analysis</strong>: Details the statistics of motifs discovered in common and unique peaks from comparison and reference datasets. Examines motif similarities and identifies the closest known motifs in the JASPAR or the provided database.</p></li>
 </ol>
 <!-- If you use `MotifPeeker`, please cite:  --><!-- >  -->
 </div>
@@ -166,8 +166,8 @@
 <span>    genome_build <span class="op">=</span> <span class="st">"hg38"</span>,</span>
 <span>    motif_files <span class="op">=</span> <span class="va">motif_files</span>,</span>
 <span>    cell_counts <span class="op">=</span> <span class="cn">NULL</span>,  <span class="co"># No cell-count information</span></span>
-<span>    denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    denovo_motifs <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>    motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    motif_discovery_count <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>    motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -234,7 +234,7 @@ Useful for comparison of different methods. If not provided, all datasets will b
 <code>cell_counts</code>: An integer vector of experiment cell counts for each peak file (if available). Creates additional comparisons based on cell counts.<br>
 </li>
 <li>
-<code>motif_db</code>: Path to <code>.meme</code> format file to use as reference database, or a list of <code>universalmotif-class</code> objects. Results from de-novo motif discovery are searched against this database to find similar motifs. If not provided, JASPAR CORE database will be used, making this parameter <strong>truly optional</strong>. <strong>NOTE</strong>: p-value estimates are inaccurate when the database has fewer than 50 entries.</li>
+<code>motif_db</code>: Path to <code>.meme</code> format file to use as reference database, or a list of <code>universalmotif-class</code> objects. Results from motif discovery are searched against this database to find similar motifs. If not provided, JASPAR CORE database will be used, making this parameter <strong>truly optional</strong>. <strong>NOTE</strong>: p-value estimates are inaccurate when the database has fewer than 50 entries.</li>
 </ul></details>
 </div>
 <div class="section level3">
@@ -245,7 +245,7 @@ Useful for comparison of different methods. If not provided, all datasets will b
 <div class="section level3">
 <h3 id="runtime-guidance">Runtime Guidance<a class="anchor" aria-label="anchor" href="#runtime-guidance"></a>
 </h3>
-<p>For 4 datasets, the runtime is approximately 3 minutes with denovo_motif_discovery disabled. However, de-novo motif discovery can take hours to complete.</p>
+<p>For 4 datasets, the runtime is approximately 3 minutes with motif_discovery disabled. However, motif discovery can take hours to complete.</p>
 <p>To make computation faster, we highly recommend tuning the following arguments:</p>
 <details><summary><strong>Details</strong>
 </summary><ul>
@@ -253,10 +253,10 @@ Useful for comparison of different methods. If not provided, all datasets will b
 <code>workers</code>: Running motif discovery in parallel can significantly reduce runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per thread. Memory starvation can greatly slow the process, so set <code>workers</code> with caution.<br>
 </li>
 <li>
-<code>denovo_motifs</code>: The number of motifs to discover per sequence group exponentially increases runtime. We recommend no more than 5 motifs to make a meaningful inference.<br>
+<code>motif_discovery_count</code>: The number of motifs to discover per sequence group exponentially increases runtime. We recommend no more than 5 motifs to make a meaningful inference.<br>
 </li>
 <li>
-<code>trim_seq_width</code>: Trimming sequences before running de-novo motif discovery can significantly reduce the search space. Sequence length can exponentially increase runtime. We recommend running the script with <code>denovo_motif_discovery = FALSE</code> and studying the motif-summit distance distribution under general metrics to find the sequence length that captures most motifs. A good starting point is 150 but it can be reduced further if appropriate.</li>
+<code>trim_seq_width</code>: Trimming sequences before running motif discovery can significantly reduce the search space. Sequence length can exponentially increase runtime. We recommend running the script with <code>motif_discovery = FALSE</code> and studying the motif-summit distance distribution under general metrics to find the sequence length that captures most motifs. A good starting point is 150 but it can be reduced further if appropriate.</li>
 </ul></details>
 </div>
 <div class="section level3">

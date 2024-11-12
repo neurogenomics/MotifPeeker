@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MotifPeeker</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
 
     
     
-<p><strong>Updated:</strong> <strong><em>Nov-11-2024</em></strong></p>
+<p><strong>Updated:</strong> <strong><em>Nov-12-2024</em></strong></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -276,8 +276,8 @@ next sections.</p>
 <span>        genome_build <span class="op">=</span> <span class="st">"hg38"</span>,  <span class="co"># Use hg38 genome build</span></span>
 <span>        motif_files <span class="op">=</span> <span class="va">motif_files</span>,</span>
 <span>        cell_counts <span class="op">=</span> <span class="cn">NULL</span>,  <span class="co"># No cell-count information</span></span>
-<span>        denovo_motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        denovo_motifs <span class="op">=</span> <span class="fl">3</span>,  <span class="co"># Discover top 3 motifs</span></span>
+<span>        motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        motif_discovery_count <span class="op">=</span> <span class="fl">3</span>,  <span class="co"># Discover top 3 motifs</span></span>
 <span>        motif_db <span class="op">=</span> <span class="cn">NULL</span>,  <span class="co"># Use default motif database (JASPAR)</span></span>
 <span>        download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>        out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,  <span class="co"># Save output in a temporary directory</span></span>
@@ -289,9 +289,9 @@ next sections.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code><span><span class="co">## Starting run with 1 cores.</span></span></code></pre>
 <pre><code><span><span class="co">## Script run successfully. </span></span>
-<span><span class="co">## Output saved at: /tmp/Rtmp7zGmt9/MotifPeeker_20241111_142847 </span></span>
-<span><span class="co">## Time taken: 1.02 mins.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "/tmp/Rtmp7zGmt9/MotifPeeker_20241111_142847"</span></span></code></pre>
+<span><span class="co">## Output saved at: /tmp/RtmpQXcnBi/MotifPeeker_20241112_140021 </span></span>
+<span><span class="co">## Time taken: 1.04 mins.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/tmp/RtmpQXcnBi/MotifPeeker_20241112_140021"</span></span></code></pre>
 <div class="section level4">
 <h4 id="required-inputs">Required Inputs<a class="anchor" aria-label="anchor" href="#required-inputs"></a>
 </h4>
@@ -373,9 +373,9 @@ based on cell counts.<br>
 <li>
 <code>motif_db</code>: Path to <code>.meme</code> format file to use
 as reference database, or a list of <code>universalmotif-class</code>
-objects. Results from de-novo motif discovery are searched against this
-database to find similar motifs. If not provided, JASPAR CORE database
-will be used, making this parameter <strong>truly optional</strong>.
+objects. Results from motif discovery are searched against this database
+to find similar motifs. If not provided, JASPAR CORE database will be
+used, making this parameter <strong>truly optional</strong>.
 <strong>NOTE</strong>: p-value estimates are inaccurate when the
 database has fewer than 50 entries.</li>
 </ul></details>
@@ -390,8 +390,8 @@ documentation for <a href="https://neurogenomics.github.io/MotifPeeker/reference
 <h4 id="runtime">Runtime Guidance<a class="anchor" aria-label="anchor" href="#runtime"></a>
 </h4>
 <p>For 4 datasets, the runtime is approximately 3 minutes with
-denovo_motif_discovery disabled. However, de-novo motif discovery can
-take hours to complete.</p>
+motif_discovery disabled. However, motif discovery can take hours to
+complete.</p>
 <p>To make computation faster, we highly recommend tuning the following
 arguments:</p>
 <details><summary><strong>Details</strong>
@@ -404,18 +404,18 @@ starvation can greatly slow the process, so set workers (x) with
 caution.<br>
 </li>
 <li>
-<code>denovo_motifs</code>: The number of motifs to discover per
-sequence group exponentially increases runtime. We recommend no more
+<code>motif_discovery_count</code>: The number of motifs to discover
+per sequence group exponentially increases runtime. We recommend no more
 than 5 motifs to make a meaningful inference.<br>
 </li>
 <li>
-<code>trim_seq_width</code>: Trimming sequences before running
-de-novo motif discovery can significantly reduce the search space.
-Sequence length can exponentially increase runtime. We recommend running
-the script with <code>denovo_motif_discovery = FALSE</code> and studying
-the motif-summit distance distribution under general metrics to find the
-sequence length that captures most motifs. A good starting point is 150
-but it can be reduced further if appropriate.</li>
+<code>trim_seq_width</code>: Trimming sequences before running motif
+discovery can significantly reduce the search space. Sequence length can
+exponentially increase runtime. We recommend running the script with
+<code>motif_discovery = FALSE</code> and studying the motif-summit
+distance distribution under general metrics to find the sequence length
+that captures most motifs. A good starting point is 150 but it can be
+reduced further if appropriate.</li>
 </ul></details>
 </div>
 </div>
@@ -449,7 +449,7 @@ sub-directories, if <code>save_runfiles</code> is set to
 <li>Add support for outputs from more peak callers.<br>
 </li>
 <li>Automatically detect ideal <code>trim_peak_width</code> to reduce
-de-novo motif discovery runtime.<br>
+motif discovery runtime.<br>
 </li>
 <li>Add more <a href="https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html">troubleshooting</a>
 steps to the documentation.</li>
@@ -483,7 +483,7 @@ steps to the documentation.</li>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MotifPeeker_0.99.10</span></span>
+<span><span class="co">## [1] MotifPeeker_0.99.11</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##   [1] RColorBrewer_1.1-3                jsonlite_1.8.9                   </span></span>
