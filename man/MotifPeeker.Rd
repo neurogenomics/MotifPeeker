@@ -14,8 +14,8 @@ MotifPeeker(
   motif_files = NULL,
   motif_labels = NULL,
   cell_counts = NULL,
-  denovo_motif_discovery = TRUE,
-  denovo_motifs = 3,
+  motif_discovery = TRUE,
+  motif_discovery_count = 3,
   filter_n = 6,
   trim_seq_width = NULL,
   motif_db = NULL,
@@ -85,19 +85,19 @@ labels.}
 \item{cell_counts}{An integer vector of experiment cell counts for each peak
 file. (optional) Creates additional comparisons based on cell counts.}
 
-\item{denovo_motif_discovery}{A logical indicating whether to perform
-de-novo motif discovery for the third section of the report. (default = TRUE)}
+\item{motif_discovery}{A logical indicating whether to perform
+motif discovery for the third section of the report. (default = TRUE)}
 
-\item{denovo_motifs}{An integer specifying the number of de-novo motifs to
+\item{motif_discovery_count}{An integer specifying the number of motifs to
 discover. (default = 3) Note that higher values take longer to compute.}
 
 \item{filter_n}{An integer specifying the number of consecutive nucleotide
-repeats a de-novo discovered motif must contain to be filtered out.
+repeats a discovered motif must contain to be filtered out.
 (default = 6)}
 
 \item{trim_seq_width}{An integer specifying the width of the sequence to
 extract around the summit (default = NULL). This sequence is used to search
-for de novo motifs. If not provided, the entire peak region will be used.
+for discovered motifs. If not provided, the entire peak region will be used.
 This parameter is intended to reduce the search space and speed up motif
 discovery; therefore, a value less than the average peak width is
 recommended. Peaks are trimmed symmetrically around the summit while
@@ -143,7 +143,7 @@ Following are two examples of how to set up parallel processing:
   with \code{BPPARAM = BiocParallel::MulticoreParam()}.
 }
 \strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
-memory (RAM) is available as \code{denovo_motif_discovery} is
+memory (RAM) is available as \code{motif_discovery} is
 memory-intensive.}
 
 \item{quiet}{A logical indicating whether to print markdown knit messages.
@@ -163,11 +163,11 @@ This function compares different epigenomic datasets using motif enrichment
 as the key metric. The output is an easy-to-interpret HTML document with the
 results. The report contains three main sections: (1) General Metrics on peak
 and alignment files (if provided), (2) Known Motif Enrichment Analysis and
-(3) De-novo Motif Enrichment Analysis.
+(3) Discovered Motif Enrichment Analysis.
 }
 \details{
 Runtime guidance: For 4 datasets, the runtime is approximately 3 minutes with
-denovo_motif_discovery disabled. However, de-novo motif discovery can take
+motif_discovery disabled. However, motif discovery can take
 hours to complete. To make computation faster, we highly recommend tuning the
 following arguments:
 \describe{
@@ -175,20 +175,20 @@ following arguments:
    parallel can significantly reduce runtime, but it is very
    memory-intensive, consuming 10+GB of RAM per thread. Memory starvation can
    greatly slow the process, so set the number of cores with caution.}
-   \item{\code{denovo_motifs}}{The number of motifs to discover per sequence
-   group exponentially increases runtime. We recommend no more than 5
-   motifs to make a meaningful inference.}
-   \item{\code{trim_seq_width}}{Trimming sequences before running de-novo
+   \item{\code{motif_discovery_count}}{The number of motifs to discover per
+   sequence group exponentially increases runtime. We recommend no more than
+   5 motifs to make a meaningful inference.}
+   \item{\code{trim_seq_width}}{Trimming sequences before running
    motif discovery can significantly reduce the search space. Sequence
    length can exponentially increase runtime. We recommend running the
-   script with \code{denovo_motif_discovery = FALSE} and studying the
+   script with \code{motif_discovery = FALSE} and studying the
    motif-summit distance distribution under general metrics to find the
    sequence length that captures most motifs. A good starting point is 150
    but it can be reduced further if appropriate.}
 }
 }
 \note{
-Running de-novo motif discovery is computationally expensive and can
+Running motif discovery is computationally expensive and can
 require from minutes to hours. \code{denovo_motifs} can widely affect the
 runtime (higher values take longer). Setting \code{trim_seq_width} to a lower
 value can also reduce the runtime significantly.
@@ -226,8 +226,8 @@ if (memes::meme_is_installed()) {
         motif_files = motifs,
         motif_labels = NULL,
         cell_counts = NULL,
-        denovo_motif_discovery = TRUE,
-        denovo_motifs = 1,
+        motif_discovery = TRUE,
+        motif_discovery_count = 1,
         motif_db = NULL,
         download_buttons = TRUE,
         out_dir = tempdir(),

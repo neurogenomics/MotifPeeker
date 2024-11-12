@@ -196,8 +196,8 @@ if (MotifPeeker:::confirm_meme_install(continue = TRUE)) {
         genome_build = "hg38",  # Use hg38 genome build
         motif_files = motif_files,
         cell_counts = NULL,  # No cell-count information
-        denovo_motif_discovery = TRUE,
-        denovo_motifs = 3,  # Discover top 3 motifs
+        motif_discovery = TRUE,
+        motif_discovery_count = 3,  # Discover top 3 motifs
         motif_db = NULL,  # Use default motif database (JASPAR)
         download_buttons = TRUE,
         out_dir = tempdir(),  # Save output in a temporary directory
@@ -265,7 +265,7 @@ enhance them:
 - `cell_counts`: An integer vector of experiment cell counts for each peak file
     (if available). Creates additional comparisons based on cell counts.  
 - `motif_db`: Path to `.meme` format file to use as reference database, or a
-    list of `universalmotif-class` objects. Results from de-novo motif discovery
+    list of `universalmotif-class` objects. Results from motif discovery
     are searched against this database to find similar motifs. If not provided,
     JASPAR CORE database will be used, making this parameter **truly optional**.
     **NOTE**: p-value estimates are inaccurate when the database has fewer than
@@ -281,7 +281,7 @@ for [`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/Moti
 ### Runtime Guidance {#runtime}
 
 For 4 datasets, the runtime is approximately 3 minutes with
-denovo_motif_discovery disabled. However, de-novo motif discovery can take
+motif_discovery disabled. However, motif discovery can take
 hours to complete.  
 
 To make computation faster, we highly recommend tuning the following arguments:  
@@ -293,13 +293,13 @@ To make computation faster, we highly recommend tuning the following arguments:
     significantly reduce runtime, but it is very memory-intensive, consuming
     upwards of 10GB of RAM per thread. Memory starvation can greatly slow the
     process, so set workers (x) with caution.  
-- `denovo_motifs`: The number of motifs to discover per sequence group
+- `motif_discovery_count`: The number of motifs to discover per sequence group
     exponentially increases runtime. We recommend no more than 5 motifs to make
     a meaningful inference.  
-- `trim_seq_width`: Trimming sequences before running de-novo motif discovery
+- `trim_seq_width`: Trimming sequences before running motif discovery
     can significantly reduce the search space. Sequence length can exponentially
     increase runtime. We recommend running the script with
-    `denovo_motif_discovery = FALSE` and studying the motif-summit distance
+    `motif_discovery = FALSE` and studying the motif-summit distance
     distribution under general metrics to find the sequence length that captures
     most motifs. A good starting point is 150 but it can be reduced further if
     appropriate.
@@ -324,7 +324,7 @@ If something does not work as expected, refer to
 # Future Enhancements
 
 - Add support for outputs from more peak callers.  
-- Automatically detect ideal `trim_peak_width` to reduce de-novo motif discovery
+- Automatically detect ideal `trim_peak_width` to reduce motif discovery
     runtime.  
 - Add more [troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html)
     steps to the documentation.  

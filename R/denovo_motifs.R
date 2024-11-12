@@ -1,6 +1,6 @@
-#' Find de-novo motifs in sequences
+#' Discover motifs in sequences
 #' 
-#' Use STREME from MEME suite to find de-novo motifs in the provided sequences.
+#' Use STREME from MEME suite to find  motifs in the provided sequences.
 #' To speed up the process, the sequences can be optionally trimmed to reduce
 #' the search space. The result is then optionally filtered to remove motifs
 #' with a high number of nucleotide repeats
@@ -9,19 +9,19 @@
 #' sequences to search for motifs.
 #' @param trim_seq_width An integer specifying the width of the sequence to
 #' extract around the summit (default = NULL). This sequence is used to search
-#' for de novo motifs. If not provided, the entire peak region will be used.
+#' for discovered motifs. If not provided, the entire peak region will be used.
 #' This parameter is intended to reduce the search space and speed up motif
 #' discovery; therefore, a value less than the average peak width is
 #' recommended. Peaks are trimmed symmetrically around the summit while
 #' respecting the peak bounds.
-#' @param denovo_motifs An integer specifying the number of de-novo motifs to
+#' @param discover_motifs_count An integer specifying the number of motifs to
 #' discover. (default = 3) Note that higher values take longer to compute.
 #' @param minw An integer specifying the minimum width of the motif.
 #' (default = 8)
 #' @param maxw An integer specifying the maximum width of the motif.
 #' (default = 25)
 #' @param filter_n An integer specifying the number of consecutive nucleotide
-#' repeats a de-novo discovered motif must contain to be filtered out.
+#' repeats a discovered motif must contain to be filtered out.
 #' (default = 6)
 #' @param out_dir A \code{character} vector of output directory to save STREME
 #' results to. (default = \code{tempdir()})
@@ -47,7 +47,7 @@
 #'     res <- denovo_motifs(list(CTCF_TIP_peaks),
 #'                         trim_seq_width = 50,
 #'                         genome_build = genome_build,
-#'                         denovo_motifs = 1,
+#'                         discover_motifs_count = 1,
 #'                         filter_n = 6,
 #'                         minw = 8,
 #'                         maxw = 8,
@@ -59,7 +59,7 @@
 denovo_motifs <- function(seqs,
                             trim_seq_width,
                             genome_build,
-                            denovo_motifs = 3,
+                            discover_motifs_count = 3,
                             minw = 8,
                             maxw = 25,
                             filter_n = 6,
@@ -93,7 +93,7 @@ denovo_motifs <- function(seqs,
                 silent = !debug,
                 minw = 8,
                 maxw = 25,
-                nmotifs = denovo_motifs,
+                nmotifs = discover_motifs_count,
                 meme_path = meme_path,
                 ...
             )

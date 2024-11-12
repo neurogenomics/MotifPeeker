@@ -7,7 +7,7 @@ style="height: 300px !important;" />
 
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-0.99.10-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-0.99.11-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -18,7 +18,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
 Skene***  
-**Updated:** ***Nov-11-2024***
+**Updated:** ***Nov-12-2024***
 
 ## Introduction
 
@@ -35,10 +35,10 @@ package outputs an HTML report consisting of three sections:
     compares them between the common and unique peaks from comparison
     and reference datasets.
 
-3.  **De-Novo Motif Enrichment Analysis**: Details the statistics of
-    de-novo discovered motifs in common and unique peaks from comparison
-    and reference datasets. Examines motif similarities and identifies
-    the closest known motifs in the JASPAR or the provided database.
+3.  **Discovered Motif Enrichment Analysis**: Details the statistics of
+    motifs discovered in common and unique peaks from comparison and
+    reference datasets. Examines motif similarities and identifies the
+    closest known motifs in the JASPAR or the provided database.
 
 <!-- If you use `MotifPeeker`, please cite:  -->
 
@@ -141,8 +141,8 @@ MotifPeeker(
     genome_build = "hg38",
     motif_files = motif_files,
     cell_counts = NULL,  # No cell-count information
-    denovo_motif_discovery = TRUE,
-    denovo_motifs = 3,
+    motif_discovery = TRUE,
+    motif_discovery_count = 3,
     motif_db = NULL,
     download_buttons = TRUE,
     out_dir = tempdir(),
@@ -222,10 +222,10 @@ or enhance them:
   peak file (if available). Creates additional comparisons based on cell
   counts.  
 - `motif_db`: Path to `.meme` format file to use as reference database,
-  or a list of `universalmotif-class` objects. Results from de-novo
-  motif discovery are searched against this database to find similar
-  motifs. If not provided, JASPAR CORE database will be used, making
-  this parameter **truly optional**. **NOTE**: p-value estimates are
+  or a list of `universalmotif-class` objects. Results from motif
+  discovery are searched against this database to find similar motifs.
+  If not provided, JASPAR CORE database will be used, making this
+  parameter **truly optional**. **NOTE**: p-value estimates are
   inaccurate when the database has fewer than 50 entries.
 
 </details>
@@ -239,8 +239,8 @@ documentation for
 ### Runtime Guidance
 
 For 4 datasets, the runtime is approximately 3 minutes with
-denovo_motif_discovery disabled. However, de-novo motif discovery can
-take hours to complete.
+motif_discovery disabled. However, motif discovery can take hours to
+complete.
 
 To make computation faster, we highly recommend tuning the following
 arguments:
@@ -256,16 +256,16 @@ arguments:
   reduce runtime, but it is very memory-intensive, consuming upwards of
   10GB of RAM per thread. Memory starvation can greatly slow the
   process, so set `workers` with caution.  
-- `denovo_motifs`: The number of motifs to discover per sequence group
-  exponentially increases runtime. We recommend no more than 5 motifs to
-  make a meaningful inference.  
-- `trim_seq_width`: Trimming sequences before running de-novo motif
-  discovery can significantly reduce the search space. Sequence length
-  can exponentially increase runtime. We recommend running the script
-  with `denovo_motif_discovery = FALSE` and studying the motif-summit
-  distance distribution under general metrics to find the sequence
-  length that captures most motifs. A good starting point is 150 but it
-  can be reduced further if appropriate.
+- `motif_discovery_count`: The number of motifs to discover per sequence
+  group exponentially increases runtime. We recommend no more than 5
+  motifs to make a meaningful inference.  
+- `trim_seq_width`: Trimming sequences before running motif discovery
+  can significantly reduce the search space. Sequence length can
+  exponentially increase runtime. We recommend running the script with
+  `motif_discovery = FALSE` and studying the motif-summit distance
+  distribution under general metrics to find the sequence length that
+  captures most motifs. A good starting point is 150 but it can be
+  reduced further if appropriate.
 
 </details>
 

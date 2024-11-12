@@ -69,7 +69,7 @@ if (memes::meme_is_installed()) {
         res <- denovo_motifs(list(CTCF_TIP_peaks),
                         trim_seq_width = 50,
                         genome_build = genome_build,
-                        denovo_motifs = 1,
+                        discover_motifs_count = 1,
                         filter_n = 10,
                         out_dir = tempdir())
         res2 <- find_motifs(res, motif_db = get_JASPARCORE(),

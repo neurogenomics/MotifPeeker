@@ -11,7 +11,7 @@ test_that("De-novo motif enrichment functions works", {
     res <- suppressMessages(denovo_motifs(unlist(segregated_peaks),
                         trim_seq_width = 100,
                         genome_build = genome_build,
-                        denovo_motifs = 2,
+                        discover_motifs_count = 2,
                         filter_n = 6,
                         out_dir = tempdir(),
                         verbose = FALSE,
@@ -21,7 +21,7 @@ test_that("De-novo motif enrichment functions works", {
     expect_warning(denovo_motifs(list(CTCF_TIP_peaks),
                                 trim_seq_width = 100,
                                 genome_build = genome_build,
-                                denovo_motifs = 1,
+                                discover_motifs_count = 1,
                                 filter_n = 2))
     
     ### find_motifs ###

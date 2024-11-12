@@ -50,7 +50,7 @@ Following are two examples of how to set up parallel processing:
   with \code{BPPARAM = BiocParallel::MulticoreParam()}.
 }
 \strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
-memory (RAM) is available as \code{denovo_motif_discovery} is
+memory (RAM) is available as \code{motif_discovery} is
 memory-intensive.}
 
 \item{meme_path}{path to \verb{meme/bin/} (optional). Defaut: \code{NULL}, searches

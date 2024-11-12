@@ -164,7 +164,7 @@ if (memes::meme_is_installed()) {
         denovo_motifs <- denovo_motifs(unlist(segregated_peaks),
                             trim_seq_width = 50,
                             genome_build = genome_build,
-                            denovo_motifs = 1,
+                            discover_motifs_count = 1,
                             filter_n = 6,
                             maxw = 8,
                             minw = 8,

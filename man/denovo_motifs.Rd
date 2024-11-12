@@ -2,13 +2,13 @@
 % Please edit documentation in R/denovo_motifs.R
 \name{denovo_motifs}
 \alias{denovo_motifs}
-\title{Find de-novo motifs in sequences}
+\title{Discover motifs in sequences}
 \usage{
 denovo_motifs(
   seqs,
   trim_seq_width,
   genome_build,
-  denovo_motifs = 3,
+  discover_motifs_count = 3,
   minw = 8,
   maxw = 25,
   filter_n = 6,
@@ -26,7 +26,7 @@ sequences to search for motifs.}
 
 \item{trim_seq_width}{An integer specifying the width of the sequence to
 extract around the summit (default = NULL). This sequence is used to search
-for de novo motifs. If not provided, the entire peak region will be used.
+for discovered motifs. If not provided, the entire peak region will be used.
 This parameter is intended to reduce the search space and speed up motif
 discovery; therefore, a value less than the average peak width is
 recommended. Peaks are trimmed symmetrically around the summit while
@@ -35,7 +35,7 @@ respecting the peak bounds.}
 \item{genome_build}{The genome build that the peak sequences should be
 derived from.}
 
-\item{denovo_motifs}{An integer specifying the number of de-novo motifs to
+\item{discover_motifs_count}{An integer specifying the number of motifs to
 discover. (default = 3) Note that higher values take longer to compute.}
 
 \item{minw}{An integer specifying the minimum width of the motif.
@@ -45,7 +45,7 @@ discover. (default = 3) Note that higher values take longer to compute.}
 (default = 25)}
 
 \item{filter_n}{An integer specifying the number of consecutive nucleotide
-repeats a de-novo discovered motif must contain to be filtered out.
+repeats a discovered motif must contain to be filtered out.
 (default = 6)}
 
 \item{out_dir}{A \code{character} vector of output directory to save STREME
@@ -72,7 +72,7 @@ A list of \code{\link[universalmotif]{universalmotif}} objects and
 associated metadata.
 }
 \description{
-Use STREME from MEME suite to find de-novo motifs in the provided sequences.
+Use STREME from MEME suite to find  motifs in the provided sequences.
 To speed up the process, the sequences can be optionally trimmed to reduce
 the search space. The result is then optionally filtered to remove motifs
 with a high number of nucleotide repeats
@@ -86,7 +86,7 @@ if (requireNamespace("BSgenome.Hsapiens.UCSC.hg38", quietly = TRUE)) {
     res <- denovo_motifs(list(CTCF_TIP_peaks),
                         trim_seq_width = 50,
                         genome_build = genome_build,
-                        denovo_motifs = 1,
+                        discover_motifs_count = 1,
                         filter_n = 6,
                         minw = 8,
                         maxw = 8,

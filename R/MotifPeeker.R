@@ -4,10 +4,10 @@
 #' as the key metric. The output is an easy-to-interpret HTML document with the
 #' results. The report contains three main sections: (1) General Metrics on peak
 #' and alignment files (if provided), (2) Known Motif Enrichment Analysis and
-#' (3) De-novo Motif Enrichment Analysis.
+#' (3) Discovered Motif Enrichment Analysis.
 #' 
 #' Runtime guidance: For 4 datasets, the runtime is approximately 3 minutes with
-#' denovo_motif_discovery disabled. However, de-novo motif discovery can take
+#' motif_discovery disabled. However, motif discovery can take
 #' hours to complete. To make computation faster, we highly recommend tuning the
 #' following arguments:
 #' \describe{
@@ -15,13 +15,13 @@
 #'    parallel can significantly reduce runtime, but it is very
 #'    memory-intensive, consuming 10+GB of RAM per thread. Memory starvation can
 #'    greatly slow the process, so set the number of cores with caution.}
-#'    \item{\code{denovo_motifs}}{The number of motifs to discover per sequence
-#'    group exponentially increases runtime. We recommend no more than 5
-#'    motifs to make a meaningful inference.}
-#'    \item{\code{trim_seq_width}}{Trimming sequences before running de-novo
+#'    \item{\code{motif_discovery_count}}{The number of motifs to discover per
+#'    sequence group exponentially increases runtime. We recommend no more than
+#'    5 motifs to make a meaningful inference.}
+#'    \item{\code{trim_seq_width}}{Trimming sequences before running
 #'    motif discovery can significantly reduce the search space. Sequence
 #'    length can exponentially increase runtime. We recommend running the
-#'    script with \code{denovo_motif_discovery = FALSE} and studying the
+#'    script with \code{motif_discovery = FALSE} and studying the
 #'    motif-summit distance distribution under general metrics to find the
 #'    sequence length that captures most motifs. A good starting point is 150
 #'    but it can be reduced further if appropriate.}
@@ -69,8 +69,10 @@
 #' labels.
 #' @param cell_counts An integer vector of experiment cell counts for each peak
 #' file. (optional) Creates additional comparisons based on cell counts.
-#' @param denovo_motif_discovery A logical indicating whether to perform
-#' de-novo motif discovery for the third section of the report. (default = TRUE)
+#' @param motif_discovery A logical indicating whether to perform
+#' motif discovery for the third section of the report. (default = TRUE)
+#' @param motif_discovery_count An integer specifying the number of motifs to
+#' discover. (default = 3) Note that higher values take longer to compute.
 #' @param download_buttons A logical indicating whether to include download
 #' buttons for various files within the HTML report. (default = TRUE)
 #' @param out_dir A character string specifying the directory to save the
@@ -97,7 +99,7 @@
 #'   with \code{BPPARAM = BiocParallel::MulticoreParam()}.
 #' }
 #' \strong{IMPORTANT:} For each worker, please ensure a minimum of 8GB of
-#' memory (RAM) is available as \code{denovo_motif_discovery} is
+#' memory (RAM) is available as \code{motif_discovery} is
 #' memory-intensive.
 #' @param quiet A logical indicating whether to print markdown knit messages.
 #' (default = FALSE)
@@ -124,7 +126,7 @@
 #' 
 #' @return Path to the output directory.
 #' 
-#' @note Running de-novo motif discovery is computationally expensive and can
+#' @note Running motif discovery is computationally expensive and can
 #' require from minutes to hours. \code{denovo_motifs} can widely affect the
 #' runtime (higher values take longer). Setting \code{trim_seq_width} to a lower
 #' value can also reduce the runtime significantly.
@@ -162,8 +164,8 @@
 #'         motif_files = motifs,
 #'         motif_labels = NULL,
 #'         cell_counts = NULL,
-#'         denovo_motif_discovery = TRUE,
-#'         denovo_motifs = 1,
+#'         motif_discovery = TRUE,
+#'         motif_discovery_count = 1,
 #'         motif_db = NULL,
 #'         download_buttons = TRUE,
 #'         out_dir = tempdir(),
@@ -184,8 +186,8 @@ MotifPeeker <- function(
         motif_files = NULL,
         motif_labels = NULL,
         cell_counts = NULL,
-        denovo_motif_discovery = TRUE,
-        denovo_motifs = 3,
+        motif_discovery = TRUE,
+        motif_discovery_count = 3,
         filter_n = 6,
         trim_seq_width = NULL,
         motif_db = NULL,
@@ -223,9 +225,9 @@ MotifPeeker <- function(
         "equal to ", shQuote("peak_files"), ".")
         stop(stp_msg)
     }
-    if (denovo_motif_discovery &&
-        (is.null(denovo_motifs) || denovo_motifs < 1)) {
-        stp_msg <- "Number of de-novo motifs to find must be greater than 0."
+    if (motif_discovery &&
+        (is.null(motif_discovery_count) || motif_discovery_count < 1)) {
+        stp_msg <- "Number of motifs to discover must be greater than 0."
         stop(stp_msg)
     }
     
@@ -266,8 +268,8 @@ MotifPeeker <- function(
         motif_files = motif_files,
         motif_labels = motif_labels,
         cell_counts = cell_counts,
-        denovo_motif_discovery = denovo_motif_discovery,
-        denovo_motifs = denovo_motifs,
+        motif_discovery = motif_discovery,
+        discover_motifs = motif_discovery_count,
         filter_n = filter_n,
         motif_db = motif_db,
         trim_seq_width = trim_seq_width,

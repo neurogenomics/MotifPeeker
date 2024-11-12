@@ -1,3 +1,12 @@
+# MotifPeeker 0.99.11
+
+## Miscellaneous
+ 
+* Correct "de-novo motif discovery" term to "motif discovery". STREME does not
+perform de-novo motif discovery.
+* Add package version to report header.
+
+
 # MotifPeeker 0.99.9 / 0.99.10
 
 ## Bug Fixes
