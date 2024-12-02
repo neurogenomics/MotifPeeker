@@ -1,3 +1,15 @@
+# MotifPeeker 0.99.12
+
+## Bug Fixes
+* Supply `meme_path` and `verbose` to second `motif_enrichment` call in
+`get_df_enrichment`.
+
+## Miscellaneous
+* Update example reports.
+* Add new author.
+* Add BioConductor installation instructions to README.
+
+
 # MotifPeeker 0.99.11
 
 ## Miscellaneous

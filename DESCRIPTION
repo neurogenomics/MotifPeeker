@@ -1,7 +1,7 @@
 Type: Package
 Package: MotifPeeker
 Title: Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
-Version: 0.99.11
+Version: 0.99.12
 Authors@R: c( 
     person(given = "Hiranyamaya",
            family = "Dash",
@@ -13,6 +13,11 @@ Authors@R: c(
            role = c("aut"),
            email = "tomroberts.work15@gmail.com",
            comment = c(ORCID = "0009-0006-6244-8670")),
+    person(given = "Maria",
+           family = "Weinert",
+           role = c("aut"),
+           email = "m.weinert13@imperial.ac.uk",
+           comment = c(ORCID = "0000-0001-6187-1000")),     
     person(given = "Nathan",
            family = "Skene",
            role = c("aut"),

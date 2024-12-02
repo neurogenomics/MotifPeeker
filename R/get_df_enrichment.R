@@ -147,7 +147,9 @@ get_df_enrichment <- function(result,
             res <- MotifPeeker::motif_enrichment(
                 peak, motif,
                 genome_build = genome_build,
-                out_dir = file.path(out_dir, "ame_segregated", i)
+                out_dir = file.path(out_dir, "ame_segregated", i),
+                meme_path = meme_path,
+                verbose = verbose
             )
             list(
                 exp_label = exp_label_combinations2[i],
