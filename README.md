@@ -84,10 +84,10 @@ the development version of `MotifPeeker` can be installed using the
 following code:
 
 ``` r
-if(!require("remotes")) install.packages("remotes")
-
 # Install latest version of MotifPeeker
-BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE) 
+BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE)
+
+# Load the package
 library(MotifPeeker)
 ```
 

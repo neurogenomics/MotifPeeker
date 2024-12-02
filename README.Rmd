@@ -77,10 +77,10 @@ For more information, refer to the [Perl dependency section of the MEME suite](h
 Once the MEME suite and its associated Perl dependencies are installed, the
 development version of `MotifPeeker` can be installed using the following code:
 ```{r, eval = FALSE}
-if(!require("remotes")) install.packages("remotes")
-
 # Install latest version of MotifPeeker
-BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE) 
+BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE)
+
+# Load the package
 library(MotifPeeker)
 ```
 

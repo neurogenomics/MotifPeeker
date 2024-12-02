@@ -106,6 +106,7 @@ and load `MotifPeeker`:
 # Install latest version of MotifPeeker
 BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE) 
 
+# Load the package
 library(MotifPeeker)
 ```
 
