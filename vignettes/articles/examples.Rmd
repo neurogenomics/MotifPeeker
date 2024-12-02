@@ -20,7 +20,7 @@ code used to produce them.
 
 ## Reports  
 
-### [CTCF ChIP-seq - TIP-seq](https://neurogenomics.github.io/MotifPeeker-reports/CTCF_ChIP-TIP/output/MotifPeeker_20240711_230621/MotifPeeker.html)
+### [CTCF ChIP-seq - TIP-seq](https://neurogenomics.github.io/MotifPeeker-reports/CTCF_ChIP-TIP/output/MotifPeeker_20241130_134203/MotifPeeker.html)
 <details><summary>Dataset Details</summary>
 Compares three public ChIP-seq datasets against a TIP-seq dataset for CTCF in
 HCT116 cells. Details of the datasets used are as follows:  
@@ -75,7 +75,7 @@ Motif files used:
 &emsp;[Code](https://github.com/neurogenomics/MotifPeeker-reports/blob/master/CTCF_ChIP-TIP/run.R)
 
 
-### [Built-in data](https://neurogenomics.github.io/MotifPeeker-reports/built_in_data/output/MotifPeeker_20240716_104747/MotifPeeker.html)
+### [Built-in data](https://neurogenomics.github.io/MotifPeeker-reports/built_in_data/output/MotifPeeker_20241130_032318/MotifPeeker.html)
 <details><summary>Dataset Details</summary>
 Report generated from built-in data, as described in the
 <a href="https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html">
