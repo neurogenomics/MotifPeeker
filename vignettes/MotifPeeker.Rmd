@@ -103,6 +103,9 @@ For more information, refer to the [Perl dependency section of the MEME suite](h
 Once the MEME suite and its associated Perl dependencies are installed, install
 and load `MotifPeeker`:
 ```{r, eval = FALSE}
+# Install latest version of MotifPeeker
+BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE) 
+
 library(MotifPeeker)
 ```
 

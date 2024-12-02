@@ -79,7 +79,8 @@ development version of `MotifPeeker` can be installed using the following code:
 ```{r, eval = FALSE}
 if(!require("remotes")) install.packages("remotes")
 
-remotes::install_github("neurogenomics/MotifPeeker")
+# Install latest version of MotifPeeker
+BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE) 
 library(MotifPeeker)
 ```
 
