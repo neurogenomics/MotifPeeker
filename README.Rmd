@@ -17,7 +17,7 @@ repo <- strsplit(URL,"/")[[1]][5]
 
 `r rworkflows::use_badges(add_hex = FALSE, add_authors = FALSE)`
 
-**Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan Skene***  
+**Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert, Nathan Skene***  
 **Updated:** ***`r format(Sys.Date(), '%b-%d-%Y')`***  
 
 

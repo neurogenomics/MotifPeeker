@@ -16,8 +16,8 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 <br>
 <a href='https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master' target='_blank'><img src='https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg' title='Codecov icicle graph' width='200' height='50' style='vertical-align: top;'></a>
 
-**Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Nathan
-Skene***  
+**Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
+Nathan Skene***  
 **Updated:** ***Dec-02-2024***
 
 ## Introduction
