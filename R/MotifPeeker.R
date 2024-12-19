@@ -156,7 +156,7 @@
 #' if (memes::meme_is_installed()) {
 #'     MotifPeeker(
 #'         peak_files = peaks,
-#'         reference_index = 1,
+#'         reference_index = 2,
 #'         alignment_files = alignments,
 #'         exp_labels = c("ChIP", "TIP"),
 #'         exp_type = c("chipseq", "tipseq"),
@@ -165,7 +165,7 @@
 #'         motif_labels = NULL,
 #'         cell_counts = NULL,
 #'         motif_discovery = TRUE,
-#'         motif_discovery_count = 1,
+#'         motif_discovery_count = 2,
 #'         motif_db = NULL,
 #'         download_buttons = TRUE,
 #'         out_dir = tempdir(),

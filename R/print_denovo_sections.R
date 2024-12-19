@@ -32,13 +32,13 @@ print_denovo_sections <- function(motif_list,
                                 jaspar_link = FALSE,
                                 download_buttons = NULL) {
     headers <- list(
-        paste0("\n**Reference Group - Common Peaks**  \nTotal peaks in ",
+        paste0("  \n  **Reference Group - Common Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$common_seqs1), "  \n"),
-        paste0("\n**Comparison Group - Common Peaks**  \nTotal peaks in ",
+        paste0("  \n  **Comparison Group - Common Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$common_seqs2), "  \n"),
-        paste0("\n**Reference Group - Unique Peaks**  \nTotal peaks in ",
+        paste0("  \n  **Reference Group - Unique Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$unique_seqs1), "  \n"),
-        paste0("\n**Comparison Group - Unique Peaks**  \nTotal peaks in ",
+        paste0("  \n  **Comparison Group - Unique Peaks**  \nTotal peaks in ",
                 "group: ", length(segregated_peaks$unique_seqs2), "  \n")
     )
     out <- list()
@@ -83,8 +83,10 @@ print_denovo_sections <- function(motif_list,
         return(motif_DT)
     }
     
+    out_all <- list()
     for (i in indices) {
-        out$first <- paste(headers[[i]], "\n ")
+        out <- list()
+        out$first <- paste(headers[[i]], "  \n  ")
         
         ### DT ###
         out$DT <- .print_dt(i)
@@ -99,7 +101,8 @@ print_denovo_sections <- function(motif_list,
             if (!is.null(download_buttons$tomtom_output[[i]]))
                 out$sixth <- download_buttons$tomtom_output[[i]]
         }
+        out_all[[which(indices == i)]] <- out
     }
     
-    return(out)
+    return(out_all)
 }

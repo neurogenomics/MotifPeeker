@@ -5,9 +5,11 @@
 src="https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png"
 style="height: 300px !important;" />
 
+[![Bioc
+history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-0.99.12-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-0.99.13-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -18,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Dec-02-2024***
+**Updated:** ***Dec-19-2024***
 
 ## Introduction
 
@@ -356,7 +358,7 @@ utils::sessionInfo()
 
     ## R version 4.4.2 (2024-10-31)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Sequoia 15.1.1
+    ## Running under: macOS Sequoia 15.2
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 

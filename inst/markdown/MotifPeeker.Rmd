@@ -898,11 +898,13 @@ for (i in seq_along(comparison_indices)) {
     out <- print_denovo_sections(streme_motifs, similar_motifs, segregated_peaks[[i]],
                       c(x, y), jaspar_link = using_jaspar_db,
                       download_buttons = download_btns)
-    for (ele in out) {
-      if (typeof(ele) == "character") {
-        cat(ele)
-      } else {
-        print(ele)
+    for (out2 in out) {    
+      for (ele in out2) {
+        if (typeof(ele) == "character") {
+          cat(ele)
+        } else {
+          print(ele)
+        }
       }
     }
   }

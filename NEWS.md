@@ -1,3 +1,11 @@
+# MotifPeeker 0.99.13
+
+## Bug Fixes
+* Fix missing second table in known motif enrichment analysis tabs.
+
+## Miscellaneous
+* Add "in Bioc" badge to README.
+
 # MotifPeeker 0.99.12
 
 ## Bug Fixes

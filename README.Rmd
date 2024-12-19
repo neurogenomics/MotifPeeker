@@ -15,6 +15,7 @@ repo <- strsplit(URL,"/")[[1]][5]
 # <code>MotifPeeker</code><br>Benchmarking Epigenomic Profiling Methods Using Motif Enrichment  
 ![](https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png){style='height: 300px !important;'}
 
+[![Bioc history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 `r rworkflows::use_badges(add_hex = FALSE, add_authors = FALSE)`
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert, Nathan Skene***  
