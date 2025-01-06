@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Dec-19-2024***
+**Updated:** ***Jan-06-2025***
 
 ## Introduction
 
@@ -338,7 +338,7 @@ Page](https://meme-suite.org/meme/doc/copyright.html).
 
 ## Contact
 
-### [Neurogenomics Lab](https://www.neurogenomics.co.uk/inst/report/EpiCompare.html)
+### [Neurogenomics Lab](https://www.neurogenomics.co.uk)
 
 UK Dementia Research Institute  
 Department of Brain Sciences  
