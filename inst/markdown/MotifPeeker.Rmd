@@ -946,6 +946,12 @@ for (i in seq_along(comparison_indices)) {
 # {- .unlisted}
 <hr>  
 
+# Citation {-}
+If you use `MotifPeeker`, please cite: 
+```{r} 
+cat(utils::citation("MotifPeeker")$textVersion)
+```
+
 # Session Info {-}
 <details> 
 ```{r Session Info, results='markup'}
