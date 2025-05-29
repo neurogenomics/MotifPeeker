@@ -32,7 +32,7 @@ jobs:
           cont: docker.io/hdasht/bioc-meme:meme5.5.5 # Custom image
           rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
     steps:
-    - uses: HDash/rworkflows@master
+    - uses: neurogenomics/rworkflows@master
       with:
         run_bioccheck: ${{ true }}
         run_rcmdcheck: ${{ true }}

@@ -6,6 +6,7 @@
 
 ## Miscellaneous
 * Add citation to pre-print.
+* Switch to the official repo for rworkflows.
 
 # MotifPeeker 0.99.13
 
