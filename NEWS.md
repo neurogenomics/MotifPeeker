@@ -1,3 +1,13 @@
+# MotifPeeker 1.1.1
+
+## Bug Fixes
+* Fix importing MACS peak files with no peak names.
+* Update tests for `messager()`.
+
+## Miscellaneous
+* Add citation to pre-print.
+* Switch to the official repo for rworkflows.
+
 # MotifPeeker 0.99.13
 
 ## Bug Fixes

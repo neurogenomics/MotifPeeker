@@ -1,0 +1,21 @@
+citHeader("To cite MotifPeeker, please use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "MotifPeeker: R package for benchmarking epigenomic profiling methods using motif enrichment as a key metric",
+  author   = personList(as.person("Hiranyamaya Dash"),
+                        as.person("Thomas Roberts"),
+                        as.person("Maria Weinert"),
+                        as.person("Nathan G. Skene")),
+  journal  = "bioRxiv",
+  year     = "2025",
+  volume   = NULL,
+  number   = NULL,
+  pages    = NULL,
+  url      = "https://doi.org/10.1101/2025.03.31.645756",
+  textVersion = paste(
+  "MotifPeeker: R package for benchmarking epigenomic profiling methods using motif enrichment as a key metric (2025) 
+  Hiranyamaya Dash, Thomas Roberts, Maria Weinert, Nathan Skene,
+  bioRxiv, 2025.03.31.645756; doi: https://doi.org/10.1101/2025.03.31.645756"
+  )
+)
