@@ -1,3 +1,8 @@
+# MotifPeeker 1.1.1
+
+## Bug Fixes
+* Fix importing MACS peak files with no peak names.
+
 # MotifPeeker 0.99.13
 
 ## Bug Fixes
