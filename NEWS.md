@@ -3,6 +3,9 @@
 ## Bug Fixes
 * Fix importing MACS peak files with no peak names.
 
+## Miscellaneous
+* Add citation to pre-print.
+
 # MotifPeeker 0.99.13
 
 ## Bug Fixes

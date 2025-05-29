@@ -278,6 +278,13 @@ Please note that the peaks and alignments included are a very small subset
 to demonstrate the package and run tests to maintain the integrity of the
 package.
 
+## Citation
+ 
+If you use ``r pkg``, please cite: 
+
+<!-- Modify this by editing the file: inst/CITATION  -->
+> `r citation(pkg)$textVersion`
+
 ## Licensing Restrictions
 
 MotifPeeker incorporates the MEME Suite, which is available free of charge for
