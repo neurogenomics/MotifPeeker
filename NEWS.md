@@ -2,6 +2,7 @@
 
 ## Bug Fixes
 * Fix importing MACS peak files with no peak names.
+* Update tests for `messager()`.
 
 ## Miscellaneous
 * Add citation to pre-print.
