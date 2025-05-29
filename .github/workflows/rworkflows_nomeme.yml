@@ -35,6 +35,10 @@ jobs:
           r: latest
           bioc: release
     steps:
+    - uses: actions/checkout@v4
+    - name: Setup Rust toolchain
+      if: matrix.config.os == 'ubuntu-latest'  # Only install on Linux
+      uses: dtolnay/rust-toolchain@stable
     - uses: neurogenomics/rworkflows@master
       with:
         run_bioccheck: ${{ true }}
