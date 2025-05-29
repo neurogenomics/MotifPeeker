@@ -32,6 +32,10 @@ jobs:
           cont: docker.io/hdasht/bioc-meme:meme5.5.8 # Custom image
           rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
     steps:
+    - uses: actions/checkout@v4
+    - name: Setup Rust toolchain
+      if: matrix.config.os == 'ubuntu-latest'  # Only install on Linux
+      uses: dtolnay/rust-toolchain@stable
     - uses: neurogenomics/rworkflows@master
       with:
         run_bioccheck: ${{ true }}
