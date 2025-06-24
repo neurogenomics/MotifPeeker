@@ -56,8 +56,12 @@ summit_to_motif <- function(peak_input,
                             ...) {
     if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
     
-    peaks <- peak_input # Backwards compatibility
-    peak_sequences <- BSgenome::getSeq(genome_build, peak_input)
+    peaks <- peak_input
+    
+    # Sanitise peak names for FIMO run
+    names(peaks) <- seq_along(peaks)
+    
+    peak_sequences <- BSgenome::getSeq(genome_build, peaks)
     
     ## Generate background model
     bfile <- markov_background_model(sequences = peak_sequences,
@@ -84,6 +88,9 @@ summit_to_motif <- function(peak_input,
     index_to_repeat <- base::match(as.vector(GenomicRanges::seqnames(fimo_df)),
                                     names(peaks))
     expanded_peaks <- peaks[index_to_repeat]
+    
+    # Get original peak names
+    names(expanded_peaks) <- names(peak_input)[index_to_repeat]
     
     ## Calculate motif start and end points
     GenomicRanges::mcols(expanded_peaks)$motif_start <-

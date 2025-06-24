@@ -1,3 +1,12 @@
+# MotifPeeker 1.1.2
+
+## Miscellaneous
+* Only consider unique peaks in peak count.
+
+
+## Bug Fixes
+* Sanitise peak input names before running FIMO.
+
 # MotifPeeker 1.1.1
 
 ## Bug Fixes
