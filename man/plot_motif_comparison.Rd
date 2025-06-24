@@ -13,8 +13,9 @@ plot_motif_comparison(
 )
 }
 \arguments{
-\item{comparison_matrices}{Output from \code{\link{compare_motifs}} for one
-comparison pair (Four matrices).}
+\item{comparison_matrices}{Output from
+\code{\link[universalmotif]{compare_motifs}} for one comparison pair (Four
+matrices).}
 
 \item{exp_labels}{Labels for the reference and comparison experiments
 respectively.}

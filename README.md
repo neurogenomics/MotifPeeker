@@ -9,7 +9,7 @@ style="height: 300px !important;" />
 history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-1.1.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-1.1.2-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***May-29-2025***
+**Updated:** ***Jun-24-2025***
 
 ## Introduction
 
@@ -371,7 +371,7 @@ utils::sessionInfo()
 
     ## R version 4.5.0 (2025-04-11)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Sequoia 15.4.1
+    ## Running under: macOS Sequoia 15.5
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRblas.0.dylib 
@@ -388,11 +388,11 @@ utils::sessionInfo()
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] gtable_0.3.6        jsonlite_2.0.0      dplyr_1.1.4        
-    ##  [4] compiler_4.5.0      BiocManager_1.30.25 renv_1.1.4         
+    ##  [4] compiler_4.5.0      BiocManager_1.30.26 renv_1.1.4         
     ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.4.0       
     ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.1         
     ## [13] ggplot2_3.5.2       R6_2.6.1            generics_0.1.4     
-    ## [16] knitr_1.50          yulab.utils_0.2.0   tibble_3.2.1       
+    ## [16] knitr_1.50          yulab.utils_0.2.0   tibble_3.3.0       
     ## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.0.4    
     ## [22] pillar_1.10.2       RColorBrewer_1.1-3  rlang_1.1.6        
     ## [25] badger_0.2.4        xfun_0.52           fs_1.6.6           

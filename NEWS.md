@@ -19,59 +19,58 @@
 * Switch to the official repo for rworkflows.
 
 
-# Pre-release
-## MotifPeeker 0.99.13
+# MotifPeeker 0.99.13
 
-### Bug Fixes
+## Bug Fixes
 * Fix missing second table in known motif enrichment analysis tabs.
 
-### Miscellaneous
+## Miscellaneous
 * Add "in Bioc" badge to README.
 
 
-## MotifPeeker 0.99.12
+# MotifPeeker 0.99.12
 
-### Bug Fixes
+## Bug Fixes
 * Supply `meme_path` and `verbose` to second `motif_enrichment` call in
 `get_df_enrichment`.
 
-### Miscellaneous
+## Miscellaneous
 * Update example reports.
 * Add new author.
 * Add BioConductor installation instructions to README.
 
 
-## MotifPeeker 0.99.11
+# MotifPeeker 0.99.11
 
-### Miscellaneous
+## Miscellaneous
  
 * Correct "de-novo motif discovery" term to "motif discovery". STREME does not
 perform de-novo motif discovery.
 * Add package version to report header.
 
 
-## MotifPeeker 0.99.9 / 0.99.10
+# MotifPeeker 0.99.9 / 0.99.10
 
-### Bug Fixes
+## Bug Fixes
 
 * Fix `download_button()` error when `downloadthis` package is not available.
 
 
-## MotifPeeker 0.99.8
+# MotifPeeker 0.99.8
 
-### Miscellaneous
+## Miscellaneous
  
 * Optimise examples and remove `\donttest{}` blocks.
 * Add GitHub Actions for rworkflows without MEME Suite.
 
 
-## MotifPeeker 0.99.7
+# MotifPeeker 0.99.7
 
-### New Features
+## New Features
 * Replace `workers` argument with `BPPARAM`. Give users more control over the
 BiocParallel implementation.
 
-### Miscellaneous
+## Miscellaneous
  
 * Remove `cat()` calls in functions.
 * Implement helper `check_input()` to validate input before passing them to
@@ -80,9 +79,9 @@ BiocParallel implementation.
 which require MEME Suite).
 
 
-## MotifPeeker 0.99.5 / 0.99.6
+# MotifPeeker 0.99.5 / 0.99.6
 
-### Miscellaneous
+## Miscellaneous
  
 * Replace `magrittr` import by `dplyr::%>%`.
 * Reduce the number of exported functions.
@@ -92,42 +91,42 @@ which require MEME Suite).
 * Use message() for parallel executions
 
 
-## MotifPeeker 0.99.4
+# MotifPeeker 0.99.4
 
-### Miscellaneous
+## Miscellaneous
  
 * Switch to a smaller file to download in `check_ENCODE` example.
 * Move some code outside `\donttest{}` to prevent `BiocCheck()` error about
   missing examples.
 
 
-## MotifPeeker 0.99.3
+# MotifPeeker 0.99.3
 
-### Miscellaneous
+## Miscellaneous
  
 * Wrap certain examples under `\donttest{}` to reduce R CMD CHECK runtime.
 * [GitHub] Add `CODECOV_TOKEN` secret to `rworkflows`.
 * Skip running tests which require download if offline.
 
 
-## MotifPeeker 0.99.2
+# MotifPeeker 0.99.2
 
-### Miscellaneous
+## Miscellaneous
  
 * Substitute `system()` with `system2()`.
 * Reduce `denovo_motifs` in examples and tests to reduce R CMD CHECK runtime.
 * Add `.BBSoptions` to `.Rbuildignore`.
 
 
-## MotifPeeker 0.99.1
+# MotifPeeker 0.99.1
 
-### Miscellaneous
- 
+## Miscellaneous
+
 * `.BBSoptions` added to skip Windows builders on Bioconductor.
 
 
-## MotifPeeker 0.99.0
+# MotifPeeker 0.99.0
 
-### New features
+## New features
  
 * `MotifPeeker` submitted to Bioconductor.

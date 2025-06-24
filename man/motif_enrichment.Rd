@@ -50,7 +50,7 @@ to the proportion of peaks with a motif.
 \description{
 \code{motif_enrichment()} calculates motif enrichment relative to a set of
 background sequences using Analysis of Motif Enrichment (AME) from
-\link{memes}.
+\link[memes]{memes-package}.
 }
 \examples{
 if (memes::meme_is_installed()) {

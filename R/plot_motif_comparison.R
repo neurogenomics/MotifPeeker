@@ -1,7 +1,8 @@
 #' Produce heat maps of motif similarity matrices
 #'
-#' @param comparison_matrices Output from \code{\link{compare_motifs}} for one
-#' comparison pair (Four matrices).
+#' @param comparison_matrices Output from
+#' \code{\link[universalmotif]{compare_motifs}} for one comparison pair (Four
+#' matrices).
 #' @param exp_labels Labels for the reference and comparison experiments
 #' respectively.
 #' @inheritParams heatmaply::heatmaply
