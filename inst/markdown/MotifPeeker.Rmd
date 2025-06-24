@@ -125,7 +125,7 @@ motif_db <- if (discover_metrics) ifelse(is.null(params$motif_db),
 ### General Metrics ###
 ## Peak Counts
 result$peak_count <- vapply(
-        result$peaks, function(x) length(x), integer(1)
+        result$peaks, function(x) length(unique(x)), integer(1)
     )
 if (alignment_metrics) {
     ## Read Counts
@@ -715,7 +715,8 @@ if (!user_motif_metrics) {
 ```
 
 ## Summary Table {-}
-Summary of all the general metrics for the input datasets.
+Summary of all the general metrics for the input datasets. Peak count only
+includes unique peaks.
 
 ```{r summary_table}
 dplyr::tibble(
