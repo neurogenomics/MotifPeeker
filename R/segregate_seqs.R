@@ -49,10 +49,10 @@ segregate_seqs <- function(seqs1, seqs2) {
     
     return(
         list(
-            common_seqs1 = common_seqs1,
-            common_seqs2 = common_seqs2,
-            unique_seqs1 = unique_seqs1,
-            unique_seqs2 = unique_seqs2
+            common_seqs1 = unique(common_seqs1),
+            common_seqs2 = unique(common_seqs2),
+            unique_seqs1 = unique(unique_seqs1),
+            unique_seqs2 = unique(unique_seqs2)
         )
     )
 }
