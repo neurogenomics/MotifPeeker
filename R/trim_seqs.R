@@ -11,7 +11,7 @@
 #' 
 #' @importFrom IRanges IRanges
 #' @importFrom GenomicRanges seqnames GRanges strand mcols start end
-#' @importFrom GenomeInfoDb seqlengths
+#' @importFrom Seqinfo seqlengths
 #' 
 #' @return A GRanges object with the trimmed sequences. The sequences are
 #' guaranteed to not exceed the \code{peak width + 1} (peak width + the summit
@@ -29,7 +29,7 @@
 #' @keywords internal
 trim_seqs <- function(peaks, peak_width, genome_build, respect_bounds = TRUE) {
     peak_width <- round(peak_width / 2, 0)
-    max_len <- GenomeInfoDb::seqlengths(genome_build)[as.character(
+    max_len <- Seqinfo::seqlengths(genome_build)[as.character(
         GenomicRanges::seqnames(peaks))]
     
     if (respect_bounds) {
