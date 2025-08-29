@@ -33,8 +33,8 @@ get_df_distances(
 }}
 
 \item{genome_build}{A character string with the abbreviated genome build
-name, or a BSGenome object. At the moment, only \code{hg38} and \code{hg19}
-are supported as abbreviated input.}
+name, or a BSGenome object. Check \link{check_genome_build} details for
+genome builds which can be imported as abbreviated names.}
 
 \item{out_dir}{A \code{character} vector of output directory.}
 

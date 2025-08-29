@@ -69,8 +69,8 @@ You can also input custom strings. Datasets will be grouped as long as they
 match their respective \code{exp_type}.}
 
 \item{genome_build}{A character string with the abbreviated genome build
-name, or a BSGenome object. At the moment, only \code{hg38} and \code{hg19}
-are supported as abbreviated input.}
+name, or a BSGenome object. Check \link{check_genome_build} details for
+genome builds which can be imported as abbreviated names.}
 
 \item{motif_files}{A character vector of path to motif files, or a vector of
 \code{\link[universalmotif]{universalmotif-class}} objects. (optional)

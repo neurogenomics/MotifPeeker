@@ -1,3 +1,9 @@
+# MotifPeeker 1.1.4
+
+## New Features
+* Add support for directly importing "mm10" and "mm39" mouse genome builds.
+
+
 # MotifPeeker 1.1.3
 
 ## Miscellaneous
