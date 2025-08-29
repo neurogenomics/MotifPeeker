@@ -10,7 +10,6 @@
 #'
 #' @param motif_file Path to a motif file or a
 #' \code{\link[universalmotif]{universalmotif-class}} object.
-#' @param motif_id ID of the motif (e.g. "MA1930.1").
 #' @param file_format Character string specifying the format of the motif file.
 #' The options are "homer", "jaspar", "meme", "transfac" and "uniprobe"
 #' @param verbose A logical indicating whether to print messages.
@@ -22,21 +21,20 @@
 #'                           "motif_MA1930.2.jaspar",
 #'                           package = "MotifPeeker")
 #' res <- read_motif_file(motif_file = motif_file,
-#'                        motif_id = "MA1930.2",
 #'                        file_format = "jaspar")
 #' print(res)
 #'
 #' @export
 read_motif_file <- function(motif_file,
-                            motif_id = "Unknown",
                             file_format = "auto",
                             verbose = FALSE) {
     ### Check if motif_file is a universalmotif object ###
 
     if (inherits(motif_file, "universalmotif")) {
-        stop("The motif_file is already a universalmotif object.")
+        return(motif_file)
     }
-    if (!is.character(motif_file)) stop("Input must be a character string.")
+    if (!is.character(motif_file))
+        stop("Input must be a character string or universalmotif object.")
     
     ### Load supported read functions ###
     read_functions <- list(

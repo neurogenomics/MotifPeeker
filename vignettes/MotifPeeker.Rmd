@@ -186,13 +186,16 @@ genome_build <- "hg38"  # Other abbreviations: "hg19", "mm10", "mm39"
 
 ### Motif Files
 *MotifPeeker* accepts a list of either `universalmotif` objects, or paths to the
-`.jaspar` files.  
+supported motif files. Refer to
+[`read_motif_file`](https://neurogenomics.github.io/MotifPeeker/reference/read_motif_file.html)
+for supported file formats.  
 ```{r, eval = FALSE}
 ## JASPAR motif files
 motif_files <- list("/path/to/motif1.jaspar", "/path/to/motif2.jaspar")
 ```
-If you use JASPAR motif files, it is recommended that you label them by using
-the `motif_labels` parameter of the `MotifPeeker()` function.  
+It is recommended that you label the motif files by using the `motif_labels`
+parameter of the `MotifPeeker()` function. This can make it easier to identify
+the motifs in the report.  
 
 In this example, we will use the bundled `universalmotif` motifs:
 ```{r prepare-motif-files}

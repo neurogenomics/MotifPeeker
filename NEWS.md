@@ -2,7 +2,12 @@
 
 ## New Features
 * Add support for directly importing "mm10" and "mm39" mouse genome builds.
+* `read_motif_file` can now accept an `universalmotif` object, returns the same
+  object.
 
+## Documentation
+* Improve instructions for importing genome builds.
+* Improve instructions for importing motifs.
 
 # MotifPeeker 1.1.3
 

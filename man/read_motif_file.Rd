@@ -4,18 +4,11 @@
 \alias{read_motif_file}
 \title{Read a motif file}
 \usage{
-read_motif_file(
-  motif_file,
-  motif_id = "Unknown",
-  file_format = "auto",
-  verbose = FALSE
-)
+read_motif_file(motif_file, file_format = "auto", verbose = FALSE)
 }
 \arguments{
 \item{motif_file}{Path to a motif file or a
 \code{\link[universalmotif]{universalmotif-class}} object.}
-
-\item{motif_id}{ID of the motif (e.g. "MA1930.1").}
 
 \item{file_format}{Character string specifying the format of the motif file.
 The options are "homer", "jaspar", "meme", "transfac" and "uniprobe"}
@@ -35,7 +28,6 @@ motif_file <- system.file("extdata",
                           "motif_MA1930.2.jaspar",
                           package = "MotifPeeker")
 res <- read_motif_file(motif_file = motif_file,
-                       motif_id = "MA1930.2",
                        file_format = "jaspar")
 print(res)
 
