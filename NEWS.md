@@ -1,3 +1,8 @@
+# MotifPeeker 1.1.3
+
+## Miscellaneous
+* Changed import to use `Seqinfo` instead of `GenomeInfoDb`.
+
 # MotifPeeker 1.1.2
 
 ## Miscellaneous
