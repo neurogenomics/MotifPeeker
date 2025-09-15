@@ -9,7 +9,7 @@ style="height: 300px !important;" />
 history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-1.1.3-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-1.3.0-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Aug-29-2025***
+**Updated:** ***Nov-03-2025***
 
 ## Introduction
 
@@ -369,9 +369,9 @@ Imperial College London
 utils::sessionInfo()
 ```
 
-    ## R Under development (unstable) (2025-08-22 r88678)
+    ## R Under development (unstable) (2025-10-27 r88972)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Sequoia 15.6.1
+    ## Running under: macOS Sequoia 15.7.1
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.6-arm64/Resources/lib/libRblas.0.dylib 
@@ -390,17 +390,17 @@ utils::sessionInfo()
     ##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.1.5         
     ##  [4] dplyr_1.1.4         compiler_4.6.0      BiocManager_1.30.26
     ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.4.0       
-    ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.1         
-    ## [13] ggplot2_3.5.2       R6_2.6.1            generics_0.1.4     
+    ## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.2         
+    ## [13] ggplot2_4.0.0       R6_2.6.1            generics_0.1.4     
     ## [16] knitr_1.50          yulab.utils_0.2.1   tibble_3.3.0       
     ## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.1.1    
-    ## [22] pillar_1.11.0       RColorBrewer_1.1-3  rlang_1.1.6        
-    ## [25] badger_0.2.5        xfun_0.53           fs_1.6.6           
-    ## [28] cli_3.6.5           magrittr_2.0.3      rworkflows_1.0.6   
-    ## [31] digest_0.6.37       grid_4.6.0          rstudioapi_0.17.1  
-    ## [34] rappdirs_0.3.3      lifecycle_1.0.4     vctrs_0.6.5        
-    ## [37] evaluate_1.0.4      glue_1.8.0          data.table_1.17.8  
-    ## [40] farver_2.1.2        rmarkdown_2.29      tools_4.6.0        
-    ## [43] pkgconfig_2.0.3     htmltools_0.5.8.1
+    ## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.6        
+    ## [25] badger_0.2.5        xfun_0.54           fs_1.6.6           
+    ## [28] S7_0.2.0            cli_3.6.5           magrittr_2.0.4     
+    ## [31] rworkflows_1.0.6    digest_0.6.37       grid_4.6.0         
+    ## [34] rstudioapi_0.17.1   rappdirs_0.3.3      lifecycle_1.0.4    
+    ## [37] vctrs_0.6.5         evaluate_1.0.5      glue_1.8.0         
+    ## [40] data.table_1.17.8   farver_2.1.2        rmarkdown_2.30     
+    ## [43] tools_4.6.0         pkgconfig_2.0.3     htmltools_0.5.8.1
 
 </details>

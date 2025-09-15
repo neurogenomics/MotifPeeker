@@ -15,9 +15,9 @@ print_DT(df, ..., html_tags = FALSE, extra = FALSE)
     \item{\code{data}}{a data object (either a matrix or a data frame)}
     \item{\code{options}}{a list of initialization options (see
 \url{https://datatables.net/reference/option/}); the character options
-wrapped in \code{\link[htmlwidgets]{JS}()} will be treated as literal
+wrapped in \code{\link[htmlwidgets:JS]{htmlwidgets::JS()}} will be treated as literal
 JavaScript code instead of normal character strings; you can also set
-options globally via \code{\link{options}(DT.options = list(...))}, and
+options globally via \verb{[options](DT.options = list(...))}, and
 global options will be merged into this \code{options} argument if set}
     \item{\code{class}}{the CSS class(es) of the table; see
 \url{https://datatables.net/manual/styling/classes}}
@@ -29,9 +29,7 @@ in the first column of the table if exist (not \code{NULL})}
     \item{\code{colnames}}{if missing, the column names of the data; otherwise it can be
 an unnamed character vector of names you want to show in the table header
 instead of the default data column names; alternatively, you can provide a
-\emph{named} numeric or character vector of the form \code{'newName1' = i1,
-'newName2' = i2} or \code{c('newName1' = 'oldName1', 'newName2' =
-'oldName2', ...)}, where \code{newName} is the new name you want to show in
+\emph{named} numeric or character vector of the form \verb{'newName1' = i1, 'newName2' = i2} or \code{c('newName1' = 'oldName1', 'newName2' = 'oldName2', ...)}, where \code{newName} is the new name you want to show in
 the table, and \code{i} or \code{oldName} is the index of the current
 column name}
     \item{\code{container}}{a sketch of the HTML table to be filled with data cells; by
@@ -54,15 +52,14 @@ third), or \code{c('Species', 'Sepal.Length')}; since the row names take
 the first column to display, you should add the numeric column indices by
 one when using \code{rownames}}
     \item{\code{style}}{either \code{'auto'}, \code{'default'}, \code{'bootstrap'}, or
-\code{'bootstrap4'}. If \code{'auto'}, and a **bslib** theme is
+\code{'bootstrap4'}. If \code{'auto'}, and a \strong{bslib} theme is
 currently active, then bootstrap styling is used in a way that "just works"
 for the active theme. Otherwise,
-\href{https://datatables.net/manual/styling/classes}{DataTables
-\code{'default'} styling} is used. If set explicitly to \code{'bootstrap'}
+\href{https://datatables.net/manual/styling/classes}{DataTables \code{'default'} styling} is used. If set explicitly to \code{'bootstrap'}
 or \code{'bootstrap4'}, one must take care to ensure Bootstrap's HTML
 dependencies (as well as Bootswatch themes, if desired) are included on the
 page. Note, when set explicitly, it's the user's responsibility to ensure
-that only one unique `style` value is used on the same page, if multiple
+that only one unique \code{style} value is used on the same page, if multiple
 DT tables exist, as different styling resources may conflict with each other.}
     \item{\code{width,height}}{Width/Height in pixels (optional, defaults to automatic
 sizing)}
@@ -73,11 +70,12 @@ then vertical and/or horizontal scrolling of the table cells will occur.}
     \item{\code{autoHideNavigation}}{\code{TRUE} to automatically hide navigational UI
 (only display the table body) when the number of total records is less
 than the page size. Note, it only works on the client-side processing mode
-and the `pageLength` option should be provided explicitly.}
+and the \code{pageLength} option should be provided explicitly.}
+    \item{\code{lazyRender}}{\code{FALSE} to render the table immediately on page load,
+otherwise delay rendering until the table becomes visible.}
     \item{\code{selection}}{the row/column selection mode (single or multiple selection
 or disable selection) when a table widget is rendered in a Shiny app;
-alternatively, you can use a list of the form \code{list(mode = 'multiple',
-selected = c(1, 3, 8), target = 'row', selectable = c(-2, -3))} to
+alternatively, you can use a list of the form \code{list(mode = 'multiple', selected = c(1, 3, 8), target = 'row', selectable = c(-2, -3))} to
 pre-select rows and control the selectable range; the element
 \code{target} in the list can be \code{'column'} to enable column
 selection, or \code{'row+column'} to make it possible to select both rows
@@ -94,13 +92,11 @@ the available plugins by calling \code{DT:::available_plugins()}}
 it to \code{"row"} to be able to edit a row, or \code{"column"} to edit a
 column, or \code{"all"} to edit all cells on the current page of the table.
 In all modes, start editing by doubleclicking on a cell. This argument can
-also be a list of the form \code{list(target = TARGET, disable =
-list(columns = INDICES))}, where \code{TARGET} can be \code{"cell"},
+also be a list of the form \code{list(target = TARGET, disable = list(columns = INDICES))}, where \code{TARGET} can be \code{"cell"},
 \code{"row"}, \code{"column"}, or \code{"all"}, and \code{INDICES} is an
 integer vector of column indices. Use the list form if you want to disable
 editing certain columns. You can also restrict the editing to accept only
-numbers by setting this argument to a list of the form \code{list(target =
-TARGET, numeric = INDICES)} where \code{INDICES} can be the vector of the
+numbers by setting this argument to a list of the form \code{list(target = TARGET, numeric = INDICES)} where \code{INDICES} can be the vector of the
 indices of the columns for which you want to restrict the editing to
 numbers or \code{"all"} to restrict the editing to numbers for all columns.
 If you don't set \code{numeric}, then the editing is restricted to numbers
@@ -112,8 +108,7 @@ list of the form \code{list(target = TARGET, area = INDICES)} where
 you want the text areas, or \code{"all"} if you want the text areas for
 all columns. Of course, you can request the numeric editing for some
 columns and the text areas for some other columns by setting
-\code{editable} to a list of the form \code{list(target = TARGET, numeric
-= INDICES1, area = INDICES2)}. Finally, you can edit date cells with a
+\code{editable} to a list of the form \code{list(target = TARGET, numeric = INDICES1, area = INDICES2)}. Finally, you can edit date cells with a
 calendar with \code{list(target = TARGET, date = INDICES)}; the target
 columns must have the \code{Date} type. If you don't set \code{date} in
 the \code{editable} list, the editing with the calendar is automatically

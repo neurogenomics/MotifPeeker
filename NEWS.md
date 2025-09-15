@@ -4,6 +4,7 @@
 * Add support for directly importing "mm10" and "mm39" mouse genome builds.
 * `read_motif_file` can now accept an `universalmotif` object, returns the same
   object.
+* Input datasets section now reports datasets in a tabular form.
 
 ## Documentation
 * Improve instructions for importing genome builds.

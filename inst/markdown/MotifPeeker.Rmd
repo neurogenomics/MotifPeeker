@@ -228,17 +228,19 @@ the closest known motifs in the [JASPAR](https://jaspar.uio.no/downloads/)
 or the provided database.  
 
 ## Input Datasets {-}
-Experimental dataset labels used:  
+`MotifPeeker` was run with the following input datasets:
+
 ```{r echo = FALSE}
-for (i in seq_along(result$peaks)) {
-    cat(paste0("\n- **Dataset ", i, "**: ", result$exp_labels[i], "  \n"))
-    cat(paste0("  - **Experiment Type**: ", result$exp_type[i], "  \n"))
-    if (!is.null(params$cell_counts)) {
-        cat(paste0("  - **Cell Count**: ", params$cell_counts[i], "  \n"))
-    }
+input_summary <- dplyr::tibble(
+    "Index" = seq_along(result$peaks),
+    "Reference" = ifelse(seq_along(result$peaks) == params$reference_index, "*", ""),
+    "Dataset Label" = result$exp_labels,
+    "Experiment Type" = result$exp_type
+)
+if (!is.null(params$cell_counts)) {
+    input_summary$`Cell Count` <- params$cell_counts
 }
-cat("\n- **Reference dataset**: ", result$exp_labels[params$reference_index], 
-    paste0("(Index: ", params$reference_index, ")  \n"))
+input_summary %>% print_DT(class="compact hover stripe", rownames = FALSE)
 ```
 
 User-provided motifs used:  
@@ -738,8 +740,8 @@ dplyr::tibble(
 # Known Motif Enrichment Analysis {.tabset .tabset-fade .tabset-pills #motif-enrichment-analysis}
 This section provides a comprehensive pair-wise comparison of motif enrichment
 patterns between the reference and comparison experiments. The presence of
-user-provided motif in the peaks was determined using
-[AME](https://meme-suite.org/meme/doc/ame.html) tool from MEME suite.  
+user-provided motif in the peaks was determined using the
+[AME](https://meme-suite.org/meme/doc/ame.html) tool from the MEME suite.  
 
 The overall summary plot compacts all the individual comparisons into one for
 quick assessment of relative motif enrichment across experiments. The individual
@@ -753,6 +755,34 @@ overlap by at least 1 base pair. All other peaks are classified as unique.
 **NOTE**: Discrepancies in motif enrichment in common peaks between experiments
 may arise due to variations in peak lengths. Experiment with longer peaks may
 have a higher proportion of peaks with the motif of interest purely by chance.  
+
+<details>
+<summary><b>More Details</b></summary>
+
+The AME tool (Analysis of Motif Enrichment) from the MEME Suite tests whether a
+given transcription factor-binding motif (TFBM) appears more often in your set
+of peaks compared to a background set of sequences. It works by:
+
+* Scanning each peak and matching background sequence for the motif
+* Calculating a score for how well the motif fits each sequence
+* Using statistical tests (e.g., Fisher’s exact test or rank-sum test) to see if
+motif scores in peaks are higher than in background
+* Reporting p-values for enrichment and adjusting them to control false
+discoveries when testing many motifs
+
+Since AME creates its background by shuffling your peaks (keeping dinucleotide
+frequencies), each dataset has its own background model. The adjusted p-values
+are reliable for ranking motifs within a dataset but should not be directly
+compared between different datasets.
+
+Instead, to compare across datasets, look at each motif’s rank by p-value,
+examine odds ratios or score differences, and consider the percentage of peaks
+containing the motif.
+
+More details on AME output: 
+[AME Output Documentation](https://meme-suite.org/meme/doc/ame-output-format.html)
+
+</details>
 
 ```{r motif_enrichment_analysis}
 if (!user_motif_metrics) {
