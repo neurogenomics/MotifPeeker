@@ -1,7 +1,7 @@
 Type: Package
 Package: MotifPeeker
 Title: Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
-Version: 1.2.0
+Version: 1.3.0
 Authors@R: c( 
     person(given = "Hiranyamaya",
            family = "Dash",
