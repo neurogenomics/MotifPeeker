@@ -151,7 +151,7 @@ MotifPeeker(
     motif_db = NULL,
     download_buttons = TRUE,
     out_dir = tempdir(),
-    workers = 2,
+    BPPARAM = BiocParallel::MulticoreParam(2), # Use 2 CPU cores
     debug = FALSE,
     quiet = FALSE,
     verbose = TRUE
@@ -257,10 +257,10 @@ arguments:
 <strong>Details</strong>
 </summary>
 
-- `workers`: Running motif discovery in parallel can significantly
-  reduce runtime, but it is very memory-intensive, consuming upwards of
-  10GB of RAM per thread. Memory starvation can greatly slow the
-  process, so set `workers` with caution.  
+- `BPPARAM = MulticoreParam(x)`: Running motif discovery in parallel can
+  significantly reduce runtime, but it is very memory-intensive,
+  consuming upwards of 10GB of RAM per thread. Memory starvation can
+  greatly slow the process, so set CPU cores (`x`) with caution.  
 - `motif_discovery_count`: The number of motifs to discover per sequence
   group exponentially increases runtime. We recommend no more than 5
   motifs to make a meaningful inference.  

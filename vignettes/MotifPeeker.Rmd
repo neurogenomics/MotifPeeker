@@ -310,10 +310,10 @@ To make computation faster, we highly recommend tuning the following arguments:
 <details>
 <summary><strong>Details</strong></summary>
 
-- `BPPARAM = Multicore(x)`: Running motif discovery in parallel can
+- `BPPARAM = MulticoreParam(x)`: Running motif discovery in parallel can
     significantly reduce runtime, but it is very memory-intensive, consuming
     upwards of 10GB of RAM per thread. Memory starvation can greatly slow the
-    process, so set workers (x) with caution.  
+    process, so set CPU cores (`x`) with caution.  
 - `motif_discovery_count`: The number of motifs to discover per sequence group
     exponentially increases runtime. We recommend no more than 5 motifs to make
     a meaningful inference.  
