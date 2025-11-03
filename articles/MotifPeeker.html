@@ -306,9 +306,9 @@ next sections.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code><span><span class="co">## Starting run with 1 cores.</span></span></code></pre>
 <pre><code><span><span class="co">## Script run successfully. </span></span>
-<span><span class="co">## Output saved at: /tmp/Rtmp7QSrHi/MotifPeeker_20251103_104133 </span></span>
-<span><span class="co">## Time taken: 1.12 mins.</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "/tmp/Rtmp7QSrHi/MotifPeeker_20251103_104133"</span></span></code></pre>
+<span><span class="co">## Output saved at: /tmp/RtmpxNowBQ/MotifPeeker_20251103_105357 </span></span>
+<span><span class="co">## Time taken: 1.11 mins.</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/tmp/RtmpxNowBQ/MotifPeeker_20251103_105357"</span></span></code></pre>
 <div class="section level4">
 <h4 id="required-inputs">Required Inputs<a class="anchor" aria-label="anchor" href="#required-inputs"></a>
 </h4>
@@ -414,11 +414,11 @@ arguments:</p>
 <details><summary><strong>Details</strong>
 </summary><ul>
 <li>
-<code>BPPARAM = Multicore(x)</code>: Running motif discovery in
+<code>BPPARAM = MulticoreParam(x)</code>: Running motif discovery in
 parallel can significantly reduce runtime, but it is very
 memory-intensive, consuming upwards of 10GB of RAM per thread. Memory
-starvation can greatly slow the process, so set workers (x) with
-caution.<br>
+starvation can greatly slow the process, so set CPU cores
+(<code>x</code>) with caution.<br>
 </li>
 <li>
 <code>motif_discovery_count</code>: The number of motifs to discover
@@ -508,35 +508,35 @@ steps to the documentation.</li>
 <span><span class="co">##   [5] rmarkdown_2.30                    fs_1.6.6                         </span></span>
 <span><span class="co">##   [7] BiocIO_1.20.0                     ragg_1.4.0                       </span></span>
 <span><span class="co">##   [9] vctrs_0.6.5                       memoise_2.0.1                    </span></span>
-<span><span class="co">##  [11] Rsamtools_2.26.0                  RCurl_1.98-1.17                  </span></span>
+<span><span class="co">##  [11] Rsamtools_2.27.0                  RCurl_1.98-1.17                  </span></span>
 <span><span class="co">##  [13] base64enc_0.1-3                   webshot_0.5.5                    </span></span>
-<span><span class="co">##  [15] htmltools_0.5.8.1                 S4Arrays_1.10.0                  </span></span>
-<span><span class="co">##  [17] curl_7.0.0                        SparseArray_1.10.1               </span></span>
+<span><span class="co">##  [15] htmltools_0.5.8.1                 S4Arrays_1.11.0                  </span></span>
+<span><span class="co">##  [17] curl_7.0.0                        SparseArray_1.11.1               </span></span>
 <span><span class="co">##  [19] sass_0.4.10                       bslib_0.9.0                      </span></span>
 <span><span class="co">##  [21] htmlwidgets_1.6.4                 desc_1.4.3                       </span></span>
 <span><span class="co">##  [23] plyr_1.8.9                        testthat_3.2.3                   </span></span>
 <span><span class="co">##  [25] httr2_1.2.1                       lubridate_1.9.4                  </span></span>
 <span><span class="co">##  [27] plotly_4.11.0                     cachem_1.1.0                     </span></span>
-<span><span class="co">##  [29] GenomicAlignments_1.46.0          mime_0.13                        </span></span>
+<span><span class="co">##  [29] GenomicAlignments_1.47.0          mime_0.13                        </span></span>
 <span><span class="co">##  [31] downloadthis_0.5.0                lifecycle_1.0.4                  </span></span>
 <span><span class="co">##  [33] iterators_1.0.14                  pkgconfig_2.0.3                  </span></span>
 <span><span class="co">##  [35] Matrix_1.7-3                      R6_2.6.1                         </span></span>
-<span><span class="co">##  [37] fastmap_1.2.0                     MatrixGenerics_1.22.0            </span></span>
+<span><span class="co">##  [37] fastmap_1.2.0                     MatrixGenerics_1.23.0            </span></span>
 <span><span class="co">##  [39] digest_0.6.37                     ps_1.9.1                         </span></span>
-<span><span class="co">##  [41] S4Vectors_0.48.0                  rprojroot_2.1.1                  </span></span>
+<span><span class="co">##  [41] S4Vectors_0.49.0                  rprojroot_2.1.1                  </span></span>
 <span><span class="co">##  [43] pkgload_1.4.1                     crosstalk_1.2.2                  </span></span>
-<span><span class="co">##  [45] textshaping_1.0.1                 GenomicRanges_1.62.0             </span></span>
+<span><span class="co">##  [45] textshaping_1.0.1                 GenomicRanges_1.63.0             </span></span>
 <span><span class="co">##  [47] RSQLite_2.4.3                     seriation_1.5.8                  </span></span>
 <span><span class="co">##  [49] bsplus_0.1.5                      labeling_0.4.3                   </span></span>
 <span><span class="co">##  [51] filelock_1.0.3                    timechange_0.3.0                 </span></span>
 <span><span class="co">##  [53] httr_1.4.7                        abind_1.4-8                      </span></span>
 <span><span class="co">##  [55] compiler_4.5.1                    bit64_4.6.0-1                    </span></span>
 <span><span class="co">##  [57] withr_3.0.2                       S7_0.2.0                         </span></span>
-<span><span class="co">##  [59] BiocParallel_1.44.0               viridis_0.6.5                    </span></span>
+<span><span class="co">##  [59] BiocParallel_1.45.0               viridis_0.6.5                    </span></span>
 <span><span class="co">##  [61] DBI_1.2.3                         heatmaply_1.6.0                  </span></span>
 <span><span class="co">##  [63] dendextend_1.19.1                 R.utils_2.13.0                   </span></span>
 <span><span class="co">##  [65] MASS_7.3-65                       rappdirs_0.3.3                   </span></span>
-<span><span class="co">##  [67] DelayedArray_0.36.0               rjson_0.2.23                     </span></span>
+<span><span class="co">##  [67] DelayedArray_0.37.0               rjson_0.2.23                     </span></span>
 <span><span class="co">##  [69] tools_4.5.1                       zip_2.3.3                        </span></span>
 <span><span class="co">##  [71] ggseqlogo_0.2                     R.oo_1.27.1                      </span></span>
 <span><span class="co">##  [73] glue_1.8.0                        restfulr_0.0.16                  </span></span>
@@ -546,28 +546,28 @@ steps to the documentation.</li>
 <span><span class="co">##  [81] R.methodsS3_1.8.2                 ca_0.71.1                        </span></span>
 <span><span class="co">##  [83] tidyr_1.3.1                       data.table_1.17.8                </span></span>
 <span><span class="co">##  [85] hms_1.1.4                         xml2_1.4.1                       </span></span>
-<span><span class="co">##  [87] XVector_0.50.0                    BiocGenerics_0.56.0              </span></span>
-<span><span class="co">##  [89] memes_1.18.0                      foreach_1.5.2                    </span></span>
+<span><span class="co">##  [87] XVector_0.51.0                    BiocGenerics_0.57.0              </span></span>
+<span><span class="co">##  [89] memes_1.19.0                      foreach_1.5.2                    </span></span>
 <span><span class="co">##  [91] pillar_1.11.1                     stringr_1.5.2                    </span></span>
 <span><span class="co">##  [93] vroom_1.6.6                       dplyr_1.1.4                      </span></span>
-<span><span class="co">##  [95] BiocFileCache_3.0.0               lattice_0.22-7                   </span></span>
+<span><span class="co">##  [95] BiocFileCache_3.1.0               lattice_0.22-7                   </span></span>
 <span><span class="co">##  [97] rtracklayer_1.70.0                bit_4.6.0                        </span></span>
-<span><span class="co">##  [99] universalmotif_1.28.0             tidyselect_1.2.1                 </span></span>
+<span><span class="co">##  [99] universalmotif_1.29.0             tidyselect_1.2.1                 </span></span>
 <span><span class="co">## [101] BSgenome.Hsapiens.UCSC.hg38_1.4.5 registry_0.5-1                   </span></span>
-<span><span class="co">## [103] Biostrings_2.78.0                 knitr_1.50                       </span></span>
-<span><span class="co">## [105] gridExtra_2.3                     IRanges_2.44.0                   </span></span>
-<span><span class="co">## [107] Seqinfo_1.0.0                     SummarizedExperiment_1.40.0      </span></span>
+<span><span class="co">## [103] Biostrings_2.79.1                 knitr_1.50                       </span></span>
+<span><span class="co">## [105] gridExtra_2.3                     IRanges_2.45.0                   </span></span>
+<span><span class="co">## [107] Seqinfo_1.1.0                     SummarizedExperiment_1.41.0      </span></span>
 <span><span class="co">## [109] cmdfun_1.0.2                      stats4_4.5.1                     </span></span>
-<span><span class="co">## [111] xfun_0.54                         Biobase_2.70.0                   </span></span>
+<span><span class="co">## [111] xfun_0.54                         Biobase_2.71.0                   </span></span>
 <span><span class="co">## [113] brio_1.1.5                        matrixStats_1.5.0                </span></span>
 <span><span class="co">## [115] DT_0.34.0                         stringi_1.8.7                    </span></span>
-<span><span class="co">## [117] UCSC.utils_1.6.0                  lazyeval_0.2.2                   </span></span>
+<span><span class="co">## [117] UCSC.utils_1.7.0                  lazyeval_0.2.2                   </span></span>
 <span><span class="co">## [119] yaml_2.3.10                       evaluate_1.0.5                   </span></span>
-<span><span class="co">## [121] codetools_0.2-20                  cigarillo_1.0.0                  </span></span>
+<span><span class="co">## [121] codetools_0.2-20                  cigarillo_1.1.0                  </span></span>
 <span><span class="co">## [123] tibble_3.3.0                      cli_3.6.5                        </span></span>
 <span><span class="co">## [125] systemfonts_1.2.3                 processx_3.8.6                   </span></span>
 <span><span class="co">## [127] jquerylib_0.1.4                   Rcpp_1.1.0                       </span></span>
-<span><span class="co">## [129] GenomeInfoDb_1.46.0               emoji_16.0.0                     </span></span>
+<span><span class="co">## [129] GenomeInfoDb_1.47.0               emoji_16.0.0                     </span></span>
 <span><span class="co">## [131] dbplyr_2.5.1                      XML_3.99-0.19                    </span></span>
 <span><span class="co">## [133] parallel_4.5.1                    pkgdown_2.1.3                    </span></span>
 <span><span class="co">## [135] ggplot2_4.0.0                     readr_2.1.5                      </span></span>

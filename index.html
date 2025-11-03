@@ -173,7 +173,7 @@
 <span>    motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    download_buttons <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    workers <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    BPPARAM <span class="op">=</span> <span class="fu">BiocParallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocParallel/man/MulticoreParam-class.html" class="external-link">MulticoreParam</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, <span class="co"># Use 2 CPU cores</span></span>
 <span>    debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -252,7 +252,7 @@ Useful for comparison of different methods. If not provided, all datasets will b
 <details><summary><strong>Details</strong>
 </summary><ul>
 <li>
-<code>workers</code>: Running motif discovery in parallel can significantly reduce runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per thread. Memory starvation can greatly slow the process, so set <code>workers</code> with caution.<br>
+<code>BPPARAM = MulticoreParam(x)</code>: Running motif discovery in parallel can significantly reduce runtime, but it is very memory-intensive, consuming upwards of 10GB of RAM per thread. Memory starvation can greatly slow the process, so set CPU cores (<code>x</code>) with caution.<br>
 </li>
 <li>
 <code>motif_discovery_count</code>: The number of motifs to discover per sequence group exponentially increases runtime. We recommend no more than 5 motifs to make a meaningful inference.<br>
