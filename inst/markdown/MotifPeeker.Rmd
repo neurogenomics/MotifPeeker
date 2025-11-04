@@ -569,6 +569,10 @@ tool is used to scan the sequences in the peak file to identify all occurrences
 of the provided motifs, and the distances between the centres of each motif
 occurrence and the closest peak summit are calculated.  
 
+> A *smaller* absolute mean/median motif-summit distance means the detected
+signal is more tightly centred on the motif, which usually reflects higher
+precision and quality in epigenomic profiling experiments.
+
 The data plotted represents the central 95% of the overall data, with values
 below the 2.5th percentile and above the 97.5th percentile excluded.  
 
@@ -593,34 +597,19 @@ if (!user_motif_metrics) {
                   nchar(user_motifs$motifs[[motif_i]]@consensus), " bp)  \n"))
         
         cat("\n#### By Experiment Type {- .unlisted}  \n")
-        cat("The top graph shows peak counts by distance from the motif",
-        "center, while the bottom graph depicts the probability density of",
-        "these distances. Different colors represent experiment types, and",
-        "each density curve sums to 1.  \n")
+        cat("The graph shows how many peaks occur at different distances from",
+            "the motif centre. The probability density curve shows where peaks",
+            "are most common, higher areas mean peaks are more likely at those",
+            "distances. The area under each curve adds up to 1, and different",
+            "colours show experiment types.")
         ## Limits
         motif_summit_dist_lims <- motif_summit_dist_df %>%
                       filter(motif_indice == motif_i) %>%
                       pull(distance) %>%
                       stats::quantile(c(0.025, 0.975))
-        
-        ## Raw count plot
-        motif_summit_dist_plt1 <- motif_summit_dist_df %>%
-            filter(motif_indice == motif_i) %>%
-            filter(distance >= motif_summit_dist_lims[1] &
-                    distance <= motif_summit_dist_lims[2]) %>%
-            ggplot(aes(x = distance, color = exp_type,
-                        text = paste("<b>Experiment Type</b>:", exp_type))) +
-            geom_freqpoly(bins = 30, linewidth = 1) +
-            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
-                            option = "A") +
-            labs(color = "Experiment Type",
-                x = "Distance (bp)", 
-                y = "Count")
-        motif_summit_dist_plt1 <- MotifPeeker:::to_plotly(motif_summit_dist_plt1,
-                                            html_tags = FALSE)
             
         ## Density plot
-        motif_summit_dist_plt2 <- motif_summit_dist_df %>%
+        motif_summit_dist_plt <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
             filter(distance >= motif_summit_dist_lims[1] &
                     distance <= motif_summit_dist_lims[2]) %>%
@@ -633,32 +622,19 @@ if (!user_motif_metrics) {
                             option = "A") +
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
-                x = "Distance (bp)", 
+                x = "Distance from Motif Centre (bp)", 
                 y = "Count")
-        motif_summit_dist_plt2 <- MotifPeeker:::to_plotly(motif_summit_dist_plt2,
+        motif_summit_dist_plt <- MotifPeeker:::to_plotly(motif_summit_dist_plt,
                                             html_tags = FALSE)
         
-        motif_summit_dist_exp_plt <-
-            subplot(motif_summit_dist_plt1, motif_summit_dist_plt2,
-                    nrows = 2, margin = 0.04) %>%
-            layout(
-                xaxis2 = list(title = "Distance (bp)",
-                              titlefont = list(size = 16)),
-                yaxis = list(title = "Peak Count",
-                             titlefont = list(size = 16)),
-                yaxis2 = list(title = "Peak Density",
-                              titlefont = list(size = 16))
-            )
-        print(htmltools::tagList(motif_summit_dist_exp_plt))
+        print(htmltools::tagList(motif_summit_dist_plt))
         
         ## DT
         motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
             group_by(exp_type) %>%
             summarise(
-                "Mean Distance" = round(mean(distance), 2),
                 "Absolute Mean Distance" = round(mean(abs(distance)), 2),
-                "Median Distance" = median(distance),
                 "Absolute Median Distance" = median(abs(distance)),
                 "Standard Deviation" = round(sd(distance), 2)
             ) %>%
@@ -698,9 +674,7 @@ if (!user_motif_metrics) {
             filter(motif_indice == motif_i) %>%
             group_by(exp_label, exp_type) %>%
             summarise(
-                "Mean Distance" = round(mean(distance), 2),
                 "Absolute Mean Distance" = round(mean(abs(distance)), 2),
-                "Median Distance" = median(distance),
                 "Absolute Median Distance" = median(abs(distance)),
                 "Standard Deviation" = round(sd(distance), 2),
                 .groups = "keep"

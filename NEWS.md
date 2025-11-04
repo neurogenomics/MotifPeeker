@@ -1,4 +1,10 @@
-# MotifPeeker 1.1.4
+# MotifPeeker 1.3.1
+
+## Section Rework
+
+* Motif-summit distances
+    - Remove distances by peak count.
+    - Reword descriptions
 
 ## New Features
 * Add support for directly importing "mm10" and "mm39" mouse genome builds.
