@@ -12,6 +12,7 @@
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/CTCF_ChIP_peaks.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/CTCF_TIP_peaks.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.html</loc></url>
+<url><loc>https://neurogenomics.github.io/MotifPeeker/reference/bootstrap_distances.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/bpapply.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/calc_frip.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/check_ENCODE.html</loc></url>
@@ -29,6 +30,7 @@
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/format_exptype.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/get_JASPARCORE.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/get_df_distances.html</loc></url>
+<url><loc>https://neurogenomics.github.io/MotifPeeker/reference/get_df_distances_bootstrapped.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/get_df_enrichment.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/get_download_buttons.html</loc></url>
 <url><loc>https://neurogenomics.github.io/MotifPeeker/reference/index.html</loc></url>

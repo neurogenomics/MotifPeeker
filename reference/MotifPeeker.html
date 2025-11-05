@@ -68,6 +68,9 @@ and alignment files (if provided), (2) Known Motif Enrichment Analysis and
 <span>  motif_files <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  motif_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cell_counts <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  distance_bootstrap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bootstrap_n <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>  bootstrap_len <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  motif_discovery_count <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  filter_n <span class="op">=</span> <span class="fl">6</span>,</span>
@@ -153,6 +156,27 @@ labels.</p></dd>
 <dt id="arg-cell-counts">cell_counts<a class="anchor" aria-label="anchor" href="#arg-cell-counts"></a></dt>
 <dd><p>An integer vector of experiment cell counts for each peak
 file. (optional) Creates additional comparisons based on cell counts.</p></dd>
+
+
+<dt id="arg-distance-bootstrap">distance_bootstrap<a class="anchor" aria-label="anchor" href="#arg-distance-bootstrap"></a></dt>
+<dd><p>A logical indicating whether to perform bootstrap
+analysis for motif-peak summit distances. (default = TRUE) If <code>FALSE</code>,
+a single distribution of distances will be calculated for each
+experiment-motif pair without bootstrapping.</p></dd>
+
+
+<dt id="arg-bootstrap-n">bootstrap_n<a class="anchor" aria-label="anchor" href="#arg-bootstrap-n"></a></dt>
+<dd><p>An integer specifying the number of bootstrap samples to
+generate. (default = 500) If <code>NULL</code>, a value of <code>0.7 x number of
+peaks in the smallest peakset</code> will be used (or if this value is less than
+100, use 100).</p></dd>
+
+
+<dt id="arg-bootstrap-len">bootstrap_len<a class="anchor" aria-label="anchor" href="#arg-bootstrap-len"></a></dt>
+<dd><p>An integer specifying the length of sequences to sample
+in each bootstrap iteration. (default = NULL) If <code>NULL</code>, a value of
+<code>0.2 x number of peaks in the smallest peakset</code> will be used (or if this
+value is less than 10, use 10).</p></dd>
 
 
 <dt id="arg-motif-discovery">motif_discovery<a class="anchor" aria-label="anchor" href="#arg-motif-discovery"></a></dt>
@@ -321,6 +345,9 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        motif_files <span class="op">=</span> <span class="va">motifs</span>,</span></span>
 <span class="r-in"><span>        motif_labels <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>        cell_counts <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>        distance_bootstrap <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>        bootstrap_n <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>        bootstrap_len <span class="op">=</span> <span class="fl">40</span>,</span></span>
 <span class="r-in"><span>        motif_discovery <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>        motif_discovery_count <span class="op">=</span> <span class="fl">2</span>,</span></span>
 <span class="r-in"><span>        motif_db <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
@@ -331,7 +358,7 @@ value can also reduce the runtime significantly.</p>
 <span class="r-in"><span>        verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/Rtmpd4ayBA/MotifPeeker_20251103_105225"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/tmp/RtmpTl2DJd/MotifPeeker_20251105_145645"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
