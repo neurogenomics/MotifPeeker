@@ -122,6 +122,7 @@ if (memes::meme_is_installed()) {
 }
 \seealso{
 Other generate data.frames: 
-\code{\link{get_df_distances}()}
+\code{\link{get_df_distances}()},
+\code{\link{get_df_distances_bootstrapped}()}
 }
 \concept{generate data.frames}

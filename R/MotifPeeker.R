@@ -69,6 +69,18 @@
 #' labels.
 #' @param cell_counts An integer vector of experiment cell counts for each peak
 #' file. (optional) Creates additional comparisons based on cell counts.
+#' @param distance_bootstrap A logical indicating whether to perform bootstrap
+#' analysis for motif-peak summit distances. (default = TRUE) If \code{FALSE},
+#' a single distribution of distances will be calculated for each
+#' experiment-motif pair without bootstrapping.
+#' @param bootstrap_n An integer specifying the number of bootstrap samples to
+#' generate. (default = 500) If \code{NULL}, a value of \code{0.7 x number of
+#' peaks in the smallest peakset} will be used (or if this value is less than
+#' 100, use 100).
+#' @param bootstrap_len An integer specifying the length of sequences to sample
+#' in each bootstrap iteration. (default = NULL) If \code{NULL}, a value of
+#' \code{0.2 x number of peaks in the smallest peakset} will be used (or if this
+#' value is less than 10, use 10).
 #' @param motif_discovery A logical indicating whether to perform
 #' motif discovery for the third section of the report. (default = TRUE)
 #' @param motif_discovery_count An integer specifying the number of motifs to
@@ -164,6 +176,9 @@
 #'         motif_files = motifs,
 #'         motif_labels = NULL,
 #'         cell_counts = NULL,
+#'         distance_bootstrap = TRUE,
+#'         bootstrap_n = 2,
+#'         bootstrap_len = 40,
 #'         motif_discovery = TRUE,
 #'         motif_discovery_count = 2,
 #'         motif_db = NULL,
@@ -186,6 +201,9 @@ MotifPeeker <- function(
         motif_files = NULL,
         motif_labels = NULL,
         cell_counts = NULL,
+        distance_bootstrap = TRUE,
+        bootstrap_n = 500,
+        bootstrap_len = NULL,
         motif_discovery = TRUE,
         motif_discovery_count = 3,
         filter_n = 6,
@@ -268,6 +286,9 @@ MotifPeeker <- function(
         motif_files = motif_files,
         motif_labels = motif_labels,
         cell_counts = cell_counts,
+        distance_bootstrap = distance_bootstrap,
+        bootstrap_n = bootstrap_n,
+        bootstrap_len = bootstrap_len,
         motif_discovery = motif_discovery,
         discover_motifs = motif_discovery_count,
         filter_n = filter_n,

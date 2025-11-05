@@ -27,6 +27,12 @@ params:
         value: NULL
     cell_counts:
         value: NULL
+    distance_bootstrap:
+        value: NULL
+    bootstrap_n:
+        value: NULL
+    bootstrap_len:
+        value: NULL
     motif_discovery:
         value: TRUE
     discover_motifs:
@@ -156,6 +162,18 @@ motif_summit_dist_df <- get_df_distances(
         result, user_motifs, genome_build, out_dir_extra, params$BPPARAM,
         params$meme_path, params$debug
     )
+motif_summit_dist_bootstrap_df <- if (params$distance_bootstrap) {
+    get_df_distances_bootstrapped(
+        result, user_motifs, genome_build,
+        samples_n = params$bootstrap_n,
+        samples_len = params$bootstrap_len,
+        BPPARAM = params$BPPARAM,
+        meme_path = params$meme_path,
+        verbose = params$verbose
+    )
+} else {
+    NULL
+}
 
 if (comparison_metrics) {
     ### Known-motif Analysis ###
@@ -569,12 +587,12 @@ tool is used to scan the sequences in the peak file to identify all occurrences
 of the provided motifs, and the distances between the centres of each motif
 occurrence and the closest peak summit are calculated.  
 
-> A *smaller* absolute mean/median motif-summit distance means the detected
-signal is more tightly centred on the motif, which usually reflects higher
-precision and quality in epigenomic profiling experiments.
-
 The data plotted represents the central 95% of the overall data, with values
 below the 2.5th percentile and above the 97.5th percentile excluded.  
+
+> A *smaller* absolute mean/median motif-summit distance means the detected
+signal is more tightly centred on the motif, which usually reflects higher
+precision and quality in epigenomic profiling experiments.  
 
 ```{r motif_summit_dist}
 if (!user_motif_metrics) {
@@ -608,17 +626,13 @@ if (!user_motif_metrics) {
                       pull(distance) %>%
                       stats::quantile(c(0.025, 0.975))
             
-        ## Density plot
+        ## Distance distribution histogram
         motif_summit_dist_plt <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
-            filter(distance >= motif_summit_dist_lims[1] &
-                    distance <= motif_summit_dist_lims[2]) %>%
             ggplot(aes(x = distance, fill = exp_type, color = exp_type,
                         text = paste("<b>Experiment Type</b>:", exp_type))) +
             geom_density(alpha = 0.5) +
             scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
-                            option = "A") +
-            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
                             option = "A") +
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
@@ -643,31 +657,64 @@ if (!user_motif_metrics) {
             print()
         
         cat("\n#### By Individual Dataset {- .unlisted}\n")
-        cat("This plot shows the average of the absolute distance between peak",
-        "summits and the nearest motif center for each input experiment.  \n")
-        ## Absolute mean distance plot
-        motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
-            filter(motif_indice == motif_i) %>%
-            group_by(exp_label, exp_type) %>%
-            summarise(abs_mean_dist = round(mean(abs(distance)), 2),
-                      .groups = "drop") %>%
-            ggplot(aes(x = exp_label, y = abs_mean_dist, fill = exp_type,
-                        text = paste0(
-                            "<b>Experiment Label</b>: ", exp_label, "<br>",
-                            "<b>Experiment Type</b>: ", exp_type, "<br>",
-                            "<b>Absolute Mean Distance</b>: ", abs_mean_dist
-                        ))) +
-                theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-                geom_col() +
-                labs(
-                  x = "Experiment Label",
-                  y = "Absolute Mean Distance (bp)",
-                  fill = "Experiment Type"
-                ) +
-            scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
-                               option = "A")
-        
-            print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+        if (!distance_bootstrap) {
+            cat("This plot shows the average of the absolute distance between peak",
+            "summits and the nearest motif center for each input experiment.  \n")
+            ## Absolute mean distance plot
+            motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
+                filter(motif_indice == motif_i) %>%
+                group_by(exp_label, exp_type) %>%
+                summarise(abs_mean_dist = round(mean(abs(distance)), 2),
+                          .groups = "drop") %>%
+                ggplot(aes(x = exp_label, y = abs_mean_dist, fill = exp_type,
+                            text = paste0(
+                                "<b>Experiment Label</b>: ", exp_label, "<br>",
+                                "<b>Experiment Type</b>: ", exp_type, "<br>",
+                                "<b>Absolute Mean Distance</b>: ", abs_mean_dist
+                            ))) +
+                    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+                    geom_col() +
+                    labs(
+                      x = "Experiment Label",
+                      y = "Absolute Mean Distance (bp)",
+                      fill = "Experiment Type"
+                    ) +
+                scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
+                                   option = "A")
+            
+                print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+        } else {
+            cat("This plot shows the bootstrapped distribution of the mean absolute distances of motif centre to peak summits. Larger frequencies at smaller distances indicate that the experiment consistently shows peaks close to the motif centre.  \n")
+            cat("Each experiment was resampled", max(motif_summit_dist_bootstrap_df$bootstrap_iteration), "times. \n")
+            motif_summit_dist_bootstrap_plt <- motif_summit_dist_bootstrap_df %>%
+                group_by(exp_label, exp_type) %>%
+                ggplot(aes(
+                    x = distance,
+                    fill = exp_label,
+                    text = paste0(
+                        "<b>Experiment Label</b>: ",
+                        exp_label,
+                        "<br>",
+                        "<b>Experiment Type</b>: ",
+                        exp_type,
+                        "<br>"
+                    )
+                )) +
+                geom_histogram(binwidth = 5,
+                               position = "identity",
+                               alpha = 0.6) +
+                labs(x = "Absolute Mean Distance to Motif Centre (bp)",
+                     y = "Frequency of Resamples",
+                     fill = "Experiment Label") +
+                scale_fill_viridis(
+                    begin = 0.15,
+                    end = 0.6,
+                    discrete = TRUE,
+                    option = "A"
+                )
+            
+            print(MotifPeeker:::to_plotly(motif_summit_dist_bootstrap_plt, html_tags = TRUE))
+        }
         
         ## DT
         motif_summit_dist_df %>%

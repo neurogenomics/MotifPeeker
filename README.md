@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Nov-03-2025***
+**Updated:** ***Nov-05-2025***
 
 ## Introduction
 

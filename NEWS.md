@@ -5,6 +5,8 @@
 * Motif-summit distances
     - Remove distances by peak count.
     - Reword descriptions
+    - [NEW] Add bootstrapping to visualise the distribution of motif-summit
+    distances.
 
 ## New Features
 * Add support for directly importing "mm10" and "mm39" mouse genome builds.
