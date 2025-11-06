@@ -121,6 +121,8 @@ discover_metrics <- params$motif_discovery && comparison_metrics
 ## Misc
 ex_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
                 emoji::emoji("exclamation"), "!!")
+check_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
+                emoji::emoji("check"), "*")
 
 ## Check motif_db
 using_jaspar_db <- if (discover_metrics) ifelse(is.null(params$motif_db),
@@ -251,7 +253,7 @@ or the provided database.
 ```{r echo = FALSE}
 input_summary <- dplyr::tibble(
     "Index" = seq_along(result$peaks),
-    "Reference" = ifelse(seq_along(result$peaks) == params$reference_index, "*", ""),
+    "Reference" = ifelse(seq_along(result$peaks) == params$reference_index, check_emo, ""),
     "Dataset Label" = result$exp_labels,
     "Experiment Type" = result$exp_type
 )
