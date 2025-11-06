@@ -626,18 +626,22 @@ if (!user_motif_metrics) {
                       pull(distance) %>%
                       stats::quantile(c(0.025, 0.975))
             
-        ## Distance distribution histogram
+        ## Density plot
         motif_summit_dist_plt <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
+            filter(distance >= motif_summit_dist_lims[1] &
+                    distance <= motif_summit_dist_lims[2]) %>%
             ggplot(aes(x = distance, fill = exp_type, color = exp_type,
                         text = paste("<b>Experiment Type</b>:", exp_type))) +
             geom_density(alpha = 0.5) +
             scale_fill_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
                             option = "A") +
+            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
+                            option = "A") +
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
                 x = "Distance from Motif Centre (bp)", 
-                y = "Count")
+                y = "Density")
         motif_summit_dist_plt <- MotifPeeker:::to_plotly(motif_summit_dist_plt,
                                             html_tags = FALSE)
         
@@ -686,7 +690,10 @@ if (!user_motif_metrics) {
         } else {
             cat("This plot shows the bootstrapped distribution of the mean absolute distances of motif centre to peak summits. Larger frequencies at smaller distances indicate that the experiment consistently shows peaks close to the motif centre.  \n")
             cat("Each experiment was resampled", max(motif_summit_dist_bootstrap_df$bootstrap_iteration), "times. \n")
+            
+            ## Distance distribution histogram
             motif_summit_dist_bootstrap_plt <- motif_summit_dist_bootstrap_df %>%
+                filter(motif_indice == motif_i) %>%
                 group_by(exp_label, exp_type) %>%
                 ggplot(aes(
                     x = distance,
@@ -700,9 +707,9 @@ if (!user_motif_metrics) {
                         "<br>"
                     )
                 )) +
-                geom_histogram(binwidth = 5,
+                geom_histogram(bins = 30,
                                position = "identity",
-                               alpha = 0.6) +
+                               alpha = 0.5) +
                 labs(x = "Absolute Mean Distance to Motif Centre (bp)",
                      y = "Frequency of Resamples",
                      fill = "Experiment Label") +

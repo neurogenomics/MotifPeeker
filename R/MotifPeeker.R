@@ -318,7 +318,7 @@ MotifPeeker <- function(
     
     ### Display report ###
     messager(
-        "Script run successfully. \nOutput saved at:",
+        "Script run successful. \nOutput saved at:",
         out_dir,
         "\nTime taken:",
         round(difftime(Sys.time(), start_time, units = "mins"), 2), "mins.",

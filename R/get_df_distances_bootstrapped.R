@@ -81,7 +81,7 @@ get_df_distances_bootstrapped <- function(result,
     # Setup samples_n, samples_len
     min_peaks <- min(sapply(peak_combinations, length))
     if (is.null(samples_n)) {
-        samples_n <- max(round(min_peaks) * 0.7, 100)
+        samples_n <- max(round(min_peaks * 0.7), 100)
     }
     if (is.null(samples_len)) {
         samples_len <- max(round(min_peaks / 5), 10)
