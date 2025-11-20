@@ -690,7 +690,7 @@ if (!user_motif_metrics) {
             
                 print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
         } else {
-            cat("This plot shows the bootstrapped distribution of the mean absolute distances of motif centre to peak summits. Larger frequencies at smaller distances indicate that the experiment consistently shows peaks close to the motif centre.  \n")
+            cat("This plot shows the bootstrapped distribution of the mean absolute distances of motif centre to peak summits. Larger frequencies at smaller distances indicate that the experiment consistently shows peaks close to the motif centre.  \n  ")
             cat("Each experiment was resampled", max(motif_summit_dist_bootstrap_df$bootstrap_iteration), "times. \n")
             
             ## Distance distribution histogram

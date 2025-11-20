@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Nov-05-2025***
+**Updated:** ***Nov-20-2025***
 
 ## Introduction
 
@@ -371,7 +371,7 @@ utils::sessionInfo()
 
     ## R Under development (unstable) (2025-10-27 r88972)
     ## Platform: aarch64-apple-darwin20
-    ## Running under: macOS Sequoia 15.7.1
+    ## Running under: macOS Tahoe 26.1
     ## 
     ## Matrix products: default
     ## BLAS:   /Library/Frameworks/R.framework/Versions/4.6-arm64/Resources/lib/libRblas.0.dylib 

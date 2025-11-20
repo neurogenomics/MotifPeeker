@@ -49,3 +49,4 @@ inst/markdown/test.Rmd
 codecov.yml
 !.github/codecov.yml
 docs/
+test.*
