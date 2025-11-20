@@ -1,0 +1,437 @@
+# `MotifPeeker` Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
+
+![](https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png)
+
+[![Bioc
+history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
+[![License: GPL (\>=
+3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
+[![](https://img.shields.io/badge/devel%20version-1.3.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)  
+[![R build
+status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg)](https://github.com/neurogenomics/MotifPeeker/actions)
+[![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg)](https://app.codecov.io/gh/neurogenomics/MotifPeeker)  
+[![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg "Codecov icicle graph")](https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master)
+
+**Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
+Nathan Skene***  
+**Updated:** ***Nov-20-2025***
+
+## Introduction
+
+`MotifPeeker` is used to compare and analyse datasets from epigenomic
+profiling methods with motif enrichment as the key benchmark. The
+package outputs an HTML report consisting of three sections:
+
+1.  **General Metrics**: Provides an overview of metrics related to
+    dataset peaks, including FRiP scores, peak widths, and
+    motif-to-summit distances.
+
+2.  **Known Motif Enrichment Analysis**: Presents statistics on the
+    frequency of enriched user-supplied motifs in the datasets and
+    compares them between the common and unique peaks from comparison
+    and reference datasets.
+
+3.  **Discovered Motif Enrichment Analysis**: Details the statistics of
+    motifs discovered in common and unique peaks from comparison and
+    reference datasets. Examines motif similarities and identifies the
+    closest known motifs in the JASPAR or the provided database.
+
+## Installation
+
+`MotifPeeker` uses
+[`memes`](https://www.bioconductor.org/packages/release/bioc/html/memes.html)
+which relies on a local install of the [MEME
+suite](https://meme-suite.org/meme/), which can be installed as follows:
+
+``` bash
+MEME_VERSION=5.5.5  # or the latest version
+
+wget https://meme-suite.org/meme/meme-software/$MEME_VERSION/meme-$MEME_VERSION.tar.gz
+tar zxf meme-$MEME_VERSION.tar.gz
+cd meme-$MEME_VERSION
+./configure --prefix=$HOME/meme --with-url=http://meme-suite.org/ \
+--enable-build-libxml2 --enable-build-libxslt
+make
+make install
+
+# Add to PATH
+echo 'export PATH=$HOME/meme/bin:$HOME/meme/libexec/meme-$MEME_VERSION:$PATH' >> ~/.bashrc
+echo 'export MEME_BIN=$HOME/meme/bin' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**NOTE:** It is important that Perl dependencies associated with MEME
+suite are also installed, particularly `XML::Parser`, which can be
+installed using the following command in the terminal:
+
+``` bash
+cpan install XML::Parser
+```
+
+For more information, refer to the [Perl dependency section of the MEME
+suite](https://meme-suite.org/meme/doc/install.html#prereq_perl).
+
+Once the MEME suite and its associated Perl dependencies are installed,
+the development version of `MotifPeeker` can be installed using the
+following code:
+
+``` r
+# Install latest version of MotifPeeker
+BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE)
+
+# Load the package
+library(MotifPeeker)
+```
+
+Alternatively, you can use the [Docker/Singularity
+container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html)
+to run the package out-of-the-box.
+
+## Documentation
+
+#### [MotifPeeker Website](https://neurogenomics.github.io/MotifPeeker)
+
+#### [Get Started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.html)
+
+#### [Docker/Singularity Container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html)
+
+#### [Example Reports](https://neurogenomics.github.io/MotifPeeker/articles/examples.html)
+
+#### [Troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.html)
+
+## Usage
+
+Load the package and example datasets.
+
+``` r
+library(MotifPeeker)
+data("CTCF_ChIP_peaks", package = "MotifPeeker")
+data("CTCF_TIP_peaks", package = "MotifPeeker")
+data("motif_MA1102.2", package = "MotifPeeker")
+data("motif_MA1930.2", package = "MotifPeeker")
+```
+
+Prepare input files.
+
+``` r
+peak_files <- list(CTCF_ChIP_peaks, CTCF_TIP_peaks)
+alignment_files <- list(
+    system.file("extdata", "CTCF_ChIP_alignment.bam", package = "MotifPeeker"),
+    system.file("extdata", "CTCF_TIP_alignment.bam", package = "MotifPeeker")
+)
+motif_files <- list(motif_MA1102.2, motif_MA1930.2)
+```
+
+Run
+[`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.md):
+
+``` r
+MotifPeeker(
+    peak_files = peak_files,
+    reference_index = 2,  # Set TIP-seq experiment as reference
+    alignment_files = alignment_files,
+    exp_labels = c("ChIP", "TIP"),
+    exp_type = c("chipseq", "tipseq"),
+    genome_build = "hg38",
+    motif_files = motif_files,
+    cell_counts = NULL,  # No cell-count information
+    motif_discovery = TRUE,
+    motif_discovery_count = 3,
+    motif_db = NULL,
+    download_buttons = TRUE,
+    out_dir = tempdir(),
+    BPPARAM = BiocParallel::MulticoreParam(2), # Use 2 CPU cores
+    debug = FALSE,
+    quiet = FALSE,
+    verbose = TRUE
+)
+```
+
+### Required Inputs
+
+These input parameters must be provided:
+
+**Details**
+
+- `peak_files`: A list of path to peak files or `GRanges` objects with
+  the peaks to analyse. Currently, only peak files from `MACS2/3`
+  (`.narrowPeak`) and `SEACR` (`.bed`) are supported. ENCODE file IDs
+  can also be provided to automatically fetch peak file(s) from the
+  ENCODE database.  
+- `reference_index`: An integer specifying the index of the reference
+  dataset in the `peak_files` list to use as reference for various
+  comparisons. (default = 1)  
+- `genome_build`: A character string or a `BSgenome` object specifying
+  the genome build of the datasets. At the moment, only hg38 and hg19
+  are supported as abbreviated input.  
+- `out_dir`: A character string specifying the output directory to save
+  the HTML report and other files.
+
+### Optional Inputs
+
+These input parameters optional, but *recommended* to add more analyses,
+or enhance them:
+
+**Details**
+
+- `alignment_files`: A list of path to alignment files or
+  [`Rsamtools::BamFile`](https://rdrr.io/pkg/Rsamtools/man/BamFile-class.html)
+  objects with the alignment sequences to analyse. Alignment files are
+  used to calculate read-related metrics like FRiP score. ENCODE file
+  IDs can also be provided to automatically fetch alignment file(s) from
+  the ENCODE database.  
+- `exp_labels`: A character vector of labels for each peak file. If not
+  provided, capital letters will be used as labels in the report.
+- `exp_type`: A character vector of experimental types for each peak
+  file.  
+  Useful for comparison of different methods. If not provided, all
+  datasets will be classified as “unknown” experiment types in the
+  report. `exp_type` is used only for labelling. It does not affect the
+  analyses. You can also input custom strings. Datasets will be grouped
+  as long as they match their respective `exp_type`. Supported
+  experimental types are:
+  - `chipseq`: ChIP-seq data  
+  - `tipseq`: TIP-seq data  
+  - `cuttag`: CUT&Tag data  
+  - `cutrun`: CUT&Run data  
+- `motif_files`: A character vector of path to motif files, or a vector
+  of `universalmotif-class` objects. Required to run Known Motif
+  Enrichment Analysis. JASPAR matrix IDs can also be provided to
+  automatically fetch motifs from the JASPAR.  
+- `motif_labels`: A character vector of labels for each motif file. Only
+  used if path to file names are passed in motif_files. If not provided,
+  the motif file names will be used as labels.  
+- `cell_counts`: An integer vector of experiment cell counts for each
+  peak file (if available). Creates additional comparisons based on cell
+  counts.  
+- `motif_db`: Path to `.meme` format file to use as reference database,
+  or a list of `universalmotif-class` objects. Results from motif
+  discovery are searched against this database to find similar motifs.
+  If not provided, JASPAR CORE database will be used, making this
+  parameter **truly optional**. **NOTE**: p-value estimates are
+  inaccurate when the database has fewer than 50 entries.
+
+### Other Options
+
+For more information on additional parameters, please refer to the
+documentation for
+[`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.html).
+
+### Runtime Guidance
+
+For 4 datasets, the runtime is approximately 3 minutes with
+motif_discovery disabled. However, motif discovery can take hours to
+complete.
+
+To make computation faster, we highly recommend tuning the following
+arguments:
+
+**Details**
+
+- `BPPARAM = MulticoreParam(x)`: Running motif discovery in parallel can
+  significantly reduce runtime, but it is very memory-intensive,
+  consuming upwards of 10GB of RAM per thread. Memory starvation can
+  greatly slow the process, so set CPU cores (`x`) with caution.  
+- `motif_discovery_count`: The number of motifs to discover per sequence
+  group exponentially increases runtime. We recommend no more than 5
+  motifs to make a meaningful inference.  
+- `trim_seq_width`: Trimming sequences before running motif discovery
+  can significantly reduce the search space. Sequence length can
+  exponentially increase runtime. We recommend running the script with
+  `motif_discovery = FALSE` and studying the motif-summit distance
+  distribution under general metrics to find the sequence length that
+  captures most motifs. A good starting point is 150 but it can be
+  reduced further if appropriate.
+
+### Outputs
+
+`MotifPeeker` generates its output in a new folder within he `out_dir`
+directory. The folder is named `MotifPeeker_YYYYMMDD_HHMMSS` and
+contains the following files:
+
+- `MotifPeeker.html`: The main HTML report, including all analyses and
+  plots.  
+- Output from various MEME suite tools in their respecive
+  sub-directories, if `save_runfiles` is set to `TRUE`.
+
+## Datasets
+
+`MotifPeeker` comes with several datasets bundled:
+
+**Details**
+
+- `CTCF_TIP_peaks`: Human CTCF peak file generated with TIP-seq using
+  HCT116 cell-line. No control files were used to generate the peak
+  file. The peaks were called using `MACS3` with
+  `CTCF_TIP_alignment.bam` as input.  
+- `CTCF_ChIP_peaks`: Human CTCF peak file generated with ChIP-seq using
+  HCT116 cell-line. No control files were used to generate the peak
+  file. The peaks were called using `MACS3` with
+  `CTCF_ChIP_alignment.bam` as input.  
+- `motif_MA1102.3`: The JASPAR motif for CTCFL (MA1102.3) for *Homo
+  Sapiens*. Sourced from
+  [JASPAR](https://jaspar.elixir.no/matrix/MA1102.3/)
+- `motif_MA1930.2`: The JASPAR motif for CTCFL (MA1930.2) for *Homo
+  Sapiens*. Sourced from
+  [JASPAR](https://jaspar.elixir.no/matrix/MA1930.2/)
+- `CTCF_TIP_alignment.bam`: Human CTCF alignment file generated with
+  TIP-seq using HCT116 cell-line. The alignment file was generated using
+  the [`nf-core/cutandrun`](https://nf-co.re/cutandrun/3.2.2) pipeline.
+  Raw read files were sourced from *NIH Sequence Read Archives* [*ID:
+  SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166).
+  Only available as *extdata*.  
+- `CTCF_ChIP_alignment.bam`: Human CTCF alignment file generated with
+  ChIP-seq using HCT116 cell-line. Sourced from [ENCODE (Accession:
+  ENCFF091ODJ)](https://www.encodeproject.org/files/ENCFF091ODJ/). Only
+  available as *extdata*.
+
+Please note that the peaks and alignments included are a very small
+subset (*chr10:65,654,529-74,841,155*) of the actual data. It only
+serves as an example to demonstrate the package and run tests to
+maintain the integrity of the package.
+
+## Citation
+
+If you use `MotifPeeker`, please cite:
+
+> MotifPeeker: R package for benchmarking epigenomic profiling methods
+> using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
+> Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
+> <https://doi.org/10.1101/2025.03.31.645756>
+
+## Licensing Restrictions
+
+MotifPeeker incorporates the MEME Suite, which is available free of
+charge for educational, research, and non-profit purposes. Users
+intending to use MotifPeeker for commercial purposes are required to
+purchase a license for the MEME Suite.
+
+For more details, please refer to the [MEME Suite Copyright
+Page](https://meme-suite.org/meme/doc/copyright.html).
+
+## Contact
+
+### [Neurogenomics Lab](https://www.neurogenomics.co.uk)
+
+UK Dementia Research Institute  
+Department of Brain Sciences  
+Faculty of Medicine  
+Imperial College London  
+[GitHub](https://github.com/neurogenomics)
+
+------------------------------------------------------------------------
+
+### Session Info
+
+``` r
+utils::sessionInfo()
+```
+
+``` R
+## R version 4.5.1 (2025-06-13)
+## Platform: x86_64-pc-linux-gnu
+## Running under: Ubuntu 24.04.2 LTS
+## 
+## Matrix products: default
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## time zone: UTC
+## tzcode source: system (glibc)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] rmarkdown_2.30
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.1.5         
+##  [4] dplyr_1.1.4         compiler_4.5.1      BiocManager_1.30.27
+##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.4.0       
+## [10] yaml_2.3.10         fastmap_1.2.0       here_1.0.2         
+## [13] ggplot2_4.0.1       R6_2.6.1            generics_0.1.4     
+## [16] knitr_1.50          yulab.utils_0.2.1   tibble_3.3.0       
+## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.1.1    
+## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.6        
+## [25] badger_0.2.5        xfun_0.54           fs_1.6.6           
+## [28] S7_0.2.1            cli_3.6.5           magrittr_2.0.4     
+## [31] rworkflows_1.0.6    digest_0.6.38       grid_4.5.1         
+## [34] rappdirs_0.3.3      lifecycle_1.0.4     vctrs_0.6.5        
+## [37] evaluate_1.0.5      glue_1.8.0          data.table_1.17.8  
+## [40] farver_2.1.2        tools_4.5.1         pkgconfig_2.0.3    
+## [43] htmltools_0.5.8.1
+```
+
+# Package index
+
+## All functions
+
+- [`CTCF_ChIP_peaks`](https://neurogenomics.github.io/MotifPeeker/reference/CTCF_ChIP_peaks.md)
+  : Example ChIP-seq peak file
+- [`CTCF_TIP_peaks`](https://neurogenomics.github.io/MotifPeeker/reference/CTCF_TIP_peaks.md)
+  : Example TIP-seq peak file
+- [`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.md)
+  : Benchmark epigenomic profiling methods using motif enrichment
+- [`bootstrap_distances()`](https://neurogenomics.github.io/MotifPeeker/reference/bootstrap_distances.md)
+  : Bootstrap motif-summit distances for one set of peaks and one motif
+- [`calc_frip()`](https://neurogenomics.github.io/MotifPeeker/reference/calc_frip.md)
+  : Calculate FRiP score
+- [`check_ENCODE()`](https://neurogenomics.github.io/MotifPeeker/reference/check_ENCODE.md)
+  : Check for ENCODE input
+- [`check_JASPAR()`](https://neurogenomics.github.io/MotifPeeker/reference/check_JASPAR.md)
+  : Check for JASPAR input
+- [`check_genome_build()`](https://neurogenomics.github.io/MotifPeeker/reference/check_genome_build.md)
+  : Check genome build
+- [`denovo_motifs()`](https://neurogenomics.github.io/MotifPeeker/reference/denovo_motifs.md)
+  : Discover motifs in sequences
+- [`find_motifs()`](https://neurogenomics.github.io/MotifPeeker/reference/find_motifs.md)
+  : Find similar motifs
+- [`get_JASPARCORE()`](https://neurogenomics.github.io/MotifPeeker/reference/get_JASPARCORE.md)
+  : Download JASPAR CORE database
+- [`get_df_distances()`](https://neurogenomics.github.io/MotifPeeker/reference/get_df_distances.md)
+  : Get dataframe with motif-summit distances
+- [`get_df_distances_bootstrapped()`](https://neurogenomics.github.io/MotifPeeker/reference/get_df_distances_bootstrapped.md)
+  : Get dataframe with bootstrapped motif-summit distances
+- [`get_df_enrichment()`](https://neurogenomics.github.io/MotifPeeker/reference/get_df_enrichment.md)
+  : Get dataframe with motif enrichment values
+- [`motif_MA1102.3`](https://neurogenomics.github.io/MotifPeeker/reference/motif_MA1102.3.md)
+  : Example CTCFL JASPAR motif file
+- [`motif_MA1930.2`](https://neurogenomics.github.io/MotifPeeker/reference/motif_MA1930.2.md)
+  : Example CTCF JASPAR motif file
+- [`motif_enrichment()`](https://neurogenomics.github.io/MotifPeeker/reference/motif_enrichment.md)
+  : Calculate motif enrichment in a set of sequences
+- [`motif_similarity()`](https://neurogenomics.github.io/MotifPeeker/reference/motif_similarity.md)
+  : Compare motifs from segregated sequences
+- [`read_motif_file()`](https://neurogenomics.github.io/MotifPeeker/reference/read_motif_file.md)
+  : Read a motif file
+- [`read_peak_file()`](https://neurogenomics.github.io/MotifPeeker/reference/read_peak_file.md)
+  : Read MACS2/3 narrowPeak or SEACR BED peak file
+- [`save_peak_file()`](https://neurogenomics.github.io/MotifPeeker/reference/save_peak_file.md)
+  : Minimally save a peak object to a file (BED4)
+- [`segregate_seqs()`](https://neurogenomics.github.io/MotifPeeker/reference/segregate_seqs.md)
+  : Segregate input sequences into common and unique groups
+- [`summit_to_motif()`](https://neurogenomics.github.io/MotifPeeker/reference/summit_to_motif.md)
+  : Calculate the distance between peak summits and motifs
+
+# Articles
+
+### All vignettes
+
+- [Docker/Singularity
+  Containers](https://neurogenomics.github.io/MotifPeeker/articles/docker.md):
+- [Example
+  Reports](https://neurogenomics.github.io/MotifPeeker/articles/examples.md):
+- [Get
+  started](https://neurogenomics.github.io/MotifPeeker/articles/MotifPeeker.md):
+- [Troubleshooting](https://neurogenomics.github.io/MotifPeeker/articles/troubleshooting.md):
