@@ -107,7 +107,7 @@ if (memes::meme_is_installed()) {
 #>   nsites pval type pseudocount          bkg X.name. X.altname. best_match_name
 #> 1     21    1  PCM           0 0.24, 0.....    name    altname        MA2125.1
 #>   best_match_altname                                             best_db_name
-#> 1             Zfp809 1baa16bd2139_JASPAR2024_CORE_non-redundant_pfms_meme.txt
+#> 1             Zfp809 1cc0308007a9_JASPAR2024_CORE_non-redundant_pfms_meme.txt
 #>   best_match_offset best_match_pval best_match_eval best_match_qval
 #> 1                 1         3.6e-05          0.0845           0.169
 #>   best_match_strand best_match_motif       tomtom
