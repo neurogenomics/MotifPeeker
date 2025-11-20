@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/revision_changes/inst/CITATION)
+[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/master/inst/CITATION)
 
 MotifPeeker: R package for benchmarking epigenomic profiling methods
 using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas

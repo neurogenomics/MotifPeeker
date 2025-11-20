@@ -29,5 +29,5 @@ A character string specifying the path to the downloaded file.
 ``` r
 check_JASPAR("MA1930.2")
 #>                                                               BFC3 
-#> "/github/home/.cache/R/BiocFileCache/1be04759184e_MA1930.2.jaspar" 
+#> "/github/home/.cache/R/BiocFileCache/1bf37a9c3175_MA1930.2.jaspar" 
 ```
