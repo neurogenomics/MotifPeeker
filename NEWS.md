@@ -1,3 +1,28 @@
+# MotifPeeker 1.3.1
+
+## Section Rework
+
+* Motif-summit distances
+    - Remove distances by peak count.
+    - Reword descriptions
+    - [NEW] Add bootstrapping to visualise the distribution of motif-summit
+    distances.
+
+## New Features
+* Add support for directly importing "mm10" and "mm39" mouse genome builds.
+* `read_motif_file` can now accept an `universalmotif` object, returns the same
+  object.
+* Input datasets section now reports datasets in a tabular form.
+
+## Documentation
+* Improve instructions for importing genome builds.
+* Improve instructions for importing motifs.
+
+# MotifPeeker 1.1.3
+
+## Miscellaneous
+* Changed import to use `Seqinfo` instead of `GenomeInfoDb`.
+
 # MotifPeeker 1.1.2
 
 ## Miscellaneous

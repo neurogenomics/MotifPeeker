@@ -38,8 +38,8 @@ get_df_enrichment(
 }}
 
 \item{genome_build}{A character string with the abbreviated genome build
-name, or a BSGenome object. At the moment, only \code{hg38} and \code{hg19}
-are supported as abbreviated input.}
+name, or a BSGenome object. Check \link{check_genome_build} details for
+genome builds which can be imported as abbreviated names.}
 
 \item{reference_index}{An integer specifying the index of the peak file to
 use as the reference dataset for comparison. Indexing starts from 1.
@@ -122,6 +122,7 @@ if (memes::meme_is_installed()) {
 }
 \seealso{
 Other generate data.frames: 
-\code{\link{get_df_distances}()}
+\code{\link{get_df_distances}()},
+\code{\link{get_df_distances_bootstrapped}()}
 }
 \concept{generate data.frames}

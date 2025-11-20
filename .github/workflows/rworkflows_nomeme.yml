@@ -32,8 +32,8 @@ jobs:
           cont: bioconductor/bioconductor_docker:devel # No MEME Suite install
           rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
         - os: macOS-latest
-          r: latest
-          bioc: release
+          r: auto
+          bioc: devel
     steps:
     - uses: actions/checkout@v4
     - name: Setup Rust toolchain

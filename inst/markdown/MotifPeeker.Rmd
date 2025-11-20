@@ -27,6 +27,12 @@ params:
         value: NULL
     cell_counts:
         value: NULL
+    distance_bootstrap:
+        value: NULL
+    bootstrap_n:
+        value: NULL
+    bootstrap_len:
+        value: NULL
     motif_discovery:
         value: TRUE
     discover_motifs:
@@ -115,6 +121,8 @@ discover_metrics <- params$motif_discovery && comparison_metrics
 ## Misc
 ex_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
                 emoji::emoji("exclamation"), "!!")
+check_emo <- ifelse(requireNamespace("emoji", quietly = TRUE),
+                emoji::emoji("check"), "*")
 
 ## Check motif_db
 using_jaspar_db <- if (discover_metrics) ifelse(is.null(params$motif_db),
@@ -156,6 +164,18 @@ motif_summit_dist_df <- get_df_distances(
         result, user_motifs, genome_build, out_dir_extra, params$BPPARAM,
         params$meme_path, params$debug
     )
+motif_summit_dist_bootstrap_df <- if (params$distance_bootstrap) {
+    get_df_distances_bootstrapped(
+        result, user_motifs, genome_build,
+        samples_n = params$bootstrap_n,
+        samples_len = params$bootstrap_len,
+        BPPARAM = params$BPPARAM,
+        meme_path = params$meme_path,
+        verbose = params$verbose
+    )
+} else {
+    NULL
+}
 
 if (comparison_metrics) {
     ### Known-motif Analysis ###
@@ -228,17 +248,19 @@ the closest known motifs in the [JASPAR](https://jaspar.uio.no/downloads/)
 or the provided database.  
 
 ## Input Datasets {-}
-Experimental dataset labels used:  
+`MotifPeeker` was run with the following input datasets:
+
 ```{r echo = FALSE}
-for (i in seq_along(result$peaks)) {
-    cat(paste0("\n- **Dataset ", i, "**: ", result$exp_labels[i], "  \n"))
-    cat(paste0("  - **Experiment Type**: ", result$exp_type[i], "  \n"))
-    if (!is.null(params$cell_counts)) {
-        cat(paste0("  - **Cell Count**: ", params$cell_counts[i], "  \n"))
-    }
+input_summary <- dplyr::tibble(
+    "Index" = seq_along(result$peaks),
+    "Reference" = ifelse(seq_along(result$peaks) == params$reference_index, check_emo, ""),
+    "Dataset Label" = result$exp_labels,
+    "Experiment Type" = result$exp_type
+)
+if (!is.null(params$cell_counts)) {
+    input_summary$`Cell Count` <- params$cell_counts
 }
-cat("\n- **Reference dataset**: ", result$exp_labels[params$reference_index], 
-    paste0("(Index: ", params$reference_index, ")  \n"))
+input_summary %>% print_DT(class="compact hover stripe", rownames = FALSE)
 ```
 
 User-provided motifs used:  
@@ -570,6 +592,10 @@ occurrence and the closest peak summit are calculated.
 The data plotted represents the central 95% of the overall data, with values
 below the 2.5th percentile and above the 97.5th percentile excluded.  
 
+> A *smaller* absolute mean/median motif-summit distance means the detected
+signal is more tightly centred on the motif, which usually reflects higher
+precision and quality in epigenomic profiling experiments.  
+
 ```{r motif_summit_dist}
 if (!user_motif_metrics) {
     cat("\n", ex_emo,
@@ -591,34 +617,19 @@ if (!user_motif_metrics) {
                   nchar(user_motifs$motifs[[motif_i]]@consensus), " bp)  \n"))
         
         cat("\n#### By Experiment Type {- .unlisted}  \n")
-        cat("The top graph shows peak counts by distance from the motif",
-        "center, while the bottom graph depicts the probability density of",
-        "these distances. Different colors represent experiment types, and",
-        "each density curve sums to 1.  \n")
+        cat("The graph shows how many peaks occur at different distances from",
+            "the motif centre. The probability density curve shows where peaks",
+            "are most common, higher areas mean peaks are more likely at those",
+            "distances. The area under each curve adds up to 1, and different",
+            "colours show experiment types.")
         ## Limits
         motif_summit_dist_lims <- motif_summit_dist_df %>%
                       filter(motif_indice == motif_i) %>%
                       pull(distance) %>%
                       stats::quantile(c(0.025, 0.975))
-        
-        ## Raw count plot
-        motif_summit_dist_plt1 <- motif_summit_dist_df %>%
-            filter(motif_indice == motif_i) %>%
-            filter(distance >= motif_summit_dist_lims[1] &
-                    distance <= motif_summit_dist_lims[2]) %>%
-            ggplot(aes(x = distance, color = exp_type,
-                        text = paste("<b>Experiment Type</b>:", exp_type))) +
-            geom_freqpoly(bins = 30, linewidth = 1) +
-            scale_color_viridis(begin = 0.2, end = 0.6, discrete = TRUE,
-                            option = "A") +
-            labs(color = "Experiment Type",
-                x = "Distance (bp)", 
-                y = "Count")
-        motif_summit_dist_plt1 <- MotifPeeker:::to_plotly(motif_summit_dist_plt1,
-                                            html_tags = FALSE)
             
         ## Density plot
-        motif_summit_dist_plt2 <- motif_summit_dist_df %>%
+        motif_summit_dist_plt <- motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
             filter(distance >= motif_summit_dist_lims[1] &
                     distance <= motif_summit_dist_lims[2]) %>%
@@ -631,32 +642,19 @@ if (!user_motif_metrics) {
                             option = "A") +
             labs(color = "Experiment Type",
                 fill = "Experiment Type",
-                x = "Distance (bp)", 
-                y = "Count")
-        motif_summit_dist_plt2 <- MotifPeeker:::to_plotly(motif_summit_dist_plt2,
+                x = "Distance from Motif Centre (bp)", 
+                y = "Density")
+        motif_summit_dist_plt <- MotifPeeker:::to_plotly(motif_summit_dist_plt,
                                             html_tags = FALSE)
         
-        motif_summit_dist_exp_plt <-
-            subplot(motif_summit_dist_plt1, motif_summit_dist_plt2,
-                    nrows = 2, margin = 0.04) %>%
-            layout(
-                xaxis2 = list(title = "Distance (bp)",
-                              titlefont = list(size = 16)),
-                yaxis = list(title = "Peak Count",
-                             titlefont = list(size = 16)),
-                yaxis2 = list(title = "Peak Density",
-                              titlefont = list(size = 16))
-            )
-        print(htmltools::tagList(motif_summit_dist_exp_plt))
+        print(htmltools::tagList(motif_summit_dist_plt))
         
         ## DT
         motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
             group_by(exp_type) %>%
             summarise(
-                "Mean Distance" = round(mean(distance), 2),
                 "Absolute Mean Distance" = round(mean(abs(distance)), 2),
-                "Median Distance" = median(distance),
                 "Absolute Median Distance" = median(abs(distance)),
                 "Standard Deviation" = round(sd(distance), 2)
             ) %>%
@@ -665,40 +663,74 @@ if (!user_motif_metrics) {
             print()
         
         cat("\n#### By Individual Dataset {- .unlisted}\n")
-        cat("This plot shows the average of the absolute distance between peak",
-        "summits and the nearest motif center for each input experiment.  \n")
-        ## Absolute mean distance plot
-        motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
-            filter(motif_indice == motif_i) %>%
-            group_by(exp_label, exp_type) %>%
-            summarise(abs_mean_dist = round(mean(abs(distance)), 2),
-                      .groups = "drop") %>%
-            ggplot(aes(x = exp_label, y = abs_mean_dist, fill = exp_type,
-                        text = paste0(
-                            "<b>Experiment Label</b>: ", exp_label, "<br>",
-                            "<b>Experiment Type</b>: ", exp_type, "<br>",
-                            "<b>Absolute Mean Distance</b>: ", abs_mean_dist
-                        ))) +
-                theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-                geom_col() +
-                labs(
-                  x = "Experiment Label",
-                  y = "Absolute Mean Distance (bp)",
-                  fill = "Experiment Type"
-                ) +
-            scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
-                               option = "A")
-        
-            print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+        if (!distance_bootstrap) {
+            cat("This plot shows the average of the absolute distance between peak",
+            "summits and the nearest motif center for each input experiment.  \n")
+            ## Absolute mean distance plot
+            motif_summit_dist_ind_plt <- motif_summit_dist_df %>%
+                filter(motif_indice == motif_i) %>%
+                group_by(exp_label, exp_type) %>%
+                summarise(abs_mean_dist = round(mean(abs(distance)), 2),
+                          .groups = "drop") %>%
+                ggplot(aes(x = exp_label, y = abs_mean_dist, fill = exp_type,
+                            text = paste0(
+                                "<b>Experiment Label</b>: ", exp_label, "<br>",
+                                "<b>Experiment Type</b>: ", exp_type, "<br>",
+                                "<b>Absolute Mean Distance</b>: ", abs_mean_dist
+                            ))) +
+                    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+                    geom_col() +
+                    labs(
+                      x = "Experiment Label",
+                      y = "Absolute Mean Distance (bp)",
+                      fill = "Experiment Type"
+                    ) +
+                scale_fill_viridis(begin = 0.15, end = 0.6, discrete = TRUE,
+                                   option = "A")
+            
+                print(MotifPeeker:::to_plotly(motif_summit_dist_ind_plt, html_tags = TRUE))
+        } else {
+            cat("This plot shows the bootstrapped distribution of the mean absolute distances of motif centre to peak summits. Larger frequencies at smaller distances indicate that the experiment consistently shows peaks close to the motif centre.  \n  ")
+            cat("Each experiment was resampled", max(motif_summit_dist_bootstrap_df$bootstrap_iteration), "times. \n")
+            
+            ## Distance distribution histogram
+            motif_summit_dist_bootstrap_plt <- motif_summit_dist_bootstrap_df %>%
+                filter(motif_indice == motif_i) %>%
+                group_by(exp_label, exp_type) %>%
+                ggplot(aes(
+                    x = distance,
+                    fill = exp_label,
+                    text = paste0(
+                        "<b>Experiment Label</b>: ",
+                        exp_label,
+                        "<br>",
+                        "<b>Experiment Type</b>: ",
+                        exp_type,
+                        "<br>"
+                    )
+                )) +
+                geom_histogram(bins = 30,
+                               position = "identity",
+                               alpha = 0.5) +
+                labs(x = "Absolute Mean Distance to Motif Centre (bp)",
+                     y = "Frequency of Resamples",
+                     fill = "Experiment Label") +
+                scale_fill_viridis(
+                    begin = 0.15,
+                    end = 0.6,
+                    discrete = TRUE,
+                    option = "A"
+                )
+            
+            print(MotifPeeker:::to_plotly(motif_summit_dist_bootstrap_plt, html_tags = TRUE))
+        }
         
         ## DT
         motif_summit_dist_df %>%
             filter(motif_indice == motif_i) %>%
             group_by(exp_label, exp_type) %>%
             summarise(
-                "Mean Distance" = round(mean(distance), 2),
                 "Absolute Mean Distance" = round(mean(abs(distance)), 2),
-                "Median Distance" = median(distance),
                 "Absolute Median Distance" = median(abs(distance)),
                 "Standard Deviation" = round(sd(distance), 2),
                 .groups = "keep"
@@ -738,8 +770,8 @@ dplyr::tibble(
 # Known Motif Enrichment Analysis {.tabset .tabset-fade .tabset-pills #motif-enrichment-analysis}
 This section provides a comprehensive pair-wise comparison of motif enrichment
 patterns between the reference and comparison experiments. The presence of
-user-provided motif in the peaks was determined using
-[AME](https://meme-suite.org/meme/doc/ame.html) tool from MEME suite.  
+user-provided motif in the peaks was determined using the
+[AME](https://meme-suite.org/meme/doc/ame.html) tool from the MEME suite.  
 
 The overall summary plot compacts all the individual comparisons into one for
 quick assessment of relative motif enrichment across experiments. The individual
@@ -753,6 +785,34 @@ overlap by at least 1 base pair. All other peaks are classified as unique.
 **NOTE**: Discrepancies in motif enrichment in common peaks between experiments
 may arise due to variations in peak lengths. Experiment with longer peaks may
 have a higher proportion of peaks with the motif of interest purely by chance.  
+
+<details>
+<summary><b>More Details</b></summary>
+
+The AME tool (Analysis of Motif Enrichment) from the MEME Suite tests whether a
+given transcription factor-binding motif (TFBM) appears more often in your set
+of peaks compared to a background set of sequences. It works by:
+
+* Scanning each peak and matching background sequence for the motif
+* Calculating a score for how well the motif fits each sequence
+* Using statistical tests (e.g., Fisher’s exact test or rank-sum test) to see if
+motif scores in peaks are higher than in background
+* Reporting p-values for enrichment and adjusting them to control false
+discoveries when testing many motifs
+
+Since AME creates its background by shuffling your peaks (keeping dinucleotide
+frequencies), each dataset has its own background model. The adjusted p-values
+are reliable for ranking motifs within a dataset but should not be directly
+compared between different datasets.
+
+Instead, to compare across datasets, look at each motif’s rank by p-value,
+examine odds ratios or score differences, and consider the percentage of peaks
+containing the motif.
+
+More details on AME output: 
+[AME Output Documentation](https://meme-suite.org/meme/doc/ame-output-format.html)
+
+</details>
 
 ```{r motif_enrichment_analysis}
 if (!user_motif_metrics) {
