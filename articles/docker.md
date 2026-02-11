@@ -1,6 +1,6 @@
 # Docker/Singularity Containers
 
-**Updated:** ***Nov-20-2025***
+**Updated:** ***Feb-11-2026***
 
 ## Installation
 
@@ -100,62 +100,62 @@ utils::sessionInfo()
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] DBI_1.2.3                   bitops_1.0-9               
-    ##   [3] gridExtra_2.3               httr2_1.2.1                
-    ##   [5] rlang_1.1.6                 magrittr_2.0.4             
-    ##   [7] matrixStats_1.5.0           compiler_4.5.1             
-    ##   [9] RSQLite_2.4.4               systemfonts_1.2.3          
-    ##  [11] vctrs_0.6.5                 pkgconfig_2.0.3            
-    ##  [13] crayon_1.5.3                fastmap_1.2.0              
-    ##  [15] dbplyr_2.5.1                XVector_0.50.0             
-    ##  [17] memes_1.18.0                ca_0.71.1                  
-    ##  [19] Rsamtools_2.26.0            rmarkdown_2.30             
-    ##  [21] tzdb_0.5.0                  ragg_1.4.0                 
-    ##  [23] purrr_1.2.0                 bit_4.6.0                  
-    ##  [25] xfun_0.54                   ggseqlogo_0.2              
-    ##  [27] cachem_1.1.0                cigarillo_1.0.0            
-    ##  [29] jsonlite_2.0.0              blob_1.2.4                 
-    ##  [31] DelayedArray_0.36.0         BiocParallel_1.44.0        
-    ##  [33] parallel_4.5.1              R6_2.6.1                   
-    ##  [35] bslib_0.9.0                 RColorBrewer_1.1-3         
-    ##  [37] rtracklayer_1.70.0          GenomicRanges_1.62.0       
-    ##  [39] jquerylib_0.1.4             Rcpp_1.1.0                 
-    ##  [41] Seqinfo_1.0.0               assertthat_0.2.1           
-    ##  [43] SummarizedExperiment_1.40.0 iterators_1.0.14           
-    ##  [45] knitr_1.50                  readr_2.1.6                
-    ##  [47] IRanges_2.44.0              Matrix_1.7-3               
-    ##  [49] tidyselect_1.2.1            abind_1.4-8                
-    ##  [51] yaml_2.3.10                 viridis_0.6.5              
-    ##  [53] TSP_1.2-5                   codetools_0.2-20           
-    ##  [55] curl_7.0.0                  lattice_0.22-7             
-    ##  [57] tibble_3.3.0                Biobase_2.70.0             
-    ##  [59] S7_0.2.1                    evaluate_1.0.5             
-    ##  [61] desc_1.4.3                  heatmaply_1.6.0            
-    ##  [63] BiocFileCache_3.0.0         universalmotif_1.28.0      
-    ##  [65] Biostrings_2.78.0           pillar_1.11.1              
-    ##  [67] filelock_1.0.3              MatrixGenerics_1.22.0      
-    ##  [69] DT_0.34.0                   foreach_1.5.2              
-    ##  [71] stats4_4.5.1                plotly_4.11.0              
-    ##  [73] generics_0.1.4              RCurl_1.98-1.17            
-    ##  [75] S4Vectors_0.48.0            hms_1.1.4                  
-    ##  [77] ggplot2_4.0.1               scales_1.4.0               
-    ##  [79] glue_1.8.0                  lazyeval_0.2.2             
-    ##  [81] tools_4.5.1                 dendextend_1.19.1          
-    ##  [83] BiocIO_1.20.0               data.table_1.17.8          
-    ##  [85] BSgenome_1.78.0             webshot_0.5.5              
-    ##  [87] GenomicAlignments_1.46.0    registry_0.5-1             
-    ##  [89] fs_1.6.6                    XML_3.99-0.20              
-    ##  [91] grid_4.5.1                  tidyr_1.3.1                
-    ##  [93] seriation_1.5.8             restfulr_0.0.16            
-    ##  [95] cli_3.6.5                   rappdirs_0.3.3             
-    ##  [97] textshaping_1.0.1           S4Arrays_1.10.0            
-    ##  [99] viridisLite_0.4.2           dplyr_1.1.4                
-    ## [101] gtable_0.3.6                sass_0.4.10                
-    ## [103] digest_0.6.38               BiocGenerics_0.56.0        
-    ## [105] SparseArray_1.10.1          rjson_0.2.23               
-    ## [107] htmlwidgets_1.6.4           farver_2.1.2               
-    ## [109] memoise_2.0.1               htmltools_0.5.8.1          
-    ## [111] pkgdown_2.2.0               lifecycle_1.0.4            
-    ## [113] httr_1.4.7                  MASS_7.3-65                
-    ## [115] bit64_4.6.0-1
+    ##   [3] gridExtra_2.3               httr2_1.2.2                
+    ##   [5] rlang_1.1.7                 magrittr_2.0.4             
+    ##   [7] otel_0.2.0                  matrixStats_1.5.0          
+    ##   [9] compiler_4.5.1              RSQLite_2.4.6              
+    ##  [11] systemfonts_1.2.3           vctrs_0.7.1                
+    ##  [13] pkgconfig_2.0.3             crayon_1.5.3               
+    ##  [15] fastmap_1.2.0               dbplyr_2.5.1               
+    ##  [17] XVector_0.50.0              memes_1.18.0               
+    ##  [19] ca_0.71.1                   Rsamtools_2.26.0           
+    ##  [21] rmarkdown_2.30              tzdb_0.5.0                 
+    ##  [23] ragg_1.4.0                  purrr_1.2.1                
+    ##  [25] bit_4.6.0                   xfun_0.56                  
+    ##  [27] ggseqlogo_0.2.2             cachem_1.1.0               
+    ##  [29] cigarillo_1.0.0             jsonlite_2.0.0             
+    ##  [31] blob_1.3.0                  DelayedArray_0.36.0        
+    ##  [33] BiocParallel_1.44.0         parallel_4.5.1             
+    ##  [35] R6_2.6.1                    bslib_0.10.0               
+    ##  [37] RColorBrewer_1.1-3          rtracklayer_1.70.1         
+    ##  [39] GenomicRanges_1.62.1        jquerylib_0.1.4            
+    ##  [41] Rcpp_1.1.1                  Seqinfo_1.0.0              
+    ##  [43] assertthat_0.2.1            SummarizedExperiment_1.40.0
+    ##  [45] iterators_1.0.14            knitr_1.51                 
+    ##  [47] readr_2.1.6                 IRanges_2.44.0             
+    ##  [49] Matrix_1.7-3                tidyselect_1.2.1           
+    ##  [51] abind_1.4-8                 yaml_2.3.12                
+    ##  [53] viridis_0.6.5               TSP_1.2.6                  
+    ##  [55] codetools_0.2-20            curl_7.0.0                 
+    ##  [57] lattice_0.22-7              tibble_3.3.1               
+    ##  [59] Biobase_2.70.0              S7_0.2.1                   
+    ##  [61] evaluate_1.0.5              desc_1.4.3                 
+    ##  [63] heatmaply_1.6.0             BiocFileCache_3.0.0        
+    ##  [65] universalmotif_1.28.0       Biostrings_2.78.0          
+    ##  [67] pillar_1.11.1               filelock_1.0.3             
+    ##  [69] MatrixGenerics_1.22.0       DT_0.34.0                  
+    ##  [71] foreach_1.5.2               stats4_4.5.1               
+    ##  [73] plotly_4.12.0               generics_0.1.4             
+    ##  [75] RCurl_1.98-1.17             hms_1.1.4                  
+    ##  [77] S4Vectors_0.48.0            ggplot2_4.0.2              
+    ##  [79] scales_1.4.0                glue_1.8.0                 
+    ##  [81] lazyeval_0.2.2              tools_4.5.1                
+    ##  [83] dendextend_1.19.1           BiocIO_1.20.0              
+    ##  [85] data.table_1.18.2.1         BSgenome_1.78.0            
+    ##  [87] webshot_0.5.5               GenomicAlignments_1.46.0   
+    ##  [89] registry_0.5-1              fs_1.6.6                   
+    ##  [91] XML_3.99-0.22               grid_4.5.1                 
+    ##  [93] tidyr_1.3.2                 seriation_1.5.8            
+    ##  [95] restfulr_0.0.16             cli_3.6.5                  
+    ##  [97] rappdirs_0.3.4              textshaping_1.0.1          
+    ##  [99] S4Arrays_1.10.1             viridisLite_0.4.3          
+    ## [101] dplyr_1.2.0                 gtable_0.3.6               
+    ## [103] sass_0.4.10                 digest_0.6.39              
+    ## [105] BiocGenerics_0.56.0         SparseArray_1.10.8         
+    ## [107] rjson_0.2.23                htmlwidgets_1.6.4          
+    ## [109] farver_2.1.2                memoise_2.0.1              
+    ## [111] htmltools_0.5.9             pkgdown_2.2.0              
+    ## [113] lifecycle_1.0.5             httr_1.4.7                 
+    ## [115] MASS_7.3-65                 bit64_4.6.0-1
 
   

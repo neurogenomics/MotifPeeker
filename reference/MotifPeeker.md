@@ -331,5 +331,5 @@ if (memes::meme_is_installed()) {
         verbose = FALSE
     )
 }
-#> [1] "/tmp/RtmpJUDOew/MotifPeeker_20251120_123344"
+#> [1] "/tmp/Rtmp2fR012/MotifPeeker_20260211_120506"
 ```

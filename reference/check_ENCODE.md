@@ -39,5 +39,5 @@ if (requireNamespace("curl", quietly = TRUE) &&
     check_ENCODE("ENCFF920TXI", expect_format = c("bed", "gz"))
 }
 #>                                                                  BFC2 
-#> "/github/home/.cache/R/BiocFileCache/1bf3102e3a9e_ENCFF920TXI.bed.gz" 
+#> "/github/home/.cache/R/BiocFileCache/1cfa6a0789c1_ENCFF920TXI.bed.gz" 
 ```
