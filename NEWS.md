@@ -4,6 +4,9 @@
 
 * Bound maximum bootstrapping population size.
 
+## Misclaneous
+* Update CITATION: MotifPeeker is now published on Bioinformatics Advances!
+
 # MotifPeeker 1.3.1
 
 ## Section Rework
