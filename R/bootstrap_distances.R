@@ -67,7 +67,7 @@ bootstrap_distances <- function(peaks,
         messager("Setting samples_n to number of peaks for bootstrapping",
                  "motif-summit distances:", length(peaks),
                 v = verbose)
-        samples_n <- max(round(length(peaks) * 0.7), 10)
+        samples_n <- min(max(round(length(peaks) * 0.7), 10), length(peaks))
     }
     if (is.null(samples_len)) {
         messager("Setting samples_len to 1000 for bootstrapping",

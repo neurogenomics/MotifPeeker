@@ -1,3 +1,9 @@
+# MotifPeeker 1.3.2
+
+## Bug Fixes
+
+* Bound maximum bootstrapping population size.
+
 # MotifPeeker 1.3.1
 
 ## Section Rework
