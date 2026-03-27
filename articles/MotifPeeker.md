@@ -407,7 +407,7 @@ utils::sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MotifPeeker_1.3.1
+    ## [1] MotifPeeker_1.3.2
     ## 
     ## loaded via a namespace (and not attached):
     ##   [1] DBI_1.3.0                         bitops_1.0-9                     

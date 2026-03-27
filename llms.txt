@@ -6,7 +6,7 @@
 history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-1.3.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-1.3.2-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)  
 [![R build
@@ -296,10 +296,9 @@ maintain the integrity of the package.
 
 If you use `MotifPeeker`, please cite:
 
-> MotifPeeker: R package for benchmarking epigenomic profiling methods
-> using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
-> Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
-> <https://doi.org/10.1101/2025.03.31.645756>
+> Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker:
+> Benchmarking epigenomic profiling methods using motifs. Bioinformatics
+> Advances, vbag023. <doi:10.1093/bioadv/vbag023>
 
 ## Licensing Restrictions
 
