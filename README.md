@@ -9,7 +9,7 @@ style="height: 300px !important;" />
 history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-1.3.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-1.3.2-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)
 <br> [![R build
@@ -20,7 +20,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Feb-19-2026***
+**Updated:** ***Mar-27-2026***
 
 ## Introduction
 
@@ -44,9 +44,7 @@ package outputs an HTML report consisting of three sections:
 
 <!-- If you use `MotifPeeker`, please cite:  -->
 
-<!-- > MotifPeeker: R package for benchmarking epigenomic profiling methods using motif enrichment as a key metric (2025) 
-  Hiranyamaya Dash, Thomas Roberts, Maria Weinert, Nathan Skene,
-  bioRxiv, 2025.03.31.645756; doi: https://doi.org/10.1101/2025.03.31.645756 -->
+<!-- > Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker: Benchmarking epigenomic profiling methods using motifs. Bioinformatics Advances, vbag023. doi:10.1093/bioadv/vbag023 -->
 
 ## Installation
 
@@ -334,10 +332,9 @@ If you use `MotifPeeker`, please cite:
 
 <!-- Modify this by editing the file: inst/CITATION  -->
 
-> MotifPeeker: R package for benchmarking epigenomic profiling methods
-> using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
-> Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
-> <https://doi.org/10.1101/2025.03.31.645756>
+> Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker:
+> Benchmarking epigenomic profiling methods using motifs. Bioinformatics
+> Advances, vbag023. <doi:10.1093/bioadv/vbag023>
 
 ## Licensing Restrictions
 
@@ -397,7 +394,7 @@ utils::sessionInfo()
     ## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.7        
     ## [25] badger_0.2.5        xfun_0.56           fs_1.6.6           
     ## [28] S7_0.2.1            otel_0.2.0          cli_3.6.5          
-    ## [31] magrittr_2.0.4      rworkflows_1.0.8    digest_0.6.39      
+    ## [31] magrittr_2.0.4      rworkflows_1.0.10   digest_0.6.39      
     ## [34] grid_4.6.0          rstudioapi_0.18.0   rappdirs_0.3.4     
     ## [37] lifecycle_1.0.5     vctrs_0.7.1         data.table_1.18.2.1
     ## [40] evaluate_1.0.5      glue_1.8.0          farver_2.1.2       

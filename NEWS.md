@@ -5,6 +5,7 @@
 * Bound maximum bootstrapping population size.
 
 ## Misclaneous
+
 * Update CITATION: MotifPeeker is now published on Bioinformatics Advances!
 
 # MotifPeeker 1.3.1
@@ -18,18 +19,21 @@
     distances.
 
 ## New Features
+
 * Add support for directly importing "mm10" and "mm39" mouse genome builds.
 * `read_motif_file` can now accept an `universalmotif` object, returns the same
   object.
 * Input datasets section now reports datasets in a tabular form.
 
 ## Documentation
+
 * Improve instructions for importing genome builds.
 * Improve instructions for importing motifs.
 
 # MotifPeeker 1.1.3
 
 ## Miscellaneous
+
 * Changed import to use `Seqinfo` instead of `GenomeInfoDb`.
 
 # MotifPeeker 1.1.2
