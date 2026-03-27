@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/peak-score/inst/CITATION)
+[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/master/inst/CITATION)
 
 Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker: Benchmarking
 epigenomic profiling methods using motifs. Bioinformatics Advances,

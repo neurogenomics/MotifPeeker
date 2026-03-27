@@ -50,5 +50,5 @@ data("CTCF_ChIP_peaks", package = "MotifPeeker")
 
 out <- save_peak_file(CTCF_ChIP_peaks, save = TRUE, "test_peak_file.bed")
 print(out)
-#> [1] "/tmp/Rtmp1CFUSS/test_peak_file.bed"
+#> [1] "/tmp/Rtmp7Wv6Sr/test_peak_file.bed"
 ```
