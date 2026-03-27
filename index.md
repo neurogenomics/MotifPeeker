@@ -16,7 +16,7 @@ status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
 Nathan Skene***  
-**Updated:** ***Feb-11-2026***
+**Updated:** ***Mar-27-2026***
 
 ## Introduction
 
@@ -296,10 +296,9 @@ maintain the integrity of the package.
 
 If you use `MotifPeeker`, please cite:
 
-> MotifPeeker: R package for benchmarking epigenomic profiling methods
-> using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
-> Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
-> <https://doi.org/10.1101/2025.03.31.645756>
+> Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker:
+> Benchmarking epigenomic profiling methods using motifs. Bioinformatics
+> Advances, vbag023. <doi:10.1093/bioadv/vbag023>
 
 ## Licensing Restrictions
 
@@ -353,10 +352,10 @@ utils::sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rmarkdown_2.30
+## [1] rworkflows_1.0.11 rmarkdown_2.31   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.1.7         
+##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.2.0         
 ##  [4] dplyr_1.2.0         compiler_4.5.1      BiocManager_1.30.27
 ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.4.0       
 ## [10] yaml_2.3.12         fastmap_1.2.0       here_1.0.2         
@@ -364,11 +363,11 @@ utils::sessionInfo()
 ## [16] knitr_1.51          yulab.utils_0.2.4   tibble_3.3.1       
 ## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.1.1    
 ## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.7        
-## [25] badger_0.2.5        xfun_0.56           fs_1.6.6           
+## [25] badger_0.2.5        xfun_0.57           fs_2.0.1           
 ## [28] S7_0.2.1            otel_0.2.0          cli_3.6.5          
-## [31] magrittr_2.0.4      rworkflows_1.0.8    digest_0.6.39      
-## [34] grid_4.5.1          rappdirs_0.3.4      lifecycle_1.0.5    
-## [37] vctrs_0.7.1         data.table_1.18.2.1 evaluate_1.0.5     
-## [40] glue_1.8.0          farver_2.1.2        tools_4.5.1        
-## [43] pkgconfig_2.0.3     htmltools_0.5.9
+## [31] magrittr_2.0.4      digest_0.6.39       grid_4.5.1         
+## [34] rappdirs_0.3.4      lifecycle_1.0.5     vctrs_0.7.2        
+## [37] data.table_1.18.2.1 evaluate_1.0.5      glue_1.8.0         
+## [40] farver_2.1.2        tools_4.5.1         pkgconfig_2.0.3    
+## [43] htmltools_0.5.9
 ```

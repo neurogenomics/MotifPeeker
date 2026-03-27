@@ -1,6 +1,6 @@
 # Get started
 
-**Updated:** ***Feb-11-2026***
+**Updated:** ***Mar-27-2026***
 
 ## Overview
 
@@ -407,23 +407,23 @@ utils::sessionInfo()
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MotifPeeker_1.3.1
+    ## [1] MotifPeeker_1.3.2
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] DBI_1.2.3                         bitops_1.0-9                     
+    ##   [1] DBI_1.3.0                         bitops_1.0-9                     
     ##   [3] gridExtra_2.3                     httr2_1.2.2                      
     ##   [5] rlang_1.1.7                       magrittr_2.0.4                   
     ##   [7] otel_0.2.0                        matrixStats_1.5.0                
     ##   [9] compiler_4.5.1                    RSQLite_2.4.6                    
-    ##  [11] systemfonts_1.2.3                 vctrs_0.7.1                      
+    ##  [11] systemfonts_1.2.3                 vctrs_0.7.2                      
     ##  [13] pkgconfig_2.0.3                   crayon_1.5.3                     
-    ##  [15] fastmap_1.2.0                     dbplyr_2.5.1                     
+    ##  [15] fastmap_1.2.0                     dbplyr_2.5.2                     
     ##  [17] XVector_0.50.0                    memes_1.18.0                     
     ##  [19] ca_0.71.1                         Rsamtools_2.26.0                 
-    ##  [21] rmarkdown_2.30                    tzdb_0.5.0                       
+    ##  [21] rmarkdown_2.31                    tzdb_0.5.0                       
     ##  [23] UCSC.utils_1.6.1                  ragg_1.4.0                       
     ##  [25] purrr_1.2.1                       bit_4.6.0                        
-    ##  [27] BSgenome.Hsapiens.UCSC.hg38_1.4.5 xfun_0.56                        
+    ##  [27] BSgenome.Hsapiens.UCSC.hg38_1.4.5 xfun_0.57                        
     ##  [29] ggseqlogo_0.2.2                   cachem_1.1.0                     
     ##  [31] cigarillo_1.0.0                   GenomeInfoDb_1.46.2              
     ##  [33] jsonlite_2.0.0                    blob_1.3.0                       
@@ -434,11 +434,11 @@ utils::sessionInfo()
     ##  [43] jquerylib_0.1.4                   Rcpp_1.1.1                       
     ##  [45] Seqinfo_1.0.0                     assertthat_0.2.1                 
     ##  [47] SummarizedExperiment_1.40.0       iterators_1.0.14                 
-    ##  [49] knitr_1.51                        readr_2.1.6                      
+    ##  [49] knitr_1.51                        readr_2.2.0                      
     ##  [51] IRanges_2.44.0                    Matrix_1.7-3                     
     ##  [53] tidyselect_1.2.1                  abind_1.4-8                      
     ##  [55] yaml_2.3.12                       viridis_0.6.5                    
-    ##  [57] TSP_1.2.6                         codetools_0.2-20                 
+    ##  [57] TSP_1.2.7                         codetools_0.2-20                 
     ##  [59] curl_7.0.0                        lattice_0.22-7                   
     ##  [61] tibble_3.3.1                      Biobase_2.70.0                   
     ##  [63] S7_0.2.1                          evaluate_1.0.5                   
@@ -448,7 +448,7 @@ utils::sessionInfo()
     ##  [71] filelock_1.0.3                    MatrixGenerics_1.22.0            
     ##  [73] DT_0.34.0                         foreach_1.5.2                    
     ##  [75] stats4_4.5.1                      plotly_4.12.0                    
-    ##  [77] generics_0.1.4                    RCurl_1.98-1.17                  
+    ##  [77] generics_0.1.4                    RCurl_1.98-1.18                  
     ##  [79] hms_1.1.4                         S4Vectors_0.48.0                 
     ##  [81] ggplot2_4.0.2                     scales_1.4.0                     
     ##  [83] glue_1.8.0                        lazyeval_0.2.2                   
@@ -456,7 +456,7 @@ utils::sessionInfo()
     ##  [87] BiocIO_1.20.0                     data.table_1.18.2.1              
     ##  [89] BSgenome_1.78.0                   webshot_0.5.5                    
     ##  [91] GenomicAlignments_1.46.0          registry_0.5-1                   
-    ##  [93] fs_1.6.6                          XML_3.99-0.22                    
+    ##  [93] fs_2.0.1                          XML_3.99-0.23                    
     ##  [95] grid_4.5.1                        tidyr_1.3.2                      
     ##  [97] seriation_1.5.8                   restfulr_0.0.16                  
     ##  [99] cli_3.6.5                         rappdirs_0.3.4                   
@@ -464,11 +464,11 @@ utils::sessionInfo()
     ## [103] viridisLite_0.4.3                 dplyr_1.2.0                      
     ## [105] gtable_0.3.6                      sass_0.4.10                      
     ## [107] digest_0.6.39                     BiocGenerics_0.56.0              
-    ## [109] SparseArray_1.10.8                rjson_0.2.23                     
+    ## [109] SparseArray_1.10.9                rjson_0.2.23                     
     ## [111] htmlwidgets_1.6.4                 farver_2.1.2                     
     ## [113] memoise_2.0.1                     htmltools_0.5.9                  
     ## [115] pkgdown_2.2.0                     lifecycle_1.0.5                  
-    ## [117] httr_1.4.7                        MASS_7.3-65                      
+    ## [117] httr_1.4.8                        MASS_7.3-65                      
     ## [119] bit64_4.6.0-1
 
   

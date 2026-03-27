@@ -14,17 +14,20 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/alignment-score/inst/CITATION)
+[`inst/CITATION`](https://github.com/neurogenomics/MotifPeeker/blob/peak-score/inst/CITATION)
 
-MotifPeeker: R package for benchmarking epigenomic profiling methods
-using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
-Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
-https://doi.org/10.1101/2025.03.31.645756
+Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker: Benchmarking
+epigenomic profiling methods using motifs. Bioinformatics Advances,
+vbag023. doi:10.1093/bioadv/vbag023
 
     @Article{,
-      title = {MotifPeeker: R package for benchmarking epigenomic profiling methods using motif enrichment as a key metric},
-      author = {Hiranyamaya Dash and Thomas Roberts and Maria Weinert and Nathan G. Skene},
-      journal = {bioRxiv},
-      year = {2025},
-      url = {https://doi.org/10.1101/2025.03.31.645756},
+      title = {MotifPeeker: Benchmarking epigenomic profiling methods using motifs},
+      author = {Hiranyamaya Dash and Thomas Roberts and Maria Weinert and Nathan Skene},
+      journal = {Bioinformatics Advances},
+      year = {2026},
+      month = {Feb},
+      eid = {vbag023},
+      issn = {2635-0041},
+      doi = {10.1093/bioadv/vbag023},
+      url = {https://doi.org/10.1093/bioadv/vbag023},
     }
