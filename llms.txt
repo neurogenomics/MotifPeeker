@@ -296,9 +296,10 @@ maintain the integrity of the package.
 
 If you use `MotifPeeker`, please cite:
 
-> Dash H, Roberts T, Weinert M, Skene N (2026). MotifPeeker:
-> Benchmarking epigenomic profiling methods using motifs. Bioinformatics
-> Advances, vbag023. <doi:10.1093/bioadv/vbag023>
+> MotifPeeker: R package for benchmarking epigenomic profiling methods
+> using motif enrichment as a key metric (2025) Hiranyamaya Dash, Thomas
+> Roberts, Maria Weinert, Nathan Skene, bioRxiv, 2025.03.31.645756; doi:
+> <https://doi.org/10.1101/2025.03.31.645756>
 
 ## Licensing Restrictions
 
