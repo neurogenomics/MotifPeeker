@@ -1,3 +1,9 @@
+# MotifPeeker 1.3.3
+
+## Miscellaneous
+
+* Add unsupported platform to DESCRIPTION.
+
 # MotifPeeker 1.3.2
 
 ## Bug Fixes
