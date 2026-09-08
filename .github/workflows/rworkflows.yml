@@ -29,7 +29,7 @@ jobs:
         - os: ubuntu-latest
           bioc: devel
           r: auto
-          cont: docker.io/hdasht/bioc-meme:meme5.5.8 # Custom image
+          cont: ghcr.io/neurogenomics/bioc-meme:latest # Custom image
           rspm: https://packagemanager.rstudio.com/cran/__linux__/focal/release
     steps:
     - uses: actions/checkout@v4
