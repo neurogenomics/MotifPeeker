@@ -50,29 +50,28 @@ bpapply(
 
   `BPREDO`
 
-  :   A `list` of output from `bplapply` with one or more failed
-      elements. When a list is given in `BPREDO`, `bpok` is used to
-      identify errors, tasks are rerun and inserted into the original
-      results.
+  : A `list` of output from `bplapply` with one or more failed elements.
+    When a list is given in `BPREDO`, `bpok` is used to identify errors,
+    tasks are rerun and inserted into the original results.
 
   `BPOPTIONS`
 
-  :   Additional options to control the behavior of the parallel
-      evaluation, see
-      [`bpoptions`](https://rdrr.io/pkg/BiocParallel/man/bpoptions.html).
+  : Additional options to control the behavior of the parallel
+    evaluation, see
+    [`bpoptions`](https://rdrr.io/pkg/BiocParallel/man/bpoptions.html).
 
   `MoreArgs`
 
-  :   List of additional arguments to `FUN`.
+  : List of additional arguments to `FUN`.
 
   `SIMPLIFY`
 
-  :   If `TRUE` the result will be simplified using
-      [`simplify2array`](https://rdrr.io/r/base/lapply.html).
+  : If `TRUE` the result will be simplified using
+    [`simplify2array`](https://rdrr.io/r/base/lapply.html).
 
   `USE.NAMES`
 
-  :   If `TRUE` the result will be named.
+  : If `TRUE` the result will be named.
 
 ## Value
 

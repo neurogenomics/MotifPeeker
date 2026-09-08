@@ -26,28 +26,28 @@ get_df_distances(
 
   peaks
 
-  :   A `list` of peak files generated using
-      [`read_peak_file`](https://neurogenomics.github.io/MotifPeeker/reference/read_peak_file.md).
+  : A `list` of peak files generated using
+    [`read_peak_file`](https://neurogenomics.github.io/MotifPeeker/reference/read_peak_file.md).
 
   alignments
 
-  :   A `list` of alignment files.
+  : A `list` of alignment files.
 
   exp_type
 
-  :   A `character` vector of experiment types.
+  : A `character` vector of experiment types.
 
   exp_labels
 
-  :   A `character` vector of experiment labels.
+  : A `character` vector of experiment labels.
 
   read_count
 
-  :   A `numeric` vector of read counts.
+  : A `numeric` vector of read counts.
 
   peak_count
 
-  :   A `numeric` vector of peak counts.
+  : A `numeric` vector of peak counts.
 
 - user_motifs:
 
@@ -55,11 +55,11 @@ get_df_distances(
 
   motifs
 
-  :   A `list` of motif files.
+  : A `list` of motif files.
 
   motif_labels
 
-  :   A `character` vector of motif labels.
+  : A `character` vector of motif labels.
 
 - genome_build:
 
@@ -77,8 +77,8 @@ get_df_distances(
   A
   [`BiocParallelParam-class`](https://rdrr.io/pkg/BiocParallel/man/BiocParallelParam-class.html)
   object enabling parallel execution. (default = SerialParam(),
-  single-CPU run)  
-    
+  single-CPU run)\
+  \
   Following are two examples of how to set up parallel processing:
 
   - `BPPARAM = BiocParallel::MulticoreParam(4)`: Uses 4 CPU cores for

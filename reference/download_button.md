@@ -64,8 +64,8 @@ download_button(
 
   `self_contained`
 
-  :   A boolean to specify whether your HTML output is self-contained.
-      Default to `FALSE`.
+  : A boolean to specify whether your HTML output is self-contained.
+    Default to `FALSE`.
 
 ## Value
 

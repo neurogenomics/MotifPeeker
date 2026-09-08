@@ -1,5 +1,17 @@
 # Changelog
 
+## MotifPeeker 1.5.1
+
+### Miscellaneous
+
+- Use `ghcr.io/neurogenomics/bioc-meme:latest` container for Ubuntu CI.
+
+## MotifPeeker 1.3.3
+
+### Miscellaneous
+
+- Add unsupported platform to DESCRIPTION.
+
 ## MotifPeeker 1.3.2
 
 ### Bug Fixes

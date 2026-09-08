@@ -23,28 +23,28 @@ dt_enrichment_individual(
 
   peaks
 
-  :   A `list` of peak files generated using
-      [`read_peak_file`](https://neurogenomics.github.io/MotifPeeker/reference/read_peak_file.md).
+  : A `list` of peak files generated using
+    [`read_peak_file`](https://neurogenomics.github.io/MotifPeeker/reference/read_peak_file.md).
 
   alignments
 
-  :   A `list` of alignment files.
+  : A `list` of alignment files.
 
   exp_type
 
-  :   A `character` vector of experiment types.
+  : A `character` vector of experiment types.
 
   exp_labels
 
-  :   A `character` vector of experiment labels.
+  : A `character` vector of experiment labels.
 
   read_count
 
-  :   A `numeric` vector of read counts.
+  : A `numeric` vector of read counts.
 
   peak_count
 
-  :   A `numeric` vector of peak counts.
+  : A `numeric` vector of peak counts.
 
 - enrichment_df:
 

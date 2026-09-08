@@ -26,5 +26,5 @@ format).
 ``` r
 get_JASPARCORE()
 #>                                                                                           BFC1 
-#> "/github/home/.cache/R/BiocFileCache/1d8a62bf6182_JASPAR2024_CORE_non-redundant_pfms_meme.txt" 
+#> "/github/home/.cache/R/BiocFileCache/1de176ecb9c2_JASPAR2024_CORE_non-redundant_pfms_meme.txt" 
 ```

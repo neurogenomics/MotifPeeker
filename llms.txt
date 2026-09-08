@@ -1,4 +1,6 @@
-# `MotifPeeker` Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
+`MotifPeeker`\
+Benchmarking Epigenomic Profiling Methods Using Motif Enrichment
+================================================================
 
 ![](https://github.com/neurogenomics/MotifPeeker/raw/master/inst/hex/hex.png)
 
@@ -6,17 +8,17 @@
 history](https://bioconductor.org/shields/years-in-bioc/MotifPeeker.svg)](https://bioconductor.org/packages/devel/bioc/html/MotifPeeker.html#since)
 [![License: GPL (\>=
 3)](https://img.shields.io/badge/license-GPL%20(%3E=%203)-blue.svg)](https://cran.r-project.org/web/licenses/GPL%20(%3E=%203))
-[![](https://img.shields.io/badge/devel%20version-1.3.2-black.svg)](https://github.com/neurogenomics/MotifPeeker)
+[![](https://img.shields.io/badge/devel%20version-1.5.1-black.svg)](https://github.com/neurogenomics/MotifPeeker)
 [![](https://img.shields.io/github/languages/code-size/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker)
-[![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)  
+[![](https://img.shields.io/github/last-commit/neurogenomics/MotifPeeker.svg)](https://github.com/neurogenomics/MotifPeeker/commits/master)\
 [![R build
 status](https://github.com/neurogenomics/MotifPeeker/workflows/rworkflows/badge.svg)](https://github.com/neurogenomics/MotifPeeker/actions)
-[![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg)](https://app.codecov.io/gh/neurogenomics/MotifPeeker)  
+[![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graph/badge.svg)](https://app.codecov.io/gh/neurogenomics/MotifPeeker)\
 [![](https://codecov.io/gh/neurogenomics/MotifPeeker/branch/master/graphs/icicle.svg "Codecov icicle graph")](https://app.codecov.io/gh/neurogenomics/MotifPeeker/tree/master)
 
 **Authors:** ***Hiranyamaya (Hiru) Dash, Thomas Roberts, Maria Weinert,
-Nathan Skene***  
-**Updated:** ***Mar-27-2026***
+Nathan Skene***\
+**Updated:** ***Sep-08-2026***
 
 ## Introduction
 
@@ -77,13 +79,7 @@ Once the MEME suite and its associated Perl dependencies are installed,
 the development version of `MotifPeeker` can be installed using the
 following code:
 
-``` r
-# Install latest version of MotifPeeker
-BiocManager::install("MotifPeeker", version = "devel", dependencies = TRUE)
-
-# Load the package
-library(MotifPeeker)
-```
+`# Install latest version of MotifPeeker`` ``BiocManager``::`[`install`](https://bioconductor.github.io/BiocManager/reference/install.html)`(``"MotifPeeker"``, version ``=`` ``"devel"``, dependencies ``=`` ``TRUE``)`` `` ``# Load the package`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker)`)`
 
 Alternatively, you can use the [Docker/Singularity
 container](https://neurogenomics.github.io/MotifPeeker/articles/docker.html)
@@ -105,49 +101,16 @@ to run the package out-of-the-box.
 
 Load the package and example datasets.
 
-``` r
-library(MotifPeeker)
-data("CTCF_ChIP_peaks", package = "MotifPeeker")
-data("CTCF_TIP_peaks", package = "MotifPeeker")
-data("motif_MA1102.2", package = "MotifPeeker")
-data("motif_MA1930.2", package = "MotifPeeker")
-```
+[`library`](https://rdrr.io/r/base/library.html)`(`[`MotifPeeker`](https://github.com/neurogenomics/MotifPeeker)`)`` `[`data`](https://rdrr.io/r/utils/data.html)`(``"CTCF_ChIP_peaks"``, package ``=`` ``"MotifPeeker"``)`` `[`data`](https://rdrr.io/r/utils/data.html)`(``"CTCF_TIP_peaks"``, package ``=`` ``"MotifPeeker"``)`` `[`data`](https://rdrr.io/r/utils/data.html)`(``"motif_MA1102.2"``, package ``=`` ``"MotifPeeker"``)`` `[`data`](https://rdrr.io/r/utils/data.html)`(``"motif_MA1930.2"``, package ``=`` ``"MotifPeeker"``)`
 
 Prepare input files.
 
-``` r
-peak_files <- list(CTCF_ChIP_peaks, CTCF_TIP_peaks)
-alignment_files <- list(
-    system.file("extdata", "CTCF_ChIP_alignment.bam", package = "MotifPeeker"),
-    system.file("extdata", "CTCF_TIP_alignment.bam", package = "MotifPeeker")
-)
-motif_files <- list(motif_MA1102.2, motif_MA1930.2)
-```
+`peak_files`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(``CTCF_ChIP_peaks``, ``CTCF_TIP_peaks``)`` ``alignment_files`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`` `` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"CTCF_ChIP_alignment.bam"``, package ``=`` ``"MotifPeeker"``)``,`` `` `[`system.file`](https://rdrr.io/r/base/system.file.html)`(``"extdata"``, ``"CTCF_TIP_alignment.bam"``, package ``=`` ``"MotifPeeker"``)`` ``)`` ``motif_files`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(``motif_MA1102.2``, ``motif_MA1930.2``)`
 
 Run
 [`MotifPeeker()`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.md):
 
-``` r
-MotifPeeker(
-    peak_files = peak_files,
-    reference_index = 2,  # Set TIP-seq experiment as reference
-    alignment_files = alignment_files,
-    exp_labels = c("ChIP", "TIP"),
-    exp_type = c("chipseq", "tipseq"),
-    genome_build = "hg38",
-    motif_files = motif_files,
-    cell_counts = NULL,  # No cell-count information
-    motif_discovery = TRUE,
-    motif_discovery_count = 3,
-    motif_db = NULL,
-    download_buttons = TRUE,
-    out_dir = tempdir(),
-    BPPARAM = BiocParallel::MulticoreParam(2), # Use 2 CPU cores
-    debug = FALSE,
-    quiet = FALSE,
-    verbose = TRUE
-)
-```
+[`MotifPeeker`](https://neurogenomics.github.io/MotifPeeker/reference/MotifPeeker.md)`(`` `` peak_files ``=`` ``peak_files``,`` `` reference_index ``=`` ``2``, ``# Set TIP-seq experiment as reference`` `` alignment_files ``=`` ``alignment_files``,`` `` exp_labels ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"ChIP"``, ``"TIP"``)``,`` `` exp_type ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"chipseq"``, ``"tipseq"``)``,`` `` genome_build ``=`` ``"hg38"``,`` `` motif_files ``=`` ``motif_files``,`` `` cell_counts ``=`` ``NULL``, ``# No cell-count information`` `` motif_discovery ``=`` ``TRUE``,`` `` motif_discovery_count ``=`` ``3``,`` `` motif_db ``=`` ``NULL``,`` `` download_buttons ``=`` ``TRUE``,`` `` out_dir ``=`` `[`tempdir`](https://rdrr.io/r/base/tempfile.html)`(``)``,`` `` BPPARAM ``=`` ``BiocParallel``::`[`MulticoreParam`](https://rdrr.io/pkg/BiocParallel/man/MulticoreParam-class.html)`(``2``)``, ``# Use 2 CPU cores`` `` debug ``=`` ``FALSE``,`` `` quiet ``=`` ``FALSE``,`` `` verbose ``=`` ``TRUE`` ``)`
 
 ### Required Inputs
 
@@ -159,13 +122,13 @@ These input parameters must be provided:
   the peaks to analyse. Currently, only peak files from `MACS2/3`
   (`.narrowPeak`) and `SEACR` (`.bed`) are supported. ENCODE file IDs
   can also be provided to automatically fetch peak file(s) from the
-  ENCODE database.  
+  ENCODE database.\
 - `reference_index`: An integer specifying the index of the reference
   dataset in the `peak_files` list to use as reference for various
-  comparisons. (default = 1)  
+  comparisons. (default = 1)\
 - `genome_build`: A character string or a `BSgenome` object specifying
   the genome build of the datasets. At the moment, only hg38 and hg19
-  are supported as abbreviated input.  
+  are supported as abbreviated input.\
 - `out_dir`: A character string specifying the output directory to save
   the HTML report and other files.
 
@@ -181,31 +144,31 @@ or enhance them:
   objects with the alignment sequences to analyse. Alignment files are
   used to calculate read-related metrics like FRiP score. ENCODE file
   IDs can also be provided to automatically fetch alignment file(s) from
-  the ENCODE database.  
+  the ENCODE database.\
 - `exp_labels`: A character vector of labels for each peak file. If not
   provided, capital letters will be used as labels in the report.
 - `exp_type`: A character vector of experimental types for each peak
-  file.  
+  file.\
   Useful for comparison of different methods. If not provided, all
   datasets will be classified as “unknown” experiment types in the
   report. `exp_type` is used only for labelling. It does not affect the
   analyses. You can also input custom strings. Datasets will be grouped
   as long as they match their respective `exp_type`. Supported
   experimental types are:
-  - `chipseq`: ChIP-seq data  
-  - `tipseq`: TIP-seq data  
-  - `cuttag`: CUT&Tag data  
-  - `cutrun`: CUT&Run data  
+  - `chipseq`: ChIP-seq data\
+  - `tipseq`: TIP-seq data\
+  - `cuttag`: CUT&Tag data\
+  - `cutrun`: CUT&Run data\
 - `motif_files`: A character vector of path to motif files, or a vector
   of `universalmotif-class` objects. Required to run Known Motif
   Enrichment Analysis. JASPAR matrix IDs can also be provided to
-  automatically fetch motifs from the JASPAR.  
+  automatically fetch motifs from the JASPAR.\
 - `motif_labels`: A character vector of labels for each motif file. Only
   used if path to file names are passed in motif_files. If not provided,
-  the motif file names will be used as labels.  
+  the motif file names will be used as labels.\
 - `cell_counts`: An integer vector of experiment cell counts for each
   peak file (if available). Creates additional comparisons based on cell
-  counts.  
+  counts.\
 - `motif_db`: Path to `.meme` format file to use as reference database,
   or a list of `universalmotif-class` objects. Results from motif
   discovery are searched against this database to find similar motifs.
@@ -233,10 +196,10 @@ arguments:
 - `BPPARAM = MulticoreParam(x)`: Running motif discovery in parallel can
   significantly reduce runtime, but it is very memory-intensive,
   consuming upwards of 10GB of RAM per thread. Memory starvation can
-  greatly slow the process, so set CPU cores (`x`) with caution.  
+  greatly slow the process, so set CPU cores (`x`) with caution.\
 - `motif_discovery_count`: The number of motifs to discover per sequence
   group exponentially increases runtime. We recommend no more than 5
-  motifs to make a meaningful inference.  
+  motifs to make a meaningful inference.\
 - `trim_seq_width`: Trimming sequences before running motif discovery
   can significantly reduce the search space. Sequence length can
   exponentially increase runtime. We recommend running the script with
@@ -252,7 +215,7 @@ directory. The folder is named `MotifPeeker_YYYYMMDD_HHMMSS` and
 contains the following files:
 
 - `MotifPeeker.html`: The main HTML report, including all analyses and
-  plots.  
+  plots.\
 - Output from various MEME suite tools in their respecive
   sub-directories, if `save_runfiles` is set to `TRUE`.
 
@@ -265,11 +228,11 @@ contains the following files:
 - `CTCF_TIP_peaks`: Human CTCF peak file generated with TIP-seq using
   HCT116 cell-line. No control files were used to generate the peak
   file. The peaks were called using `MACS3` with
-  `CTCF_TIP_alignment.bam` as input.  
+  `CTCF_TIP_alignment.bam` as input.\
 - `CTCF_ChIP_peaks`: Human CTCF peak file generated with ChIP-seq using
   HCT116 cell-line. No control files were used to generate the peak
   file. The peaks were called using `MACS3` with
-  `CTCF_ChIP_alignment.bam` as input.  
+  `CTCF_ChIP_alignment.bam` as input.\
 - `motif_MA1102.3`: The JASPAR motif for CTCFL (MA1102.3) for *Homo
   Sapiens*. Sourced from
   [JASPAR](https://jaspar.elixir.no/matrix/MA1102.3/)
@@ -281,7 +244,7 @@ contains the following files:
   the [`nf-core/cutandrun`](https://nf-co.re/cutandrun/3.2.2) pipeline.
   Raw read files were sourced from *NIH Sequence Read Archives* [*ID:
   SRR16963166*](https://trace.ncbi.nlm.nih.gov/Traces/index.html?view=run_browser&acc=SRR16963166).
-  Only available as *extdata*.  
+  Only available as *extdata*.\
 - `CTCF_ChIP_alignment.bam`: Human CTCF alignment file generated with
   ChIP-seq using HCT116 cell-line. Sourced from [ENCODE (Accession:
   ENCFF091ODJ)](https://www.encodeproject.org/files/ENCFF091ODJ/). Only
@@ -314,24 +277,22 @@ Page](https://meme-suite.org/meme/doc/copyright.html).
 
 ### [Neurogenomics Lab](https://www.neurogenomics.co.uk)
 
-UK Dementia Research Institute  
-Department of Brain Sciences  
-Faculty of Medicine  
-Imperial College London  
+UK Dementia Research Institute\
+Department of Brain Sciences\
+Faculty of Medicine\
+Imperial College London\
 [GitHub](https://github.com/neurogenomics)
 
 ------------------------------------------------------------------------
 
 ### Session Info
 
-``` r
-utils::sessionInfo()
-```
+`utils``::`[`sessionInfo`](https://rdrr.io/r/utils/sessionInfo.html)`(``)`
 
 ``` R
-## R version 4.5.1 (2025-06-13)
+## R version 4.6.1 (2026-06-24)
 ## Platform: x86_64-pc-linux-gnu
-## Running under: Ubuntu 24.04.2 LTS
+## Running under: Ubuntu 24.04.4 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -352,23 +313,23 @@ utils::sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] rworkflows_1.0.11 rmarkdown_2.31   
+## [1] rworkflows_1.0.12 rmarkdown_2.32   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.2.0         
-##  [4] dplyr_1.2.0         compiler_4.5.1      BiocManager_1.30.27
+##  [1] gtable_0.3.6        jsonlite_2.0.0      renv_1.2.4         
+##  [4] dplyr_1.2.1         compiler_4.6.1      BiocManager_1.30.27
 ##  [7] tidyselect_1.2.1    rvcheck_0.2.1       scales_1.4.0       
 ## [10] yaml_2.3.12         fastmap_1.2.0       here_1.0.2         
-## [13] ggplot2_4.0.2       R6_2.6.1            generics_0.1.4     
-## [16] knitr_1.51          yulab.utils_0.2.4   tibble_3.3.1       
-## [19] desc_1.4.3          dlstats_0.1.7       rprojroot_2.1.1    
-## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.1.7        
-## [25] badger_0.2.5        xfun_0.57           fs_2.0.1           
-## [28] S7_0.2.1            otel_0.2.0          cli_3.6.5          
-## [31] magrittr_2.0.4      digest_0.6.39       grid_4.5.1         
-## [34] rappdirs_0.3.4      lifecycle_1.0.5     vctrs_0.7.2        
-## [37] data.table_1.18.2.1 evaluate_1.0.5      glue_1.8.0         
-## [40] farver_2.1.2        tools_4.5.1         pkgconfig_2.0.3    
+## [13] ggplot2_4.0.3       R6_2.6.1            generics_0.1.4     
+## [16] knitr_1.52          yulab.utils_0.2.5   tibble_3.3.1       
+## [19] desc_1.4.3          dlstats_0.1.8       rprojroot_2.1.1    
+## [22] pillar_1.11.1       RColorBrewer_1.1-3  rlang_1.3.0        
+## [25] badger_0.2.5        xfun_0.60           fs_2.1.0           
+## [28] S7_0.2.2            otel_0.2.0          cli_3.6.6          
+## [31] magrittr_2.0.5      digest_0.6.39       grid_4.6.1         
+## [34] rappdirs_0.3.4      lifecycle_1.0.5     vctrs_0.7.3        
+## [37] data.table_1.18.6.1 evaluate_1.0.5      glue_1.8.1         
+## [40] farver_2.1.2        tools_4.6.1         pkgconfig_2.0.3    
 ## [43] htmltools_0.5.9
 ```
 

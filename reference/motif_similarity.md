@@ -51,105 +51,105 @@ motif_similarity(
 
   `motifs`
 
-  :   See
-      [`convert_motifs()`](https://rdrr.io/pkg/universalmotif/man/convert_motifs.html)
-      for acceptable motif formats.
+  : See
+    [`convert_motifs()`](https://rdrr.io/pkg/universalmotif/man/convert_motifs.html)
+    for acceptable motif formats.
 
   `compare.to`
 
-  :   `numeric` If missing, compares all motifs to all other motifs.
-      Otherwise compares all motifs to the specified motif(s).
+  : `numeric` If missing, compares all motifs to all other motifs.
+    Otherwise compares all motifs to the specified motif(s).
 
   `db.scores`
 
-  :   `data.frame` or `DataFrame`. See `details`.
+  : `data.frame` or `DataFrame`. See `details`.
 
   `use.freq`
 
-  :   `numeric(1)`. For comparing the `multifreq` slot.
+  : `numeric(1)`. For comparing the `multifreq` slot.
 
   `use.type`
 
-  :   `character(1)` One of `'PPM'` and `'ICM'`. The latter allows for
-      taking into account the background frequencies if
-      `relative_entropy = TRUE`. Note that `'ICM'` is not allowed when
-      `method = c("ALLR", "ALLR_LL")`.
+  : `character(1)` One of `'PPM'` and `'ICM'`. The latter allows for
+    taking into account the background frequencies if
+    `relative_entropy = TRUE`. Note that `'ICM'` is not allowed when
+    `method = c("ALLR", "ALLR_LL")`.
 
   `tryRC`
 
-  :   `logical(1)` Try the reverse complement of the motifs as well,
-      report the best score.
+  : `logical(1)` Try the reverse complement of the motifs as well,
+    report the best score.
 
   `min.overlap`
 
-  :   `numeric(1)` Minimum overlap required when aligning the motifs.
-      Setting this to a number higher then the width of the motifs will
-      not allow any overhangs. Can also be a number between 0 and 1,
-      representing the minimum fraction that the motifs must overlap.
+  : `numeric(1)` Minimum overlap required when aligning the motifs.
+    Setting this to a number higher then the width of the motifs will
+    not allow any overhangs. Can also be a number between 0 and 1,
+    representing the minimum fraction that the motifs must overlap.
 
   `min.mean.ic`
 
-  :   `numeric(1)` Minimum mean information content between the two
-      motifs for an alignment to be scored. This helps prevent scoring
-      alignments between low information content regions of two motifs.
-      Note that this can result in some comparisons failing if no
-      alignment passes the mean IC threshold. Use
-      [`average_ic()`](https://rdrr.io/pkg/universalmotif/man/utils-motif.html)
-      to filter out low IC motifs to get around this if you want to
-      avoid getting `NA`s in your output.
+  : `numeric(1)` Minimum mean information content between the two motifs
+    for an alignment to be scored. This helps prevent scoring alignments
+    between low information content regions of two motifs. Note that
+    this can result in some comparisons failing if no alignment passes
+    the mean IC threshold. Use
+    [`average_ic()`](https://rdrr.io/pkg/universalmotif/man/utils-motif.html)
+    to filter out low IC motifs to get around this if you want to avoid
+    getting `NA`s in your output.
 
   `min.position.ic`
 
-  :   `numeric(1)` Minimum information content required between
-      individual alignment positions for it to be counted in the final
-      alignment score. It is recommended to use this together with
-      `normalise.scores = TRUE`, as this will help punish scores
-      resulting from only a fraction of an alignment.
+  : `numeric(1)` Minimum information content required between individual
+    alignment positions for it to be counted in the final alignment
+    score. It is recommended to use this together with
+    `normalise.scores = TRUE`, as this will help punish scores resulting
+    from only a fraction of an alignment.
 
   `relative_entropy`
 
-  :   `logical(1)` Change the ICM calculation affecting
-      `min.position.ic` and `min.mean.ic`. See
-      [`convert_type()`](https://rdrr.io/pkg/universalmotif/man/convert_type.html).
+  : `logical(1)` Change the ICM calculation affecting `min.position.ic`
+    and `min.mean.ic`. See
+    [`convert_type()`](https://rdrr.io/pkg/universalmotif/man/convert_type.html).
 
   `max.p`
 
-  :   `numeric(1)` Maximum P-value allowed in reporting matches. Only
-      used if `compare.to` is set.
+  : `numeric(1)` Maximum P-value allowed in reporting matches. Only used
+    if `compare.to` is set.
 
   `max.e`
 
-  :   `numeric(1)` Maximum E-value allowed in reporting matches. Only
-      used if `compare.to` is set. The E-value is the P-value multiplied
-      by the number of input motifs times two.
+  : `numeric(1)` Maximum E-value allowed in reporting matches. Only used
+    if `compare.to` is set. The E-value is the P-value multiplied by the
+    number of input motifs times two.
 
   `nthreads`
 
-  :   `numeric(1)` Run
-      [`compare_motifs()`](https://rdrr.io/pkg/universalmotif/man/compare_motifs.html)
-      in parallel with `nthreads` threads. `nthreads = 0` uses all
-      available threads.
+  : `numeric(1)` Run
+    [`compare_motifs()`](https://rdrr.io/pkg/universalmotif/man/compare_motifs.html)
+    in parallel with `nthreads` threads. `nthreads = 0` uses all
+    available threads.
 
   `score.strat`
 
-  :   `character(1)` How to handle column scores calculated from motif
-      alignments. "sum": add up all scores. "a.mean": take the
-      arithmetic mean. "g.mean": take the geometric mean. "median": take
-      the median. "wa.mean", "wg.mean": weighted arithmetic/geometric
-      mean. "fzt": Fisher Z-transform. Weights are the total information
-      content shared between aligned columns.
+  : `character(1)` How to handle column scores calculated from motif
+    alignments. "sum": add up all scores. "a.mean": take the arithmetic
+    mean. "g.mean": take the geometric mean. "median": take the median.
+    "wa.mean", "wg.mean": weighted arithmetic/geometric mean. "fzt":
+    Fisher Z-transform. Weights are the total information content shared
+    between aligned columns.
 
   `output.report`
 
-  :   `character(1)` Provide a filename for
-      [`compare_motifs()`](https://rdrr.io/pkg/universalmotif/man/compare_motifs.html)
-      to write an html ouput report to. The top matches are shown
-      alongside figures of the match alignments. This requires the
-      `knitr` and `rmarkdown` packages. (Note: still in development.)
+  : `character(1)` Provide a filename for
+    [`compare_motifs()`](https://rdrr.io/pkg/universalmotif/man/compare_motifs.html)
+    to write an html ouput report to. The top matches are shown
+    alongside figures of the match alignments. This requires the `knitr`
+    and `rmarkdown` packages. (Note: still in development.)
 
   `output.report.max.print`
 
-  :   `numeric(1)` Maximum number of top matches to print.
+  : `numeric(1)` Maximum number of top matches to print.
 
 ## Value
 

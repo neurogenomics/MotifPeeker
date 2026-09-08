@@ -62,43 +62,43 @@ summit_to_motif(
 
   `parse_genomic_coord`
 
-  :   `logical(1)` whether to parse genomic position from fasta headers.
-      Fasta headers must be UCSC format positions (ie "chr:start-end"),
-      but base 1 indexed (GRanges format). If names of fasta entries are
-      genomic coordinates and parse_genomic_coord == TRUE, results will
-      contain genomic coordinates of motif matches, otherwise FIMO will
-      return relative coordinates (i.e. positions from 1 to length of
-      the fasta entry).
+  : `logical(1)` whether to parse genomic position from fasta headers.
+    Fasta headers must be UCSC format positions (ie "chr:start-end"),
+    but base 1 indexed (GRanges format). If names of fasta entries are
+    genomic coordinates and parse_genomic_coord == TRUE, results will
+    contain genomic coordinates of motif matches, otherwise FIMO will
+    return relative coordinates (i.e. positions from 1 to length of the
+    fasta entry).
 
   `skip_matched_sequence`
 
-  :   `logical(1)` whether or not to include the DNA sequence of the
-      match. Default: `FALSE`. Note: jobs will complete faster if set to
-      `TRUE`. `add_sequence()` can be used to lookup the sequence after
-      data import if `parse_genomic_coord` is `TRUE`, so setting this
-      flag is not strictly needed.
+  : `logical(1)` whether or not to include the DNA sequence of the
+    match. Default: `FALSE`. Note: jobs will complete faster if set to
+    `TRUE`. `add_sequence()` can be used to lookup the sequence after
+    data import if `parse_genomic_coord` is `TRUE`, so setting this flag
+    is not strictly needed.
 
   `max_strand`
 
-  :   if match is found on both strands, only report strand with best
-      match (default: TRUE).
+  : if match is found on both strands, only report strand with best
+    match (default: TRUE).
 
   `text`
 
-  :   `logical(1)` (default: `TRUE`). No output files will be created on
-      the filesystem. The results are unsorted and no q-values are
-      computed. This setting allows fast searches on very large inputs.
-      When set to `FALSE` FIMO will discard 50% of the lower
-      significance matches if \>100,000 matches are detected.
-      `text = FALSE` will also incur a performance penalty because it
-      must first read a file to disk, then read it into memory. For
-      these reasons, I suggest keeping `text = TRUE`.
+  : `logical(1)` (default: `TRUE`). No output files will be created on
+    the filesystem. The results are unsorted and no q-values are
+    computed. This setting allows fast searches on very large inputs.
+    When set to `FALSE` FIMO will discard 50% of the lower significance
+    matches if \>100,000 matches are detected. `text = FALSE` will also
+    incur a performance penalty because it must first read a file to
+    disk, then read it into memory. For these reasons, I suggest keeping
+    `text = TRUE`.
 
   `silent`
 
-  :   `logical(1)` whether to suppress stdout/stderr printing to console
-      (default: TRUE). If the command is failing or giving unexpected
-      output, setting `silent = FALSE` can aid troubleshooting.
+  : `logical(1)` whether to suppress stdout/stderr printing to console
+    (default: TRUE). If the command is failing or giving unexpected
+    output, setting `silent = FALSE` can aid troubleshooting.
 
 ## Value
 

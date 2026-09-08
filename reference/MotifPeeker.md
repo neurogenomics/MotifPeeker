@@ -212,8 +212,8 @@ MotifPeeker(
   A
   [`BiocParallelParam-class`](https://rdrr.io/pkg/BiocParallel/man/BiocParallelParam-class.html)
   object enabling parallel execution. (default = SerialParam(),
-  single-CPU run)  
-    
+  single-CPU run)\
+  \
   Following are two examples of how to set up parallel processing:
 
   - `BPPARAM = BiocParallel::MulticoreParam(4)`: Uses 4 CPU cores for
@@ -331,5 +331,5 @@ if (memes::meme_is_installed()) {
         verbose = FALSE
     )
 }
-#> [1] "/tmp/Rtmp7Wv6Sr/MotifPeeker_20260327_164300"
+#> [1] "/tmp/Rtmp868aO6/MotifPeeker_20260908_214939"
 ```

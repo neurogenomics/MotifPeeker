@@ -56,20 +56,20 @@ motif_enrichment(
 
   `method`
 
-  :   default: fisher (allowed values: fisher, ranksum, pearson,
-      spearman, 3dmhg, 4dmhg)
+  : default: fisher (allowed values: fisher, ranksum, pearson, spearman,
+    3dmhg, 4dmhg)
 
   `sequences`
 
-  :   `logical(1)` add results from `sequences.tsv` to `sequences` list
-      column to returned data.frame. Valid only if method = "fisher".
-      See [AME
-      outputs](http://alternate.meme-suite.org/doc/ame-output-format.md)
-      webpage for more information (Default: FALSE).
+  : `logical(1)` add results from `sequences.tsv` to `sequences` list
+    column to returned data.frame. Valid only if method = "fisher". See
+    [AME
+    outputs](http://alternate.meme-suite.org/doc/ame-output-format.md)
+    webpage for more information (Default: FALSE).
 
   `silent`
 
-  :   whether to suppress stdout (default: TRUE), useful for debugging.
+  : whether to suppress stdout (default: TRUE), useful for debugging.
 
 ## Value
 
